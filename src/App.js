@@ -9,10 +9,10 @@ import Index from "./pages/Index";
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <Index></Index>
-      </div>
-      
+      <>
+        <Home></Home>
+      </>
+
     );
   }
 }
