@@ -47,6 +47,24 @@ const TopCategory = () => {
             title: "Hoa Tươi",
             totalItem: "100",
             image: "img/small/1.jpg",
+        },
+        {
+            id: "9",
+            title: "Củ",
+            totalItem: "100",
+            image: "img/small/1.jpg",
+        },
+        {
+            id: "10",
+            title: "Trái Cây",
+            totalItem: "100",
+            image: "img/small/1.jpg",
+        },
+        {
+            id: "11",
+            title: "Hoa Tươi",
+            totalItem: "100",
+            image: "img/small/1.jpg",
         }
     ]
 
