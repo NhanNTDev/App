@@ -1,34 +1,60 @@
+import CartPopup from "./CartPopup"
+import LoginPopup from "./LoginPopup"
+
 const Header = () => {
+    const citys = [
+        {
+            id: "0",
+            name: "Chọn Thành Phố",
+
+        },
+        {
+            id: "1",
+            name: "Hồ Chí Minh",
+
+        },
+        {
+            id: "2",
+            name: "Hà Nội",
+
+        },
+        {
+            id: "3",
+            name: "Đà Nẵng",
+
+        },
+        {
+            id: "4",
+            name: "Cần Thơ",
+
+        },
+        {
+            id: "5",
+            name: "Quy Nhơn",
+
+        },
+    ]
     return (
-        <div>
-            <div class="navbar-top bg-success pt-2 pb-2">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <a href="shop.html" class="mb-0 text-white">
-                                20% cashback for new users | Code:{" "}
-                                <strong>
-                                    <span class="text-light">
-                                        OGOFERS13 <span class="mdi mdi-tag-faces"></span>
-                                    </span>{" "}
-                                </strong>
+        <>
+            <div className="navbar-top bg-success pt-2 pb-2">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-lg-12 text-center">
+                            <a href="shop.html" className="mb-0 text-white">
+                                Đăng ký người bán
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <nav class="navbar navbar-light navbar-expand-lg bg-dark bg-faded osahan-menu">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="index.html">
+            <nav className="navbar navbar-light navbar-expand-lg bg-dark bg-faded osahan-menu">
+                <div className="container-fluid">
+                    <a className="navbar-brand" href="index.html">
                         {" "}
                         <img src="img/logo.png" alt="logo" />{" "}
                     </a>
-                    <a class="location-top" href="#">
-                        <i class="mdi mdi-map-marker-circle" aria-hidden="true"></i> New
-                        York
-                    </a>
                     <button
-                        class="navbar-toggler navbar-toggler-white"
+                        className="navbar-toggler navbar-toggler-white"
                         type="button"
                         data-toggle="collapse"
                         data-target="#navbarText"
@@ -36,55 +62,51 @@ const Header = () => {
                         aria-expanded="false"
                         aria-label="Toggle navigation"
                     >
-                        <span class="navbar-toggler-icon"></span>
+                        <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div class="navbar-collapse" id="navbarNavDropdown">
-                        <div class="navbar-nav mr-auto mt-2 mt-lg-0 margin-auto top-categories-search-main">
-                            <div class="top-categories-search">
-                                <div class="input-group">
-                                    <span class="input-group-btn categories-dropdown">
-                                        <select class="form-control-select">
-                                            <option selected="selected">Your City</option>
-                                            <option value="0">New Delhi</option>
-                                            <option value="2">Bengaluru</option>
-                                            <option value="3">Hyderabad</option>
-                                            <option value="4">Kolkata</option>
+                    <div className="navbar-collapse" id="navbarNavDropdown">
+                        <div className="navbar-nav mr-auto mt-2 mt-lg-0 margin-auto top-categories-search-main">
+                            <div className="top-categories-search">
+                                <div className="input-group">
+                                    <span className="input-group-btn categories-dropdown">
+                                        <select className="form-control-select" value="0">
+                                            {citys.map(city => <option value={city.id} key={city.id}>{city.name}</option>)}
                                         </select>
                                     </span>
                                     <input
-                                        class="form-control"
-                                        placeholder="Search products in Your City"
-                                        aria-label="Search products in Your City"
+                                        className="form-control"
+                                        placeholder="Tìm kiếm sản phẩm tại đây"
+                                        aria-label="Tìm kiếm sản phẩm tại đây"
                                         type="text"
                                     />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-secondary" type="button">
-                                            <i class="mdi mdi-file-find"></i> Search
+                                    <span className="input-group-btn">
+                                        <button className="btn btn-secondary" type="button">
+                                            <i className="mdi mdi-file-find"></i> Tìm Kiếm
                                         </button>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="my-2 my-lg-0">
-                            <ul class="list-inline main-nav-right">
-                                <li class="list-inline-item">
+                        <div className="my-2 my-lg-0">
+                            <ul className="list-inline main-nav-right">
+                                <li className="list-inline-item">
                                     <a
                                         href="#"
                                         data-target="#bd-example-modal"
                                         data-toggle="modal"
-                                        class="btn btn-link"
+                                        className="btn btn-link"
                                     >
-                                        <i class="mdi mdi-account-circle"></i> Login/Sign Up
+                                        <i className="mdi mdi-account-circle"></i> Đăng nhập/Đăng ký
                                     </a>
                                 </li>
-                                <li class="list-inline-item cart-btn">
+                                <li className="list-inline-item cart-btn">
                                     <a
                                         href="#"
                                         data-toggle="offcanvas"
-                                        class="btn btn-link border-none"
+                                        className="btn btn-link border-none"
                                     >
-                                        <i class="mdi mdi-cart"></i> My Cart{" "}
-                                        <small class="cart-value">5</small>
+                                        <i className="mdi mdi-cart"></i> Giỏ hàng{" "}
+                                        <small className="cart-value">5</small>
                                     </a>
                                 </li>
                             </ul>
@@ -92,38 +114,38 @@ const Header = () => {
                     </div>
                 </div>
             </nav>
-            <nav class="navbar navbar-expand-lg navbar-light osahan-menu-2 pad-none-mobile">
-                <div class="container-fluid">
-                    <div class="collapse navbar-collapse" id="navbarText">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 margin-auto">
-                            <li class="nav-item">
-                                <a class="nav-link shop" href="index.html">
-                                    <span class="mdi mdi-store"></span> Super Store
+            <nav className="navbar navbar-expand-lg navbar-light osahan-menu-2 pad-none-mobile">
+                <div className="container-fluid">
+                    <div className="collapse navbar-collapse" id="navbarText">
+                        <ul className="navbar-nav mr-auto mt-2 mt-lg-0 margin-auto">
+                            <li className="nav-item">
+                                <a className="nav-link shop" href="index.html">
+                                    <span className="mdi mdi-store"></span> Super Store
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="index.html" class="nav-link">
+                            <li className="nav-item">
+                                <a href="index.html" className="nav-link">
                                     Home
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="about.html" class="nav-link">
+                            <li className="nav-item">
+                                <a href="about.html" className="nav-link">
                                     About Us
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="shop.html">
+                            <li className="nav-item">
+                                <a className="nav-link" href="shop.html">
                                     Fruits & Vegetables
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="shop.html">
+                            <li className="nav-item">
+                                <a className="nav-link" href="shop.html">
                                     Grocery & Staples
                                 </a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li className="nav-item dropdown">
                                 <a
-                                    class="nav-link dropdown-toggle"
+                                    className="nav-link dropdown-toggle"
                                     href="#"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
@@ -131,28 +153,28 @@ const Header = () => {
                                 >
                                     Pages
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="shop.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                <div className="dropdown-menu">
+                                    <a className="dropdown-item" href="shop.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         Shop Grid
                                     </a>
-                                    <a class="dropdown-item" href="single.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                    <a className="dropdown-item" href="single.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         Single Product
                                     </a>
-                                    <a class="dropdown-item" href="cart.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                    <a className="dropdown-item" href="cart.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         Shopping Cart
                                     </a>
-                                    <a class="dropdown-item" href="checkout.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                    <a className="dropdown-item" href="checkout.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         Checkout
                                     </a>
                                 </div>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li className="nav-item dropdown">
                                 <a
-                                    class="nav-link dropdown-toggle"
+                                    className="nav-link dropdown-toggle"
                                     href="#"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
@@ -160,28 +182,28 @@ const Header = () => {
                                 >
                                     My Account
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="my-profile.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                <div className="dropdown-menu">
+                                    <a className="dropdown-item" href="my-profile.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         My Profile
                                     </a>
-                                    <a class="dropdown-item" href="my-address.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                    <a className="dropdown-item" href="my-address.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         My Address
                                     </a>
-                                    <a class="dropdown-item" href="wishlist.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                    <a className="dropdown-item" href="wishlist.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         Wish List{" "}
                                     </a>
-                                    <a class="dropdown-item" href="orderlist.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                    <a className="dropdown-item" href="orderlist.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         Order List
                                     </a>
                                 </div>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li className="nav-item dropdown">
                                 <a
-                                    class="nav-link dropdown-toggle"
+                                    className="nav-link dropdown-toggle"
                                     href="#"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
@@ -189,20 +211,20 @@ const Header = () => {
                                 >
                                     Blog Page
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="blog.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                <div className="dropdown-menu">
+                                    <a className="dropdown-item" href="blog.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         Blog
                                     </a>
-                                    <a class="dropdown-item" href="blog-detail.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                    <a className="dropdown-item" href="blog-detail.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         Blog Detail
                                     </a>
                                 </div>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li className="nav-item dropdown">
                                 <a
-                                    class="nav-link dropdown-toggle"
+                                    className="nav-link dropdown-toggle"
                                     href="#"
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
@@ -210,27 +232,27 @@ const Header = () => {
                                 >
                                     More Pages
                                 </a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="about.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                <div className="dropdown-menu">
+                                    <a className="dropdown-item" href="about.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         About Us
                                     </a>
-                                    <a class="dropdown-item" href="contact.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                    <a className="dropdown-item" href="contact.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         Contact Us
                                     </a>
-                                    <a class="dropdown-item" href="faq.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                    <a className="dropdown-item" href="faq.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         FAQ{" "}
                                     </a>
-                                    <a class="dropdown-item" href="not-found.html">
-                                        <i class="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
+                                    <a className="dropdown-item" href="not-found.html">
+                                        <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                                         404 Error
                                     </a>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="contact.html">
+                            <li className="nav-item">
+                                <a className="nav-link" href="contact.html">
                                     Contact
                                 </a>
                             </li>
@@ -238,7 +260,9 @@ const Header = () => {
                     </div>
                 </div>
             </nav>
-        </div>
+            <LoginPopup></LoginPopup>
+            <CartPopup></CartPopup>
+        </>
     );
 }
 

@@ -1,44 +1,47 @@
 const Banner = () => {
+    const baners = [
+        {
+            id: "1",
+            image: "img/slider/slider1.jpg",
+        },
+        {
+            id: "2",
+            image: "img/slider/slider1.jpg",
+        },
+        {
+            id: "3",
+            image: "img/slider/slider1.jpg",
+        },
+        {
+            id: "4",
+            image: "img/slider/slider1.jpg",
+        },
+        {
+            id: "5",
+            image: "img/slider/slider1.jpg",
+        }
+    ]
+
+    const renderBaner = (props) => {
+        return (
+            <div className="item" key={props.id}>
+            <a href="shop.html">
+                <img
+                    className="img-fluid"
+                    src={props.image}
+                    alt="First slide"
+                />
+            </a>
+        </div>
+        )
+    }
     return (
         <>
-            <section class="carousel-slider-main text-center border-top border-bottom bg-white">
-                <div class="owl-carousel owl-carousel-slider">
-                    <div class="item">
-                        <a href="shop.html">
-                            <img
-                                class="img-fluid"
-                                src="img/slider/slider1.jpg"
-                                alt="First slide"
-                            />
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="shop.html">
-                            <img
-                                class="img-fluid"
-                                src="img/slider/slider2.jpg"
-                                alt="First slide"
-                            />
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="shop.html">
-                            <img
-                                class="img-fluid"
-                                src="img/slider/slider1.jpg"
-                                alt="First slide"
-                            />
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="shop.html">
-                            <img
-                                class="img-fluid"
-                                src="img/slider/slider2.jpg"
-                                alt="First slide"
-                            />
-                        </a>
-                    </div>
+            <section className="carousel-slider-main text-center border-top border-bottom bg-white">
+                <div className="owl-carousel owl-carousel-slider">
+                    {
+                        baners.map((baner) => renderBaner({...baner}))
+                    }                   
                 </div>
             </section>
         </>
