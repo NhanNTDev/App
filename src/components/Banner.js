@@ -1,3 +1,5 @@
+
+
 const Banner = () => {
     const baners = [
         {
@@ -22,7 +24,7 @@ const Banner = () => {
         }
     ]
 
-    const renderBaner = (props) => {
+    function renderBaner (props) {
         return (
             <div className="item" key={props.id}>
             <a href="shop.html">
@@ -35,6 +37,7 @@ const Banner = () => {
         </div>
         )
     }
+    
     return (
         <>
             <section className="carousel-slider-main text-center border-top border-bottom bg-white">

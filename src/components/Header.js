@@ -1,7 +1,11 @@
+
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import CartPopup from "./CartPopup";
 import LoginPopup from "./LoginPopup";
 
 const Header = () => {
+  const [searchValue, setSearchValue] = useState("");
   const citys = [
     {
       id: "0",
@@ -52,25 +56,25 @@ const Header = () => {
       id: "1",
       title: "Trang Chủ",
       childrens: [],
-      link: "",
+      link: "/Home",
     },
     {
       id: "2",
       title: "Chiến Dịch",
       childrens: [],
-      link: "",
+      link: "/Home",
     },
     {
       id: "3",
       title: "Nông Trại",
       childrens: [],
-      link: "",
+      link: "/Home",
     },
     {
       id: "4",
       title: "Chúng Tôi",
       childrens: [],
-      link: "",
+      link: "/Home",
     },
     {
       id: "5",
@@ -98,7 +102,7 @@ const Header = () => {
       id: "6",
       title: "Liên Hệ",
       childrens: [],
-      link: "",
+      link: "/Home",
     },
     {
       id: "7",
@@ -131,41 +135,41 @@ const Header = () => {
 
   const renderNavbarItem = (props) => {
     return (
-      <>
+      <div key={props.id}>
         {props.id === "1" ? (
-          <li key={props.id} className="nav-item">
-            <a className="nav-link shop" href={props.link}>
+          <li className="nav-item">
+            <Link className="nav-link shop" to={props.link}>
               <span className="mdi mdi-store"></span> {props.title}
-            </a>
+            </Link>
           </li>
         ) : props.childrens.length > 0 ? (
-          <li key={props.id} className="nav-item dropdown">
-            <a
+          <li className="nav-item dropdown">
+            <Link
               className="nav-link dropdown-toggle"
-              href="#"
+              to="#"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
               {props.title}
-            </a>
+            </Link>
             <div className="dropdown-menu">
               {props.childrens.map((child) => (
-                <a key={child.id} className="dropdown-item" href={child.link}>
+                <Link key={child.id} className="dropdown-item" to={child.link}>
                   <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
                   {child.title}
-                </a>
+                </Link>
               ))}
             </div>
           </li>
         ) : (
-          <li key={props.id} className="nav-item">
-            <a className="nav-link" href={props.link}>
+          <li className="nav-item">
+            <Link className="nav-link" to={props.link}>
               {props.title}
-            </a>
+            </Link>
           </li>
         )}
-      </>
+      </div>
     );
   };
 
@@ -194,14 +198,15 @@ const Header = () => {
           <div className="row">
             <div className="col-lg-12 text-center">
               {topRefs.map((topRef) => (
-                <a
+                <Link
                   key={topRef.id}
-                  href={topRef.link}
-                  className="mb-0 mr-3 text-white"
+                  to={topRef.link}
+                  className="mb-0 mr-2 text-white"
                 >
-                  {topRef.title}
-                </a>
-              ))}
+                  {topRef.title} <span className="mb-0 ml-2 text-white">{"|"}</span>
+                </Link>
+                
+              ))}             
             </div>
           </div>
         </div>
@@ -214,10 +219,10 @@ const Header = () => {
       {renderTopReference()}
       <nav className="navbar navbar-light navbar-expand-lg bg-dark bg-faded osahan-menu">
         <div className="container-fluid">
-          <a className="navbar-brand" href="index.html">
+          <Link className="navbar-brand" to="index.html">
             {" "}
             <img src="img/logo.png" alt="logo" />{" "}
-          </a>
+          </Link>
           <button
             className="navbar-toggler navbar-toggler-white"
             type="button"
@@ -234,7 +239,7 @@ const Header = () => {
               <div className="top-categories-search">
                 <div className="input-group">
                   <span className="input-group-btn categories-dropdown">
-                    <select className="form-control-select" value="0">
+                    <select className="form-control-select" value="0" onChange={()=> {}}>
                       {citys.map((city) => (
                         <option value={city.id} key={city.id}>
                           {city.name}
@@ -243,10 +248,12 @@ const Header = () => {
                     </select>
                   </span>
                   <input
+                    value={searchValue}
                     className="form-control"
                     placeholder="Tìm kiếm sản phẩm tại đây"
                     aria-label="Tìm kiếm sản phẩm tại đây"
                     type="text"
+                    onChange={(e) => {setSearchValue(e.target.value)}}
                   />
                   <span className="input-group-btn">
                     <button className="btn btn-secondary" type="button">
@@ -259,24 +266,24 @@ const Header = () => {
             <div className="my-2 my-lg-0">
               <ul className="list-inline main-nav-right">
                 <li className="list-inline-item">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     data-target="#bd-example-modal"
                     data-toggle="modal"
                     className="btn btn-link"
                   >
                     <i className="mdi mdi-account-circle"></i> Đăng nhập/Đăng ký
-                  </a>
+                  </Link>
                 </li>
                 <li className="list-inline-item cart-btn">
-                  <a
-                    href="#"
+                  <Link
+                    to="#"
                     data-toggle="offcanvas"
                     className="btn btn-link border-none"
                   >
                     <i className="mdi mdi-cart"></i> Giỏ hàng{" "}
                     <small className="cart-value">5</small>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -284,8 +291,8 @@ const Header = () => {
         </div>
       </nav>
       {renderNavbar()}
-      <LoginPopup></LoginPopup>
-      <CartPopup></CartPopup>
+      <LoginPopup />
+      <CartPopup />
     </>
   );
 };

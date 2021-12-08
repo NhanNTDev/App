@@ -1,5 +1,7 @@
+import CampaignItem from "./CampaignItems";
+
 const ItemGroup = () => {
-  const Campaigns = [
+  let Campaigns = [
     {
       id: "1",
       title: "Rau củ",
@@ -8,7 +10,7 @@ const ItemGroup = () => {
     },
     {
       id: "2",
-      title: "Qủa",
+      title: "Quả",
       countFarm: "10",
       location: "Đà Lạt",
     },
@@ -38,9 +40,9 @@ const ItemGroup = () => {
     },
   ];
 
-  const renderCampaignItem = (props) => {
+  function renderCampaignItem(props) {
     return (
-      <div className="item">
+      <div className="item" key={props.id}>
         <div className="product">
           <a href="single.html">
             <div className="product-header">
@@ -77,29 +79,26 @@ const ItemGroup = () => {
         </div>
       </div>
     );
-  };
+  }
 
-  const renderCampaignGroup = () => {
-    return (
-      <section className="product-items-slider section-padding">
-        <div className="container">
-          <div className="section-header">
-            <h5 className="heading-design-h5">
-              Chiến dịch trong tuần
-              <span className="badge badge-primary">Đang hot</span>
-              <a className="float-right text-secondary" href="shop.html">
-                Xem tất cả
-              </a>
-            </h5>
-          </div>
-          <div className="owl-carousel owl-carousel-featured">
-            {Campaigns.map((campaign) => renderCampaignItem({ ...campaign }))}
-          </div>
+  return (
+    <section className="product-items-slider section-padding">
+      <div className="container">
+        <div className="section-header">
+          <h5 className="heading-design-h5">
+            Chiến dịch trong tuần
+            <span className="badge badge-primary">Đang hot</span>
+            <a className="float-right text-secondary" href="shop.html">
+              Xem tất cả
+            </a>
+          </h5>
         </div>
-      </section>
-    );
-  };
-  return <>{renderCampaignGroup()}</>;
+        <div className="owl-carousel owl-carousel-featured">
+          {Campaigns.map((campaign) => renderCampaignItem({...campaign}))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default ItemGroup;
