@@ -6,10 +6,10 @@ import Header from "../components/Header";
 const Checkout = () => {
   return (
     <>
-      <Header></Header>
+      {/* <Header></Header> */}
       <Breadcum></Breadcum>
       <CheckoutSection></CheckoutSection>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </>
   );
 };

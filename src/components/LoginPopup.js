@@ -80,7 +80,7 @@ const LoginPopup = () => {
                                                             />
                                                             <label
                                                                 className="custom-control-label"
-                                                                for="customCheck1"
+                                                                htmlFor="customCheck1"
                                                             >
                                                                 Remember me
                                                             </label>
@@ -128,7 +128,7 @@ const LoginPopup = () => {
                                                             />
                                                             <label
                                                                 className="custom-control-label"
-                                                                for="customCheck2"
+                                                                htmlFor="customCheck2"
                                                             >
                                                                 I Agree with{" "}
                                                                 <a href="#">Term and Conditions</a>

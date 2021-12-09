@@ -44,9 +44,11 @@ const CheckoutSection = () => {
                                   </div>
                                 </div>
                                 <input
+                                  value=""
                                   type="text"
                                   className="form-control"
                                   placeholder="Nhập số điện thoại"
+                                  onChange={()=>{}}
                                 />
                               </div>
                             </div>
@@ -102,6 +104,7 @@ const CheckoutSection = () => {
                                   value=""
                                   placeholder="Nguyen"
                                   type="text"
+                                  onChange={()=>{}}
                                 />
                               </div>
                             </div>
@@ -115,6 +118,7 @@ const CheckoutSection = () => {
                                   value=""
                                   placeholder="Tam"
                                   type="text"
+                                  onChange={()=> {}}
                                 />
                               </div>
                             </div>
@@ -131,6 +135,7 @@ const CheckoutSection = () => {
                                   value=""
                                   placeholder="123 456 7890"
                                   type="number"
+                                  onChange={()=>{}}
                                 />
                               </div>
                             </div>
@@ -145,6 +150,7 @@ const CheckoutSection = () => {
                                   placeholder="nguyenxuanlinhtam0205@gmail.com"
                                   disabled=""
                                   type="email"
+                                  onChange={()=>{}}
                                 />
                               </div>
                             </div>
@@ -161,6 +167,7 @@ const CheckoutSection = () => {
                                   value=""
                                   placeholder="123456"
                                   type="number"
+                                  onChange={()=>{}}
                                 />
                               </div>
                             </div>
@@ -239,6 +246,7 @@ const CheckoutSection = () => {
                               value=""
                               placeholder="0000 0000 0000 0000"
                               type="text"
+                              onChange={()=>{}}
                             />
                           </div>
                           <div className="row">
@@ -250,6 +258,7 @@ const CheckoutSection = () => {
                                   value=""
                                   placeholder="01"
                                   type="text"
+                                  onChange={()=>{}}
                                 />
                               </div>
                             </div>
@@ -261,6 +270,7 @@ const CheckoutSection = () => {
                                   value=""
                                   placeholder="15"
                                   type="text"
+                                  onChange={()=>{}}
                                 />
                               </div>
                             </div>
@@ -273,6 +283,7 @@ const CheckoutSection = () => {
                                   value=""
                                   placeholder="135"
                                   type="text"
+                                  onChange={()=>{}}
                                 />
                               </div>
                             </div>
@@ -284,10 +295,11 @@ const CheckoutSection = () => {
                               id="customRadio1"
                               name="customRadio"
                               className="custom-control-input"
+                              onChange={()=>{}}
                             />
                             <label
                               className="custom-control-label"
-                              for="customRadio1"
+                              htmlFor="customRadio1"
                             >
                               Bạn có muốn thanh toán bằng tiền mặt không?
                             </label>
