@@ -1,4 +1,4 @@
-const Wistlist = () => {
+const WistlistTable = () => {
   return (
     <div className="card card-body account-right">
       <div className="widget">
@@ -173,4 +173,4 @@ const Wistlist = () => {
   );
 };
 
-export default Wistlist;
+export default WistlistTable;
