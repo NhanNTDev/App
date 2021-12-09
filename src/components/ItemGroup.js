@@ -1,6 +1,6 @@
 
 
-const ItemGroup = () => {
+const ItemGroup = (props) => {
   let Campaigns = [
     {
       id: "1",
@@ -86,7 +86,7 @@ const ItemGroup = () => {
       <div className="container">
         <div className="section-header">
           <h5 className="heading-design-h5">
-            Chiến dịch trong tuần
+            {props.title}
             <span className="badge badge-primary">Đang hot</span>
             <a className="float-right text-secondary" href="shop.html">
               Xem tất cả

@@ -56,25 +56,25 @@ const Header = () => {
       id: "1",
       title: "Trang Chủ",
       childrens: [],
-      link: "/Home",
+      link: "/home",
     },
     {
       id: "2",
-      title: "Chiến Dịch",
+      title: "Shop",
       childrens: [],
-      link: "/Home",
+      link: "/shop",
     },
     {
       id: "3",
       title: "Nông Trại",
       childrens: [],
-      link: "/Home",
+      link: "/home",
     },
     {
       id: "4",
       title: "Chúng Tôi",
       childrens: [],
-      link: "/Home",
+      link: "/home",
     },
     {
       id: "5",
@@ -83,17 +83,22 @@ const Header = () => {
         {
           id: "1",
           title: "Thông tin cá nhân",
-          link: "",
+          link: "/profile",
         },
         {
           id: "2",
           title: "Thông tin giao hàng",
-          link: "",
+          link: "/address",
         },
         {
           id: "3",
-          title: "Lịch sử giao dịch",
-          link: "",
+          title: "wishlist",
+          link: "/wishlist",
+        },
+        {
+          id: "4",
+          title: "Order List",
+          link: "/orderlist",
         },
       ],
       link: "",
@@ -102,7 +107,7 @@ const Header = () => {
       id: "6",
       title: "Liên Hệ",
       childrens: [],
-      link: "/Home",
+      link: "/home",
     },
     {
       id: "7",
@@ -110,8 +115,8 @@ const Header = () => {
       childrens: [
         {
           id: "1",
-          title: "Mục khác 1",
-          link: "",
+          title: "Page Not Found",
+          link: "/page-not-found",
         },
         {
           id: "2",
@@ -138,9 +143,9 @@ const Header = () => {
       <div key={props.id}>
         {props.id === "1" ? (
           <li className="nav-item">
-            <Link className="nav-link shop" to={props.link}>
+            <a className="nav-link shop" href={props.link}>
               <span className="mdi mdi-store"></span> {props.title}
-            </Link>
+            </a>
           </li>
         ) : props.childrens.length > 0 ? (
           <li className="nav-item dropdown">
@@ -219,10 +224,10 @@ const Header = () => {
       {renderTopReference()}
       <nav className="navbar navbar-light navbar-expand-lg bg-dark bg-faded osahan-menu">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="index.html">
+          <a className="navbar-brand" href="/home">
             {" "}
             <img src="img/logo.png" alt="logo" />{" "}
-          </Link>
+          </a>
           <button
             className="navbar-toggler navbar-toggler-white"
             type="button"
