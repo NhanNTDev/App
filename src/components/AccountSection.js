@@ -7,7 +7,7 @@ import Wistlist from "./Wistlist";
 
 const AccountSection = () => {
   return (
-    <BrowserRouter>
+
       <section className="account-page section-padding">
         <div className="container">
           <div className="row">
@@ -29,7 +29,6 @@ const AccountSection = () => {
           </div>
         </div>
       </section>
-    </BrowserRouter>
   );
 };
 

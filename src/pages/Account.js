@@ -5,9 +5,7 @@ import Header from "../components/Header";
 const Account = () => {
   return (
     <>
-      <Header></Header>
       <AccountSection></AccountSection>
-      <Footer></Footer>
     </>
   );
 };

@@ -3,14 +3,16 @@ import CenterBanner from "../components/CenterBanner";
 import ItemGroup from "../components/ItemGroup";
 import TopCategory from "../components/TopCategory";
 
+
 const Home = () => {
+    
     return (
         <>
             <Banner></Banner>
             <TopCategory></TopCategory>
-            <ItemGroup></ItemGroup>
+            <ItemGroup title="Chiến dịch trong tuần"></ItemGroup>
             <CenterBanner></CenterBanner>
-            <ItemGroup></ItemGroup>
+            <ItemGroup title="Chiến dịch hot"></ItemGroup>
         </>
 
     )
