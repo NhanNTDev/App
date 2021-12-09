@@ -1,5 +1,3 @@
-import CampaignItem from "./CampaignItems";
-
 const ItemGroup = () => {
   let Campaigns = [
     {
