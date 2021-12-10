@@ -282,7 +282,7 @@ const Header = () => {
                 </li>
                 <li className="list-inline-item cart-btn">
                   <Link
-                    to="#"
+                    to="/cart"
                     data-toggle="offcanvas"
                     className="btn btn-link border-none"
                   >
@@ -297,7 +297,6 @@ const Header = () => {
       </nav>
       {renderNavbar()}
       <LoginPopup />
-      <CartPopup />
     </>
   );
 };
