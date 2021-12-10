@@ -82,22 +82,22 @@ const Header = () => {
       childrens: [
         {
           id: "1",
-          title: "Thông tin cá nhân",
-          link: "/profile",
+          title: "Thông Tin Cá Nhân",
+          link: "/account",
         },
         {
           id: "2",
-          title: "Thông tin giao hàng",
+          title: "Thông Tin Giao Hàng",
           link: "/address",
         },
         {
           id: "3",
-          title: "wishlist",
+          title: "Mục Yêu Thích",
           link: "/wishlist",
         },
         {
           id: "4",
-          title: "Order List",
+          title: "Lịch Sử Đặt Hàng",
           link: "/orderlist",
         },
       ],

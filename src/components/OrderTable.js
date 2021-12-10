@@ -1,9 +1,9 @@
-const OrderList = () => {
+const OrderTable = () => {
   return (
     <div class="card card-body account-right">
       <div class="widget">
         <div class="section-header">
-          <h5 class="heading-design-h5">Danh Sách Đặt Hàng</h5>
+          <h5 class="heading-design-h5">Lịch Sử Đặt Hàng</h5>
         </div>
         <div class="order-list-tabel-main table-responsive">
           <table
@@ -269,4 +269,4 @@ const OrderList = () => {
   );
 };
 
-export default OrderList;
+export default OrderTable;
