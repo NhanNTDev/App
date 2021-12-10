@@ -6,10 +6,11 @@ import Home from "./Home";
 import Checkout from "./Checkout";
 import Account from "./Account";
 import PageNotFound from "./PageNotFound";
-import Shop from "../components/Shop";
+import Shop from "./Shop";
 import Wistlist from "./Wishlist";
 import Address from "./Address";
 import OrderList from "./OrderList";
+import Cart from "./Cart";
 
 const WelcomePage = () => {
   return (
@@ -24,6 +25,7 @@ const WelcomePage = () => {
         <Route path="/wishlist" element={<Wistlist />} />
         <Route path="/orderlist" element={<OrderList/>} />
         <Route path="/shop" element={<Shop/>}/>
+        <Route path="/cart" element={<Cart/>}/>
         <Route path="/page-not-found" element={<PageNotFound/>}/>
         
       </Routes>
