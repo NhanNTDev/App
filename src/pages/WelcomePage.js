@@ -9,7 +9,7 @@ import AddressForm from "../components/AddressForm";
 import Wistlist from "../components/Wistlist";
 import OrderList from "../components/OrderList";
 import PageNotFound from "./PageNotFound";
-import Shop from "../components/Shop";
+import Shop from "./Shop";
 
 const WelcomePage = () => {
   return (

@@ -72,9 +72,9 @@ const Header = () => {
     },
     {
       id: "4",
-      title: "Chúng Tôi",
+      title: "Check out",
       childrens: [],
-      link: "/home",
+      link: "/checkout",
     },
     {
       id: "5",
@@ -143,9 +143,9 @@ const Header = () => {
       <div key={props.id}>
         {props.id === "1" ? (
           <li className="nav-item">
-            <a className="nav-link shop" href={props.link}>
+            <Link className="nav-link shop" to={props.link}>
               <span className="mdi mdi-store"></span> {props.title}
-            </a>
+            </Link>
           </li>
         ) : props.childrens.length > 0 ? (
           <li className="nav-item dropdown">
@@ -224,10 +224,10 @@ const Header = () => {
       {renderTopReference()}
       <nav className="navbar navbar-light navbar-expand-lg bg-dark bg-faded osahan-menu">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/home">
+          <Link className="navbar-brand" to="/home">
             {" "}
             <img src="img/logo.png" alt="logo" />{" "}
-          </a>
+          </Link>
           <button
             className="navbar-toggler navbar-toggler-white"
             type="button"

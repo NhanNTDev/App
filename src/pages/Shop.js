@@ -1,4 +1,5 @@
-import ItemGroup from "./ItemGroup";
+import ItemGroup from "../components/ItemGroup";
+import { runScript } from "../utils/Common";
 
 const Shop = () => {
   let Campaigns = [
@@ -109,22 +110,26 @@ const Shop = () => {
     },
     {
       id: "2",
-      title: "0-100.000",
+      title: "100.000-200.000",
       tag: "50% sale of",
     },
     {
       id: "3",
-      title: "0-100.000",
+      title: "200.000-500.000",
       tag: "",
     },
     {
       id: "4",
-      title: "0-100.000",
+      title: "500.000-900.000",
       tag: "",
     },
   ];
 
-  const sortTitles = ["Giá (thấp đến cao)", "Giá (cao xuống thấp)", "Tên (A - Z)"];
+  const sortTitles = [
+    "Giá (thấp đến cao)",
+    "Giá (cao xuống thấp)",
+    "Tên (A - Z)",
+  ];
 
   const renderDropCategory = () => {
     return (
@@ -142,7 +147,10 @@ const Shop = () => {
                 className="form-control"
                 placeholder="Tìm kiếm theo loại"
               />
-              <button type="submit" className="pl-2 pr-2 btn btn-secondary btn-lg">
+              <button
+                type="submit"
+                className="pl-2 pr-2 btn btn-secondary btn-lg"
+              >
                 <i className="mdi mdi-file-find"></i>
               </button>
             </div>
@@ -206,7 +214,7 @@ const Shop = () => {
         </button>
         <div className="dropdown-menu dropdown-menu-right">
           {sortTitles.map((sortTitle, index) => (
-            <button className="dropdown-item" key={index} onClick={()=>{}}>
+            <button className="dropdown-item" key={index} onClick={() => {}}>
               {sortTitle}
             </button>
           ))}
@@ -214,6 +222,8 @@ const Shop = () => {
       </div>
     );
   };
+
+  runScript();
 
   return (
     <>
@@ -226,7 +236,8 @@ const Shop = () => {
                   <span className="mdi mdi-home"></span> Home
                 </strong>
               </a>{" "}
-              <span className="mdi mdi-chevron-right"></span> <a href="#">Tên Shop</a>
+              <span className="mdi mdi-chevron-right"></span>{" "}
+              <a href="#">Tên Shop</a>
             </div>
           </div>
         </div>
@@ -295,14 +306,19 @@ const Shop = () => {
                     <a href="single.html">
                       <div className="product-header">
                         <span className="badge badge-success">50% OFF</span>
-                        <img className="img-fluid" src="img/item/1.jpg" alt="" />
+                        <img
+                          className="img-fluid"
+                          src="img/item/1.jpg"
+                          alt=""
+                        />
                         <span className="veg text-success mdi mdi-circle"></span>
                       </div>
                       <div className="product-body">
                         <h5>Product Title Here</h5>
                         <h6>
                           <strong>
-                            <span className="mdi mdi-approval"></span> Available in
+                            <span className="mdi mdi-approval"></span> Available
+                            in
                           </strong>{" "}
                           - 500 gm
                         </h6>
@@ -328,14 +344,19 @@ const Shop = () => {
                     <a href="single.html">
                       <div className="product-header">
                         <span className="badge badge-success">50% OFF</span>
-                        <img className="img-fluid" src="img/item/2.jpg" alt="" />
+                        <img
+                          className="img-fluid"
+                          src="img/item/2.jpg"
+                          alt=""
+                        />
                         <span className="veg text-success mdi mdi-circle"></span>
                       </div>
                       <div className="product-body">
                         <h5>Product Title Here</h5>
                         <h6>
                           <strong>
-                            <span className="mdi mdi-approval"></span> Available in
+                            <span className="mdi mdi-approval"></span> Available
+                            in
                           </strong>{" "}
                           - 500 gm
                         </h6>
@@ -361,115 +382,19 @@ const Shop = () => {
                     <a href="single.html">
                       <div className="product-header">
                         <span className="badge badge-success">50% OFF</span>
-                        <img className="img-fluid" src="img/item/3.jpg" alt="" />
+                        <img
+                          className="img-fluid"
+                          src="img/item/3.jpg"
+                          alt=""
+                        />
                         <span className="veg text-success mdi mdi-circle"></span>
                       </div>
                       <div className="product-body">
                         <h5>Product Title Here</h5>
                         <h6>
                           <strong>
-                            <span className="mdi mdi-approval"></span> Available in
-                          </strong>{" "}
-                          - 500 gm
-                        </h6>
-                      </div>
-                      <div className="product-footer">
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm float-right"
-                        >
-                          <i className="mdi mdi-cart-outline"></i> Add To Cart
-                        </button>
-                        <p className="offer-price mb-0">
-                          $450.99 <i className="mdi mdi-tag-outline"></i>
-                          <br />
-                          <span className="regular-price">$800.99</span>
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="row no-gutters">
-                <div className="col-md-4">
-                  <div className="product">
-                    <a href="single.html">
-                      <div className="product-header">
-                        <span className="badge badge-success">50% OFF</span>
-                        <img className="img-fluid" src="img/item/4.jpg" alt="" />
-                        <span className="veg text-success mdi mdi-circle"></span>
-                      </div>
-                      <div className="product-body">
-                        <h5>Product Title Here</h5>
-                        <h6>
-                          <strong>
-                            <span className="mdi mdi-approval"></span> Available in
-                          </strong>{" "}
-                          - 500 gm
-                        </h6>
-                      </div>
-                      <div className="product-footer">
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm float-right"
-                        >
-                          <i className="mdi mdi-cart-outline"></i> Add To Cart
-                        </button>
-                        <p className="offer-price mb-0">
-                          $450.99 <i className="mdi mdi-tag-outline"></i>
-                          <br />
-                          <span className="regular-price">$800.99</span>
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="product">
-                    <a href="single.html">
-                      <div className="product-header">
-                        <span className="badge badge-success">50% OFF</span>
-                        <img className="img-fluid" src="img/item/5.jpg" alt="" />
-                        <span className="veg text-success mdi mdi-circle"></span>
-                      </div>
-                      <div className="product-body">
-                        <h5>Product Title Here</h5>
-                        <h6>
-                          <strong>
-                            <span className="mdi mdi-approval"></span> Available in
-                          </strong>{" "}
-                          - 500 gm
-                        </h6>
-                      </div>
-                      <div className="product-footer">
-                        <button
-                          type="button"
-                          className="btn btn-secondary btn-sm float-right"
-                        >
-                          <i className="mdi mdi-cart-outline"></i> Add To Cart
-                        </button>
-                        <p className="offer-price mb-0">
-                          $450.99 <i className="mdi mdi-tag-outline"></i>
-                          <br />
-                          <span className="regular-price">$800.99</span>
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="product">
-                    <a href="single.html">
-                      <div className="product-header">
-                        <span className="badge badge-success">50% OFF</span>
-                        <img className="img-fluid" src="img/item/6.jpg" alt="" />
-                        <span className="veg text-success mdi mdi-circle"></span>
-                      </div>
-                      <div className="product-body">
-                        <h5>Product Title Here</h5>
-                        <h6>
-                          <strong>
-                            <span className="mdi mdi-approval"></span> Available in
+                            <span className="mdi mdi-approval"></span> Available
+                            in
                           </strong>{" "}
                           - 500 gm
                         </h6>
@@ -497,14 +422,19 @@ const Shop = () => {
                     <a href="single.html">
                       <div className="product-header">
                         <span className="badge badge-success">50% OFF</span>
-                        <img className="img-fluid" src="img/item/7.jpg" alt="" />
+                        <img
+                          className="img-fluid"
+                          src="img/item/4.jpg"
+                          alt=""
+                        />
                         <span className="veg text-success mdi mdi-circle"></span>
                       </div>
                       <div className="product-body">
                         <h5>Product Title Here</h5>
                         <h6>
                           <strong>
-                            <span className="mdi mdi-approval"></span> Available in
+                            <span className="mdi mdi-approval"></span> Available
+                            in
                           </strong>{" "}
                           - 500 gm
                         </h6>
@@ -530,14 +460,19 @@ const Shop = () => {
                     <a href="single.html">
                       <div className="product-header">
                         <span className="badge badge-success">50% OFF</span>
-                        <img className="img-fluid" src="img/item/8.jpg" alt="" />
+                        <img
+                          className="img-fluid"
+                          src="img/item/5.jpg"
+                          alt=""
+                        />
                         <span className="veg text-success mdi mdi-circle"></span>
                       </div>
                       <div className="product-body">
                         <h5>Product Title Here</h5>
                         <h6>
                           <strong>
-                            <span className="mdi mdi-approval"></span> Available in
+                            <span className="mdi mdi-approval"></span> Available
+                            in
                           </strong>{" "}
                           - 500 gm
                         </h6>
@@ -563,14 +498,135 @@ const Shop = () => {
                     <a href="single.html">
                       <div className="product-header">
                         <span className="badge badge-success">50% OFF</span>
-                        <img className="img-fluid" src="img/item/9.jpg" alt="" />
+                        <img
+                          className="img-fluid"
+                          src="img/item/6.jpg"
+                          alt=""
+                        />
                         <span className="veg text-success mdi mdi-circle"></span>
                       </div>
                       <div className="product-body">
                         <h5>Product Title Here</h5>
                         <h6>
                           <strong>
-                            <span className="mdi mdi-approval"></span> Available in
+                            <span className="mdi mdi-approval"></span> Available
+                            in
+                          </strong>{" "}
+                          - 500 gm
+                        </h6>
+                      </div>
+                      <div className="product-footer">
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm float-right"
+                        >
+                          <i className="mdi mdi-cart-outline"></i> Add To Cart
+                        </button>
+                        <p className="offer-price mb-0">
+                          $450.99 <i className="mdi mdi-tag-outline"></i>
+                          <br />
+                          <span className="regular-price">$800.99</span>
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="row no-gutters">
+                <div className="col-md-4">
+                  <div className="product">
+                    <a href="single.html">
+                      <div className="product-header">
+                        <span className="badge badge-success">50% OFF</span>
+                        <img
+                          className="img-fluid"
+                          src="img/item/7.jpg"
+                          alt=""
+                        />
+                        <span className="veg text-success mdi mdi-circle"></span>
+                      </div>
+                      <div className="product-body">
+                        <h5>Product Title Here</h5>
+                        <h6>
+                          <strong>
+                            <span className="mdi mdi-approval"></span> Available
+                            in
+                          </strong>{" "}
+                          - 500 gm
+                        </h6>
+                      </div>
+                      <div className="product-footer">
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm float-right"
+                        >
+                          <i className="mdi mdi-cart-outline"></i> Add To Cart
+                        </button>
+                        <p className="offer-price mb-0">
+                          $450.99 <i className="mdi mdi-tag-outline"></i>
+                          <br />
+                          <span className="regular-price">$800.99</span>
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="product">
+                    <a href="single.html">
+                      <div className="product-header">
+                        <span className="badge badge-success">50% OFF</span>
+                        <img
+                          className="img-fluid"
+                          src="img/item/8.jpg"
+                          alt=""
+                        />
+                        <span className="veg text-success mdi mdi-circle"></span>
+                      </div>
+                      <div className="product-body">
+                        <h5>Product Title Here</h5>
+                        <h6>
+                          <strong>
+                            <span className="mdi mdi-approval"></span> Available
+                            in
+                          </strong>{" "}
+                          - 500 gm
+                        </h6>
+                      </div>
+                      <div className="product-footer">
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm float-right"
+                        >
+                          <i className="mdi mdi-cart-outline"></i> Add To Cart
+                        </button>
+                        <p className="offer-price mb-0">
+                          $450.99 <i className="mdi mdi-tag-outline"></i>
+                          <br />
+                          <span className="regular-price">$800.99</span>
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="product">
+                    <a href="single.html">
+                      <div className="product-header">
+                        <span className="badge badge-success">50% OFF</span>
+                        <img
+                          className="img-fluid"
+                          src="img/item/9.jpg"
+                          alt=""
+                        />
+                        <span className="veg text-success mdi mdi-circle"></span>
+                      </div>
+                      <div className="product-body">
+                        <h5>Product Title Here</h5>
+                        <h6>
+                          <strong>
+                            <span className="mdi mdi-approval"></span> Available
+                            in
                           </strong>{" "}
                           - 500 gm
                         </h6>
