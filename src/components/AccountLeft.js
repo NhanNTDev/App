@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const AccountLeft = () => {
@@ -12,7 +11,7 @@ const AccountLeft = () => {
         <p> +84 966016658</p>
       </div>
       <div className="list-group">
-        <Link to="/" className="list-group-item list-group-item-action active">
+        <Link to="/account" className="list-group-item list-group-item-action active">
           <i aria-hidden="true" className="mdi mdi-account-outline"></i> Thông
           Tin Của Tôi
         </Link>
