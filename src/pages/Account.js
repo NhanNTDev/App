@@ -1,5 +1,5 @@
 import AccountLeft from "../components/AccountLeft";
-import ProfileRight from "../components/ProfileRight";
+import ProfileForm from "../components/ProfileForm";
 
 
 const Account = () => {
@@ -13,7 +13,7 @@ const Account = () => {
                   <AccountLeft />
                 </div>
                 <div className="col-md-8">
-                  <ProfileRight/>
+                  <ProfileForm/>
                 </div>
               </div>
             </div>

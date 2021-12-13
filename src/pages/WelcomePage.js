@@ -10,6 +10,7 @@ import Shop from "../components/Shop";
 import Wistlist from "./Wishlist";
 import Address from "./Address";
 import OrderList from "./OrderList";
+import Product from "./Product";
 
 const WelcomePage = () => {
   return (
@@ -25,7 +26,7 @@ const WelcomePage = () => {
         <Route path="/orderlist" element={<OrderList/>} />
         <Route path="/shop" element={<Shop/>}/>
         <Route path="/page-not-found" element={<PageNotFound/>}/>
-        
+        <Route path="/product" element={<Product/>}/>
       </Routes>
       <Footer></Footer>
     </>
