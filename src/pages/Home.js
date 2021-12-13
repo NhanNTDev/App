@@ -2,10 +2,11 @@ import Banner from "../components/Banner";
 import CenterBanner from "../components/CenterBanner";
 import ItemGroup from "../components/ItemGroup";
 import TopCategory from "../components/TopCategory";
+import { runScript } from "../utils/Common";
 
 
 const Home = () => {
-    
+    runScript()
     return (
         <>
             <Banner></Banner>
