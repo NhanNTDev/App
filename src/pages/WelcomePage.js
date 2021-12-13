@@ -10,7 +10,9 @@ import Shop from "./Shop";
 import Wistlist from "./Wishlist";
 import Address from "./Address";
 import OrderList from "./OrderList";
+import Product from "./Product";
 import Cart from "./Cart";
+
 
 const WelcomePage = () => {
   return (
@@ -27,7 +29,7 @@ const WelcomePage = () => {
         <Route path="/shop" element={<Shop/>}/>
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/page-not-found" element={<PageNotFound/>}/>
-        
+        <Route path="/product" element={<Product/>}/>
       </Routes>
       <Footer></Footer>
     </>

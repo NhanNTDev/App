@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const CartPopup = () => {
     return (
         <>
@@ -126,7 +128,7 @@ const CartPopup = () => {
                             <strong className="float-right text-danger">$55 (42.31%)</strong>
                         </h6>
                     </div>
-                    <a href="checkout.html">
+                    <Link to="/checkout">
                         <button
                             className="btn btn-secondary btn-lg btn-block text-left"
                             type="button"
@@ -139,7 +141,7 @@ const CartPopup = () => {
                                 <span className="mdi mdi-chevron-right"></span>
                             </span>
                         </button>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </>

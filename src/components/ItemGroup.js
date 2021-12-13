@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 const ItemGroup = (props) => {
@@ -44,7 +45,7 @@ const ItemGroup = (props) => {
     return (
       <div className="item" key={props.id}>
         <div className="product">
-          <a href="single.html">
+          <Link to="/product">
             <div className="product-header">
               <span className="badge badge-success">50% OFF</span>
               <img className="img-fluid" src="img/item/1.jpg" alt="" />
@@ -75,14 +76,14 @@ const ItemGroup = (props) => {
               </button>
               <br />
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     );
   }
 
   return (
-    <section className="product-items-slider section-padding">
+    <section className="product-items-slider section-padding bg-white border-top">
       <div className="container">
         <div className="section-header">
           <h5 className="heading-design-h5">
