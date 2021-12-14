@@ -104,22 +104,22 @@ const Shop = () => {
 
   const prices = [
     {
-      id: "1",
+      id: "p1",
       title: "0-100.000",
       tag: "50% sale of",
     },
     {
-      id: "2",
+      id: "p2",
       title: "100.000-200.000",
       tag: "50% sale of",
     },
     {
-      id: "3",
+      id: "p3",
       title: "200.000-500.000",
       tag: "",
     },
     {
-      id: "4",
+      id: "p4",
       title: "500.000-900.000",
       tag: "",
     },
@@ -164,7 +164,6 @@ const Shop = () => {
               />
               <label className="custom-control-label" htmlFor={category.id}>
                 {category.title}{" "}
-                <span className="badge badge-primary">{category.tag}</span>
               </label>
             </div>
           ))}
@@ -191,7 +190,6 @@ const Shop = () => {
               />
               <label className="custom-control-label" htmlFor={price.id}>
                 {price.title}{" "}
-                <span className="badge badge-warning">{price.tag}</span>
               </label>
             </div>
           ))}
