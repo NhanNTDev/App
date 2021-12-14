@@ -5,19 +5,19 @@ const ItemGroup = (props) => {
   let Campaigns = [
     {
       id: "1",
-      title: "Rau củ",
+      title: "Đà Lạt - Hồ Chí Minh",
       countFarm: "10",
-      location: "Đà Lạt",
+      location: "Đà Lạt Đà Lạ Đà Lạ Đà Lạ Đà Lạ Đà Lạ",
     },
     {
       id: "2",
-      title: "Quả",
+      title: "Đà Lạt - Bình Dương",
       countFarm: "10",
       location: "Đà Lạt",
     },
     {
       id: "3",
-      title: "Hoa Tươi",
+      title: "Đà Lạt - Bình Phước",
       countFarm: "10",
       location: "Đà Lạt",
     },
