@@ -145,7 +145,7 @@ const Cart = () => {
                   <span class="mdi mdi-home"></span> Home
                 </strong>
               </Link>{" "}
-              <span class="mdi mdi-chevron-right"></span> <a href="#">Cart</a>
+              <span class="mdi mdi-chevron-right"></span> <span>Cart</span>
             </div>
           </div>
         </div>

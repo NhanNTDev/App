@@ -1,8 +1,10 @@
 import ItemGroup from "../components/ItemGroup";
 import ProductDetail from "../components/ProductDetail";
 import ProductPicture from "../components/ProductPicture";
+import { runScript } from "../utils/Common";
 
 const Product = () => {
+  runScript();
   return (
     <>
       <section class="pt-3 pb-3 page-info section-padding border-bottom bg-white">
