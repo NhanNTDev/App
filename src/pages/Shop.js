@@ -1,64 +1,13 @@
 import ItemGroup from "../components/ItemGroup";
 import { runScript } from "../utils/Common";
+import { hotCampaign } from "../constants/Data";
+import { useParams } from "react-router-dom";
 
 const Shop = () => {
-  let Campaigns = [
-    {
-      id: "1",
-      title: "Rau củ",
-      countFarm: "10",
-      location: "Đà Lạt",
-    },
-    {
-      id: "2",
-      title: "Quả",
-      countFarm: "10",
-      location: "Đà Lạt",
-    },
-    {
-      id: "3",
-      title: "Hoa Tươi",
-      countFarm: "10",
-      location: "Đà Lạt",
-    },
-    {
-      id: "4",
-      title: "Rau củ sạch",
-      countFarm: "10",
-      location: "Đà Lạt",
-    },
-    {
-      id: "5",
-      title: "Rau sạch",
-      countFarm: "10",
-      location: "Đà Lạt",
-    },
-    {
-      id: "6",
-      title: "Hoa tươi",
-      countFarm: "10",
-      location: "Đà Lạt",
-    },
-    {
-      id: "7",
-      title: "Rau củ sạch",
-      countFarm: "10",
-      location: "Đà Lạt",
-    },
-    {
-      id: "8",
-      title: "Rau sạch",
-      countFarm: "10",
-      location: "Đà Lạt",
-    },
-    {
-      id: "9",
-      title: "Hoa tươi",
-      countFarm: "10",
-      location: "Đà Lạt",
-    },
-  ];
-
+  runScript();
+  const hotCampaigns = hotCampaign;
+  // let params = useParams();
+  // console.log(params.type);
   const categorys = [
     {
       id: "1",
@@ -221,7 +170,7 @@ const Shop = () => {
     );
   };
 
-  runScript();
+
 
   return (
     <>
@@ -677,7 +626,7 @@ const Shop = () => {
           </div>
         </div>
       </section>
-      <ItemGroup title="Chiến dịch hot"></ItemGroup>
+      <ItemGroup title="Chiến dịch hot" listCampaigns={hotCampaigns} type="hot"></ItemGroup>
     </>
   );
 };

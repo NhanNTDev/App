@@ -1,4 +1,4 @@
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route, Navigate} from "react-router-dom";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -12,6 +12,7 @@ import Address from "./Address";
 import OrderList from "./OrderList";
 import Product from "./Product";
 import Cart from "./Cart";
+import ViewAllCampaigns from "./ViewAllCampaigns";
 
 
 const WelcomePage = () => {
@@ -30,6 +31,8 @@ const WelcomePage = () => {
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/page-not-found" element={<PageNotFound/>}/>
         <Route path="/product" element={<Product/>}/>
+        <Route path="/all-campaigns" element={<ViewAllCampaigns/>}/>
+        <Route path="*" element={<Navigate replace to="/page-not-found" />} />
       </Routes>
       <Footer></Footer>
     </>
