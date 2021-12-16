@@ -1,91 +1,49 @@
 import { useEffect, useState, useLayoutEffect } from "react";
 import { PAGINATION_MAX, RECORD_PER_PAGE } from "../constants/Constants";
 import { hotCampaign } from "../constants/Data";
+import { page1, page2, page3 } from "../constants/Data";
+import { Pagination } from "antd";
+import { useSearchParams } from "react-router-dom";
+import "antd/dist/antd.css";
+import { current } from "@reduxjs/toolkit";
 
 const ViewAllCampaigns = () => {
   const [page, setPage] = useState(1);
-  const [pageNumbers, setPageNumbers] = useState([1]);
+  // const [pageNumbers, setPageNumbers] = useState([1]);
   const [totalRecord, setTotalRecords] = useState(1);
-  const [pageNumbersView, setPageNumbersView] = useState([1]);
+  // const [pageNumbersView, setPageNumbersView] = useState([1]);
+  const [campaigns, setCampaigns] = useState([]);
+  let [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
-    setTotalRecords(200);
+    setTotalRecords(36);
   }, []);
 
-  useEffect(() => {
-    let listPage = [];
-    for (let i = 1; i <= Math.ceil(totalRecord / RECORD_PER_PAGE); i++) {
-      listPage.push(i);
-    }
-    setPageNumbers(listPage);
-  }, [totalRecord]);
 
-  useLayoutEffect(() => {
-    let TotalPage = Math.ceil(totalRecord / RECORD_PER_PAGE);
-    let listNumbers = [];
-    let startNumber = 1;
-    let endNumber = TotalPage;
-    if (TotalPage > PAGINATION_MAX) {
-      if (page < PAGINATION_MAX/2 + 1) {
-        endNumber = PAGINATION_MAX;
-      }
-      if (page >= PAGINATION_MAX/2 + 1) {
-        if (page <= TotalPage - PAGINATION_MAX/2) {
-          startNumber = page - PAGINATION_MAX/2 - 1;
-          endNumber = page + PAGINATION_MAX/2;
-        } else {
-          startNumber = TotalPage - PAGINATION_MAX - 1;
-          endNumber = TotalPage;
-        }
-      }
+  useEffect(() => {
+    switch (page) {
+      case 1:
+        setCampaigns(page1);
+        break;
+      case 2:
+        setCampaigns(page2);
+        break;
+      case 3:
+        setCampaigns(page3);
+        break;
     }
-    for (startNumber; startNumber <= endNumber; startNumber++) {
-      listNumbers.push(startNumber);
-    }
-    setPageNumbersView(listNumbers);
-  }, [pageNumbers, page]);
+  }, [page]);
 
   const renderPagination = () => {
     return (
-      <nav>
-        <ul className="pagination justify-content-center mt-4">
-          <li className={page === 1 ? "page-item disabled" : "page-item"}>
-            <button
-              className="page-link"
-              onClick={() => {
-                setPage(page - 1);
-              }}
-            >
-              Previous
-            </button>
-          </li>
-          {pageNumbersView.map((pageNum) => (
-            <li
-              className={pageNum === page ? "page-item active" : "page-item"}
-              key={pageNum}
-            >
-              <button
-                className="page-link"
-                onClick={() => {
-                  setPage(pageNum);
-                }}
-              >
-                {pageNum}
-              </button>
-            </li>
-          ))}
-          <li
-            className={
-              page === Math.ceil(totalRecord / RECORD_PER_PAGE)
-                ? "page-item disabled"
-                : "page-item"
-            }
-          >
-            <button className="page-link" onClick={() => setPage(page + 1)}>
-              Next
-            </button>
-          </li>
-        </ul>
-      </nav>
+        <div className="pagination justify-content-center mt-4">
+          <Pagination
+            showSizeChanger={false}
+            pageSize={RECORD_PER_PAGE}
+            defaultCurrent={1}
+            total={totalRecord}
+            onChange = {(pageNumber) => setPage(pageNumber)}
+          />
+        </div>
     );
   };
   const sortTitles = [
@@ -93,7 +51,6 @@ const ViewAllCampaigns = () => {
     "Giá (cao xuống thấp)",
     "Tên (A - Z)",
   ];
-  const hotCampaigns = hotCampaign;
 
   const renderSortDrop = () => {
     return (
@@ -178,7 +135,11 @@ const ViewAllCampaigns = () => {
                 </strong>
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <span>Tên Shop</span>
+              <span>
+                {searchParams.get("type") === "hot"
+                  ? "Chiến dịch hot"
+                  : "Chiến dịch trong tuần"}
+              </span>
             </div>
           </div>
         </div>
@@ -189,10 +150,14 @@ const ViewAllCampaigns = () => {
             <div className="col-md-12">
               <div className="shop-head">
                 {renderSortDrop()}
-                <h5 className="mb-4">Tên Shop</h5>
+                <h5 className="mb-4">
+                  {searchParams.get("type") === "hot"
+                    ? "Chiến dịch hot"
+                    : "Chiến dịch trong tuần"}
+                </h5>
               </div>
               <div className="row no-gutters">
-                {hotCampaigns.map((campaign) =>
+                {campaigns.map((campaign) =>
                   renderCampaignItem({ ...campaign })
                 )}
               </div>
