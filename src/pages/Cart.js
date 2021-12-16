@@ -6,8 +6,8 @@ const Cart = () => {
     return (
       <tfoot>
         <tr>
-          <td colspan="1"></td>
-          <td colspan="4">
+          <td colSpan="1"></td>
+          <td colSpan="4">
             <form className="form-inline float-right">
               <div className="form-group">
                 <input
@@ -25,20 +25,20 @@ const Cart = () => {
               </button>
             </form>
           </td>
-          <td colspan="2">Discount : $237.88 </td>
+          <td colSpan="2">Discount : $237.88 </td>
         </tr>
         <tr>
-          <td colspan="2"></td>
-          <td className="text-right" colspan="3">
+          <td colSpan="2"></td>
+          <td className="text-right" colSpan="3">
             Total products (tax incl.)
           </td>
-          <td colspan="2">$437.88 </td>
+          <td colSpan="2">$437.88 </td>
         </tr>
         <tr>
-          <td className="text-right" colspan="5">
+          <td className="text-right" colSpan="5">
             <strong>Total</strong>
           </td>
-          <td className="text-danger" colspan="2">
+          <td className="text-danger" colSpan="2">
             <strong>$337.88 </strong>
           </td>
         </tr>

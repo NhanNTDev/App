@@ -8,7 +8,7 @@ const TopCategory = () => {
     },
     {
       id: "2",
-      title: "Rau Hoa Qủa",
+      title: "Rau Hoa Quả",
       totalItem: "100",
       image: "img/categories/rau_hoa_qua.PNG",
     },

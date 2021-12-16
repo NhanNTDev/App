@@ -1,9 +1,11 @@
 import ItemGroup from "../components/ItemGroup";
 import ProductDetail from "../components/ProductDetail";
 import ProductPicture from "../components/ProductPicture";
+import { hotCampaign } from "../constants/Data";
 import { runScript } from "../utils/Common";
 
 const Product = () => {
+  const hotCampaigns = hotCampaign;
   runScript();
   return (
     <>
@@ -35,7 +37,7 @@ const Product = () => {
           </div>
         </div>
       </section>
-      <ItemGroup title="Chiến dịch trong tuần"></ItemGroup>
+      <ItemGroup title="Chiến dịch hot" listCampaigns={hotCampaigns} type="hot"></ItemGroup>
     </>
   );
 };
