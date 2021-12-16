@@ -60,7 +60,7 @@ const ItemGroup = (props) => {
             )}
             <Link
               className="float-right text-secondary"
-              to={`/shop?type=${props.type}`}
+              to={`/all-campaigns?type=${props.type}`}
             >
               Xem tất cả
             </Link>
