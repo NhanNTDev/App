@@ -1,15 +1,5 @@
-
-import {runScript} from "../utils/Common";
- 
 const TopCategory = (props) => {
-  
-  
-  
-
   function renderItem(props) {
-    runScript();
-    console.log('category');
-    console.log(props);
     return (
       <div className="item" key={props.id}>
         <div className="category-item">
@@ -23,13 +13,16 @@ const TopCategory = (props) => {
     );
   }
 
-
   return (
     <>
       <section className="top-category section-padding">
         <div className="container">
           <div className="owl-carousel owl-carousel-category">
-            {props.categories.map((category) => renderItem({ ...category }))}
+            
+                  {props.listCategories.map((category) =>
+                    renderItem({ ...category })
+                  )}
+               
           </div>
         </div>
       </section>
