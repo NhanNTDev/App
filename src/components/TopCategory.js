@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from "react";
-import * as categoryService from "../services/category-service";
-import { runScript } from "../utils/Common";
 
-const TopCategory = () => {
+import {runScript} from "../utils/Common";
+ 
+const TopCategory = (props) => {
   
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    const fetChCategories = async () => {
-      const categoryResponse = await categoryService.getAllCategoriesAPI();
-      setCategories(categoryResponse);
-    };
-    fetChCategories();
-  }, [])
+  
+  
 
   function renderItem(props) {
+    runScript();
     console.log('category');
     console.log(props);
     return (
@@ -36,7 +29,7 @@ const TopCategory = () => {
       <section className="top-category section-padding">
         <div className="container">
           <div className="owl-carousel owl-carousel-category">
-            {categories.map((category) => renderItem({ ...category }))}
+            {props.categories.map((category) => renderItem({ ...category }))}
           </div>
         </div>
       </section>
