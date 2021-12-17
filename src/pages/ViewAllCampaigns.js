@@ -1,19 +1,15 @@
 import { useEffect, useState, useLayoutEffect } from "react";
-import { PAGINATION_MAX, RECORD_PER_PAGE } from "../constants/Constants";
-import { hotCampaign } from "../constants/Data";
+import { RECORD_PER_PAGE } from "../constants/Constants";
 import { page1, page2, page3 } from "../constants/Data";
 import { Pagination } from "antd";
 import { useSearchParams } from "react-router-dom";
 import "antd/dist/antd.css";
-import { current } from "@reduxjs/toolkit";
 
 const ViewAllCampaigns = () => {
   const [page, setPage] = useState(1);
-  // const [pageNumbers, setPageNumbers] = useState([1]);
   const [totalRecord, setTotalRecords] = useState(1);
-  // const [pageNumbersView, setPageNumbersView] = useState([1]);
   const [campaigns, setCampaigns] = useState([]);
-  let [searchParams, setSearchParams] = useSearchParams();
+  let [searchParams] = useSearchParams();
   useEffect(() => {
     setTotalRecords(36);
   }, []);

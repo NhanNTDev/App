@@ -11,7 +11,7 @@ const ItemGroup = (props) => {
               <img className="img-fluid" src="img/item/1.jpg" alt="" />
               <span className="veg text-success mdi mdi-circle"></span>
             </div>
-            <div className="product-body" >
+            <div className="product-body">
               <h4 style={{ height: 80 }}>{props.name}</h4>
               <h5>
                 <strong>
@@ -38,7 +38,7 @@ const ItemGroup = (props) => {
             <button
               type="button"
               className="btn btn-secondary btn-sm float-right"
-              onClick={()=>{}}
+              onClick={() => {}}
             >
               <i className="mdi mdi-eye"></i> Xem chiến dịch
             </button>
