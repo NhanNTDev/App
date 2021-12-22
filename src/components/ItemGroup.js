@@ -5,7 +5,7 @@ const ItemGroup = (props) => {
     return (
       <div className="item" key={props.id}>
         <div className="product">
-          <Link to="/product">
+          <Link to={`/campaign/${props.id}`}>
             <div className="product-header">
               <span className="badge badge-success">50% OFF</span>
               <img className="img-fluid" src="img/item/1.jpg" alt="" />
