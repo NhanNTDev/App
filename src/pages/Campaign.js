@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ItemGroup from "../components/ItemGroup";
 import ProductDetail from "../components/ProductDetail";
 import ProductPicture from "../components/ProductPicture";
-import { runScript } from "../utils/Common";
+import { runScript, deleteScript } from "../utils/Common";
 import * as campaignsService from "../services/campaign-service";
 
 const Campaign = () => {
@@ -11,8 +11,11 @@ const Campaign = () => {
   const [campaigns, setCampaigns] = useState([]);
   const path = location.pathname.split("/")[2];
   const [campaign, setCampaign] = useState();
+  useEffect(()=> {
+    deleteScript();
+  }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchCampaigns = async () => {
       const campaignsResponse = await campaignsService.getCampaigns();
       setCampaigns(campaignsResponse);
@@ -20,6 +23,9 @@ const Campaign = () => {
       runScript();
     };
     fetchCampaigns();
+    // return () => {
+    //   deleteScript();
+    // }
   }, []);
 
   return (

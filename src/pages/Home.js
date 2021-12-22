@@ -2,7 +2,7 @@ import Banner from "../components/Banner";
 import CenterBanner from "../components/CenterBanner";
 import ItemGroup from "../components/ItemGroup";
 import TopCategory from "../components/TopCategory";
-import { runScript } from "../utils/Common";
+import { runScript, deleteScript } from "../utils/Common";
 import { useLayoutEffect, useState, useEffect } from "react";
 import * as categoryService from "../services/category-service";
 import * as campaignsService from "../services/campaign-service";
@@ -12,12 +12,14 @@ const Home = () => {
   const [hotCampaigns, setHotCampaign] = useState([]);
 
   const [categories, setCategories] = useState([]);
+  useEffect(()=> {
+    deleteScript();
+  }, []);
 
   useEffect(() => {
     const fetchCategories = async () => {
       const categoryResponse = await categoryService.getAllCategoriesAPI();
       setCategories(categoryResponse);
-      console.log("useEffect1")
     };
 
     fetchCategories();
@@ -29,7 +31,6 @@ const Home = () => {
       setWeeklyCampaigns(campaigns);
       setHotCampaign(campaigns);
       runScript();
-      console.log("useEffect2")
     };
 
     fetchCampaigns();

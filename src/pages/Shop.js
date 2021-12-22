@@ -1,9 +1,13 @@
 import ItemGroup from "../components/ItemGroup";
-import { runScript } from "../utils/Common";
+import { runScript,deleteScript } from "../utils/Common";
 import { hotCampaign } from "../constants/Data";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const Shop = () => {
+  useEffect(()=> {
+    deleteScript();
+  }, []);
   runScript();
   const hotCampaigns = hotCampaign;
   // let params = useParams();
