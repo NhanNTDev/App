@@ -19,6 +19,7 @@ const Home = () => {
       setCategories(categoryResponse);
       console.log("useEffect1")
     };
+
     fetchCategories();
   }, []);
 
@@ -33,6 +34,9 @@ const Home = () => {
 
     fetchCampaigns();
   }, []);
+
+
+
 
   return (
     <>

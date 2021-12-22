@@ -50,7 +50,7 @@ const ItemGroup = (props) => {
   }
 
   return (
-    <section className="product-items-slider section-padding bg-white border-top">
+      <section className="product-items-slider section-padding">
       <div className="container">
         <div className="section-header">
           <h5 className="heading-design-h5">
