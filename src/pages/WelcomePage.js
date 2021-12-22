@@ -18,7 +18,7 @@ import Campaign from "./Campaign";
 
 const WelcomePage = () => {
   return (
-    <>
+    <div style={{backgroundColor: "#f9f9f9"}}>
       <Header></Header>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -33,11 +33,11 @@ const WelcomePage = () => {
         <Route path="/page-not-found" element={<PageNotFound/>}/>
         <Route path="/product" element={<Product/>}/>
         <Route path="/all-campaigns" element={<ViewAllCampaigns/>}/>
-        <Route path="/campaign/:id" element={<Campaign/>}/>
-        <Route path="*" element={<Navigate replace to="/page-not-found" />} />
+        <Route path="/campaign" element={<Campaign/>}/>
+        <Route path="/*" element={<Navigate replace to="/page-not-found" />} />
       </Routes>
       <Footer></Footer>
-    </>
+    </div>
   );
 };
 

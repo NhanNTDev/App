@@ -5,7 +5,8 @@ const ItemGroup = (props) => {
     return (
       <div className="item" key={props.id}>
         <div className="product">
-          <Link to={`/campaign/${props.id}`}>
+        {/* /${props.id} */}
+          <Link to={`/campaign`}>
             <div className="product-header">
               <span className="badge badge-success">50% OFF</span>
               <img className="img-fluid" src="img/item/1.jpg" alt="" />
@@ -50,7 +51,7 @@ const ItemGroup = (props) => {
   }
 
   return (
-    <section className="product-items-slider section-padding bg-white border-top">
+      <section className="product-items-slider section-padding">
       <div className="container">
         <div className="section-header">
           <h5 className="heading-design-h5">

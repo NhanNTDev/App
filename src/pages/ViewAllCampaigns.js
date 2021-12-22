@@ -132,7 +132,7 @@ const ViewAllCampaigns = () => {
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
               <span>
-                {searchParams.get("type") === "hot"
+                {searchParams.get("type") === "hot"  
                   ? "Chiến dịch hot"
                   : "Chiến dịch trong tuần"}
               </span>
