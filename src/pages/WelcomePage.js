@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -15,10 +15,9 @@ import Cart from "./Cart";
 import ViewAllCampaigns from "./ViewAllCampaigns";
 import Campaign from "./Campaign";
 
-
 const WelcomePage = () => {
   return (
-    <div style={{backgroundColor: "#f9f9f9"}}>
+    <div style={{ backgroundColor: "#f9f9f9" }}>
       <Header></Header>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -27,13 +26,13 @@ const WelcomePage = () => {
         <Route path="/account" element={<Account />} />
         <Route path="/address" element={<Address />} />
         <Route path="/wishlist" element={<Wistlist />} />
-        <Route path="/orderlist" element={<OrderList/>} />
-        <Route path="/shop" element={<Shop/>}/>
-        <Route path="/cart" element={<Cart/>}/>
-        <Route path="/page-not-found" element={<PageNotFound/>}/>
-        <Route path="/product" element={<Product/>}/>
-        <Route path="/all-campaigns" element={<ViewAllCampaigns/>}/>
-        <Route path="/campaign" element={<Campaign/>}/>
+        <Route path="/orderlist" element={<OrderList />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/page-not-found" element={<PageNotFound />} />
+        <Route path="/product" element={<Product />} />
+        <Route path="/all-campaigns" element={<ViewAllCampaigns />} />
+        <Route path="/campaign" element={<Campaign />} />
         <Route path="/*" element={<Navigate replace to="/page-not-found" />} />
       </Routes>
       <Footer></Footer>
