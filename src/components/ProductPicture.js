@@ -1,57 +1,57 @@
 const ProductPicture = () => {
   return (
-    <div class="shop-detail-left">
-      <div class="shop-detail-slider">
-        <div class="favourite-icon">
+    <div className="shop-detail-left">
+      <div className="shop-detail-slider">
+        <div className="favourite-icon">
           <a
-            class="fav-btn"
+            className="fav-btn"
             title=""
             data-placement="bottom"
             data-toggle="tooltip"
             href="#"
             data-original-title="59% OFF"
           >
-            <i class="mdi mdi-tag-outline"></i>
+            <i className="mdi mdi-tag-outline"></i>
           </a>
         </div>
-        <div id="sync1" class="owl-carousel">
-          <div class="item">
-            <img alt="" src="img/item/1.jpg" class="img-fluid img-center" />
+        <div id="sync1" className="owl-carousel">
+          <div className="item">
+            <img alt="" src="img/item/1.jpg" className="img-fluid img-center" />
           </div>
-          <div class="item">
-            <img alt="" src="img/item/2.jpg" class="img-fluid img-center" />
+          <div className="item">
+            <img alt="" src="img/item/2.jpg" className="img-fluid img-center" />
           </div>
-          <div class="item">
-            <img alt="" src="img/item/3.jpg" class="img-fluid img-center" />
+          <div className="item">
+            <img alt="" src="img/item/3.jpg" className="img-fluid img-center" />
           </div>
-          <div class="item">
-            <img alt="" src="img/item/4.jpg" class="img-fluid img-center" />
+          <div className="item">
+            <img alt="" src="img/item/4.jpg" className="img-fluid img-center" />
           </div>
-          <div class="item">
-            <img alt="" src="img/item/5.jpg" class="img-fluid img-center" />
+          <div className="item">
+            <img alt="" src="img/item/5.jpg" className="img-fluid img-center" />
           </div>
-          <div class="item">
-            <img alt="" src="img/item/6.jpg" class="img-fluid img-center" />
+          <div className="item">
+            <img alt="" src="img/item/6.jpg" className="img-fluid img-center" />
           </div>
         </div>
-        <div id="sync2" class="owl-carousel">
-          <div class="item">
-            <img alt="" src="img/item/1.jpg" class="img-fluid img-center" />
+        <div id="sync2" className="owl-carousel">
+          <div className="item">
+            <img alt="" src="img/item/1.jpg" className="img-fluid img-center" />
           </div>
-          <div class="item">
-            <img alt="" src="img/item/2.jpg" class="img-fluid img-center" />
+          <div className="item">
+            <img alt="" src="img/item/2.jpg" className="img-fluid img-center" />
           </div>
-          <div class="item">
-            <img alt="" src="img/item/3.jpg" class="img-fluid img-center" />
+          <div className="item">
+            <img alt="" src="img/item/3.jpg" className="img-fluid img-center" />
           </div>
-          <div class="item">
-            <img alt="" src="img/item/4.jpg" class="img-fluid img-center" />
+          <div className="item">
+            <img alt="" src="img/item/4.jpg" className="img-fluid img-center" />
           </div>
-          <div class="item">
-            <img alt="" src="img/item/5.jpg" class="img-fluid img-center" />
+          <div className="item">
+            <img alt="" src="img/item/5.jpg" className="img-fluid img-center" />
           </div>
-          <div class="item">
-            <img alt="" src="img/item/6.jpg" class="img-fluid img-center" />
+          <div className="item">
+            <img alt="" src="img/item/6.jpg" className="img-fluid img-center" />
           </div>
         </div>
       </div>
