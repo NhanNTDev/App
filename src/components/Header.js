@@ -226,7 +226,7 @@ const Header = () => {
         <div className="container-fluid">
           <Link className="navbar-brand" to="/home">
             {" "}
-            <img src="img/logo.png" alt="logo" />{" "}
+            <img src="/img/logo.png" alt="logo" />{" "}
           </Link>
           <button
             className="navbar-toggler navbar-toggler-white"
