@@ -1,8 +1,6 @@
 import { useLayoutEffect, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ItemGroup from "../components/ItemGroup";
-import ProductDetail from "../components/ProductDetail";
-import ProductPicture from "../components/ProductPicture";
 import { runScript, deleteScript } from "../utils/Common";
 import * as campaignsService from "../services/campaign-service";
 import CampaignPicture from "../components/CampaignPicture";
@@ -54,10 +52,10 @@ const Campaign = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <CampaignPicture campaign={campaign} />
+              <CampaignPicture campaign={{...campaign}} />
             </div>
             <div className="col-md-6">
-              <CampaignDetail campaign={campaign} />
+              <CampaignDetail campaign={{...campaign}} />
             </div>
           </div>
         </div>
