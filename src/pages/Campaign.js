@@ -10,7 +10,7 @@ const Campaign = () => {
   const location = useLocation();
   const [campaigns, setCampaigns] = useState([]);
   const path = location.pathname.split("/")[2];
-  const [campaign, setCampaign] = useState();
+  const [campaign, setCampaign] = useState(null);
   useEffect(()=> {
     deleteScript();
   }, []);
@@ -19,6 +19,8 @@ const Campaign = () => {
     const fetchCampaigns = async () => {
       const campaignsResponse = await campaignsService.getCampaigns();
       setCampaigns(campaignsResponse);
+      setCampaign(campaigns[0]);
+      console.log("get campaign");
       console.log(campaigns);
       runScript();
     };
@@ -41,7 +43,7 @@ const Campaign = () => {
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
               <a href="#">Campaign</a>{" "}
-              <span className="mdi mdi-chevron-right"></span> <a href="#">a</a>
+              <span className="mdi mdi-chevron-right"></span> <a href="#">{campaign !== null ? campaign.name : ""}</a>
             </div>
           </div>
         </div>

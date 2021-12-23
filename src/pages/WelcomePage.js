@@ -32,7 +32,7 @@ const WelcomePage = () => {
         <Route path="/page-not-found" element={<PageNotFound />} />
         <Route path="/product" element={<Product />} />
         <Route path="/all-campaigns" element={<ViewAllCampaigns />} />
-        <Route path="/campaign" element={<Campaign />} />
+        <Route path="/campaign/:id" element={<Campaign />} />
         <Route path="/*" element={<Navigate replace to="/page-not-found" />} />
       </Routes>
       <Footer></Footer>
