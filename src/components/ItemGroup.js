@@ -6,10 +6,10 @@ const ItemGroup = (props) => {
       <div className="item" key={props.id}>
         <div className="product">
         {/* /${props.id} */}
-          <Link to={`/campaign`}>
+          <Link to={`/campaign/${props.id}`}>
             <div className="product-header">
               <span className="badge badge-success">50% OFF</span>
-              <img className="img-fluid" src="img/item/1.jpg" alt="" />
+              <img className="img-fluid" src="/img/item/1.jpg" alt="" />
               <span className="veg text-success mdi mdi-circle"></span>
             </div>
             <div className="product-body">
