@@ -5,6 +5,8 @@ import ProductDetail from "../components/ProductDetail";
 import ProductPicture from "../components/ProductPicture";
 import { runScript, deleteScript } from "../utils/Common";
 import * as campaignsService from "../services/campaign-service";
+import CampaignPicture from "../components/CampaignPicture";
+import CampaignDetail from "../components/CampaignDetail";
 
 const Campaign = () => {
   const location = useLocation();
@@ -19,9 +21,9 @@ const Campaign = () => {
     const fetchCampaigns = async () => {
       const campaignsResponse = await campaignsService.getCampaigns();
       setCampaigns(campaignsResponse);
-      setCampaign(campaigns[0]);
       console.log("get campaign");
       console.log(campaigns);
+      setCampaign(campaignsResponse.find(c => c.id.toString() === path))
       runScript();
     };
     fetchCampaigns();
@@ -52,10 +54,10 @@ const Campaign = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <ProductPicture />
+              <CampaignPicture campaign={campaign} />
             </div>
             <div className="col-md-6">
-              <ProductDetail />
+              <CampaignDetail campaign={campaign} />
             </div>
           </div>
         </div>
