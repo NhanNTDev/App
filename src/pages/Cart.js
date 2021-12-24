@@ -1,16 +1,191 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const renderCampaignHeader = () => {
+  const cartDefault = [
+    {
+      campaignId: "1",
+      campaignName: "Đà Lạt - Hồ Chí Minh",
+      farms: [
+        {
+          farmId: "1",
+          farmName: "Nguyễn Thành Nhân's Farm",
+          products: [
+            {
+              productId: "1",
+              productName: "Cà Chua bi",
+              productImage: "/img/categories/rau_hoa_qua.PNG",
+              productPrice: 10000,
+              productQuantity: 10,
+            },
+            {
+              productId: "2",
+              productName: "Cà Chua bi",
+              productImage: "/img/categories/rau_hoa_qua.PNG",
+              productPrice: 10000,
+              productQuantity: 10,
+            },
+          ],
+        },
+        {
+          farmId: "2",
+          farmName: "Nguyễn Thành Nhân's Farm",
+          products: [
+            {
+              productId: "3",
+              productName: "Cà Chua bi",
+              productImage: "/img/categories/rau_hoa_qua.PNG",
+              productPrice: 10000,
+              productQuantity: 10,
+            },
+            {
+              productId: "4",
+              productName: "Cà Chua bi",
+              productImage: "/img/categories/rau_hoa_qua.PNG",
+              productPrice: 10000,
+              productQuantity: 10,
+            },
+          ],
+        },
+      ],
+      campaignDiscount: 10000,
+    },
+    {
+      campaignId: "2",
+      campaignName: "Đà Lạt - Bình Dương",
+      farms: [
+        {
+          farmId: "3",
+          farmName: "Nguyễn Thành Nhân's Farm",
+          products: [
+            {
+              productId: "5",
+              productName: "Cà Chua bi",
+              productImage: "/img/categories/rau_hoa_qua.PNG",
+              productPrice: 10000,
+              productQuantity: 10,
+            },
+            {
+              productId: "6",
+              productName: "Cà Chua bi",
+              productImage: "/img/categories/rau_hoa_qua.PNG",
+              productPrice: 10000,
+              productQuantity: 10,
+            },
+          ],
+        },
+        {
+          farmId: "4",
+          farmName: "Nguyễn Thành Nhân's Farm",
+          products: [
+            {
+              productId: "7",
+              productName: "Cà Chua bi",
+              productImage: "/img/categories/rau_hoa_qua.PNG",
+              productPrice: 10000,
+              productQuantity: 10,
+            },
+            {
+              productId: "8",
+              productName: "Cà Chua bi",
+              productImage: "/img/categories/rau_hoa_qua.PNG",
+              productPrice: 10000,
+              productQuantity: 10,
+            },
+          ],
+        },
+      ],
+      campaignDiscount: 10000,
+    },
+  ];
+
+  const [cart, setCart] = useState(cartDefault);
+  const [totalAll, setTotalAll] = useState(0);
+  const caculateTotalAll = () => {
+    let result = 0;
+    cart.map(
+      (campaign) =>
+        (result =
+          result + caculateTotal({ ...campaign }) - campaign.campaignDiscount)
+    );
+    return result;
+  };
+
+  useEffect(() => {
+    setTotalAll(caculateTotalAll());
+  }, [cart]);
+
+  const caculateTotal = (props) => {
+    let result = 0;
+    props.farms.map((farm) =>
+      farm.products.map(
+        (product) =>
+          (result = result + product.productPrice * product.productQuantity)
+      )
+    );
+    return result;
+  };
+
+  const renderCartForCampaign = (props) => {
+    let total = caculateTotal({ ...props });
+    let discount = props.campaignDiscount;
+    console.log(props.campaignDiscount);
+    let mustPay = total - discount;
+    return (
+      <>
+        <div className="table-responsive">
+          {renderCampaignHeader(props.campaignName)}
+          <table className="table cart_summary">
+            {renderTableHead()}
+            <tbody>
+              {props.farms.map((farm) => renderCartForFarm({ ...farm }))}
+            </tbody>
+            {renderTableFoot({
+              total: total,
+              discount: discount,
+              mustPay: mustPay,
+            })}
+          </table>
+          <Link to="/checkout">
+            <button
+              className="btn btn-secondary-sm btn-block text-left"
+              type="button"
+            >
+              <span className="float-left">
+                <i className="mdi mdi-cart-outline"></i> Tiến hành thanh toán{" "}
+              </span>
+              <span className="float-right">
+                <strong>{mustPay} VNĐ</strong>{" "}
+                <span className="mdi mdi-chevron-right"></span>
+              </span>
+            </button>
+          </Link>
+        </div>
+        <br />
+        <br />
+      </>
+    );
+  };
+
+  const renderCartForFarm = (props) => {
+    return (
+      <>
+        {renderFarmHeader(props.farmName)}
+        {props.products.map((product) => renderTableItem({ ...product }))}
+      </>
+    );
+  };
+  const renderCampaignHeader = (props) => {
     return (
       <div className="cart-campaign-header text-left">
         <strong>Chiến dịch:</strong>
         {"   "}
-        Đà Lạt - Hồ Chí Minh
+        {props}
       </div>
     );
   };
-  const renderFarmHeader = () => {
+
+  const renderFarmHeader = (props) => {
     return (
       <tr>
         <td colSpan="6">
@@ -20,13 +195,14 @@ const Cart = () => {
           >
             <strong>Nông trại:</strong>
             {"   "}
-            Nguyễn Thành Nhân
+            {props}
           </div>
         </td>
       </tr>
     );
   };
-  const renderTableFoot = () => {
+
+  const renderTableFoot = (props) => {
     return (
       <tfoot>
         <tr className="form-group">
@@ -50,7 +226,7 @@ const Cart = () => {
             {" "}
             Giảm giá:{" "}
           </td>
-          <td colSpan="3"> 10000 VNĐ </td>
+          <td colSpan="3"> {props.discount} VNĐ </td>
         </tr>
         <tr>
           <td colSpan="2"></td>
@@ -58,7 +234,7 @@ const Cart = () => {
             {" "}
             Thành tiền:{" "}
           </td>
-          <td colSpan="3"> 300000 VNĐ </td>
+          <td colSpan="3"> {props.total} VNĐ </td>
         </tr>
         <tr>
           <td colSpan="2"></td>
@@ -66,7 +242,7 @@ const Cart = () => {
             {" "}
             Tiền phải trả:{" "}
           </td>
-          <td colSpan="3"> 290000 VNĐ </td>
+          <td colSpan="3"> {props.mustPay} VNĐ </td>
         </tr>
       </tfoot>
     );
@@ -90,21 +266,21 @@ const Cart = () => {
     );
   };
 
-  const renderTableItem = () => {
+  const renderTableItem = (props) => {
     return (
       <tr>
         <td className="cart_product">
           <a href="#">
-            <img alt="Product" src="img/categories/rau_hoa_qua.PNG" />
+            <img alt="Product" src={props.productImage} />
           </a>
         </td>
         <td className="cart_description">
           <h5 className="product-name">
-            <a href="#">Cà chua bi </a>
+            <a href="#">{props.productName}</a>
           </h5>
         </td>
         <td className="price">
-          <span>10000 VNĐ</span>
+          <span>{props.productPrice} VNĐ</span>
         </td>
         <td className="qty">
           <div className="input-group">
@@ -112,13 +288,14 @@ const Cart = () => {
               type="Number"
               min="1"
               max="10"
+              value={props.productQuantity}
               className="form-control border-form-control form-control-sm input-number"
               name="quant[1]"
             />
           </div>
         </td>
         <td className="price">
-          <span>100000 VNĐ</span>
+          <span>{props.productPrice * props.productQuantity} VNĐ</span>
         </td>
         <td className="action text-center">
           <a
@@ -137,16 +314,16 @@ const Cart = () => {
   };
   return (
     <>
-      <section class="pt-3 pb-3 page-info section-padding border-bottom bg-white">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
+      <section className="pt-3 pb-3 page-info section-padding border-bottom bg-white">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
               <Link to="/home">
                 <strong>
-                  <span class="mdi mdi-home"></span> Home
+                  <span className="mdi mdi-home"></span> Home
                 </strong>
               </Link>{" "}
-              <span class="mdi mdi-chevron-right"></span> <span>Cart</span>
+              <span className="mdi mdi-chevron-right"></span> <span>Cart</span>
             </div>
           </div>
         </div>
@@ -156,74 +333,7 @@ const Cart = () => {
           <div className="row">
             <div className="col-md-12">
               <div className="card card-body cart-table">
-                <div className="table-responsive">
-                  {renderCampaignHeader()}
-                  <table className="table cart_summary">
-                    {renderTableHead()}
-                    <tbody>
-                      {renderFarmHeader()}
-                      {renderTableItem()}
-                      {renderTableItem()}
-                      {renderFarmHeader()}
-                      {renderTableItem()}
-                      {renderTableItem()}
-                      {renderFarmHeader()}
-                      {renderTableItem()}
-                      {renderTableItem()}
-                    </tbody>
-                    {renderTableFoot()}
-                  </table>
-                  <Link to="/checkout">
-                    <button
-                      className="btn btn-secondary-sm btn-block text-left"
-                      type="button"
-                    >
-                      <span className="float-left">
-                        <i className="mdi mdi-cart-outline"></i> Tiến hành thanh
-                        toán{" "}
-                      </span>
-                      <span className="float-right">
-                        <strong>290000 VNĐ</strong>{" "}
-                        <span className="mdi mdi-chevron-right"></span>
-                      </span>
-                    </button>
-                  </Link>
-                </div>
-                <br />
-                <br />
-                <div className="table-responsive">
-                  {renderCampaignHeader()}
-                  <table className="table cart_summary">
-                    {renderTableHead()}
-                    <tbody>
-                      {renderFarmHeader()}
-                      {renderTableItem()}
-                      {renderTableItem()}
-                      {renderFarmHeader()}
-                      {renderTableItem()}
-                      {renderTableItem()}
-                      {renderFarmHeader()}
-                      {renderTableItem()}
-                      {renderTableItem()}
-                    </tbody>
-                    {renderTableFoot()}
-                  </table>
-                  <Link to="/checkout">
-                    <button
-                      className="btn btn-secondary-sm btn-block text-left"
-                      type="button"
-                    >
-                      <span className="float-left">
-                        <i className="mdi mdi-cart-outline"></i> Tiến hành thanh
-                        toán{" "}
-                      </span>
-                      <span className="float-right">
-                        <strong>290000 VNĐ</strong>{" "}
-                        <span className="mdi mdi-chevron-right"></span>
-                      </span>
-                    </button>
-                  </Link>
-                </div>
+                {cart.map((campaign) => renderCartForCampaign({ ...campaign }))}
 
                 <br />
                 <br />
@@ -236,7 +346,7 @@ const Cart = () => {
                       <i className="mdi mdi-cart-outline"></i> Thanh toán tất cả{" "}
                     </span>
                     <span className="float-right">
-                      <strong>580000 VNĐ</strong>{" "}
+                      <strong>{totalAll} VNĐ</strong>{" "}
                       <span className="mdi mdi-chevron-right"></span>
                     </span>
                   </button>
