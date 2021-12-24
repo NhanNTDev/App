@@ -96,6 +96,15 @@ a:focus {
 .btn-secondary {
     background: #e96125 none repeat scroll 0 0 !important;
 }
+.btn-secondary-sm {
+    background: #f77d48 none repeat scroll 0 0 !important;
+}
+.cart-campaign-header {
+    background: #51aa1b none repeat scroll 0 0 !important;
+}
+.cart-farm-header {
+    background: #57f748 none repeat scroll 0 0 !important;
+}
 .text-secondary{
 	color:#e96125 !important;
 }
@@ -803,15 +812,15 @@ body.toggled::after {
     -moz-border-top-colors: none;
     border-color: #ececec #ececec #dcdcdc;
     border-image: none;
-    border-radius: 2px;
+    border-radius: 5px;
     border-style: solid;
-    border-width: 1px 1px 3px;
-    box-shadow: 0 0 3px #ececec;
+    border-width: 1px 1px 1px;
+    box-shadow: 0 0 0px #ececec;
     float: left;
-    height: 88px;
+    height: 80px;
     margin: 0px;
-    object-fit: scale-down;
-    width: 72px;
+    object-fit: cover;
+    width: 80px;
 }
 .cart_summary td {
     vertical-align: middle;
@@ -863,6 +872,23 @@ body.toggled::after {
     border-radius: 0 !important;
     font-size: 16px;
     padding: 20px;
+    text-transform: uppercase;
+}
+.cart-table .btn-secondary-sm {
+    border-radius: 0 !important;
+    font-size: 16px;
+    padding: 10px;
+    text-transform: uppercase;
+}
+.cart-table .cart-campaign-header {
+    border-radius: 0 !important;
+    font-size: 16px;
+    padding: 10px;
+    text-transform: uppercase;
+}
+.cart-table .cart-farm-header {
+    border-radius: 0 !important;
+    font-size: 16px;
     text-transform: uppercase;
 }
 .cart_product {
