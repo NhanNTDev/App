@@ -1,46 +1,72 @@
-import { render } from "@testing-library/react";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
+  const renderCampaignHeader = () => {
+    return (
+      <div className="cart-campaign-header text-left">
+        <strong>Chiến dịch:</strong>
+        {"   "}
+        Đà Lạt - Hồ Chí Minh
+      </div>
+    );
+  };
+  const renderFarmHeader = () => {
+    return (
+      <tr>
+        <td colSpan="6">
+          <div
+            className="cart-farm-header text-center"
+            style={{ background: "green" }}
+          >
+            <strong>Nông trại:</strong>
+            {"   "}
+            Nguyễn Thành Nhân
+          </div>
+        </td>
+      </tr>
+    );
+  };
   const renderTableFoot = () => {
     return (
       <tfoot>
-        <tr>
-          <td colSpan="1"></td>
-          <td colSpan="4">
-            <form className="form-inline float-right">
-              <div className="form-group">
-                <input
-                  type="text"
-                  placeholder="Enter discount code"
-                  className="form-control border-form-control form-control-sm"
-                />
-              </div>
-              &nbsp;
-              <button
-                className="btn btn-success float-left btn-sm"
-                type="submit"
-              >
-                Apply
-              </button>
-            </form>
+        <tr className="form-group">
+          <td colSpan="2"></td>
+          <td colSpan="1">
+            <input
+              type="text"
+              placeholder="Nhập mã giảm giá"
+              className="form-control border-form-control"
+            />
           </td>
-          <td colSpan="2">Discount : $237.88 </td>
+          <td colSpan="3">
+            <button className="btn btn-success float-left" onClick={() => {}}>
+              Áp dụng
+            </button>
+          </td>
         </tr>
         <tr>
           <td colSpan="2"></td>
-          <td className="text-right" colSpan="3">
-            Total products (tax incl.)
+          <td colSpan="1" className="font-weight-bold">
+            {" "}
+            Giảm giá:{" "}
           </td>
-          <td colSpan="2">$437.88 </td>
+          <td colSpan="3"> 10000 VNĐ </td>
         </tr>
         <tr>
-          <td className="text-right" colSpan="5">
-            <strong>Total</strong>
+          <td colSpan="2"></td>
+          <td colSpan="1" className="font-weight-bold">
+            {" "}
+            Thành tiền:{" "}
           </td>
-          <td className="text-danger" colSpan="2">
-            <strong>$337.88 </strong>
+          <td colSpan="3"> 300000 VNĐ </td>
+        </tr>
+        <tr>
+          <td colSpan="2"></td>
+          <td colSpan="1" className="font-weight-bold">
+            {" "}
+            Tiền phải trả:{" "}
           </td>
+          <td colSpan="3"> 290000 VNĐ </td>
         </tr>
       </tfoot>
     );
@@ -50,15 +76,15 @@ const Cart = () => {
     return (
       <thead>
         <tr>
-          <th className="cart_product">Product</th>
-          <th>Description</th>
-          <th>Avail.</th>
-          <th>Unit price</th>
-          <th>Qty</th>
-          <th>Total</th>
-          <th className="action">
+          <th className="cart_product">Hình ảnh</th>
+          <th>Tên sản phẩm</th>
+          <th>Đơn giá</th>
+          <th>Số lượng</th>
+          <th>Thành Tiền</th>
+          <th className="text-center">Hành động</th>
+          {/* <th className="action">
             <i className="mdi mdi-delete-forever"></i>
-          </th>
+          </th> */}
         </tr>
       </thead>
     );
@@ -69,57 +95,32 @@ const Cart = () => {
       <tr>
         <td className="cart_product">
           <a href="#">
-            <img alt="Product" src="img/item/10.jpg" className="img-fluid" />
+            <img alt="Product" src="img/categories/rau_hoa_qua.PNG" />
           </a>
         </td>
         <td className="cart_description">
           <h5 className="product-name">
-            <a href="#">Ipsums Dolors Untra </a>
+            <a href="#">Cà chua bi </a>
           </h5>
-          <h6>
-            <strong>
-              <span className="mdi mdi-approval"></span> Available in
-            </strong>{" "}
-            - 500 gm
-          </h6>
         </td>
-        <td className="availability out-of-stock">
-          <span className="badge badge-primary">No stock</span>
-        </td>
-        {/* <td class="availability in-stock"><span class="badge badge-success">In stock</span></td> */}
         <td className="price">
-          <span>$00.00</span>
+          <span>10000 VNĐ</span>
         </td>
         <td className="qty">
           <div className="input-group">
-            <span className="input-group-btn">
-              <button
-                disabled="disabled"
-                className="btn btn-theme-round btn-number"
-                type="button"
-              >
-                -
-              </button>
-            </span>
             <input
-              type="text"
-              max="10"
+              type="Number"
               min="1"
-              value="1"
+              max="10"
               className="form-control border-form-control form-control-sm input-number"
               name="quant[1]"
             />
-            <span className="input-group-btn">
-              <button className="btn btn-theme-round btn-number" type="button">
-                +
-              </button>
-            </span>
           </div>
         </td>
         <td className="price">
-          <span>00.00</span>
+          <span>100000 VNĐ</span>
         </td>
-        <td className="action">
+        <td className="action text-center">
           <a
             className="btn btn-sm btn-danger"
             data-original-title="Remove"
@@ -156,30 +157,86 @@ const Cart = () => {
             <div className="col-md-12">
               <div className="card card-body cart-table">
                 <div className="table-responsive">
+                  {renderCampaignHeader()}
                   <table className="table cart_summary">
                     {renderTableHead()}
                     <tbody>
+                      {renderFarmHeader()}
                       {renderTableItem()}
                       {renderTableItem()}
+                      {renderFarmHeader()}
                       {renderTableItem()}
                       {renderTableItem()}
+                      {renderFarmHeader()}
                       {renderTableItem()}
                       {renderTableItem()}
                     </tbody>
                     {renderTableFoot()}
                   </table>
+                  <Link to="/checkout">
+                    <button
+                      className="btn btn-secondary-sm btn-block text-left"
+                      type="button"
+                    >
+                      <span className="float-left">
+                        <i className="mdi mdi-cart-outline"></i> Tiến hành thanh
+                        toán{" "}
+                      </span>
+                      <span className="float-right">
+                        <strong>290000 VNĐ</strong>{" "}
+                        <span className="mdi mdi-chevron-right"></span>
+                      </span>
+                    </button>
+                  </Link>
                 </div>
+                <br />
+                <br />
+                <div className="table-responsive">
+                  {renderCampaignHeader()}
+                  <table className="table cart_summary">
+                    {renderTableHead()}
+                    <tbody>
+                      {renderFarmHeader()}
+                      {renderTableItem()}
+                      {renderTableItem()}
+                      {renderFarmHeader()}
+                      {renderTableItem()}
+                      {renderTableItem()}
+                      {renderFarmHeader()}
+                      {renderTableItem()}
+                      {renderTableItem()}
+                    </tbody>
+                    {renderTableFoot()}
+                  </table>
+                  <Link to="/checkout">
+                    <button
+                      className="btn btn-secondary-sm btn-block text-left"
+                      type="button"
+                    >
+                      <span className="float-left">
+                        <i className="mdi mdi-cart-outline"></i> Tiến hành thanh
+                        toán{" "}
+                      </span>
+                      <span className="float-right">
+                        <strong>290000 VNĐ</strong>{" "}
+                        <span className="mdi mdi-chevron-right"></span>
+                      </span>
+                    </button>
+                  </Link>
+                </div>
+
+                <br />
+                <br />
                 <Link to="/checkout">
                   <button
                     className="btn btn-secondary btn-lg btn-block text-left"
                     type="button"
                   >
                     <span className="float-left">
-                      <i className="mdi mdi-cart-outline"></i> Proceed to
-                      Checkout{" "}
+                      <i className="mdi mdi-cart-outline"></i> Thanh toán tất cả{" "}
                     </span>
                     <span className="float-right">
-                      <strong>$1200.69</strong>{" "}
+                      <strong>580000 VNĐ</strong>{" "}
                       <span className="mdi mdi-chevron-right"></span>
                     </span>
                   </button>
