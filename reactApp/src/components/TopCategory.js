@@ -1,13 +1,15 @@
+import {Link} from 'react-router-dom';
+
 const TopCategory = (props) => {
   function renderItem(props) {
     return (
       <div className="item" key={props.id}>
         <div className="category-item">
-          <a href="shop.html">
+          <Link to="/search-result">
             <img className="img-fluid" src={props.image} alt="" />
             <h6>{props.name}</h6>
             <p>{props.totalItem} Sản Phẩm</p>
-          </a>
+          </Link>
         </div>
       </div>
     );

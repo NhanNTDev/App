@@ -38,11 +38,11 @@ const Campaign = () => {
             <div className="col-md-12">
               <a href="#">
                 <strong>
-                  <span className="mdi mdi-home"></span> Home
+                  <span className="mdi mdi-home"></span> Trang chủ
                 </strong>
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">Campaign</a>{" "}
+              <a href="#">Chiến dịch</a>{" "}
               <span className="mdi mdi-chevron-right"></span> <a href="#">{campaign !== null ? campaign.name : ""}</a>
             </div>
           </div>
@@ -61,9 +61,9 @@ const Campaign = () => {
         </div>
       </section>
       <ItemGroup
-        title="Chiến dịch hot"
+        title="Chiến dịch khác"
         listCampaigns={campaigns}
-        type="hot"
+        type="other"
       ></ItemGroup>
     </>
   );

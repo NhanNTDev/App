@@ -56,7 +56,7 @@ const ItemGroup = (props) => {
         <div className="section-header">
           <h5 className="heading-design-h5">
             {props.title}{" "}
-            {props.type === "hot" && (
+            {props.type === "other" && (
               <span className="badge badge-primary">Đang hot</span>
             )}
             <Link

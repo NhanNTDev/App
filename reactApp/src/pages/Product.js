@@ -15,7 +15,7 @@ const Product = () => {
             <div className="col-md-12">
               <a href="#">
                 <strong>
-                  <span className="mdi mdi-home"></span> Home
+                  <span className="mdi mdi-home"></span> Trang chủ
                 </strong>
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
@@ -37,7 +37,7 @@ const Product = () => {
           </div>
         </div>
       </section>
-      <ItemGroup title="Chiến dịch hot" listCampaigns={hotCampaigns} type="hot"></ItemGroup>
+      <ItemGroup title="Chiến dịch khác" listCampaigns={hotCampaigns} type="other"></ItemGroup>
     </>
   );
 };

@@ -17,6 +17,7 @@ const Cart = () => {
               productImage: "/img/categories/rau_hoa_qua.PNG",
               productPrice: 10000,
               productQuantity: 10,
+              productUnit: "kg",
             },
             {
               productId: "2",
@@ -24,6 +25,7 @@ const Cart = () => {
               productImage: "/img/categories/rau_hoa_qua.PNG",
               productPrice: 10000,
               productQuantity: 10,
+              productUnit: "kg",
             },
           ],
         },
@@ -37,6 +39,7 @@ const Cart = () => {
               productImage: "/img/categories/rau_hoa_qua.PNG",
               productPrice: 10000,
               productQuantity: 10,
+              productUnit: "kg",
             },
             {
               productId: "4",
@@ -44,6 +47,7 @@ const Cart = () => {
               productImage: "/img/categories/rau_hoa_qua.PNG",
               productPrice: 10000,
               productQuantity: 10,
+              productUnit: "kg",
             },
           ],
         },
@@ -64,6 +68,7 @@ const Cart = () => {
               productImage: "/img/categories/rau_hoa_qua.PNG",
               productPrice: 10000,
               productQuantity: 10,
+              productUnit: "kg",
             },
             {
               productId: "6",
@@ -71,6 +76,7 @@ const Cart = () => {
               productImage: "/img/categories/rau_hoa_qua.PNG",
               productPrice: 10000,
               productQuantity: 10,
+              productUnit: "kg",
             },
           ],
         },
@@ -84,6 +90,7 @@ const Cart = () => {
               productImage: "/img/categories/rau_hoa_qua.PNG",
               productPrice: 10000,
               productQuantity: 10,
+              productUnit: "kg",
             },
             {
               productId: "8",
@@ -91,6 +98,7 @@ const Cart = () => {
               productImage: "/img/categories/rau_hoa_qua.PNG",
               productPrice: 10000,
               productQuantity: 10,
+              productUnit: "kg",
             },
           ],
         },
@@ -155,7 +163,7 @@ const Cart = () => {
                 <i className="mdi mdi-cart-outline"></i> Tiến hành thanh toán{" "}
               </span>
               <span className="float-right">
-                <strong>{mustPay} VNĐ</strong>{" "}
+                <strong>{mustPay.toLocaleString()} VNĐ</strong>{" "}
                 <span className="mdi mdi-chevron-right"></span>
               </span>
             </button>
@@ -188,7 +196,7 @@ const Cart = () => {
   const renderFarmHeader = (props) => {
     return (
       <tr>
-        <td colSpan="6">
+        <td colSpan="7">
           <div
             className="cart-farm-header text-center"
             style={{ background: "green" }}
@@ -207,7 +215,7 @@ const Cart = () => {
       <tfoot>
         <tr className="form-group">
           <td colSpan="2"></td>
-          <td colSpan="1">
+          <td colSpan="2">
             <input
               type="text"
               placeholder="Nhập mã giảm giá"
@@ -226,7 +234,7 @@ const Cart = () => {
             {" "}
             Giảm giá:{" "}
           </td>
-          <td colSpan="3"> {props.discount} VNĐ </td>
+          <td colSpan="4"> {props.discount.toLocaleString()} VNĐ </td>
         </tr>
         <tr>
           <td colSpan="2"></td>
@@ -234,7 +242,7 @@ const Cart = () => {
             {" "}
             Thành tiền:{" "}
           </td>
-          <td colSpan="3"> {props.total} VNĐ </td>
+          <td colSpan="4"> {props.total.toLocaleString()} VNĐ </td>
         </tr>
         <tr>
           <td colSpan="2"></td>
@@ -242,7 +250,7 @@ const Cart = () => {
             {" "}
             Tiền phải trả:{" "}
           </td>
-          <td colSpan="3"> {props.mustPay} VNĐ </td>
+          <td colSpan="4"> {props.mustPay.toLocaleString()} VNĐ </td>
         </tr>
       </tfoot>
     );
@@ -256,6 +264,7 @@ const Cart = () => {
           <th>Tên sản phẩm</th>
           <th>Đơn giá</th>
           <th>Số lượng</th>
+          <th>Đơn vị</th>
           <th>Thành Tiền</th>
           <th className="text-center">Hành động</th>
           {/* <th className="action">
@@ -280,7 +289,7 @@ const Cart = () => {
           </h5>
         </td>
         <td className="price">
-          <span>{props.productPrice} VNĐ</span>
+          <span>{props.productPrice.toLocaleString()} VNĐ</span>
         </td>
         <td className="qty">
           <div className="input-group">
@@ -290,12 +299,16 @@ const Cart = () => {
               max="10"
               value={props.productQuantity}
               className="form-control border-form-control form-control-sm input-number"
-              name="quant[1]"
             />
           </div>
         </td>
+        <td className="productUnit">
+          <span>{props.productUnit}</span>
+        </td>
         <td className="price">
-          <span>{props.productPrice * props.productQuantity} VNĐ</span>
+          <span>
+            {(props.productPrice * props.productQuantity).toLocaleString()} VNĐ
+          </span>
         </td>
         <td className="action text-center">
           <a
@@ -320,10 +333,11 @@ const Cart = () => {
             <div className="col-md-12">
               <Link to="/home">
                 <strong>
-                  <span className="mdi mdi-home"></span> Home
+                  <span className="mdi mdi-home"></span> Trang chủ
                 </strong>
               </Link>{" "}
-              <span className="mdi mdi-chevron-right"></span> <span>Cart</span>
+              <span className="mdi mdi-chevron-right"></span>{" "}
+              <span>Giỏ hàng</span>
             </div>
           </div>
         </div>
@@ -346,7 +360,7 @@ const Cart = () => {
                       <i className="mdi mdi-cart-outline"></i> Thanh toán tất cả{" "}
                     </span>
                     <span className="float-right">
-                      <strong>{totalAll} VNĐ</strong>{" "}
+                      <strong>{totalAll.toLocaleString()} VNĐ</strong>{" "}
                       <span className="mdi mdi-chevron-right"></span>
                     </span>
                   </button>

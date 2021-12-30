@@ -184,7 +184,7 @@ const Shop = () => {
             <div className="col-md-12">
               <a href="/home">
                 <strong>
-                  <span className="mdi mdi-home"></span> Home
+                  <span className="mdi mdi-home"></span> Trang chủ
                 </strong>
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
@@ -630,7 +630,7 @@ const Shop = () => {
           </div>
         </div>
       </section>
-      <ItemGroup title="Chiến dịch hot" listCampaigns={hotCampaigns} type="hot"></ItemGroup>
+      <ItemGroup title="Chiến dịch khác" listCampaigns={hotCampaigns} type="other"></ItemGroup>
     </>
   );
 };

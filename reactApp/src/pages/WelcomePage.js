@@ -14,6 +14,7 @@ import Product from "./Product";
 import Cart from "./Cart";
 import ViewAllCampaigns from "./ViewAllCampaigns";
 import Campaign from "./Campaign";
+import SearchResult from "./SearchResult";
 
 const WelcomePage = () => {
   return (
@@ -33,6 +34,7 @@ const WelcomePage = () => {
         <Route path="/product" element={<Product />} />
         <Route path="/all-campaigns" element={<ViewAllCampaigns />} />
         <Route path="/campaign/:id" element={<Campaign />} />
+        <Route path="/search-result" element={<SearchResult/>}/>
         <Route path="/*" element={<Navigate replace to="/page-not-found" />} />
       </Routes>
       <Footer></Footer>
