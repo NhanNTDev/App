@@ -229,6 +229,88 @@
       "from": "Đà Lạt",
       "to": "Hải Phòng"
     }
+  ],
+  "farms": [
+    {
+      "id" :"1",
+      "name" : "Nông Trại A",
+      "owner" : "Tâm Nguyễn",
+      "location": "Đà Lạt",
+      "area": "Khu vực 1",
+      "image": "https://anh.24h.com.vn/upload/1-2017/images/2017-03-07/1488878775-du-lich-da-kat-mong-mo--5-.jpg"
+    },
+    {
+      "id" :"2",
+      "name" : "Nông Trại B",
+      "owner" : "Tâm Nguyễn",
+      "location": "Đà Lạt",
+      "area": "Khu vực 1",
+      "image": "https://anh.24h.com.vn/upload/1-2017/images/2017-03-07/1488878775-du-lich-da-kat-mong-mo--5-.jpg"
+    },
+    {
+      "id" :"3",
+      "name" : "Nông Trại C",
+      "owner" : "Tâm Nguyễn",
+      "location": "Đà Lạt",
+      "area": "Khu vực 1",
+      "image": "https://anh.24h.com.vn/upload/1-2017/images/2017-03-07/1488878775-du-lich-da-kat-mong-mo--5-.jpg"
+    },
+    {
+      "id" :"4",
+      "name" : "Nông Trại D",
+      "owner" : "Tâm Nguyễn",
+      "location": "Đà Lạt",
+      "area": "Khu vực 1",
+      "image": "https://anh.24h.com.vn/upload/1-2017/images/2017-03-07/1488878775-du-lich-da-kat-mong-mo--5-.jpg"
+    },
+    {
+      "id" :"5",
+      "name" : "Nông Trại E",
+      "owner" : "Tâm Nguyễn",
+      "location": "Đà Lạt",
+      "area": "Khu vực 1",
+      "image": "https://anh.24h.com.vn/upload/1-2017/images/2017-03-07/1488878775-du-lich-da-kat-mong-mo--5-.jpg"
+    },
+    {
+      "id" :"6",
+      "name" : "Nông Trại F",
+      "owner" : "Tâm Nguyễn",
+      "location": "Đà Lạt",
+      "area": "Khu vực 1",
+      "image": "https://anh.24h.com.vn/upload/1-2017/images/2017-03-07/1488878775-du-lich-da-kat-mong-mo--5-.jpg"
+    },
+    {
+      "id" :"7",
+      "name" : "Nông Trại G",
+      "owner" : "Tâm Nguyễn",
+      "location": "Đà Lạt",
+      "area": "Khu vực 1",
+      "image": "https://anh.24h.com.vn/upload/1-2017/images/2017-03-07/1488878775-du-lich-da-kat-mong-mo--5-.jpg"
+    },
+    {
+      "id" :"8",
+      "name" : "Nông Trại H",
+      "owner" : "Tâm Nguyễn",
+      "location": "Đà Lạt",
+      "area": "Khu vực 1",
+      "image": "https://anh.24h.com.vn/upload/1-2017/images/2017-03-07/1488878775-du-lich-da-kat-mong-mo--5-.jpg"
+    },
+    {
+      "id" :"9",
+      "name" : "Nông Trại I",
+      "owner" : "Tâm Nguyễn",
+      "location": "Đà Lạt",
+      "area": "Khu vực 1",
+      "image": "https://anh.24h.com.vn/upload/1-2017/images/2017-03-07/1488878775-du-lich-da-kat-mong-mo--5-.jpg"
+    },
+    {
+      "id" :"10",
+      "name" : "Nông Trại J",
+      "owner" : "Tâm Nguyễn",
+      "location": "Đà Lạt",
+      "area": "Khu vực 1",
+      "image": "https://anh.24h.com.vn/upload/1-2017/images/2017-03-07/1488878775-du-lich-da-kat-mong-mo--5-.jpg"
+    }
   ]
 }
 
