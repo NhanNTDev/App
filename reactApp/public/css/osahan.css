@@ -102,9 +102,9 @@ a:focus {
 .cart-campaign-header {
     background: #51aa1b none repeat scroll 0 0 !important;
 }
-.cart-farm-header {
-    background: #57f748 none repeat scroll 0 0 !important;
-}
+/* .cart-farm-header {
+    background: #888 none repeat scroll 0 0 !important;
+} */
 .text-secondary{
 	color:#e96125 !important;
 }
