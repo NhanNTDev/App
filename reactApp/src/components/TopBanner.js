@@ -1,6 +1,6 @@
 
 
-const Banner = () => {
+const TopBanner = () => {
     const baners = [
         {
             id: "1",
@@ -51,4 +51,4 @@ const Banner = () => {
     );
 }
 
-export default Banner;
+export default TopBanner;

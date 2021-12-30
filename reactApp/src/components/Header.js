@@ -6,6 +6,7 @@ import LoginPopup from "./LoginPopup";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
+  const [city, setCity] = useState("0");
   const citys = [
     {
       id: "0",
@@ -60,19 +61,19 @@ const Header = () => {
     },
     {
       id: "2",
-      title: "Shop",
+      title: "Chiến dịch trong tuần",
       childrens: [],
-      link: "/shop",
+      link: "/all-campaigns?type=weekly",
     },
     {
       id: "3",
-      title: "Nông Trại",
+      title: "Chiến dịch khác",
       childrens: [],
-      link: "/home",
+      link: "/all-campaigns?type=other",
     },
     {
       id: "4",
-      title: "Check out",
+      title: "Cộng đồng",
       childrens: [],
       link: "/checkout",
     },
@@ -244,7 +245,7 @@ const Header = () => {
               <div className="top-categories-search">
                 <div className="input-group">
                   <span className="input-group-btn categories-dropdown">
-                    <select className="form-control-select" value="0" onChange={()=> {}}>
+                    <select className="form-control" value={city} onChange={(e)=> {setCity(e.target.value)}}>
                       {citys.map((city) => (
                         <option value={city.id} key={city.id}>
                           {city.name}

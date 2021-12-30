@@ -9,11 +9,11 @@ const Checkout = () => {
             <div className="col-md-12">
               <a href="#">
                 <strong>
-                  <span className="mdi mdi-home"></span> Home
+                  <span className="mdi mdi-home"></span> Trang chủ
                 </strong>
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">Checkout</a>
+              <a href="#">Thanh toán</a>
             </div>
           </div>
         </div>
