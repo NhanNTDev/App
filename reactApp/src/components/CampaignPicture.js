@@ -19,39 +19,19 @@ const CampaignPicture = () => {
             <img alt="" src="/img/item/1.jpg" className="img-fluid img-center" />
           </div>
           <div className="item">
-            <img alt="" src="/img/item/2.jpg" className="img-fluid img-center" />
+            <img alt="" src="/img/item/1.jpg" className="img-fluid img-center" />
           </div>
-          <div className="item">
-            <img alt="" src="/img/item/3.jpg" className="img-fluid img-center" />
-          </div>
-          <div className="item">
-            <img alt="" src="/img/item/4.jpg" className="img-fluid img-center" />
-          </div>
-          <div className="item">
-            <img alt="" src="/img/item/5.jpg" className="img-fluid img-center" />
-          </div>
-          <div className="item">
-            <img alt="" src="/img/item/6.jpg" className="img-fluid img-center" />
-          </div>
-        </div>
-        <div id="sync2" className="owl-carousel">
           <div className="item">
             <img alt="" src="/img/item/1.jpg" className="img-fluid img-center" />
           </div>
           <div className="item">
-            <img alt="" src="/img/item/2.jpg" className="img-fluid img-center" />
+            <img alt="" src="/img/item/1.jpg" className="img-fluid img-center" />
           </div>
           <div className="item">
-            <img alt="" src="/img/item/3.jpg" className="img-fluid img-center" />
+            <img alt="" src="/img/item/1.jpg" className="img-fluid img-center" />
           </div>
           <div className="item">
-            <img alt="" src="/img/item/4.jpg" className="img-fluid img-center" />
-          </div>
-          <div className="item">
-            <img alt="" src="/img/item/5.jpg" className="img-fluid img-center" />
-          </div>
-          <div className="item">
-            <img alt="" src="/img/item/6.jpg" className="img-fluid img-center" />
+            <img alt="" src="/img/item/1.jpg" className="img-fluid img-center" />
           </div>
         </div>
       </div>

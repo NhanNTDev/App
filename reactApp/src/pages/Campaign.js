@@ -3,15 +3,21 @@ import { useLocation } from "react-router-dom";
 import ItemGroup from "../components/ItemGroup";
 import { runScript, deleteScript } from "../utils/Common";
 import * as campaignsService from "../services/campaign-service";
+import * as farmsService from "../services/farm-service";
 import CampaignPicture from "../components/CampaignPicture";
 import CampaignDetail from "../components/CampaignDetail";
+import FarmGroup from "../components/FarmGroup";
+import ViewAllCampaigns from "./ViewAllCampaigns";
+import ListFarms from "../components/ListFarms";
 
 const Campaign = () => {
   const location = useLocation();
   const [campaigns, setCampaigns] = useState([]);
   const path = location.pathname.split("/")[2];
   const [campaign, setCampaign] = useState(null);
-  useEffect(()=> {
+  const [farms, setFarms] = useState([]);
+
+  useEffect(() => {
     deleteScript();
   }, []);
 
@@ -19,15 +25,21 @@ const Campaign = () => {
     const fetchCampaigns = async () => {
       const campaignsResponse = await campaignsService.getCampaigns();
       setCampaigns(campaignsResponse);
-      console.log("get campaign");
-      console.log(campaigns);
-      setCampaign(campaignsResponse.find(c => c.id.toString() === path))
-      runScript();
+      setCampaign(campaignsResponse.find((c) => c.id.toString() === path));
     };
     fetchCampaigns();
     // return () => {
     //   deleteScript();
     // }
+  }, []);
+
+  useLayoutEffect(() => {
+    const fetchFarms = async () => {
+      const farmsResponse = await farmsService.getAllFarms();
+      setFarms(farmsResponse);
+      runScript();
+    };
+    fetchFarms();
   }, []);
 
   return (
@@ -38,12 +50,13 @@ const Campaign = () => {
             <div className="col-md-12">
               <a href="#">
                 <strong>
-                  <span className="mdi mdi-home"></span> Trang chủ
+                  <span className="mdi mdi-home"></span> Home
                 </strong>
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">Chiến dịch</a>{" "}
-              <span className="mdi mdi-chevron-right"></span> <a href="#">{campaign !== null ? campaign.name : ""}</a>
+              <a href="#">Campaign</a>{" "}
+              <span className="mdi mdi-chevron-right"></span>{" "}
+              <a href="#">{campaign !== null ? campaign.name : ""}</a>
             </div>
           </div>
         </div>
@@ -51,20 +64,17 @@ const Campaign = () => {
       <section className="shop-single section-padding pt-3">
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
-              <CampaignPicture campaign={{...campaign}} />
+            <div className="col-md-4">
+              <CampaignPicture campaign={{ ...campaign }} />
+              <CampaignDetail campaign={{ ...campaign }} />
             </div>
-            <div className="col-md-6">
-              <CampaignDetail campaign={{...campaign}} />
+            <div className="col-md-8">
+              {/* <CampaignDetail campaign={{ ...campaign }} /> */}
+              <ListFarms/>
             </div>
           </div>
         </div>
       </section>
-      <ItemGroup
-        title="Chiến dịch khác"
-        listCampaigns={campaigns}
-        type="other"
-      ></ItemGroup>
     </>
   );
 };
