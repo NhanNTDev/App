@@ -1,6 +1,6 @@
 import { useEffect, useState, useLayoutEffect } from "react";
-import { RECORD_PER_PAGE } from "../constants/Constants";
-import { page1, page2, page3 } from "../constants/Data";
+import { RECORD_PER_PAGE } from "../../constants/Constants";
+import { page1, page2, page3 } from "../../constants/Data";
 import { Pagination } from "antd";
 import { useSearchParams } from "react-router-dom";
 import "antd/dist/antd.css";

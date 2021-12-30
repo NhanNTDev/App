@@ -1,4 +1,4 @@
-import ItemGroup from "../components/ItemGroup";
+import CampaignSlider from "../components/campaign/CampaignSlider";
 import { runScript,deleteScript } from "../utils/Common";
 import { hotCampaign } from "../constants/Data";
 import { useParams } from "react-router-dom";
@@ -630,7 +630,7 @@ const Shop = () => {
           </div>
         </div>
       </section>
-      <ItemGroup title="Chiến dịch khác" listCampaigns={hotCampaigns} type="other"></ItemGroup>
+      <CampaignSlider title="Chiến dịch khác" listCampaigns={hotCampaigns} type="other"></CampaignSlider>
     </>
   );
 };

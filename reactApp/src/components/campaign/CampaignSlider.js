@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const ItemGroup = (props) => {
+const CampaignSlider = (props) => {
   function renderCampaignItem(props) {
     return (
       <div className="item" key={props.id}>
@@ -8,12 +8,12 @@ const ItemGroup = (props) => {
         {/* /${props.id} */}
           <Link to={`/campaign/${props.id}`}>
             <div className="product-header">
-              <span className="badge badge-success">50% OFF</span>
+              {/* <span className="badge badge-success">50% OFF</span> */}
               <img className="img-fluid" src="/img/item/1.jpg" alt="" />
               <span className="veg text-success mdi mdi-circle"></span>
             </div>
             <div className="product-body">
-              <h4 style={{ height: 80 }}>{props.name}</h4>
+              <h4 style={{height: 60, overflow: "hidden", textOverflow: "ellipsis"}}>{props.name}</h4>
               <h5>
                 <strong>
                   <span className="mdi mdi-flower"></span> Tổng nông trại:
@@ -78,4 +78,4 @@ const ItemGroup = (props) => {
   );
 };
 
-export default ItemGroup;
+export default CampaignSlider;

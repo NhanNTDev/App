@@ -1,12 +1,12 @@
-import Banner from "../components/TopBanner";
-import CenterBanner from "../components/CenterBanner";
-import ItemGroup from "../components/ItemGroup";
-import TopCategory from "../components/TopCategory";
+import Banner from "../components/home/TopBanner";
+import CenterBanner from "../components/home/CenterBanner";
+import CampaignSlider from "../components/campaign/CampaignSlider";
+import TopCategory from "../components/home/TopCategory";
 import { runScript, deleteScript } from "../utils/Common";
 import { useLayoutEffect, useState, useEffect } from "react";
 import * as categoryService from "../services/category-service";
 import * as campaignsService from "../services/campaign-service";
-import TopBanner from "../components/TopBanner";
+import TopBanner from "../components/home/TopBanner";
 
 const Home = () => {
   const [weeklyCampaigns, setWeeklyCampaigns] = useState([]);
@@ -45,17 +45,17 @@ const Home = () => {
     <>
       <TopBanner/>
       <TopCategory listCategories={categories}></TopCategory>
-      <ItemGroup
+      <CampaignSlider
         title="Chiến dịch trong tuần"
         listCampaigns={weeklyCampaigns}
         type="weekly"
-      ></ItemGroup>
+      ></CampaignSlider>
       <CenterBanner/>
-      <ItemGroup
+      <CampaignSlider
         title="Chiến dịch khác"
         listCampaigns={hotCampaigns}
         type="other"
-      ></ItemGroup>
+      ></CampaignSlider>
     </>
   );
 };

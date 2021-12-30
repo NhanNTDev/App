@@ -4,23 +4,23 @@ const TopBanner = () => {
     const baners = [
         {
             id: "1",
-            image: "img/slider/slider1.PNG",
+            image: "/img/slider/slider1.PNG",
         },
         {
             id: "2",
-            image: "img/slider/slider2.PNG",
+            image: "/img/slider/slider2.PNG",
         },
         {
             id: "3",
-            image: "img/slider/slider1.PNG",
+            image: "/img/slider/slider1.PNG",
         },
         {
             id: "4",
-            image: "img/slider/slider2.PNG",
+            image: "/img/slider/slider2.PNG",
         },
         {
             id: "5",
-            image: "img/slider/slider1.PNG",
+            image: "/img/slider/slider1.PNG",
         }
     ]
 

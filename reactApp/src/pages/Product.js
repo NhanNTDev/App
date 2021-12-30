@@ -1,6 +1,6 @@
-import ItemGroup from "../components/ItemGroup";
-import ProductDetail from "../components/ProductDetail";
-import ProductPicture from "../components/ProductPicture";
+import CampaignSlider from "../components/campaign/CampaignSlider";
+import ProductDetail from "../components/product/ProductDetail";
+import ProductPicture from "../components/product/ProductPicture";
 import { hotCampaign } from "../constants/Data";
 import { runScript } from "../utils/Common";
 
@@ -37,7 +37,7 @@ const Product = () => {
           </div>
         </div>
       </section>
-      <ItemGroup title="Chiến dịch khác" listCampaigns={hotCampaigns} type="other"></ItemGroup>
+      <CampaignSlider title="Chiến dịch khác" listCampaigns={hotCampaigns} type="other"></CampaignSlider>
     </>
   );
 };

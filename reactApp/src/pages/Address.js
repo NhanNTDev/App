@@ -1,5 +1,5 @@
-import AccountLeft from "../components/AccountLeft";
-import AddressForm from "../components/AddressForm";
+import AccountLeft from "../components/account/AccountLeft";
+import AddressForm from "../components/account/AddressForm";
 
 const Address = () => {
   return (

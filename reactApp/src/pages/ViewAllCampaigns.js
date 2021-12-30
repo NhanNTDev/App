@@ -83,7 +83,7 @@ const ViewAllCampaigns = () => {
               <span className="veg text-success mdi mdi-circle"></span>
             </div>
             <div className="product-body">
-              <h4 style={{ height: 80 }}>{props.name}</h4>
+              <h4 style={{height: 60, overflow: "hidden", textOverflow: "ellipsis"}}>{props.name}</h4>
               <h5>
                 <strong>
                   <span className="mdi mdi-flower"></span> Tổng nông trại:
