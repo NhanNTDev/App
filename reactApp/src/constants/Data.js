@@ -1,7 +1,7 @@
 export const weeklyCampaign = [
   {
     id: "1",
-    name: "Đà Lạt - Hồ Chí Minh",
+    name: "Đà Lạt - Hồ Chí Minh Đà Lạt - Hồ Chí Minh",
     description: "Đây là chiến dịch hằng tuần đi từ Đà Lạt về Hồ Chí Minh",
     image: "img/item/1.jpg",
     startDate: "20/12/2020",

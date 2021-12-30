@@ -199,7 +199,6 @@ const Cart = () => {
         <td colSpan="7">
           <div
             className="cart-farm-header text-center"
-            style={{ background: "green" }}
           >
             <strong>Nông trại:</strong>
             {"   "}

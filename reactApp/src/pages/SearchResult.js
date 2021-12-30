@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../constants/Constants";
 import { productsList } from "../constants/Data";
 import { Pagination } from "antd";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const ViewAllCampaigns = () => {
   const [page, setPage] = useState(1);
@@ -64,7 +64,7 @@ const ViewAllCampaigns = () => {
     return (
       <div className="col-md-3">
         <div className="product">
-          <a href="single.html">
+          <Link to="/product">
             <div className="product-header">
               {/* <span className="badge badge-success">50% OFF</span> */}
               <img className="img-fluid" src="img/item/3.jpg" alt="" />
@@ -98,7 +98,7 @@ const ViewAllCampaigns = () => {
               </div>
               <br />
             </div>
-          </a>
+          </Link>
           <div className="product-footer">
            
             <button

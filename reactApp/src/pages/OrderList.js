@@ -1,4 +1,4 @@
-import AccountLeft from "../components/AccountLeft";
+import AccountLeft from "../components/account/AccountLeft";
 import OrderTable from "../components/OrderTable";
 
 const OrderList = () => {

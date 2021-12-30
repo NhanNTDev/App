@@ -1,8 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import CartPopup from "./CartPopup";
-import LoginPopup from "./LoginPopup";
+import LoginPopup from "../login/LoginPopup";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");

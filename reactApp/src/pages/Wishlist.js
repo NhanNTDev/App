@@ -1,5 +1,5 @@
-import AccountLeft from "../components/AccountLeft"
-import WistlistTable from "../components/WistlistTable";
+import AccountLeft from "../components/account/AccountLeft"
+import WistlistTable from "../components/account/WistlistTable";
 
 const Wishlist = () => {
   return (

@@ -1,5 +1,5 @@
-import AccountLeft from "../components/AccountLeft";
-import ProfileForm from "../components/ProfileForm";
+import AccountLeft from "../components/account/AccountLeft";
+import ProfileForm from "../components/account/ProfileForm";
 
 
 const Account = () => {
