@@ -759,7 +759,7 @@ body.toggled::after {
 }
 .shop-detail-right h2 {
     font-size: 24px;
-    font-weight: 100;
+    font-weight: 600;
     margin: 10px 0 5px;
 }
 .shop-detail-right > h6 {
@@ -776,8 +776,10 @@ body.toggled::after {
 .short-description {
     background: #fff none repeat scroll 0 0;
     border: 1px solid #eeeeee;
-    border-radius: 2px;
+    border-radius: 10px;
     padding: 22px;
+    max-height: 300px;
+      
 }
 .shop-detail-right .regular-price {
     font-size: 17px;

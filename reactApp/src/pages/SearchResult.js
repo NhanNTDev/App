@@ -108,8 +108,8 @@ const ViewAllCampaigns = () => {
             >
               <i className="mdi mdi-cart"></i> Thêm vào giỏ hàng
             </button>
-            <p class="offer-price mb-0">
-            <i class="mdi mdi-tag-outline"></i> {props.price.toLocaleString()} {" VNĐ / "} {props.unit} 
+            <p className="offer-price mb-0">
+            <i className="mdi mdi-tag-outline"></i> {props.price.toLocaleString()} {" VNĐ / "} {props.unit} 
                        
                       </p>
             <br />
