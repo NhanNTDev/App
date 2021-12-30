@@ -19,8 +19,10 @@ const Product = () => {
                 </strong>
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">Fruits & Vegetables</a>{" "}
-              <span className="mdi mdi-chevron-right"></span> <a href="#">Fruits</a>
+              <a href="#">Đà  Lạt - Hồ Chí Minh</a>
+              <span className="mdi mdi-chevron-right"></span>{" "}
+              <a href="#">Nguyễn Thành Nhân Farm</a>
+              <span className="mdi mdi-chevron-right"></span> <span>Hồng giòn Đà Lạt</span>
             </div>
           </div>
         </div>
