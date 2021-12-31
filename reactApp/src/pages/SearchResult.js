@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../constants/Constants";
 import { productsList } from "../constants/Data";
 import { Pagination } from "antd";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import ProductItem from "../components/product/ProductItem";
 
 const ViewAllCampaigns = () => {
   const [page, setPage] = useState(1);
@@ -60,64 +61,6 @@ const ViewAllCampaigns = () => {
     );
   };
 
-  const renderCampaignItem = (props) => {
-    return (
-      <div className="col-md-3">
-        <div className="product">
-          <Link to="/product">
-            <div className="product-header">
-              {/* <span className="badge badge-success">50% OFF</span> */}
-              <img className="img-fluid" src="img/item/3.jpg" alt="" />
-              <span className="veg text-success mdi mdi-circle"></span>
-            </div>
-            <div className="product-body">
-              <div style={{ height: 80 }}>
-                <h4>{props.name}</h4>
-                <h6>
-                  <strong>
-                    <span class="mdi mdi-approval"></span> Còn lại:
-                  </strong>{" "}
-                  {props.available} {" / "} {props.maxQuantity} {props.unit}
-                </h6>
-              </div>
-              <div style={{ height: 80 }}>
-                <h5>
-                  <strong>
-                    <span className="mdi mdi-map-marker-circle"></span> Chiến
-                    dịch:
-                  </strong>{" "}
-                  {props.campaignName}
-                </h5>
-                <h5>
-                  <strong>
-                    <span className="mdi mdi-flower"></span> Nông trại:
-                  </strong>{" "}
-                  {props.farmName}
-                </h5>
-                <br />
-              </div>
-              <br />
-            </div>
-          </Link>
-          <div className="product-footer">
-           
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm float-right"
-              onClick={() => {}}
-            >
-              <i className="mdi mdi-cart"></i> Thêm vào giỏ hàng
-            </button>
-            <p className="offer-price mb-0">
-            <i className="mdi mdi-tag-outline"></i> {props.price.toLocaleString()} {" VNĐ / "} {props.unit} 
-                       
-                      </p>
-            <br />
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <>
@@ -145,7 +88,7 @@ const ViewAllCampaigns = () => {
                 <h5 className="mb-4">Kết quả cho SearchString</h5>
               </div>
               <div className="row no-gutters">
-                {products.map((product) => renderCampaignItem({ ...product }))}
+                {products.map((product) => <ProductItem {...product}/>)}
               </div>
               {renderPagination()}
             </div>

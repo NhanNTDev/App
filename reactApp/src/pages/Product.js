@@ -1,12 +1,27 @@
-import CampaignSlider from "../components/campaign/CampaignSlider";
+import { useEffect, useState } from "react";
 import ProductDetail from "../components/product/ProductDetail";
 import ProductPicture from "../components/product/ProductPicture";
-import { hotCampaign } from "../constants/Data";
-import { runScript } from "../utils/Common";
+import { deleteScript, runScript } from "../utils/Common";
+import * as productService from "../services/product-service";
+import ProductSlider from "../components/product/ProductSlider";
 
 const Product = () => {
-  const hotCampaigns = hotCampaign;
-  runScript();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    deleteScript();
+  }, []);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const productsResponse = await productService.getListProduct();
+      setProducts(productsResponse);
+    };
+    fetchProducts();
+  }, []);
+  useEffect(() => {
+    runScript();
+  }, []);
+
   return (
     <>
       <section className="pt-3 pb-3 page-info section-padding border-bottom bg-white">
@@ -19,10 +34,11 @@ const Product = () => {
                 </strong>
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">Đà  Lạt - Hồ Chí Minh</a>
+              <a href="#">Đà Lạt - Hồ Chí Minh</a>
               <span className="mdi mdi-chevron-right"></span>{" "}
               <a href="#">Nguyễn Thành Nhân Farm</a>
-              <span className="mdi mdi-chevron-right"></span> <span>Hồng giòn Đà Lạt</span>
+              <span className="mdi mdi-chevron-right"></span>{" "}
+              <span>Hồng giòn Đà Lạt</span>
             </div>
           </div>
         </div>
@@ -31,15 +47,20 @@ const Product = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <ProductPicture/>
+              <ProductPicture />
             </div>
             <div className="col-md-6">
-              <ProductDetail/>
+              <ProductDetail />
             </div>
           </div>
         </div>
       </section>
-      <CampaignSlider title="Chiến dịch khác" listCampaigns={hotCampaigns} type="other"></CampaignSlider>
+      {products.length > 0 ? (
+        <ProductSlider
+          title="Sản phẩm khác trong nông trại"
+          listProduct={products}
+        />
+      ) : null}
     </>
   );
 };
