@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 const ProductSliderItem = (props) => {
-    console.log("1111")
   return (
     <div className="item">
       <div className="product">

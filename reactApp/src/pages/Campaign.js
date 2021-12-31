@@ -1,13 +1,10 @@
 import { useLayoutEffect, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import CampaignSlider from "../components/campaign/CampaignSlider";
 import { runScript, deleteScript } from "../utils/Common";
 import * as campaignsService from "../services/campaign-service";
 import * as farmsService from "../services/farm-service";
 import CampaignPicture from "../components/campaign/CampaignPicture";
 import CampaignDetail from "../components/campaign/CampaignDetail";
-import FarmGroup from "../components/farm/FarmGroup";
-import ViewAllCampaigns from "./ViewAllCampaigns";
 import ListFarms from "../components/farm/ListFarms";
 
 const Campaign = () => {
@@ -28,9 +25,6 @@ const Campaign = () => {
       setCampaign(campaignsResponse.find((c) => c.id.toString() === path));
     };
     fetchCampaigns();
-    // return () => {
-    //   deleteScript();
-    // }
   }, []);
 
   useLayoutEffect(() => {
@@ -69,7 +63,6 @@ const Campaign = () => {
               <CampaignDetail campaign={{ ...campaign }} />
             </div>
             <div className="col-md-8">
-              {/* <CampaignDetail campaign={{ ...campaign }} /> */}
               <ListFarms/>
             </div>
           </div>

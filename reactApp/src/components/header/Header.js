@@ -1,11 +1,11 @@
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LoginPopup from "../login/LoginPopup";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
   const [city, setCity] = useState("0");
+  const navigate = useNavigate();
   const citys = [
     {
       id: "0",
@@ -208,10 +208,10 @@ const Header = () => {
                   to={topRef.link}
                   className="mb-0 mr-2 text-white"
                 >
-                  {topRef.title} <span className="mb-0 ml-2 text-white">{"|"}</span>
+                  {topRef.title}{" "}
+                  <span className="mb-0 ml-2 text-white">{"|"}</span>
                 </Link>
-                
-              ))}             
+              ))}
             </div>
           </div>
         </div>
@@ -244,7 +244,13 @@ const Header = () => {
               <div className="top-categories-search">
                 <div className="input-group">
                   <span className="input-group-btn categories-dropdown">
-                    <select className="form-control" value={city} onChange={(e)=> {setCity(e.target.value)}}>
+                    <select
+                      className="form-control"
+                      value={city}
+                      onChange={(e) => {
+                        setCity(e.target.value);
+                      }}
+                    >
                       {citys.map((city) => (
                         <option value={city.id} key={city.id}>
                           {city.name}
@@ -258,10 +264,21 @@ const Header = () => {
                     placeholder="Tìm kiếm sản phẩm tại đây"
                     aria-label="Tìm kiếm sản phẩm tại đây"
                     type="text"
-                    onChange={(e) => {setSearchValue(e.target.value)}}
+                    onChange={(e) => {
+                      setSearchValue(e.target.value);
+                    }}
+                    onKeyPress={(e)=>{if(e.key == 'Enter'){
+                      navigate(`/search-result?searchValue=${searchValue}`);
+                    }}}
                   />
                   <span className="input-group-btn">
-                    <button className="btn btn-secondary" type="button">
+                    <button
+                      className="btn btn-secondary"
+                      type="button"
+                      onClick={() => {
+                        navigate(`/search-result?searchValue=${searchValue}`);
+                      }}
+                    >
                       <i className="mdi mdi-file-find"></i> Tìm Kiếm
                     </button>
                   </span>
