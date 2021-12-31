@@ -1,6 +1,6 @@
 import { useEffect, useState, useLayoutEffect } from "react";
 import { RECORD_PER_PAGE } from "../../constants/Constants";
-import { page1, page2, page3 } from "../../constants/Data";
+import { page1_farm, page2_farm, page3_farm } from "../../constants/Data";
 import { Pagination } from "antd";
 import { useSearchParams } from "react-router-dom";
 import "antd/dist/antd.css";
@@ -14,32 +14,31 @@ const ViewAllFarms = () => {
     setTotalRecords(36);
   }, []);
 
-
   useEffect(() => {
     switch (page) {
       case 1:
-        setCampaigns(page1);
+        setCampaigns(page1_farm);
         break;
       case 2:
-        setCampaigns(page2);
+        setCampaigns(page2_farm);
         break;
       case 3:
-        setCampaigns(page3);
+        setCampaigns(page3_farm);
         break;
     }
   }, [page]);
 
   const renderPagination = () => {
     return (
-        <div className="pagination justify-content-center mt-4">
-          <Pagination
-            showSizeChanger={false}
-            pageSize={RECORD_PER_PAGE}
-            defaultCurrent={1}
-            total={totalRecord}
-            onChange = {(pageNumber) => setPage(pageNumber)}
-          />
-        </div>
+      <div className="pagination justify-content-center mt-4">
+        <Pagination
+          showSizeChanger={false}
+          pageSize={RECORD_PER_PAGE}
+          defaultCurrent={1}
+          total={totalRecord}
+          onChange={(pageNumber) => setPage(pageNumber)}
+        />
+      </div>
     );
   };
   const sortTitles = [
@@ -58,7 +57,7 @@ const ViewAllFarms = () => {
           aria-haspopup="true"
           aria-expanded="false"
         >
-          Sort by Products &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Sort by Farms &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </button>
         <div className="dropdown-menu dropdown-menu-right">
           {sortTitles.map((sortTitle, index) => (
@@ -77,30 +76,34 @@ const ViewAllFarms = () => {
         <div className="product">
           <a href="single.html">
             <div className="product-header">
-              <span className="badge badge-success">50% OFF</span>
+              {/* <span className="badge badge-success">50% OFF</span> */}
               <img className="img-fluid" src="/img/item/3.jpg" alt="" />
               <span className="veg text-success mdi mdi-circle"></span>
             </div>
             <div className="product-body">
-              <h4 style={{ height: 60 }}>{props.name}</h4>
-              <h5>
-                <strong>
-                  <span className="mdi mdi-flower"></span> Tổng nông trại:
-                </strong>{" "}
-                {props.farmJoined}
-              </h5>
-              <h5>
-                <strong>
-                  <span className="mdi mdi-map-marker-circle"></span> Từ:
-                </strong>{" "}
-                {props.from}
-              </h5>
-              <h5>
-                <strong>
-                  <span className="mdi mdi-map-marker-circle"></span> Đến:
-                </strong>{" "}
-                {props.to}
-              </h5>
+              <div className="title">
+                <h4>{props.name}</h4>
+              </div>
+              <div className="detail">
+                <h5>
+                  <i>
+                    <span className="mdi mdi-map-marker"></span> Địa Chỉ:
+                  </i>{" "}
+                  {props.address}
+                </h5>
+                <h5>
+                  <i>
+                    <span className="mdi mdi-phone"></span> Số điện thoại:
+                  </i>{" "}
+                  {props.phone}
+                </h5>
+                <h5>
+                  <i>
+                    <span className="mdi mdi-email"></span> Email:
+                  </i>{" "}
+                  {props.email}
+                </h5>
+              </div>
               <br />
             </div>
           </a>
@@ -110,7 +113,7 @@ const ViewAllFarms = () => {
               className="btn btn-secondary btn-sm float-right"
               onClick={() => {}}
             >
-              <i className="mdi mdi-eye"></i> Xem chiến dịch
+              <i className="mdi mdi-eye"></i> Xem Quầy Bán
             </button>
             <br />
           </div>
@@ -128,9 +131,10 @@ const ViewAllFarms = () => {
               <div className="shop-head">
                 {renderSortDrop()}
                 <h5 className="mb-4">
-                  {searchParams.get("type") === "hot"
+                  {/* {searchParams.get("type") === "hot"
                     ? "Chiến dịch hot"
-                    : "Chiến dịch trong tuần"}
+                    : "Chiến dịch trong tuần"} */}
+                  Danh Sách Nông Trại
                 </h5>
               </div>
               <div className="row no-gutters">
