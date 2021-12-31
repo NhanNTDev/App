@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LoginPopup from "../login/LoginPopup";
+import TopOption from "./TopOption";
+import NavBar from "./NavBar";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -33,195 +35,9 @@ const Header = () => {
     },
   ];
 
-  const topRefs = [
-    {
-      id: "1",
-      title: "Đăng ký người bán",
-      link: "",
-    },
-    {
-      id: "2",
-      title: "Kết nối",
-      link: "",
-    },
-    {
-      id: "3",
-      title: "Tải ứng dụng",
-      link: "",
-    },
-  ];
-
-  const navbarItems = [
-    {
-      id: "1",
-      title: "Trang Chủ",
-      childrens: [],
-      link: "/home",
-    },
-    {
-      id: "2",
-      title: "Chiến dịch trong tuần",
-      childrens: [],
-      link: "/all-campaigns?type=weekly",
-    },
-    {
-      id: "3",
-      title: "Chiến dịch khác",
-      childrens: [],
-      link: "/all-campaigns?type=other",
-    },
-    {
-      id: "4",
-      title: "Cộng đồng",
-      childrens: [],
-      link: "/checkout",
-    },
-    {
-      id: "5",
-      title: "Cá Nhân",
-      childrens: [
-        {
-          id: "1",
-          title: "Thông Tin Cá Nhân",
-          link: "/account",
-        },
-        {
-          id: "2",
-          title: "Thông Tin Giao Hàng",
-          link: "/address",
-        },
-        {
-          id: "3",
-          title: "Mục Yêu Thích",
-          link: "/wishlist",
-        },
-        {
-          id: "4",
-          title: "Lịch Sử Đặt Hàng",
-          link: "/orderlist",
-        },
-      ],
-      link: "",
-    },
-    {
-      id: "6",
-      title: "Liên Hệ",
-      childrens: [],
-      link: "/home",
-    },
-    {
-      id: "7",
-      title: "Khác",
-      childrens: [
-        {
-          id: "1",
-          title: "Page Not Found",
-          link: "/page-not-found",
-        },
-        {
-          id: "2",
-          title: "Mục khác 2",
-          link: "",
-        },
-        {
-          id: "3",
-          title: "Mục khác 3",
-          link: "",
-        },
-        {
-          id: "4",
-          title: "Mục khác 4",
-          link: "",
-        },
-      ],
-      link: "",
-    },
-  ];
-
-  const renderNavbarItem = (props) => {
-    return (
-      <div key={props.id}>
-        {props.id === "1" ? (
-          <li className="nav-item">
-            <Link className="nav-link shop" to={props.link}>
-              <span className="mdi mdi-store"></span> {props.title}
-            </Link>
-          </li>
-        ) : props.childrens.length > 0 ? (
-          <li className="nav-item dropdown">
-            <Link
-              className="nav-link dropdown-toggle"
-              to="#"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              {props.title}
-            </Link>
-            <div className="dropdown-menu">
-              {props.childrens.map((child) => (
-                <Link key={child.id} className="dropdown-item" to={child.link}>
-                  <i className="mdi mdi-chevron-right" aria-hidden="true"></i>{" "}
-                  {child.title}
-                </Link>
-              ))}
-            </div>
-          </li>
-        ) : (
-          <li className="nav-item">
-            <Link className="nav-link" to={props.link}>
-              {props.title}
-            </Link>
-          </li>
-        )}
-      </div>
-    );
-  };
-
-  const renderNavbar = () => {
-    return (
-      <>
-        <nav className="navbar navbar-expand-lg navbar-light osahan-menu-2 pad-none-mobile">
-          <div className="container-fluid">
-            <div className="collapse navbar-collapse" id="navbarText">
-              <ul className="navbar-nav mr-auto mt-2 mt-lg-0 margin-auto">
-                {navbarItems.map((navbarItem) =>
-                  renderNavbarItem({ ...navbarItem })
-                )}
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </>
-    );
-  };
-
-  const renderTopReference = () => {
-    return (
-      <div className="navbar-top bg-success pt-2 pb-2">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-lg-12 text-center">
-              {topRefs.map((topRef) => (
-                <Link
-                  key={topRef.id}
-                  to={topRef.link}
-                  className="mb-0 mr-2 text-white"
-                >
-                  {topRef.title}{" "}
-                  <span className="mb-0 ml-2 text-white">{"|"}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <>
-      {renderTopReference()}
+      <TopOption />
       <nav className="navbar navbar-light navbar-expand-lg bg-dark bg-faded osahan-menu">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/home">
@@ -267,9 +83,11 @@ const Header = () => {
                     onChange={(e) => {
                       setSearchValue(e.target.value);
                     }}
-                    onKeyPress={(e)=>{if(e.key == 'Enter'){
-                      navigate(`/search-result?searchValue=${searchValue}`);
-                    }}}
+                    onKeyPress={(e) => {
+                      if (e.key == "Enter") {
+                        navigate(`/search-result?searchValue=${searchValue}`);
+                      }
+                    }}
                   />
                   <span className="input-group-btn">
                     <button
@@ -312,7 +130,7 @@ const Header = () => {
           </div>
         </div>
       </nav>
-      {renderNavbar()}
+      <NavBar />
       <LoginPopup />
     </>
   );
