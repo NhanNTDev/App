@@ -448,9 +448,25 @@ a:focus {
     top: 20px;
     width: 22px;
 }
+.product-body .title{
+    width: auto;
+    height: 50px;
+}
+.product-body .detail{
+    width: auto;
+    height: 100px;
+}
+.product-body i{
+    font-weight: 500;
+    font-size: 14px;
+}
+.product-body h4{
+    font-size: 20px;
+    font-weight: 500;
+}
 .product-body h5 {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     margin: 0;
 }
 .product-body h6 {

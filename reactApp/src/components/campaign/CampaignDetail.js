@@ -6,22 +6,25 @@ const CampaignDetail = (props) => {
       <span className="badge badge-success">50% OFF</span>
       <h2>{props.campaign.name}</h2>
       <h6>
-        <strong>
-          <span className="mdi mdi-approval"></span> Ưu đãi khi mua trên
-        </strong>{" "}
-        - 100 kg
+          <span className="mdi mdi-timer"></span> Từ thứ 2 đến thứ 5 hàng tuần
       </h6>
-      <p className="regular-price">
-        <i className="mdi mdi-tag-outline"></i> MRP : $800.99
+      <h6>
+          <span className="mdi mdi-corn"></span> Tổng nông trại tham gia: {props.campaign.farmJoined}
+      </h6>
+      <p className="offer-price mt-2">
+        <span className="mdi mdi-tag">Giá ưu đãi</span>
       </p>
-      <p className="offer-price mb-0">
-        Giá ưu đãi : <span className="text-success">$450.99</span>
+      <p className="offer-price mt-2">
+        <span className="mdi mdi-truck">Giao hàng nhanh gọn</span>
       </p>
-      <Link to="/checkout">
+      <p className="offer-price mt-2">
+        <span className="mdi mdi-approval">Sản phẩm tươi ngon</span>
+      </p>
+      {/* <Link to="/checkout">
         <button type="button" className="btn btn-secondary btn-lg">
           <i className="mdi mdi-cart-outline"></i> Tham Gia Chiến Dịch
         </button>{" "}
-      </Link>
+      </Link> */}
     </div>
   );
 };
