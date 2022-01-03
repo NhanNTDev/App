@@ -23,7 +23,7 @@ const LoginPopup = () => {
                                             <span aria-hidden="true">
                                                 <i className="mdi mdi-close"></i>
                                             </span>
-                                            <span className="sr-only">Close</span>
+                                            <span className="sr-only">Đóng</span>
                                         </button>
                                         <form>
                                             <div className="login-modal-right">
@@ -34,10 +34,10 @@ const LoginPopup = () => {
                                                         role="tabpanel"
                                                     >
                                                         <h5 className="heading-design-h5">
-                                                            Login to your account
+                                                            Đăng nhập vào tài khoản của bạn
                                                         </h5>
                                                         <fieldset className="form-group">
-                                                            <label>Enter Email/Mobile number</label>
+                                                            <label>Tên đăng nhập</label>
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
@@ -45,7 +45,7 @@ const LoginPopup = () => {
                                                             />
                                                         </fieldset>
                                                         <fieldset className="form-group">
-                                                            <label>Enter Password</label>
+                                                            <label>Mật khẩu</label>
                                                             <input
                                                                 type="password"
                                                                 className="form-control"
@@ -57,11 +57,11 @@ const LoginPopup = () => {
                                                                 type="submit"
                                                                 className="btn btn-lg btn-secondary btn-block"
                                                             >
-                                                                Enter to your account
+                                                                Đăng nhập
                                                             </button>
                                                         </fieldset>
                                                         <div className="login-with-sites text-center">
-                                                            <p>or Login with your social profile:</p>
+                                                            <p>Đăng nhập bằng tài khoản khác:</p>
                                                             <button className="btn-facebook login-icons btn-lg">
                                                                 <i className="mdi mdi-facebook"></i> Facebook
                                                             </button>
@@ -82,14 +82,14 @@ const LoginPopup = () => {
                                                                 className="custom-control-label"
                                                                 htmlFor="customCheck1"
                                                             >
-                                                                Remember me
+                                                                Nhớ mật khẩu
                                                             </label>
                                                         </div>
                                                     </div>
                                                     <div className="tab-pane" id="register" role="tabpanel">
-                                                        <h5 className="heading-design-h5">Register Now!</h5>
+                                                        <h5 className="heading-design-h5">Đăng ký tài khoản mới!</h5>
                                                         <fieldset className="form-group">
-                                                            <label>Enter Email/Mobile number</label>
+                                                            <label>Nhập Email/Số điện thoại</label>
                                                             <input
                                                                 type="text"
                                                                 className="form-control"
@@ -97,7 +97,7 @@ const LoginPopup = () => {
                                                             />
                                                         </fieldset>
                                                         <fieldset className="form-group">
-                                                            <label>Enter Password</label>
+                                                            <label>Nhập mật khẩu</label>
                                                             <input
                                                                 type="password"
                                                                 className="form-control"
@@ -105,7 +105,7 @@ const LoginPopup = () => {
                                                             />
                                                         </fieldset>
                                                         <fieldset className="form-group">
-                                                            <label>Enter Confirm Password </label>
+                                                            <label>Nhập lại mật khẩu </label>
                                                             <input
                                                                 type="password"
                                                                 className="form-control"
@@ -117,7 +117,7 @@ const LoginPopup = () => {
                                                                 type="submit"
                                                                 className="btn btn-lg btn-secondary btn-block"
                                                             >
-                                                                Create Your Account
+                                                                Đăng ký
                                                             </button>
                                                         </fieldset>
                                                         <div className="custom-control custom-checkbox">
@@ -130,8 +130,8 @@ const LoginPopup = () => {
                                                                 className="custom-control-label"
                                                                 htmlFor="customCheck2"
                                                             >
-                                                                I Agree with{" "}
-                                                                <a href="#">Term and Conditions</a>
+                                                                Tôi đồng ý với{" "}
+                                                                <a href="#">điều khoản sử dụng</a>
                                                             </label>
                                                         </div>
                                                     </div>
@@ -146,7 +146,7 @@ const LoginPopup = () => {
                                                                 href="#login"
                                                                 role="tab"
                                                             >
-                                                                <i className="mdi mdi-lock"></i> LOGIN
+                                                                <i className="mdi mdi-lock"></i> ĐĂNG NHẬP
                                                             </a>
                                                         </li>
                                                         <li className="nav-item">
@@ -156,7 +156,7 @@ const LoginPopup = () => {
                                                                 href="#register"
                                                                 role="tab"
                                                             >
-                                                                <i className="mdi mdi-pencil"></i> REGISTER
+                                                                <i className="mdi mdi-pencil"></i> ĐĂNG KÝ
                                                             </a>
                                                         </li>
                                                     </ul>
