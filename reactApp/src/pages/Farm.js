@@ -13,19 +13,22 @@ import { deleteScript, runScript } from "../utils/Common";
 
 const Farm = () => {
   const param = useParams();
-  console.log(param.farmId)
   const [farm, setFarm] = useState({});
   const [farms, setFarms] = useState([]);
 
   useEffect(() => {
     deleteScript();
-    setFarms(page1_farm);  
+    setFarms(page1_farm);
+    console.log("1");
   }, []);
+
+  console.log(farms)
 
   useEffect(() => {
     setFarm(farms.find((c) => c.id.toString() === param.farmId));
     runScript();
-  });
+    console.log("2");
+  },[farms]);
 
   console.log(farm)
 
