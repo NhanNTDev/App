@@ -39,7 +39,7 @@ const ProductDetail = () => {
           Mô tả:
         </h5>
         <p style={{overflow: "hidden", textOverflow: "ellipsis", maxHeight: 150}}>{product && product.productDescription}</p>
-        <p className="mb-0" style={{overflow: "hidden", textOverflow: "ellipsis", maxHeight: 150}}>
+        <p className="mb-0" style={{overflow: "hidden", textOverflow: "ellipsis", maxHeight: 100}}>
           {" "}
           <strong>Mùa vụ: </strong> {product && product.harverst}
           <br />
