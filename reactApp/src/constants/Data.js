@@ -1037,7 +1037,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
+    description: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
     status: "true"
   },
   {
@@ -1048,7 +1048,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
+    description: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
     status: "true"
   },
   {
@@ -1059,7 +1059,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
+    description: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
     status: "true"
   },
   {
@@ -1070,7 +1070,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
+    description: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
     status: "true"
   },
   {
@@ -1081,7 +1081,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
+    description: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
     status: "true"
   },
   {
@@ -1092,7 +1092,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
+    description: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
     status: "true"
   },
   {
@@ -1103,7 +1103,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
+    description: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
     status: "true"
   },
   {
@@ -1114,7 +1114,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
+    description: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
     status: "true"
   },
   {
@@ -1125,7 +1125,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
+    description: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
     status: "true"
   },
   {
@@ -1136,7 +1136,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
+    description: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
     status: "true"
   },
   {
@@ -1147,7 +1147,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
+    description: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
     status: "true"
   },
   {
@@ -1158,7 +1158,7 @@ export const page1_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
+    description: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
     status: "true"
   }
 ]
@@ -1172,7 +1172,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
+    description: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
     status: "true"
   },
   {
@@ -1183,7 +1183,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
+    description: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
     status: "true"
   },
   {
@@ -1194,7 +1194,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
+    description: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
     status: "true"
   },
   {
@@ -1205,7 +1205,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
+    description: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
     status: "true"
   },
   {
@@ -1216,7 +1216,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
+    description: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
     status: "true"
   },
   {
@@ -1227,7 +1227,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
+    description: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
     status: "true"
   },
   {
@@ -1238,7 +1238,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
+    description: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
     status: "true"
   },
   {
@@ -1249,7 +1249,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
+    description: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
     status: "true"
   },
   {
@@ -1260,7 +1260,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
+    description: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
     status: "true"
   },
   {
@@ -1271,7 +1271,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
+    description: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
     status: "true"
   },
   {
@@ -1282,7 +1282,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
+    description: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
     status: "true"
   },
   {
@@ -1293,7 +1293,7 @@ export const page2_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
+    description: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
     status: "true"
   }
 ]
@@ -1307,7 +1307,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
+    description: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
     status: "true"
   },
   {
@@ -1318,7 +1318,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
+    description: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
     status: "true"
   },
   {
@@ -1329,7 +1329,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
+    description: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
     status: "true"
   },
   {
@@ -1340,7 +1340,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
+    description: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
     status: "true"
   },
   {
@@ -1351,7 +1351,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
+    description: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
     status: "true"
   },
   {
@@ -1362,7 +1362,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
+    description: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
     status: "true"
   },
   {
@@ -1373,7 +1373,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
+    description: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
     status: "true"
   },
   {
@@ -1384,7 +1384,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
+    description: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
     status: "true"
   },
   {
@@ -1395,7 +1395,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
+    description: "Đến mùa xuân, hoa mai anh đào Đà Lạt nở bung với màu sắc rực rỡ. Đến mùa thu thì những bông hoa Dã Quỳ vàng rực khoe sắc",
     status: "true"
   },
   {
@@ -1406,7 +1406,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
+    description: "Vinamilk Organic Milk tự hào khi có một trang trại bò sữa chuẩn organic châu Âu đầu tiên tại Việt Nam do tổ chức Control Union (Hà Lan) chứng nhận",
     status: "true"
   },
   {
@@ -1417,7 +1417,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
+    description: "Nông trại vui vẻ, hay còn được gọi với cái tên là Sunny Farm. Đây là một trong những nông trại Đà Lạt gây ấn tượng bởi cách trang trí và màu sắc dễ thương, bắt mắt. Đây cũng chính là điểm cộng khiến Sunny Farm trở nên thu hút hơn so với các nông trại khác.",
     status: "true"
   },
   {
@@ -1428,7 +1428,7 @@ export const page3_farm = [
     phone: "012345678",
     email: "farm1@gmail.com",
     area: "1",
-    descripton: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
+    description: "Cầu Đất Farm là nông trại Đà Lạt nổi tiếng hấp dẫn bất kỳ ai mỗi khi đi du lịch thành phố ngàn hoa. Nơi đây nổi tiếng là nông trại trồng chè và cà phê nổi tiếng luôn. Với diện tích lên tới 220 ha, đồi chè Cầu Đất là địa điểm checkin hoành tráng đáng đồng tiền bát gạo tại Đà Lạt.",
     status: "true"
   }
 ]
