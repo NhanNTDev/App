@@ -1,18 +1,16 @@
 import { useLayoutEffect, useEffect, useState } from "react";
+
+import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { runScript, deleteScript } from "../utils/Common";
 import * as campaignsService from "../services/campaign-service";
-import * as farmsService from "../services/farm-service";
 import CampaignPicture from "../components/campaign/CampaignPicture";
 import CampaignDetail from "../components/campaign/CampaignDetail";
 import ListFarms from "../components/farm/ListFarms";
 
 const Campaign = () => {
-  const location = useLocation();
-  const [campaigns, setCampaigns] = useState([]);
-  const path = location.pathname.split("/")[2];
+  const param = useParams();
   const [campaign, setCampaign] = useState(null);
-  const [farms, setFarms] = useState([]);
 
   useEffect(() => {
     deleteScript();
@@ -21,20 +19,16 @@ const Campaign = () => {
   useLayoutEffect(() => {
     const fetchCampaigns = async () => {
       const campaignsResponse = await campaignsService.getCampaigns();
-      setCampaigns(campaignsResponse);
-      setCampaign(campaignsResponse.find((c) => c.id.toString() === path));
+      setCampaign(campaignsResponse.find((c) => c.id.toString() === param.id));
     };
     fetchCampaigns();
+    runScript();
+    // return () => {
+    //   deleteScript();
+    // }
+
   }, []);
 
-  useLayoutEffect(() => {
-    const fetchFarms = async () => {
-      const farmsResponse = await farmsService.getAllFarms();
-      setFarms(farmsResponse);
-      runScript();
-    };
-    fetchFarms();
-  }, []);
 
   return (
     <>
@@ -63,7 +57,8 @@ const Campaign = () => {
               <CampaignDetail campaign={{ ...campaign }} />
             </div>
             <div className="col-md-8">
-              <ListFarms/>
+              {/* <CampaignDetail campaign={{ ...campaign }} /> */}
+              <ListFarms campaignId={param.id}/>
             </div>
           </div>
         </div>

@@ -2,13 +2,13 @@ import { useEffect, useState, useLayoutEffect } from "react";
 import { RECORD_PER_PAGE } from "../../constants/Constants";
 import { page1_farm, page2_farm, page3_farm } from "../../constants/Data";
 import { Pagination } from "antd";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import "antd/dist/antd.css";
 
-const ViewAllFarms = () => {
+const ListFarms = ({campaignId}) => {
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(1);
-  const [campaigns, setCampaigns] = useState([]);
+  const [farms, setFarms] = useState([]);
   let [searchParams] = useSearchParams();
   useEffect(() => {
     setTotalRecords(36);
@@ -17,13 +17,13 @@ const ViewAllFarms = () => {
   useEffect(() => {
     switch (page) {
       case 1:
-        setCampaigns(page1_farm);
+        setFarms(page1_farm);
         break;
       case 2:
-        setCampaigns(page2_farm);
+        setFarms(page2_farm);
         break;
       case 3:
-        setCampaigns(page3_farm);
+        setFarms(page3_farm);
         break;
     }
   }, [page]);
@@ -74,9 +74,8 @@ const ViewAllFarms = () => {
     return (
       <div className="col-md-4">
         <div className="product">
-          <a href="single.html">
+          <Link to={`/campaign/${campaignId}/${props.id}/`}>
             <div className="product-header">
-              {/* <span className="badge badge-success">50% OFF</span> */}
               <img className="img-fluid" src="/img/item/3.jpg" alt="" />
               <span className="veg text-success mdi mdi-circle"></span>
             </div>
@@ -93,7 +92,7 @@ const ViewAllFarms = () => {
                 </h5>
                 <h5>
                   <i>
-                    <span className="mdi mdi-phone"></span> Số điện thoại:
+                    <span className=" "></span> Số điện thoại:
                   </i>{" "}
                   {props.phone}
                 </h5>
@@ -106,7 +105,7 @@ const ViewAllFarms = () => {
               </div>
               <br />
             </div>
-          </a>
+          </Link>
           <div className="product-footer">
             <button
               type="button"
@@ -138,8 +137,8 @@ const ViewAllFarms = () => {
                 </h5>
               </div>
               <div className="row no-gutters">
-                {campaigns.map((campaign) =>
-                  renderCampaignItem({ ...campaign })
+                {farms.map((farm) =>
+                  renderCampaignItem({ ...farm})
                 )}
               </div>
               {renderPagination()}
@@ -151,4 +150,4 @@ const ViewAllFarms = () => {
   );
 };
 
-export default ViewAllFarms;
+export default ListFarms;
