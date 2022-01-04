@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import FarmDetail from "../components/farm/FarmDetail";
 import FarmPicture from "../components/farm/FarmPicture";
 import ProductDetail from "../components/product/ProductDetail";
+import ProductList from "../components/product/ProductList";
 import {
   page1_farm,
   page1_product,
@@ -59,8 +60,7 @@ const Farm = () => {
               <FarmDetail farm = {{...farm}}/>
             </div>
             <div className="col-md-8">
-              
-              {/* <ListFarms campaignId={param.id} /> */}
+              <ProductList/>
             </div>
           </div>
         </div>
