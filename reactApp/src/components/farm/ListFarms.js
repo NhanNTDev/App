@@ -74,7 +74,7 @@ const ListFarms = ({campaignId}) => {
     return (
       <div className="col-md-4">
         <div className="product">
-          <Link to={`/campaign/${campaignId}/${props.id}/`}>
+          <Link to={`/campaign/${campaignId}/${props.id}`}>
             <div className="product-header">
               <img className="img-fluid" src="/img/item/3.jpg" alt="" />
               <span className="veg text-success mdi mdi-circle"></span>

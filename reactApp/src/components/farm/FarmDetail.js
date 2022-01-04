@@ -3,7 +3,7 @@ import React from "react";
 const FarmDetail = (props) => {
   return (
     <div className="shop-detail-right">
-      <h2>Tên Nông Trại</h2>
+      <h2>{props.farm.name}</h2>
       <h6>
         <span className="mdi mdi-map-marker"></span> Địa chỉ
       </h6>
