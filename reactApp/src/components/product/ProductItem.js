@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const ProductItem = (props) => {
   return (
-    <div className="col-md-4">
+    <div className="col-md-3">
       <div className="product">
         <Link to="/product">
           <div className="product-header">

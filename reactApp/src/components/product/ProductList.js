@@ -2,8 +2,7 @@ import { Pagination } from "antd";
 import { useEffect, useState } from "react";
 import {RECORD_PER_PAGE} from "../../constants/Constants"
 import {page1_product, page2_product, page3_product} from "../../constants/Data";
-import ProductItem from "./ProductItem";
-import ProductSliderItem from "./ProductSliderItem";
+import ProductSliderItem from "./ProductItemShort";
 
 const ProductList = () => {
   const [page, setPage] = useState(1);
@@ -80,9 +79,6 @@ const ProductList = () => {
             <div className="shop-head">
               {renderSortDrop()}
               <h5 className="mb-4">
-                {/* {searchParams.get("type") === "hot"
-                  ? "Chiến dịch hot"
-                  : "Chiến dịch trong tuần"} */}
                 Danh Sách Sản Phẩm
               </h5>
             </div>

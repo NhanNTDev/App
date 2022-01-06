@@ -107,13 +107,13 @@ const ListFarms = ({campaignId}) => {
             </div>
           </Link>
           <div className="product-footer">
-            <button
+            <Link to={`/campaign/${campaignId}/${props.id}`}
               type="button"
               className="btn btn-secondary btn-sm float-right"
               onClick={() => {}}
             >
               <i className="mdi mdi-eye"></i> Xem Quầy Bán
-            </button>
+            </Link>
             <br />
           </div>
         </div>

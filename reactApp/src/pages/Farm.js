@@ -20,15 +20,15 @@ const Farm = () => {
   useEffect(() => {
     deleteScript();
     setFarms(page1_farm);
-    console.log("1");
+    console.log(1);
   }, []);
 
-  console.log(farms)
 
   useEffect(() => {
     setFarm(farms.find((c) => c.id.toString() === param.farmId));
+    console.log(farms)
     runScript();
-    console.log("2");
+    console.log(2);
   },[farms]);
 
   console.log(farm)

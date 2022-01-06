@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const ProductSliderItem = (props) => {
+const ProductItemShort = (props) => {
   return (
     <div className="item">
       <div className="product">
@@ -42,4 +42,4 @@ const ProductSliderItem = (props) => {
   );
 };
 
-export default ProductSliderItem;
+export default ProductItemShort;
