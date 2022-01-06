@@ -397,7 +397,7 @@ export const hotCampaign = [
 export const page1 = [
   {
     id: "1",
-    name: "Trang 1 nèAAAAAAAAAAAAAAAAA",
+    name: "Trang 1 nè",
     description: "Đây là chiến dịch hằng tuần đi từ Đà Lạt về Hồ Chí Minh",
     image: "img/item/1.jpg",
     startDate: "20/12/2020",

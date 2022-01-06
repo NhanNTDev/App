@@ -88,7 +88,7 @@ const ViewAllCampaigns = () => {
                 <h5 className="mb-4">Kết quả cho SearchString</h5>
               </div>
               <div className="row no-gutters">
-                {products.map((product) => <ProductItem {...product}/>)}
+                {products.map((product) => <ProductItem product = {{...product}}/>)}
               </div>
               {renderPagination()}
             </div>

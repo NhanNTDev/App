@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
+
 const CampaignItem = (props) => {
   return (
     <div className="col-md-3">
       <div className="product">
-        <a href="single.html">
+        <Link to={`/campaign/${props.id}`}>
           <div className="product-header">
             <img className="img-fluid" src="img/item/3.jpg" alt="" />
             <span className="veg text-success mdi mdi-circle"></span>
@@ -37,15 +39,14 @@ const CampaignItem = (props) => {
             </h5>
             <br />
           </div>
-        </a>
+        </Link>
         <div className="product-footer">
-          <button
-            type="button"
+          <Link
+            to={`/campaign/${props.id}`}
             className="btn btn-secondary btn-sm float-right"
-            onClick={() => {}}
           >
             <i className="mdi mdi-eye"></i> Xem chiến dịch
-          </button>
+          </Link>
           <br />
         </div>
       </div>
