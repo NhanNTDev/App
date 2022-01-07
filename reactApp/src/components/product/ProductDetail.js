@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import * as productService from "../../services/product-service";
+import * as productService from "../../apis/product-service";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);

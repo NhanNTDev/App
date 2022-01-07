@@ -1,12 +1,13 @@
-import Banner from "../components/home/TopBanner";
 import CenterBanner from "../components/home/CenterBanner";
 import CampaignSlider from "../components/campaign/CampaignSlider";
 import TopCategory from "../components/home/TopCategory";
 import { runScript, deleteScript } from "../utils/Common";
 import { useLayoutEffect, useState, useEffect } from "react";
-import * as categoryService from "../services/category-service";
-import * as campaignsService from "../services/campaign-service";
+import * as categoryService from "../apis/category-service";
+import * as campaignsService from "../apis/campaign-service";
 import TopBanner from "../components/home/TopBanner";
+import campaignsApi from "../apis/campaignsApi";
+
 
 const Home = () => {
   const [weeklyCampaigns, setWeeklyCampaigns] = useState([]);
@@ -18,7 +19,7 @@ const Home = () => {
     deleteScript();
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchCategories = async () => {
       const categoryResponse = await categoryService.getAllCategoriesAPI();
       setCategories(categoryResponse);
@@ -27,12 +28,30 @@ const Home = () => {
     fetchCategories();
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchCampaigns = async () => {
       const campaigns = await campaignsService.getCampaigns();
+      // const campaigns = await campaignsApi.get();
       setWeeklyCampaigns(campaigns);
       setHotCampaign(campaigns);
       runScript();
+    };
+
+    fetchCampaigns();
+  }, []);
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      const params = {
+        page: 1,
+        size: 12,
+      }
+      // const campaigns = await campaignsService.getCampaigns();
+      const campaigns = await campaignsApi.getAll(params);
+      console.log("call api:")
+      console.log(campaigns);
+      // setWeeklyCampaigns(campaigns);
+      // setHotCampaign(campaigns);
+      // runScript();
     };
 
     fetchCampaigns();

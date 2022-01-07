@@ -8,7 +8,6 @@ export const getProduct = async () => {
     data: null,
   })
     .then((res) => {
-      console.log(res);
       result = res.data;
     })
     .catch((err) => {
@@ -25,7 +24,6 @@ export const getListProduct = async () => {
     data: null,
   })
     .then((res) => {
-      console.log(res);
       result = res.data;
     })
     .catch((err) => {

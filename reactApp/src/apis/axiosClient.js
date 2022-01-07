@@ -3,8 +3,11 @@ import queryString from 'query-string';
 
 
 const axiosClient = axios.create({
-    baseURL= process.env.REACT_APP_API_BASEURL, headers : {
+    baseURL: process.env.REACT_APP_API_BASEURL, 
+    headers : {
         'content-type': 'application/json',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
     },
     paramsSerializer: params => queryString.stringify(params),
 

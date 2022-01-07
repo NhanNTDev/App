@@ -1,9 +1,8 @@
 import { useLayoutEffect, useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { runScript, deleteScript } from "../utils/Common";
-import * as campaignsService from "../services/campaign-service";
+import * as campaignsService from "../apis/campaign-service";
 import CampaignPicture from "../components/campaign/CampaignPicture";
 import CampaignDetail from "../components/campaign/CampaignDetail";
 import ListFarms from "../components/farm/ListFarms";
