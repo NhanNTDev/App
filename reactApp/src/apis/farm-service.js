@@ -8,7 +8,6 @@ export const getAllFarms = async () => {
     data: null,
   })
     .then((res) => {
-      console.log(res);
       result = res.data;
     })
     .catch((err) => {

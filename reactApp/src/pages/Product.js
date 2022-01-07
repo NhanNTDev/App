@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ProductDetail from "../components/product/ProductDetail";
 import ProductPicture from "../components/product/ProductPicture";
 import { deleteScript, runScript } from "../utils/Common";
-import * as productService from "../services/product-service";
+import * as productService from "../apis/product-service";
 import ProductSlider from "../components/product/ProductSlider";
 
 const Product = () => {
