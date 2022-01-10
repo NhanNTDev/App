@@ -14,7 +14,6 @@ const Home = () => {
   const [hotCampaigns, setHotCampaign] = useState([]);
 
   const [categories, setCategories] = useState([]);
-  //Delete Script element of casourel
   useEffect(()=> {
     deleteScript();
   }, []);
@@ -31,7 +30,6 @@ const Home = () => {
   useEffect(() => {
     const fetchCampaigns = async () => {
       const campaigns = await campaignsService.getCampaigns();
-      // const campaigns = await campaignsApi.get();
       setWeeklyCampaigns(campaigns);
       setHotCampaign(campaigns);
       runScript();

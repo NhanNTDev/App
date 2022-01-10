@@ -1,5 +1,4 @@
 import { useLayoutEffect, useEffect, useState } from "react";
-
 import { useParams } from "react-router-dom";
 import { runScript, deleteScript } from "../utils/Common";
 import * as campaignsService from "../apis/campaign-service";
@@ -56,7 +55,6 @@ const Campaign = () => {
               <CampaignDetail campaign={{ ...campaign }} />
             </div>
             <div className="col-md-8">
-              {/* <CampaignDetail campaign={{ ...campaign }} /> */}
               <ListFarms campaignId={param.id}/>
             </div>
           </div>
