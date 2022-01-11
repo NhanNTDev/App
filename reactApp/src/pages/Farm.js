@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import farmApi from "../apis/farmApi";
 import FarmDetail from "../components/farm/FarmDetail";
 import FarmPicture from "../components/farm/FarmPicture";
 import ProductList from "../components/product/ProductList";
-import farmApi from "../apis/farmApi";
+import {
+  page1_farm,
+} from "../constants/Data";
 import { deleteScript, runScript } from "../utils/Common";
 
 const Farm = () => {
@@ -22,11 +25,15 @@ const Farm = () => {
     setFarms(farmsResponse.data);
     }
     fetchFarms();
+    deleteScript();
   }, []);
 
   useEffect(() => {
     setFarm(farms.find((c) => c.id.toString() === param.farmId));
+    runScript();
   },[farms]);
+
+  console.log(farm)
 
   return (
     <>
@@ -51,7 +58,7 @@ const Farm = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-4">
-              <FarmPicture farm = {{...farm}}/>
+              <FarmPicture/>
               <FarmDetail farm = {{...farm}}/>
             </div>
             <div className="col-md-8">

@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 
 const CampaignItem = (props) => {
+  const date = new Date(props.endAt);
+  let endDate = date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear();
   return (
     <div className="col-md-3">
       <div className="product">
         <Link to={`/campaign/${props.id}`}>
           <div className="product-header">
-            <img className="img-fluid" src="img/item/3.jpg" alt="" />
+            <img className="img-fluid" src={props.image1} alt="" />
             <span className="veg text-success mdi mdi-circle"></span>
           </div>
           <div className="product-body">
@@ -23,19 +25,19 @@ const CampaignItem = (props) => {
               <strong>
                 <span className="mdi mdi-flower"></span> Tổng nông trại:
               </strong>{" "}
-              {props.farmJoined}
+              {props.farmInCampaign}
             </h5>
             <h5>
               <strong>
                 <span className="mdi mdi-map-marker-circle"></span> Từ:
               </strong>{" "}
-              {props.from}
+              {props.farmZone.province}
             </h5>
             <h5>
               <strong>
-                <span className="mdi mdi-map-marker-circle"></span> Đến:
+                <span className="mdi mdi-calendar"></span> Kết thúc:
               </strong>{" "}
-              {props.to}
+              {endDate}
             </h5>
             <br />
           </div>

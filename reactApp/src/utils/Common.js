@@ -8,7 +8,6 @@ export const runScript = () => {
   script1.src = "/js/custom.js";
   script1.id = "custom";
   script1.type = "text/javascript";
-  console.log("RunScrip");
   body.appendChild(script);
   body.appendChild(script1);
 };
@@ -16,7 +15,6 @@ export const runScript = () => {
 export const deleteScript = () => {
   var script = document.getElementById("vendor_carousel")
   var script1 = document.getElementById("custom")
-  console.log("DeleteScrip")
   if(script !== null)
   {
     script.remove()

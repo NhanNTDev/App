@@ -1,29 +1,28 @@
 import { useLayoutEffect, useEffect, useState } from "react";
+
 import { useParams } from "react-router-dom";
 import { runScript, deleteScript } from "../utils/Common";
-import * as campaignsService from "../apis/campaign-service";
 import CampaignPicture from "../components/campaign/CampaignPicture";
 import CampaignDetail from "../components/campaign/CampaignDetail";
 import FarmList from "../components/farm/FarmList";
+import campaignsApi from "../apis/campaignsApi";
 
 const Campaign = () => {
-  const param = useParams();
+  const params = useParams();
   const [campaign, setCampaign] = useState(null);
+  const campaignId = params.id;
 
   useEffect(() => {
     deleteScript();
   }, []);
 
-  useLayoutEffect(() => {
-    const fetchCampaigns = async () => {
-      const campaignsResponse = await campaignsService.getCampaigns();
-      setCampaign(campaignsResponse.find((c) => c.id.toString() === param.id));
+  useEffect(() => {
+    const fetchCampaign = async () => {
+      const campaignResponse = await campaignsApi.get(campaignId);
+      setCampaign(campaignResponse);
     };
-    fetchCampaigns();
+    fetchCampaign();
     runScript();
-    // return () => {
-    //   deleteScript();
-    // }
 
   }, []);
 
@@ -55,7 +54,7 @@ const Campaign = () => {
               <CampaignDetail campaign={{ ...campaign }} />
             </div>
             <div className="col-md-8">
-              <FarmList campaignId={param.id}/>
+              <FarmList campaignId={params.id}/>
             </div>
           </div>
         </div>
