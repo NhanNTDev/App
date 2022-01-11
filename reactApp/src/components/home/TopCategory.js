@@ -8,7 +8,7 @@ const TopCategory = (props) => {
           <Link to="/search-result">
             <img className="img-fluid" src={props.image} alt="" />
             <h6>{props.name}</h6>
-            <p>{props.totalItem} Sản Phẩm</p>
+            <p>{props.productInventory} Sản Phẩm</p>
           </Link>
         </div>
       </div>
@@ -21,7 +21,7 @@ const TopCategory = (props) => {
         <div className="container">
           <div className="owl-carousel owl-carousel-category">
             
-                  {props.listCategories.map((category) =>
+                  {props.listCategories && props.listCategories.map((category) =>
                     renderItem({ ...category })
                   )}
                
