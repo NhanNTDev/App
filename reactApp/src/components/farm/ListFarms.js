@@ -2,14 +2,13 @@ import { useEffect, useState, useLayoutEffect } from "react";
 import { RECORD_PER_PAGE } from "../../constants/Constants";
 import { page1_farm, page2_farm, page3_farm } from "../../constants/Data";
 import { Pagination } from "antd";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link} from "react-router-dom";
 import "antd/dist/antd.css";
 
 const ListFarms = ({campaignId}) => {
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(1);
   const [farms, setFarms] = useState([]);
-  let [searchParams] = useSearchParams();
   useEffect(() => {
     setTotalRecords(36);
   }, []);

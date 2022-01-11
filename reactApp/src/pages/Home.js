@@ -2,12 +2,10 @@ import CenterBanner from "../components/home/CenterBanner";
 import CampaignSlider from "../components/campaign/CampaignSlider";
 import TopCategory from "../components/home/TopCategory";
 import { runScript, deleteScript } from "../utils/Common";
-import { useLayoutEffect, useState, useEffect } from "react";
-import * as categoryService from "../apis/category-service";
-import * as campaignsService from "../apis/campaign-service";
+import { useState, useEffect } from "react";
 import TopBanner from "../components/home/TopBanner";
 import campaignsApi from "../apis/campaignsApi";
-
+import categoriesApi from "../apis/categoriesApi";
 
 const Home = () => {
   const [weeklyCampaigns, setWeeklyCampaigns] = useState([]);
@@ -15,61 +13,44 @@ const Home = () => {
 
   const [categories, setCategories] = useState([]);
   //Delete Script element of casourel
-  useEffect(()=> {
+  useEffect(() => {
     deleteScript();
   }, []);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const categoryResponse = await categoryService.getAllCategoriesAPI();
-      setCategories(categoryResponse);
+      const categoriesResponse = await categoriesApi.getAll();
+      setCategories(categoriesResponse.data);
     };
 
     fetchCategories();
   }, []);
 
   useEffect(() => {
+    const params = {
+      page: 1,
+      size: 10,
+    }
     const fetchCampaigns = async () => {
-      const campaigns = await campaignsService.getCampaigns();
-      // const campaigns = await campaignsApi.get();
-      setWeeklyCampaigns(campaigns);
-      setHotCampaign(campaigns);
+      const campaigns = await campaignsApi.getAll(params);
+      setWeeklyCampaigns(campaigns.data);
+      setHotCampaign(campaigns.data);
       runScript();
     };
 
     fetchCampaigns();
   }, []);
-  useEffect(() => {
-    const fetchCampaigns = async () => {
-      const params = {
-        page: 1,
-        size: 12,
-      }
-      // const campaigns = await campaignsService.getCampaigns();
-      const campaigns = await campaignsApi.getAll(params);
-      console.log("call api:")
-      console.log(campaigns);
-      // setWeeklyCampaigns(campaigns);
-      // setHotCampaign(campaigns);
-      // runScript();
-    };
-
-    fetchCampaigns();
-  }, []);
-
-
-
 
   return (
     <>
-      <TopBanner/>
+      <TopBanner />
       <TopCategory listCategories={categories}></TopCategory>
       <CampaignSlider
         title="Chiến dịch trong tuần"
         listCampaigns={weeklyCampaigns}
         type="weekly"
       ></CampaignSlider>
-      <CenterBanner/>
+      <CenterBanner />
       <CampaignSlider
         title="Chiến dịch khác"
         listCampaigns={hotCampaigns}

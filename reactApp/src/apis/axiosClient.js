@@ -15,13 +15,17 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
     //Handle token.....
+    console.log("interceptors request");
     return config;
 })
 
 axiosClient.interceptors.response.use((response) => {
+    console.log("interceptors response");
     if(response && response.data)
     {
+        console.log("data nè")
         return response.data;
+        
     }
     return response;
 }, (error) => {

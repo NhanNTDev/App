@@ -6,10 +6,10 @@ const CampaignDetail = (props) => {
       <span className="badge badge-success">50% OFF</span>
       <h2>{props.campaign.name}</h2>
       <h6>
-          <span className="mdi mdi-timer"></span> Từ thứ 2 đến thứ 5 hàng tuần
+          <span className="mdi mdi-timer"></span> {props.campaign.description}
       </h6>
       <h6>
-          <span className="mdi mdi-corn"></span> Tổng nông trại tham gia: {props.campaign.farmJoined}
+          <span className="mdi mdi-corn"></span> Tổng nông trại tham gia: {props.campaign.farmInCampaign}
       </h6>
       <p className="offer-price mt-2">
         <span className="mdi mdi-tag">Giá ưu đãi</span>
