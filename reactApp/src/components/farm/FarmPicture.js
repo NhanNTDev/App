@@ -1,4 +1,11 @@
+import { useEffect } from "react";
+import { deleteScript, runScript } from "../../utils/Common";
+
 const FarmPicture = (props) => {
+    useEffect(() => {
+      deleteScript();
+      runScript();
+    }, [])
     return (
       <div className="shop-detail-left">
         <div className="shop-detail-slider">
@@ -29,9 +36,6 @@ const FarmPicture = (props) => {
             </div>
             <div className="item">
               <img alt="" src={props.farm.image5} className="img-fluid img-center" />
-            </div>
-            <div className="item">
-              <img alt="" src={props.farm.image1} className="img-fluid img-center" />
             </div>
           </div>
         </div>

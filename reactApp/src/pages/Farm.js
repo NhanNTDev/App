@@ -8,27 +8,24 @@ import { deleteScript, runScript } from "../utils/Common";
 
 const Farm = () => {
   const param = useParams();
+  const [page, setPage] = useState(1);
   const [farm, setFarm] = useState({});
   const [farms, setFarms] = useState([]);
 
   useEffect(() => {
-    deleteScript();
     const fetchFarms = async () => {
       const params = {
-        page: 1,
-        size: 12,
+        page: page,
+        size: 12
       }
-      const farmsResponse = await farmApi.getAll(params);
-      
+      const farmsResponse = await farmApi.getAll(params);      
     setFarms(farmsResponse.data);
     }
     fetchFarms();
   }, []);
 
-
   useEffect(() => {
     setFarm(farms.find((c) => c.id.toString() === param.farmId));
-    runScript();;
   },[farms]);
 
   return (
@@ -58,7 +55,7 @@ const Farm = () => {
               <FarmDetail farm = {{...farm}}/>
             </div>
             <div className="col-md-8">
-              <ProductList/>
+              <ProductList campaignId={param.campaignId} farmId={param.farmId}/>
             </div>
           </div>
         </div>

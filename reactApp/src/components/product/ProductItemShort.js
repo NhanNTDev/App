@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 const ProductItemShort = (props) => {
   return (
-    <div className="item" style={{ width: 231 }}>
+    <div className="item">
       <div className="product">
-        <Link to="/product">
+        <Link to={`/campaign/${props.campaignId}/${props.farmId}/${props.harvest.id}`}>
           <div className="product-header">
             {props.harvest.harvest.product.image1 !== null ? (
               <img

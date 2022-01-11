@@ -1,11 +1,11 @@
-import { Pagination } from "antd";
+import { Card, Col, Pagination, Row } from "antd";
 import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../../constants/Constants";
 import harvestApi from "../../apis/harvestApi";
 import ProductSliderItem from "./ProductItemShort";
 import { useParams } from "react-router-dom";
 
-const ProductList = () => {
+const ProductList = (props) => {
   const params = useParams();
   console.log(params);
   const [page, setPage] = useState(1);
@@ -15,7 +15,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetHarvests = async () => {
       const param = {
-        page: 1,
+        page: page,
         size: 12,
       };
       const harvestsResponse = await harvestApi.getAll(param);
@@ -80,9 +80,17 @@ const ProductList = () => {
                 <h5 className="mb-4">Danh Sách Sản Phẩm</h5>
               </div>
               <div className="row no-gutters">
-                {harvests.map((harvest) => (
-                  <ProductSliderItem harvest={{ ...harvest }} />
-                ))}
+                <Row>
+                  {harvests.map((harvest) => (
+                    <Col span={8}>
+                      <ProductSliderItem
+                        harvest={{ ...harvest }}
+                        campaignId={props.campaignId}
+                        farmId={props.farmId}
+                      />
+                    </Col>
+                  ))}
+                </Row>
               </div>
               {renderPagination()}
             </div>

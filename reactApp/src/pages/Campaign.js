@@ -4,7 +4,7 @@ import { runScript, deleteScript } from "../utils/Common";
 import * as campaignsService from "../apis/campaign-service";
 import CampaignPicture from "../components/campaign/CampaignPicture";
 import CampaignDetail from "../components/campaign/CampaignDetail";
-import ListFarms from "../components/farm/ListFarms";
+import FarmList from "../components/farm/FarmList";
 
 const Campaign = () => {
   const param = useParams();
@@ -55,7 +55,7 @@ const Campaign = () => {
               <CampaignDetail campaign={{ ...campaign }} />
             </div>
             <div className="col-md-8">
-              <ListFarms campaignId={param.id}/>
+              <FarmList campaignId={param.id}/>
             </div>
           </div>
         </div>

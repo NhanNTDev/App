@@ -3,24 +3,32 @@ import ProductDetail from "../components/product/ProductDetail";
 import ProductPicture from "../components/product/ProductPicture";
 import { deleteScript, runScript } from "../utils/Common";
 import * as productService from "../apis/product-service";
+import productApi from "../apis/productApi";
+import harvestApi from "../apis/harvestApi";
 import ProductSlider from "../components/product/ProductSlider";
+import { useParams } from "react-router-dom";
 
 const Product = () => {
-  const [products, setProducts] = useState([]);
+  const params = useParams();
+  const [harvests, setHarvests] = useState([]);
+  const [harvest, setHarvest] = useState(null);
 
   useEffect(() => {
-    deleteScript();
-  }, []);
-  useEffect(() => {
     const fetchProducts = async () => {
-      const productsResponse = await productService.getListProduct();
-      setProducts(productsResponse);
+      const param = {
+        page: 1,
+        size: 12,
+      };
+      const harvestsResponse = await harvestApi.getAll(param);
+      setHarvests(harvestsResponse.data);
     };
     fetchProducts();
   }, []);
+
   useEffect(() => {
-    runScript();
-  }, []);
+    console.log(harvests);
+    setHarvest(harvests.find((c) => c.id.toString() === params.productId));
+  }, [harvests]);
 
   return (
     <>
@@ -38,7 +46,7 @@ const Product = () => {
               <span className="mdi mdi-chevron-right"></span>{" "}
               <a href="#">Nguyễn Thành Nhân Farm</a>
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <span>Hồng giòn Đà Lạt</span>
+              <a href="#">{harvest && harvest.harvest.name}</a>
             </div>
           </div>
         </div>
@@ -47,20 +55,20 @@ const Product = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <ProductPicture />
+              <ProductPicture harvest={{...harvest}} />
             </div>
             <div className="col-md-6">
-              <ProductDetail />
+              <ProductDetail harvest={{...harvest}} />
             </div>
           </div>
         </div>
       </section>
-      {products.length > 0 ? (
+      {/* {products.length > 0 ? (
         <ProductSlider
           title="Sản phẩm khác trong nông trại"
           listProduct={products}
         />
-      ) : null}
+      ) : null} */}
     </>
   );
 };
