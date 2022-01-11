@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../constants/Constants";
-import { page1, page2, page3 } from "../constants/Data";
 import { Pagination } from "antd";
 import { useSearchParams } from "react-router-dom";
 import CampaignItem from "../components/campaign/CampaignItem";
+import campaignsApi from "../apis/campaignsApi";
 
 const ViewAllCampaigns = () => {
   const [page, setPage] = useState(1);
@@ -11,22 +11,20 @@ const ViewAllCampaigns = () => {
   const [campaigns, setCampaigns] = useState([]);
   let [searchParams] = useSearchParams();
 
-  useEffect(() => {
-    setTotalRecords(36);
-  }, []);
 
   useEffect(() => {
-    switch (page) {
-      case 1:
-        setCampaigns(page1);
-        break;
-      case 2:
-        setCampaigns(page2);
-        break;
-      case 3:
-        setCampaigns(page3);
-        break;
+    const params = {
+      page: page,
+      size: RECORD_PER_PAGE,
     }
+    const fetchCampaigns = async () => {
+      const campaignsResponse = await campaignsApi.getAll(params);
+      setCampaigns(campaignsResponse.data);
+      setTotalRecords(campaignsResponse.metadata.total);
+    };
+
+    fetchCampaigns();
+
   }, [page]);
 
   const renderPagination = () => {

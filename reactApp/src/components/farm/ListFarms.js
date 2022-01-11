@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../../constants/Constants";
 import farmApi from "../../apis/farmApi";
 import { Pagination } from "antd";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import "antd/dist/antd.css";
 
 const ListFarms = ({campaignId}) => {
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(1);
   const [farms, setFarms] = useState([]);
-  
   useEffect(() => {
     const fetchFarms = async () => {
       const params = {

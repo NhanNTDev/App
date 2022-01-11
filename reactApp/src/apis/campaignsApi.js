@@ -1,8 +1,8 @@
 import axiosClient from "./axiosClient";
 
 const campaignsApi = {
-    get() {
-        const url = '/campaigns';
+    get(id) {
+        const url = `/campaigns/${id}`;
         return axiosClient.get(url);
     },
     getAll(params) {
