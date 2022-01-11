@@ -2,14 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FarmDetail from "../components/farm/FarmDetail";
 import FarmPicture from "../components/farm/FarmPicture";
-import ProductDetail from "../components/product/ProductDetail";
 import ProductList from "../components/product/ProductList";
-import {
-  page1_farm,
-  page1_product,
-  page2_product,
-  page3_product,
-} from "../constants/Data";
+import farmApi from "../apis/farmApi";
 import { deleteScript, runScript } from "../utils/Common";
 
 const Farm = () => {
@@ -19,19 +13,23 @@ const Farm = () => {
 
   useEffect(() => {
     deleteScript();
-    setFarms(page1_farm);
-    console.log(1);
+    const fetchFarms = async () => {
+      const params = {
+        page: 1,
+        size: 12,
+      }
+      const farmsResponse = await farmApi.getAll(params);
+      
+    setFarms(farmsResponse.data);
+    }
+    fetchFarms();
   }, []);
 
 
   useEffect(() => {
     setFarm(farms.find((c) => c.id.toString() === param.farmId));
-    console.log(farms)
-    runScript();
-    console.log(2);
+    runScript();;
   },[farms]);
-
-  console.log(farm)
 
   return (
     <>
@@ -56,7 +54,7 @@ const Farm = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-4">
-              <FarmPicture/>
+              <FarmPicture farm = {{...farm}}/>
               <FarmDetail farm = {{...farm}}/>
             </div>
             <div className="col-md-8">

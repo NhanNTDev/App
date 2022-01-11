@@ -1,6 +1,6 @@
-import { useEffect, useState, useLayoutEffect } from "react";
+import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../../constants/Constants";
-import { page1_farm, page2_farm, page3_farm } from "../../constants/Data";
+import farmApi from "../../apis/farmApi";
 import { Pagination } from "antd";
 import { Link} from "react-router-dom";
 import "antd/dist/antd.css";
@@ -10,21 +10,17 @@ const ListFarms = ({campaignId}) => {
   const [totalRecord, setTotalRecords] = useState(1);
   const [farms, setFarms] = useState([]);
   useEffect(() => {
-    setTotalRecords(36);
-  }, []);
-
-  useEffect(() => {
-    switch (page) {
-      case 1:
-        setFarms(page1_farm);
-        break;
-      case 2:
-        setFarms(page2_farm);
-        break;
-      case 3:
-        setFarms(page3_farm);
-        break;
-    }
+    const fetchFarms = async () => {
+      const params = {
+        page: 1,
+        size: 12,
+      }
+      const farmsResponse = await farmApi.getAll(params);
+      setFarms(farmsResponse.data);
+      setPage(farmsResponse.metadata.page);
+      setTotalRecords(farmsResponse.metadata.total);
+    };
+    fetchFarms();
   }, [page]);
 
   const renderPagination = () => {
@@ -71,11 +67,11 @@ const ListFarms = ({campaignId}) => {
 
   const renderCampaignItem = (props) => {
     return (
-      <div className="col-md-4">
+      <div className="col-md-4" style={{ width: 231 }}>
         <div className="product">
           <Link to={`/campaign/${campaignId}/${props.id}`}>
             <div className="product-header">
-              <img className="img-fluid" src="/img/item/3.jpg" alt="" />
+              <img className="img-fluid" src={props.image1} alt="" />
               <span className="veg text-success mdi mdi-circle"></span>
             </div>
             <div className="product-body">

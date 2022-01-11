@@ -12,6 +12,7 @@ const Home = () => {
   const [hotCampaigns, setHotCampaign] = useState([]);
 
   const [categories, setCategories] = useState([]);
+
   //Delete Script element of casourel
   useEffect(() => {
     deleteScript();
