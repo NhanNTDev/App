@@ -58,7 +58,7 @@ const Farm = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-4">
-              <FarmPicture/>
+              <FarmPicture farm={{...farm}}/>
               <FarmDetail farm = {{...farm}}/>
             </div>
             <div className="col-md-8">

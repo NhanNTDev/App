@@ -79,8 +79,8 @@ const ProductList = (props) => {
                 {renderSortDrop()}
                 <h5 className="mb-4">Danh Sách Sản Phẩm</h5>
               </div>
-              <div className="row no-gutters">
-                <Row>
+              <div className="row">
+                {/* <Row gutter={16}> */}
                   {harvests.map((harvest) => (
                     <Col span={8}>
                       <ProductSliderItem
@@ -90,7 +90,7 @@ const ProductList = (props) => {
                       />
                     </Col>
                   ))}
-                </Row>
+                {/* </Row> */}
               </div>
               {renderPagination()}
             </div>

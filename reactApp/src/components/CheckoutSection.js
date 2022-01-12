@@ -378,19 +378,18 @@ const CheckoutSection = () => {
                       <i className="mdi mdi-close"></i>
                     </a>
                     <img className="img-fluid" src="img/item/11.jpg" alt="" />
-                    <span className="badge badge-success">50% OFF</span>
                     <h5>
-                      <a href="#">Product Title Here</a>
+                      <a href="#">Dâu Tây</a>
                     </h5>
                     <h6>
                       <strong>
-                        <span className="mdi mdi-approval"></span> Available in
+                        <span className="mdi mdi-approval"></span> Có sẵn
                       </strong>{" "}
                       - 500 gm
                     </h6>
                     <p className="offer-price mb-0">
-                      $450.99 <i className="mdi mdi-tag-outline"></i>{" "}
-                      <span className="regular-price">$800.99</span>
+                      32.000 VNĐ <i className="mdi mdi-tag-outline"></i>{" "}
+                      <span className="regular-price">36.000 VNĐ</span>
                     </p>
                   </div>
                   

@@ -4,7 +4,9 @@ const ProductItemShort = (props) => {
   return (
     <div className="item">
       <div className="product">
-        <Link to={`/campaign/${props.campaignId}/${props.farmId}/${props.harvest.id}`}>
+        <Link
+          to={`/campaign/${props.campaignId}/${props.farmId}/${props.harvest.id}`}
+        >
           <div className="product-header">
             {props.harvest.harvest.product.image1 !== null ? (
               <img
@@ -15,9 +17,9 @@ const ProductItemShort = (props) => {
             ) : (
               <img className="img-fluid" src="/img/item/1.jpg" alt="" />
             )}
-
             <span className="veg text-success mdi mdi-circle"></span>
           </div>
+
           <div className="product-body">
             <div style={{ height: 80 }}>
               <h4>{props.harvest.harvest.name}</h4>
@@ -29,11 +31,6 @@ const ProductItemShort = (props) => {
               </h6>
             </div>
             <br />
-            <p className="offer-price">
-              <i className="mdi mdi-tag-outline"></i>{" "}
-              {props.harvest.price.toLocaleString()} {" VNĐ / "}{" "}
-              {props.harvest.unit}
-            </p>
           </div>
         </Link>
         <div className="product-footer">
@@ -42,9 +39,13 @@ const ProductItemShort = (props) => {
             className="btn btn-secondary btn-sm float-right"
             onClick={() => {}}
           >
-            <i className="mdi mdi-cart"></i> Thêm vào giỏ hàng
+            <i className="mdi mdi-cart"></i>Thêm Vào Giỏ Hàng
           </button>
-
+          <p className="offer-price">
+            <i className="mdi mdi-tag-outline"></i>{" "}
+            {props.harvest.price.toLocaleString()} {" VNĐ / "}{" "}
+            {props.harvest.unit}
+          </p>
           <br />
         </div>
       </div>

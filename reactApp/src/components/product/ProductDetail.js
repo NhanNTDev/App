@@ -10,15 +10,15 @@ const ProductDetail = (props) => {
         <strong>
           <span className="mdi mdi-approval"></span> Còn lại:
         </strong>{" "}
-        {props.harvest.inventory}
-        {" / "} {props.product.harvest}
+        {props.inventory}
+        {" "}{props.unit}
       </h6>
       <p className="offer-price mb-0">
         <span className="mdi mdi-tag"></span>{" "}
         <span className="price-offer">
-          {props.harvest.price.toLocaleString()}
+          {props.price.toLocaleString()}
           {" VNĐ / "}
-          {props.product.harvest}
+          {props.unit}
         </span>
       </p>
       <Link to="/checkout">
@@ -46,9 +46,9 @@ const ProductDetail = (props) => {
           }}
         >
           {" "}
-          <strong>Mùa vụ: </strong> {props.harvest.harvest.name}
+          <strong>Mùa vụ: </strong> {props.harvest.name}
           <br />
-          {props.harvest.harvest.description}
+          {props.harvest.description}
         </p>
       </div>
     </div>

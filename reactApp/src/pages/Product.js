@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 const Product = () => {
   const params = useParams();
   const [harvests, setHarvests] = useState([]);
-  const [harvest, setHarvest] = useState(null);
+  const [harvestCampaign, setHarvestCampaign] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -27,8 +27,10 @@ const Product = () => {
 
   useEffect(() => {
     console.log(harvests);
-    setHarvest(harvests.find((c) => c.id.toString() === params.productId));
+    setHarvestCampaign(harvests.find((c) => c.id.toString() === params.productId));
   }, [harvests]);
+
+  console.log(harvestCampaign);
 
   return (
     <>
@@ -46,7 +48,7 @@ const Product = () => {
               <span className="mdi mdi-chevron-right"></span>{" "}
               <a href="#">Nguyễn Thành Nhân Farm</a>
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">{harvest && harvest.harvest.name}</a>
+              <a href="#">{harvestCampaign && harvestCampaign.harvest.name}</a>
             </div>
           </div>
         </div>
@@ -54,21 +56,21 @@ const Product = () => {
       <section className="shop-single section-padding pt-3">
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
-              <ProductPicture harvest={{...harvest}} />
+            <div className="col-md-4">
+              {harvestCampaign && <ProductPicture {...harvestCampaign} />}
             </div>
-            <div className="col-md-6">
-              <ProductDetail harvest={{...harvest}} />
+            <div className="col-md-8">
+              {harvestCampaign && <ProductDetail {...harvestCampaign} />}
             </div>
           </div>
         </div>
       </section>
-      {/* {products.length > 0 ? (
+      {harvests.length > 0 ? (
         <ProductSlider
           title="Sản phẩm khác trong nông trại"
-          listProduct={products}
+          listProduct={harvests.filter(c => c.id.toString() !== params.productId)}
         />
-      ) : null} */}
+      ) : null}
     </>
   );
 };
