@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 import { runScript, deleteScript } from "../utils/Common";
 import CampaignPicture from "../components/campaign/CampaignPicture";
 import CampaignDetail from "../components/campaign/CampaignDetail";
-import ListFarms from "../components/farm/ListFarms";
+import FarmList from "../components/farm/FarmList";
 import campaignsApi from "../apis/campaignsApi";
+import ProductList from "../components/product/ProductList";
 
 const Campaign = () => {
   const params = useParams();
@@ -39,8 +40,6 @@ const Campaign = () => {
                 </strong>
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">Campaign</a>{" "}
-              <span className="mdi mdi-chevron-right"></span>{" "}
               <a href="#">{campaign !== null ? campaign.name : ""}</a>
             </div>
           </div>
@@ -54,7 +53,7 @@ const Campaign = () => {
               <CampaignDetail campaign={{ ...campaign }} />
             </div>
             <div className="col-md-8">
-              <ListFarms campaignId={campaignId}/>
+              <ProductList campaignId={params.id}/>
             </div>
           </div>
         </div>

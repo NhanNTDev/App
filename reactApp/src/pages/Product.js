@@ -1,26 +1,25 @@
 import { useEffect, useState } from "react";
 import ProductDetail from "../components/product/ProductDetail";
 import ProductPicture from "../components/product/ProductPicture";
-import { deleteScript, runScript } from "../utils/Common";
-import * as productService from "../apis/product-service";
+import harvestApi from "../apis/harvestApi";
 import ProductSlider from "../components/product/ProductSlider";
+import { useParams } from "react-router-dom";
 
 const Product = () => {
-  const [products, setProducts] = useState([]);
+  const params = useParams();
+  const [harvests, setHarvests] = useState([]);
+  const [harvestCampaign, setHarvestCampaign] = useState(null);
 
   useEffect(() => {
-    deleteScript();
-  }, []);
-  useEffect(() => {
     const fetchProducts = async () => {
-      const productsResponse = await productService.getListProduct();
-      setProducts(productsResponse);
+      const harvestsResponse = await harvestApi.get(params.productId);
+      console.log(harvestsResponse);
+      setHarvestCampaign(harvestsResponse);
     };
     fetchProducts();
   }, []);
-  useEffect(() => {
-    runScript();
-  }, []);
+
+  console.log(harvestCampaign);
 
   return (
     <>
@@ -36,9 +35,7 @@ const Product = () => {
               <span className="mdi mdi-chevron-right"></span>{" "}
               <a href="#">Đà Lạt - Hồ Chí Minh</a>
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">Nguyễn Thành Nhân Farm</a>
-              <span className="mdi mdi-chevron-right"></span>{" "}
-              <span>Hồng giòn Đà Lạt</span>
+              <a href="#">{harvestCampaign && harvestCampaign.harvest.name}</a>
             </div>
           </div>
         </div>
@@ -46,21 +43,21 @@ const Product = () => {
       <section className="shop-single section-padding pt-3">
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
-              <ProductPicture />
+            <div className="col-md-4">
+              {harvestCampaign && <ProductPicture {...harvestCampaign} />}
             </div>
-            <div className="col-md-6">
-              <ProductDetail />
+            <div className="col-md-8">
+              {harvestCampaign && <ProductDetail {...harvestCampaign} />}
             </div>
           </div>
         </div>
       </section>
-      {products.length > 0 ? (
+      {/* {harvests.length > 0 ? (
         <ProductSlider
           title="Sản phẩm khác trong nông trại"
-          listProduct={products}
+          listProduct={harvests.filter(c => c.id.toString() !== params.productId)}
         />
-      ) : null}
+      ) : null} */}
     </>
   );
 };

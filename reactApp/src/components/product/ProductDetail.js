@@ -1,32 +1,33 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import * as productService from "../../apis/product-service";
+import farmApi from "../../apis/farmApi";
 
-const ProductDetail = () => {
-  const [product, setProduct] = useState(null);
+const ProductDetail = (props) => {
+  const [farm, setFarm] = useState([]);
+
   useEffect(() => {
-    const fetchProduct = async () => {
-      const productResponse = await productService.getProduct();
-      setProduct(productResponse);
-    };
-    fetchProduct();
+    const fetchFarm = async () => {
+      const farmResponse = farmApi.get(props.harvestCampaign.harvest.farmId);
+      setFarm(farmResponse);
+    }
   }, []);
+    
   return (
     <div className="shop-detail-right">
-      <h2>{product && product.productName}</h2>
+      <h2>{props.harvest.product.name}</h2>
       <h6>
         <strong>
           <span className="mdi mdi-approval"></span> Còn lại:
         </strong>{" "}
-        {product && product.available}
-        {" / "}
-        {product && product.maxQuantity} {product && product.unit}
+        {props.inventory}
+        {" "}{props.unit}
       </h6>
       <p className="offer-price mb-0">
         <span className="mdi mdi-tag"></span>{" "}
         <span className="price-offer">
-          {product && product.price.toLocaleString()}
-          {" VNĐ / "}{product && product.unit}
+          {props.price.toLocaleString()}
+          {" VNĐ / "}
+          {props.unit}
         </span>
       </p>
       <Link to="/checkout">
@@ -35,18 +36,30 @@ const ProductDetail = () => {
         </button>{" "}
       </Link>
       <div className="short-description">
-        <h5>
-          Mô tả:
-        </h5>
-        <p style={{overflow: "hidden", textOverflow: "ellipsis", maxHeight: 150}}>{product && product.productDescription}</p>
-        <p className="mb-0" style={{overflow: "hidden", textOverflow: "ellipsis", maxHeight: 100}}>
+        <h5>Mô tả:</h5>
+        <p
+          style={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            maxHeight: 150,
+          }}
+        >
+          {props.harvest.product.description}
+        </p>
+        <p
+          className="mb-0"
+          style={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            maxHeight: 100,
+          }}
+        >
           {" "}
-          <strong>Mùa vụ: </strong> {product && product.harverst}
+          <strong>Mùa vụ: </strong> {props.harvest.name}
           <br />
-          {product && product.harverstDescription}
+          {props.harvest.description}
         </p>
       </div>
-      
     </div>
   );
 };

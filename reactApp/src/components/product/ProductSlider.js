@@ -11,6 +11,7 @@ const ProductSlider = (props) => {
     runScript();
   }, []);
   
+  console.log(props.listProduct);
   return (
     <section className="product-items-slider section-padding">
       <div className="container">
@@ -24,7 +25,7 @@ const ProductSlider = (props) => {
         </div>
         <div className="owl-carousel owl-carousel-featured">
           {props.listProduct &&
-            props.listProduct.map((product) => <ProductSliderItem product = {{...product}}/>)}
+            props.listProduct.map((harvest) => <ProductSliderItem harvest = {{...harvest}}/>)}
         </div>
       </div>
     </section>

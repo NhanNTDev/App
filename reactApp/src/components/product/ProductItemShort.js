@@ -2,49 +2,53 @@ import { Link } from "react-router-dom";
 
 const ProductItemShort = (props) => {
   return (
-    <div className="item" style={{ width: 231 }}>
+    <div className="item">
       <div className="product">
-        <Link to="/product">
+        <Link to={`/products/${props.campaignId}/${props.harvestCampaign.id}`}>
           <div className="product-header">
-            {props.harvest.harvest.product.image1 !== null ? (
+            {props.harvestCampaign.harvest.product.image1 !== null ? (
               <img
                 className="img-fluid"
-                src={props.harvest.harvest.product.image1}
+                src={props.harvestCampaign.harvest.product.image1}
                 alt=""
               />
             ) : (
               <img className="img-fluid" src="/img/item/1.jpg" alt="" />
             )}
-
             <span className="veg text-success mdi mdi-circle"></span>
           </div>
+
           <div className="product-body">
             <div style={{ height: 80 }}>
-              <h4>{props.harvest.harvest.name}</h4>
-              <h6>
-                <strong>
+              <h4>{props.harvestCampaign.harvest.product.name}</h4>
+              <p className="offer-price">
+                <i className="mdi mdi-tag-outline"></i>{" "}
+                {props.harvestCampaign.price.toLocaleString()} {" VNĐ / "}{" "}
+                {props.harvestCampaign.unit}
+              </p>
+              <div className="detail">
+                <h6>
                   <span class="mdi mdi-approval"></span> Còn lại:
-                </strong>{" "}
-                {props.harvest.inventory} {" / "} {props.harvest.unit}
-              </h6>
+                  {props.harvestCampaign.inventory} {props.harvestCampaign.unit}
+                </h6>
+                <h5>
+                  <i>
+                    <span className="mdi mdi-home-circle"></span> Nông trại:
+                  </i>{" "}
+                  {props.harvestCampaign.harvest.farm.name}
+                </h5>
+                <h5>
+                  <i>
+                    <span className="mdi mdi-carrot"></span> Mùa vụ:
+                  </i>{" "}
+                  {props.harvestCampaign.harvest.name}
+                </h5>
+              </div>
             </div>
             <br />
-            <p className="offer-price">
-              <i className="mdi mdi-tag-outline"></i>{" "}
-              {props.harvest.price.toLocaleString()} {" VNĐ / "}{" "}
-              {props.harvest.unit}
-            </p>
           </div>
         </Link>
         <div className="product-footer">
-          <button
-            type="button"
-            className="btn btn-secondary btn-sm float-right"
-            onClick={() => {}}
-          >
-            <i className="mdi mdi-cart"></i> Thêm vào giỏ hàng
-          </button>
-
           <br />
         </div>
       </div>

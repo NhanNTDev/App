@@ -33,7 +33,7 @@ const WelcomePage = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/page-not-found" element={<PageNotFound />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="/products/:campaignId/:productId" element={<Product />} />
         <Route path="/all-campaigns" element={<ViewAllCampaigns />} />
         <Route path="/campaign/:id" element={<Campaign />} />
         <Route path="/campaign/:campaignId/:farmId" element={<Farm/>} />

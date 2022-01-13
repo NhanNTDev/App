@@ -1,21 +1,22 @@
-import { Pagination } from "antd";
+import { Card, Col, Pagination, Row } from "antd";
 import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../../constants/Constants";
 import harvestApi from "../../apis/harvestApi";
 import ProductSliderItem from "./ProductItemShort";
 import { useParams } from "react-router-dom";
+import { deleteScript, runScript } from "../../utils/Common";
 
-const ProductList = () => {
+const ProductList = (props) => {
   const params = useParams();
-  console.log(params);
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(1);
   const [harvests, setHarvests] = useState([]);
+  const [harvestsCampaign, setHarvestsCampaign] = useState([]);
 
   useEffect(() => {
-    const fetHarvests = async () => {
+    const fetchHarvests = async () => {
       const param = {
-        page: 1,
+        page: page,
         size: 12,
       };
       const harvestsResponse = await harvestApi.getAll(param);
@@ -23,8 +24,15 @@ const ProductList = () => {
       setTotalRecords(harvestsResponse.metadata.total);
       setHarvests(harvestsResponse.data);
     };
-    fetHarvests();
+    fetchHarvests();
   }, [page]);
+
+  useEffect(() => {
+    const fetchHarvestsCampaign = async () => {
+      setHarvestsCampaign(harvests.filter(c => c.campaignId.toString() ===  params.id));
+    };
+    fetchHarvestsCampaign();
+  }, [harvests]);
 
   const renderPagination = () => {
     return (
@@ -79,10 +87,15 @@ const ProductList = () => {
                 {renderSortDrop()}
                 <h5 className="mb-4">Danh Sách Sản Phẩm</h5>
               </div>
-              <div className="row no-gutters">
-                {harvests.map((harvest) => (
-                  <ProductSliderItem harvest={{ ...harvest }} />
-                ))}
+              <div className="row">
+                  {harvestsCampaign.map((harvestCampaign) => (
+                    <Col span={12}>
+                      <ProductSliderItem
+                        harvestCampaign={{ ...harvestCampaign }}
+                        campaignId={props.campaignId}
+                      />
+                    </Col>
+                  ))}
               </div>
               {renderPagination()}
             </div>
