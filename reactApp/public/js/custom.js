@@ -13,19 +13,20 @@ $(document).ready(function() {
         objowlcarousel.owlCarousel({
             responsive: {
                 0: {
-                    items: 2,
+                    items: 1,
                 },
                 600: {
                     items: 2,
                     nav: false
                 },
                 1000: {
-                    items: 5,
+                    items: 3,
                 },
                 1200: {
-                    items: 5,
+                    items: 3,
                 },
             },
+            items: 3,
             lazyLoad: true,
             pagination: false,
             loop: true,
@@ -83,7 +84,7 @@ $(document).ready(function() {
             dots: false,
             lazyLoad: true,
             pagination: true,
-            autoPlay: 4000,
+            autoPlay: 5000,
             loop: true,
             singleItem: true,
             navigation: true,
@@ -108,7 +109,7 @@ $(document).ready(function() {
         slideSpeed: 1000,
         pagination: false,
         navigation: true,
-        autoPlay: 2500,
+        autoPlay: 5000,
 		dots: false,
         nav: true,
         navigationText: ["<i class='mdi mdi-chevron-left'></i>", "<i class='mdi mdi-chevron-right'></i>"],

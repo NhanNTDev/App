@@ -13,7 +13,6 @@ const Home = () => {
 
   const [categories, setCategories] = useState([]);
 
-  //Delete Script element of casourel
   useEffect(() => {
     deleteScript();
   }, []);
@@ -23,7 +22,6 @@ const Home = () => {
       const categoriesResponse = await categoriesApi.getAll();
       setCategories(categoriesResponse.data);
     };
-
     fetchCategories();
   }, []);
 
@@ -31,14 +29,13 @@ const Home = () => {
     const params = {
       page: 1,
       size: 10,
-    }
+    };
     const fetchCampaigns = async () => {
       const campaigns = await campaignsApi.getAll(params);
       setWeeklyCampaigns(campaigns.data);
       setHotCampaign(campaigns.data);
       runScript();
     };
-
     fetchCampaigns();
   }, []);
 

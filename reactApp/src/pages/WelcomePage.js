@@ -16,6 +16,7 @@ import ViewAllCampaigns from "./ViewAllCampaigns";
 import Campaign from "./Campaign";
 import SearchResult from "./SearchResult";
 import Farm from "./Farm";
+import Login from "./Login";
 
 const WelcomePage = () => {
   return (
@@ -37,6 +38,7 @@ const WelcomePage = () => {
         <Route path="/campaign/:id" element={<Campaign />} />
         <Route path="/campaign/:campaignId/:farmId" element={<Farm/>} />
         <Route path="/search-result" element={<SearchResult/>}/>
+        <Route path="/login" element={<Login/>}/>
         <Route path="/*" element={<Navigate replace to="/page-not-found" />} />
       </Routes>
       <Footer></Footer>

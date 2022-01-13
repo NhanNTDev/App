@@ -55,6 +55,7 @@ ul {
 img {
      transform-style: preserve-3d;
 }
+
 a {
      text-decoration:none !important;
      color:#888;
@@ -282,6 +283,16 @@ a:focus {
     font-size: 13px;
     height: 38px;
     min-width: 384px;
+}
+.top-categories-search .locate-btn {
+    border: medium none;
+    font-size: 13px;
+    height: 38px;
+    margin-right: 5px;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .top-categories-search .btn {
     border-radius: 0 2px 2px 0 !important;

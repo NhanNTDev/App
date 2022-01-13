@@ -31,7 +31,7 @@ const FarmPicture = (props) => {
               <img alt="" src={props.farm.image5} className="img-fluid img-center" />
             </div>
             <div className="item">
-              <img alt="" src={props.farm.image1} className="img-fluid img-center" />
+              <img alt="" src={props.farm.image6} className="img-fluid img-center" />
             </div>
           </div>
         </div>
