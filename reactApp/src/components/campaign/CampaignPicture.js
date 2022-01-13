@@ -4,6 +4,7 @@ const CampaignPicture = (props) => {
       <div className="shop-detail-slider">
         <div className="favourite-icon">
         </div>
+
         <div id="sync1" className="owl-carousel">
           <div className="item">
             <img alt="" src={props.campaign.image1} className="img-fluid img-center" />

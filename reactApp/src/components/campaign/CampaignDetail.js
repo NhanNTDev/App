@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 const CampaignDetail = (props) => {
   return (
     <div className="shop-detail-right">
-      <span className="badge badge-success">50% OFF</span>
       <h2>{props.campaign.name}</h2>
       <h6>
           <span className="mdi mdi-timer"></span> {props.campaign.description}

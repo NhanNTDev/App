@@ -14,7 +14,7 @@ const PageNotFound = () => {
               </p>
               <div className="mt-5">
                 <a href="/home" className="btn btn-success btn-lg">
-                  <i className="mdi mdi-home"></i> GO TO HOME PAGE
+                  <i className="mdi mdi-home"></i> TRỞ VỀ TRANG CHỦ
                 </a>
               </div>
             </div>
