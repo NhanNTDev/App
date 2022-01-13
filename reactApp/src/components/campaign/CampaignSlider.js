@@ -8,7 +8,7 @@ const CampaignSlider = (props) => {
         <div className="section-header">
           <h5 className="heading-design-h5">
             {props.title}{" "}
-            {props.type === "other" && (
+            {props.type !== "weekly" && (
               <span className="badge badge-primary">Đang hot</span>
             )}
             <Link

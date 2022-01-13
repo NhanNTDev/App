@@ -60,7 +60,7 @@ const Header = () => {
               <div className="top-categories-search">
                 <div className="input-group">
                   <span className="input-group-btn categories-dropdown">
-                    <select
+                    {/* <select
                       className="form-control"
                       value={city}
                       onChange={(e) => {
@@ -72,7 +72,16 @@ const Header = () => {
                           {city.name}
                         </option>
                       ))}
-                    </select>
+                    </select> */}
+                    <button className="form-control locate-btn">
+                      <span
+                        className="mdi mdi-map-marker-circle"
+                        style={{ color: "orange" }}
+                      >
+                        {" "}
+                      </span>
+                      Cập nhật vị trí hiện tại
+                    </button>
                   </span>
                   <input
                     value={searchValue}
@@ -107,9 +116,7 @@ const Header = () => {
               <ul className="list-inline main-nav-right">
                 <li className="list-inline-item">
                   <Link
-                    to="#"
-                    data-target="#bd-example-modal"
-                    data-toggle="modal"
+                    to="/login"
                     className="btn btn-link"
                   >
                     <i className="mdi mdi-account-circle"></i> Đăng nhập/Đăng ký
@@ -131,7 +138,7 @@ const Header = () => {
         </div>
       </nav>
       <NavBar />
-      <LoginPopup />
+    
     </>
   );
 };
