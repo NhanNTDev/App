@@ -4,16 +4,17 @@ import { RECORD_PER_PAGE } from "../../constants/Constants";
 import harvestApi from "../../apis/harvestApi";
 import ProductSliderItem from "./ProductItemShort";
 import { useParams } from "react-router-dom";
+import { deleteScript, runScript } from "../../utils/Common";
 
 const ProductList = (props) => {
   const params = useParams();
-  console.log(params);
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(1);
   const [harvests, setHarvests] = useState([]);
+  const [harvestsCampaign, setHarvestsCampaign] = useState([]);
 
   useEffect(() => {
-    const fetHarvests = async () => {
+    const fetchHarvests = async () => {
       const param = {
         page: page,
         size: 12,
@@ -23,8 +24,15 @@ const ProductList = (props) => {
       setTotalRecords(harvestsResponse.metadata.total);
       setHarvests(harvestsResponse.data);
     };
-    fetHarvests();
+    fetchHarvests();
   }, [page]);
+
+  useEffect(() => {
+    const fetchHarvestsCampaign = async () => {
+      setHarvestsCampaign(harvests.filter(c => c.campaignId.toString() ===  params.id));
+    };
+    fetchHarvestsCampaign();
+  }, [harvests]);
 
   const renderPagination = () => {
     return (
@@ -80,17 +88,14 @@ const ProductList = (props) => {
                 <h5 className="mb-4">Danh Sách Sản Phẩm</h5>
               </div>
               <div className="row">
-                {/* <Row gutter={16}> */}
-                  {harvests.map((harvest) => (
-                    <Col span={8}>
+                  {harvestsCampaign.map((harvestCampaign) => (
+                    <Col span={12}>
                       <ProductSliderItem
-                        harvest={{ ...harvest }}
+                        harvestCampaign={{ ...harvestCampaign }}
                         campaignId={props.campaignId}
-                        farmId={props.farmId}
                       />
                     </Col>
                   ))}
-                {/* </Row> */}
               </div>
               {renderPagination()}
             </div>

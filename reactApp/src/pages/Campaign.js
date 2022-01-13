@@ -6,6 +6,7 @@ import CampaignPicture from "../components/campaign/CampaignPicture";
 import CampaignDetail from "../components/campaign/CampaignDetail";
 import FarmList from "../components/farm/FarmList";
 import campaignsApi from "../apis/campaignsApi";
+import ProductList from "../components/product/ProductList";
 
 const Campaign = () => {
   const params = useParams();
@@ -39,8 +40,6 @@ const Campaign = () => {
                 </strong>
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">Campaign</a>{" "}
-              <span className="mdi mdi-chevron-right"></span>{" "}
               <a href="#">{campaign !== null ? campaign.name : ""}</a>
             </div>
           </div>
@@ -54,7 +53,7 @@ const Campaign = () => {
               <CampaignDetail campaign={{ ...campaign }} />
             </div>
             <div className="col-md-8">
-              <FarmList campaignId={params.id}/>
+              <ProductList campaignId={params.id}/>
             </div>
           </div>
         </div>

@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductDetail from "../components/product/ProductDetail";
 import ProductPicture from "../components/product/ProductPicture";
-import { deleteScript, runScript } from "../utils/Common";
-import * as productService from "../apis/product-service";
-import productApi from "../apis/productApi";
 import harvestApi from "../apis/harvestApi";
 import ProductSlider from "../components/product/ProductSlider";
 import { useParams } from "react-router-dom";
@@ -15,20 +12,12 @@ const Product = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const param = {
-        page: 1,
-        size: 12,
-      };
-      const harvestsResponse = await harvestApi.getAll(param);
-      setHarvests(harvestsResponse.data);
+      const harvestsResponse = await harvestApi.get(params.productId);
+      console.log(harvestsResponse);
+      setHarvestCampaign(harvestsResponse);
     };
     fetchProducts();
   }, []);
-
-  useEffect(() => {
-    console.log(harvests);
-    setHarvestCampaign(harvests.find((c) => c.id.toString() === params.productId));
-  }, [harvests]);
 
   console.log(harvestCampaign);
 
@@ -45,8 +34,6 @@ const Product = () => {
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
               <a href="#">Đà Lạt - Hồ Chí Minh</a>
-              <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">Nguyễn Thành Nhân Farm</a>
               <span className="mdi mdi-chevron-right"></span>{" "}
               <a href="#">{harvestCampaign && harvestCampaign.harvest.name}</a>
             </div>
@@ -65,12 +52,12 @@ const Product = () => {
           </div>
         </div>
       </section>
-      {harvests.length > 0 ? (
+      {/* {harvests.length > 0 ? (
         <ProductSlider
           title="Sản phẩm khác trong nông trại"
           listProduct={harvests.filter(c => c.id.toString() !== params.productId)}
         />
-      ) : null}
+      ) : null} */}
     </>
   );
 };

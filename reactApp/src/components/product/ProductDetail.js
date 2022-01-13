@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import * as productService from "../../apis/product-service";
+import farmApi from "../../apis/farmApi";
 
 const ProductDetail = (props) => {
+  const [farm, setFarm] = useState([]);
+
+  useEffect(() => {
+    const fetchFarm = async () => {
+      const farmResponse = farmApi.get(props.harvestCampaign.harvest.farmId);
+      setFarm(farmResponse);
+    }
+  }, []);
+    
   return (
     <div className="shop-detail-right">
       <h2>{props.harvest.product.name}</h2>

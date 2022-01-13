@@ -466,13 +466,13 @@ a:focus {
 }
 .product-body h5 {
     font-size: 14px;
-    font-weight: 400;
-    margin: 0;
+    font-weight: 300;
+    margin: 5px 0 5px;
 }
 .product-body h6 {
     color: #9c9c9c;
     font-size: 12px;
-    margin: 5px 0 14px;
+    margin: 5px 0 5px;
 }
 .product-header img {
 	height: 200px;
