@@ -5,7 +5,7 @@ import { Pagination } from "antd";
 import { useSearchParams } from "react-router-dom";
 import ProductItem from "../components/product/ProductItem";
 
-const ViewAllCampaigns = () => {
+const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(1);
   const [products, setProducts] = useState([]);
@@ -99,4 +99,4 @@ const ViewAllCampaigns = () => {
   );
 };
 
-export default ViewAllCampaigns;
+export default SearchResult;
