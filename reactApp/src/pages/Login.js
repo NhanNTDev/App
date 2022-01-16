@@ -8,16 +8,19 @@ const Login = () => {
   const navigate = useNavigate();
   const { user, isAuthen, setUser, setIsAuthen } = useContext(AuthContext);
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     console.log("1 nè");
-    const result = await userApi.login({ userName, password });
-    console.log(result);
-    if (result) {
-      console.log("2 nè");
-      setIsAuthen(true);
-      setUser(result);
-      navigate(`/home`);
-    }
+    const login = async () => {
+      const result = await userApi.login({ userName, password });
+      console.log(result);
+      if (result) {
+        console.log("2 nè");
+        setIsAuthen(true);
+        setUser(result);
+        navigate(`/home`);
+      }
+    };
+    login();
     console.log("3 nè");
   };
 
@@ -36,13 +39,13 @@ const Login = () => {
                     <div className="col-lg-6 pad-left-0">
                       <div className="login-modal-right">
                         <div className="tab-content">
-                          <form
-                            className="tab-pane fade show active"
-                            id="login"
-                            role="tabpanel"
-                            aria-labelledby="tab1"
-                          >
-                            <div>
+                          {/* <form> */}
+                            <div
+                              className="tab-pane fade show active"
+                              id="login"
+                              role="tabpanel"
+                              aria-labelledby="tab1"
+                            >
                               <h5 className="heading-design-h5">
                                 Đăng nhập vào tài khoản của bạn
                               </h5>
@@ -73,7 +76,7 @@ const Login = () => {
                               <fieldset className="form-group">
                                 <button
                                   className="btn btn-lg btn-secondary btn-block"
-                                  onClick={() => handleLogin()}
+                                  onClick={handleLogin}
                                 >
                                   Đăng nhập
                                 </button>
@@ -106,7 +109,7 @@ const Login = () => {
                                 </button>
                               </div>
                             </div>
-                          </form>
+                          {/* </form> */}
                           <form
                             className="tab-pane fade show"
                             id="register"
@@ -143,7 +146,6 @@ const Login = () => {
                               </fieldset>
                               <fieldset className="form-group">
                                 <button
-                                  type="submit"
                                   className="btn btn-lg btn-secondary btn-block"
                                 >
                                   Đăng ký
