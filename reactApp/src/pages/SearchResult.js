@@ -2,22 +2,35 @@ import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../constants/Constants";
 import { productsList } from "../constants/Data";
 import { Pagination } from "antd";
-import { useSearchParams } from "react-router-dom";
+import {useSearchParams } from "react-router-dom";
 import ProductItem from "../components/product/ProductItem";
+import harvestApi from "../apis/harvestApi";
+import productApi from "../apis/productApi";
 
 const ViewAllCampaigns = () => {
   const [page, setPage] = useState(1);
-  const [totalRecord, setTotalRecords] = useState(1);
-  const [products, setProducts] = useState([]);
-  let [searchParams] = useSearchParams();
+  const [totalRecord, setTotalRecords] = useState(12);
+  const [searchProducts, setSearchProducts] = useState([]);
+  let [searchParams, setSearchParam] = useSearchParams();
+  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
-    setTotalRecords(36);
-  }, []);
+    setSearchValue(searchParams.get('searchValue'));
+  }, [searchParams]);
 
   useEffect(() => {
-    setProducts(productsList);
-  }, [page]);
+    const fetchProducts = async () => {
+      const params = {
+        page: page,
+        size: 12,
+        name: searchValue,
+      };
+      const productsResponse = await productApi.getAll(params);
+      setSearchProducts(productsResponse.data);
+      setTotalRecords(productsResponse.metadata.total);
+    };
+    fetchProducts();
+  }, [searchValue, page]);
 
   const renderPagination = () => {
     return (
@@ -85,16 +98,16 @@ const ViewAllCampaigns = () => {
             <div className="col-md-12">
               <div className="shop-head">
                 {renderSortDrop()}
-                <h5 className="mb-4">Kết quả cho SearchString</h5>
+                <h5 className="mb-4">Kết quả cho '{searchValue}'</h5>
               </div>
               <div className="row no-gutters">
-                {products.map((product) => <ProductItem product = {{...product}}/>)}
+                {searchProducts.map((product) => <ProductItem product = {{...product}}/>)}
               </div>
               {renderPagination()}
             </div>
           </div>
         </div>
-      </section>
+      </section>;;
     </>
   );
 };

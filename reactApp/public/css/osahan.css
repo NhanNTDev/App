@@ -736,6 +736,11 @@ body.toggled::after {
     margin-bottom: 15px;
     overflow: hidden;
 }
+.shop-detail-slider #sync1 img{
+    height: 400px;
+    width: auto;
+}
+
 .shop-detail-slider {
     position: relative;
 }
@@ -789,10 +794,16 @@ body.toggled::after {
     font-weight: 600;
     margin: 10px 0 5px;
 }
+.shop-detail-right h5 {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 5px 0 5px;
+}
 .shop-detail-right > h6 {
     color: #666;
     font-size: 14px;
-    margin: 0 0 19px;
+    font-weight: 400;
+    margin: 20px 0 5px;
 }
 .shop-detail-right .btn {
     font-weight: 500;
