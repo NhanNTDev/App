@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import ProductDetail from "../components/product/ProductDetail";
 import ProductPicture from "../components/product/ProductPicture";
 import harvestApi from "../apis/harvestApi";
-import ProductSlider from "../components/product/ProductSlider";
 import { useParams } from "react-router-dom";
 
 const Product = () => {
   const params = useParams();
-  const [harvests, setHarvests] = useState([]);
   const [harvestCampaign, setHarvestCampaign] = useState(null);
 
   useEffect(() => {

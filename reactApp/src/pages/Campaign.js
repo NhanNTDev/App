@@ -1,10 +1,8 @@
-import { useLayoutEffect, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
-import { runScript, deleteScript } from "../utils/Common";
 import CampaignPicture from "../components/campaign/CampaignPicture";
 import CampaignDetail from "../components/campaign/CampaignDetail";
-import FarmList from "../components/farm/FarmList";
 import campaignsApi from "../apis/campaignsApi";
 import ProductList from "../components/product/ProductList";
 
@@ -14,19 +12,12 @@ const Campaign = () => {
   const campaignId = params.id;
 
   useEffect(() => {
-    deleteScript();
-  }, []);
-
-  useEffect(() => {
     const fetchCampaign = async () => {
       const campaignResponse = await campaignsApi.get(campaignId);
       setCampaign(campaignResponse);
     };
     fetchCampaign();
-    runScript();
-
   }, []);
-
 
   return (
     <>

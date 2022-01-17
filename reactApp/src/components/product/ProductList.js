@@ -1,10 +1,9 @@
-import { Card, Col, Pagination, Row } from "antd";
+import { Col, Pagination} from "antd";
 import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../../constants/Constants";
 import harvestApi from "../../apis/harvestApi";
 import ProductSliderItem from "./ProductItemShort";
 import { useParams } from "react-router-dom";
-import { deleteScript, runScript } from "../../utils/Common";
 
 const ProductList = (props) => {
   const params = useParams();
