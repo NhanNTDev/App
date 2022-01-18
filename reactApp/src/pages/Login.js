@@ -1,12 +1,11 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
 import userApi from "../apis/userApi";
 const Login = () => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { user, isAuthen, setUser, setIsAuthen } = useContext(AuthContext);
+
 
   const handleLogin = () => {
     console.log("1 nè");
@@ -14,9 +13,11 @@ const Login = () => {
       const result = await userApi.login({ userName, password });
       console.log(result);
       if (result) {
-        console.log("2 nè");
-        setIsAuthen(true);
-        setUser(result);
+        console.log("login nè")
+        if (localStorage) {
+          localStorage.setItem("USER", result);
+          console.log("2 nè")          
+        }
         navigate(`/home`);
       }
     };
@@ -39,7 +40,6 @@ const Login = () => {
                     <div className="col-lg-6 pad-left-0">
                       <div className="login-modal-right">
                         <div className="tab-content">
-                          {/* <form> */}
                             <div
                               className="tab-pane fade show active"
                               id="login"
@@ -109,7 +109,6 @@ const Login = () => {
                                 </button>
                               </div>
                             </div>
-                          {/* </form> */}
                           <form
                             className="tab-pane fade show"
                             id="register"
