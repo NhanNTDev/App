@@ -1,14 +1,24 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import userApi from "../apis/userApi";
+import validator from "validator";
+import { object } from "prop-types";
 const Login = () => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginFail, setLoginFail] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [validateMsg, setValidateMsg] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = () => {
+    setLoginFail(false);
+    const isValid = validateAll();
+    if (!isValid) return;
     const login = async () => {
-      const result = await userApi.login({ userName, password });
+      const result = await userApi
+        .login({ userName, password })
+        .catch(setLoginFail(true));
       if (result) {
         if (localStorage) {
           localStorage.setItem("USER", JSON.stringify({ ...result }));
@@ -17,6 +27,27 @@ const Login = () => {
       }
     };
     login();
+  };
+
+  const onChangeUserName = (event) => {
+    setUsername(event.target.value);
+  };
+  const onChangePassword = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const validateAll = () => {
+    const msg = {};
+    if (validator.isEmpty(userName)) {
+      msg.userName = "Vui lòng nhập mục này";
+    }
+    if (validator.isEmpty(password)) {
+      msg.password = "Vui lòng nhập mục này";
+    }
+
+    setValidateMsg(msg);
+    if (Object.keys(msg).length > 0) return false;
+    return true;
   };
 
   return (
@@ -44,28 +75,48 @@ const Login = () => {
                               Đăng nhập vào tài khoản của bạn
                             </h5>
                             <fieldset className="form-group">
-                              <label>Email/Số điện thoại</label>
+                              <label>Tên đăng nhập</label>
                               <input
                                 value={userName}
-                                onChange={(e) => {
-                                  setUsername(e.target.value);
+                                onKeyPress={(e) => {
+                                  if (e.key == "Enter") handleLogin();
                                 }}
+                                onChange={onChangeUserName}
                                 type="text"
                                 className="form-control"
                                 placeholder="nhập email/số điện thoại..."
                               />
+                              <span style={{ color: "red" }}>
+                                {validateMsg.userName}
+                              </span>
                             </fieldset>
                             <fieldset className="form-group">
                               <label>Mật khẩu</label>
                               <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 value={password}
-                                onChange={(e) => {
-                                  setPassword(e.target.value);
+                                onKeyPress={(e) => {
+                                  if (e.key == "Enter") handleLogin();
                                 }}
+                                onChange={onChangePassword}
                                 className="form-control"
                                 placeholder="nhập mật khẩu..."
                               />
+                              <span
+                                id="show-password-btn"
+                                onClick={() => {
+                                  setShowPassword(!showPassword);
+                                }}
+                                className={
+                                  showPassword
+                                    ? "mdi mdi-eye-off"
+                                    : "mdi mdi-eye"
+                                }
+                              ></span>
+
+                              <span style={{ color: "red" }}>
+                                {validateMsg.password}
+                              </span>
                             </fieldset>
                             <fieldset className="form-group">
                               <button
@@ -75,8 +126,15 @@ const Login = () => {
                                 Đăng nhập
                               </button>
                             </fieldset>
+                            {loginFail && (
+                              <fieldset className="form-group">
+                                <span style={{ color: "red" }}>
+                                  Tên đăng nhập hoặc mật khẩu không chính xác
+                                </span>
+                              </fieldset>
+                            )}
 
-                            <div className="custom-control">
+                            <div className="custom-control custom-checkbox">
                               <input
                                 type="checkbox"
                                 className="custom-control-input"
@@ -128,6 +186,17 @@ const Login = () => {
                                   className="form-control"
                                   placeholder="********"
                                 />
+                                <span
+                                id="show-password-btn"
+                                onClick={() => {
+                                  setShowPassword(!showPassword);
+                                }}
+                                className={
+                                  showPassword
+                                    ? "mdi mdi-eye-off"
+                                    : "mdi mdi-eye"
+                                }
+                              ></span>
                               </fieldset>
                               <fieldset className="form-group">
                                 <label>Nhập lại mật khẩu </label>
@@ -136,6 +205,17 @@ const Login = () => {
                                   className="form-control"
                                   placeholder="********"
                                 />
+                                <span
+                                id="show-password-btn"
+                                onClick={() => {
+                                  setShowPassword(!showPassword);
+                                }}
+                                className={
+                                  showPassword
+                                    ? "mdi mdi-eye-off"
+                                    : "mdi mdi-eye"
+                                }
+                              ></span>
                               </fieldset>
                               <fieldset className="form-group">
                                 <button className="btn btn-lg btn-secondary btn-block">
