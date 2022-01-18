@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import userApi from "../apis/userApi";
 import validator from "validator";
-import { object } from "prop-types";
 const Login = () => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +17,7 @@ const Login = () => {
     const login = async () => {
       const result = await userApi
         .login({ userName, password })
-        .catch(setLoginFail(true));
+        .catch(() => setLoginFail(true));
       if (result) {
         if (localStorage) {
           localStorage.setItem("USER", JSON.stringify({ ...result }));
@@ -75,8 +74,9 @@ const Login = () => {
                               Đăng nhập vào tài khoản của bạn
                             </h5>
                             <fieldset className="form-group">
-                              <label>Tên đăng nhập</label>
+                              <label>Tên đăng nhập *</label>
                               <input
+                                required
                                 value={userName}
                                 onKeyPress={(e) => {
                                   if (e.key == "Enter") handleLogin();
@@ -91,8 +91,9 @@ const Login = () => {
                               </span>
                             </fieldset>
                             <fieldset className="form-group">
-                              <label>Mật khẩu</label>
+                              <label>Mật khẩu *</label>
                               <input
+                                required
                                 type={showPassword ? "text" : "password"}
                                 value={password}
                                 onKeyPress={(e) => {
@@ -187,16 +188,16 @@ const Login = () => {
                                   placeholder="********"
                                 />
                                 <span
-                                id="show-password-btn"
-                                onClick={() => {
-                                  setShowPassword(!showPassword);
-                                }}
-                                className={
-                                  showPassword
-                                    ? "mdi mdi-eye-off"
-                                    : "mdi mdi-eye"
-                                }
-                              ></span>
+                                  id="show-password-btn"
+                                  onClick={() => {
+                                    setShowPassword(!showPassword);
+                                  }}
+                                  className={
+                                    showPassword
+                                      ? "mdi mdi-eye-off"
+                                      : "mdi mdi-eye"
+                                  }
+                                ></span>
                               </fieldset>
                               <fieldset className="form-group">
                                 <label>Nhập lại mật khẩu </label>
@@ -206,16 +207,16 @@ const Login = () => {
                                   placeholder="********"
                                 />
                                 <span
-                                id="show-password-btn"
-                                onClick={() => {
-                                  setShowPassword(!showPassword);
-                                }}
-                                className={
-                                  showPassword
-                                    ? "mdi mdi-eye-off"
-                                    : "mdi mdi-eye"
-                                }
-                              ></span>
+                                  id="show-password-btn"
+                                  onClick={() => {
+                                    setShowPassword(!showPassword);
+                                  }}
+                                  className={
+                                    showPassword
+                                      ? "mdi mdi-eye-off"
+                                      : "mdi mdi-eye"
+                                  }
+                                ></span>
                               </fieldset>
                               <fieldset className="form-group">
                                 <button className="btn btn-lg btn-secondary btn-block">
