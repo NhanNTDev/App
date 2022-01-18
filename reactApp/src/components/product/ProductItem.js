@@ -33,7 +33,7 @@ const ProductItem = (props) => {
                   <span className="mdi mdi-map-marker-circle"></span> Chiến
                   dịch:
                 </strong>{" "}
-                {props.product.productCategory.campaign.name}
+                {props.product.productCategory.name}
               </h5>
               <h5>
                 <strong>

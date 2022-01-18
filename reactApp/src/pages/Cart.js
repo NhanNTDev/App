@@ -197,9 +197,7 @@ const Cart = () => {
     return (
       <tr>
         <td colSpan="7">
-          <div
-            className="cart-farm-header text-center"
-          >
+          <div className="cart-farm-header text-center">
             <strong>Nông trại:</strong>
             {"   "}
             {props}
@@ -292,6 +290,15 @@ const Cart = () => {
         </td>
         <td className="qty">
           <div className="input-group">
+            <span className="input-group-btn">
+              <button
+                disabled="disabled"
+                className="btn btn-theme-round btn-number"
+                type="button"
+              >
+                -
+              </button>
+            </span>
             <input
               type="Number"
               min="1"
@@ -299,6 +306,11 @@ const Cart = () => {
               value={props.productQuantity}
               className="form-control border-form-control form-control-sm input-number"
             />
+            <span className="input-group-btn">
+              <button className="btn btn-theme-round btn-number" type="button">
+                +
+              </button>
+            </span>
           </div>
         </td>
         <td className="productUnit">

@@ -860,7 +860,7 @@ body.toggled::after {
     height: 80px;
     margin: 0px;
     object-fit: cover;
-    width: 80px;
+    width: 200px;
 }
 .cart_summary td {
     vertical-align: middle;
@@ -932,7 +932,7 @@ body.toggled::after {
     text-transform: uppercase;
 }
 .cart_product {
-    width: 10%;
+    width: 15%;
 }
 /* Checkout Page */
 .checkout-step .card {

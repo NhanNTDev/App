@@ -32,6 +32,8 @@ const ViewAllCampaigns = () => {
     fetchProducts();
   }, [searchValue, page]);
 
+  console.log(searchProducts);
+
   const renderPagination = () => {
     return (
       <div className="pagination justify-content-center mt-4">
