@@ -1,27 +1,22 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
 import userApi from "../apis/userApi";
 const Login = () => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { user, isAuthen, setUser, setIsAuthen } = useContext(AuthContext);
 
   const handleLogin = () => {
-    console.log("1 nè");
     const login = async () => {
       const result = await userApi.login({ userName, password });
-      console.log(result);
       if (result) {
-        console.log("2 nè");
-        setIsAuthen(true);
-        setUser(result);
+        if (localStorage) {
+          localStorage.setItem("USER", JSON.stringify({ ...result }));
+        }
         navigate(`/home`);
       }
     };
     login();
-    console.log("3 nè");
   };
 
   return (
@@ -39,77 +34,75 @@ const Login = () => {
                     <div className="col-lg-6 pad-left-0">
                       <div className="login-modal-right">
                         <div className="tab-content">
-                          {/* <form> */}
-                            <div
-                              className="tab-pane fade show active"
-                              id="login"
-                              role="tabpanel"
-                              aria-labelledby="tab1"
-                            >
-                              <h5 className="heading-design-h5">
-                                Đăng nhập vào tài khoản của bạn
-                              </h5>
-                              <fieldset className="form-group">
-                                <label>Email/Số điện thoại</label>
-                                <input
-                                  value={userName}
-                                  onChange={(e) => {
-                                    setUsername(e.target.value);
-                                  }}
-                                  type="text"
-                                  className="form-control"
-                                  placeholder="nhập email/số điện thoại..."
-                                />
-                              </fieldset>
-                              <fieldset className="form-group">
-                                <label>Mật khẩu</label>
-                                <input
-                                  type="password"
-                                  value={password}
-                                  onChange={(e) => {
-                                    setPassword(e.target.value);
-                                  }}
-                                  className="form-control"
-                                  placeholder="nhập mật khẩu..."
-                                />
-                              </fieldset>
-                              <fieldset className="form-group">
-                                <button
-                                  className="btn btn-lg btn-secondary btn-block"
-                                  onClick={handleLogin}
-                                >
-                                  Đăng nhập
-                                </button>
-                              </fieldset>
+                          <div
+                            className="tab-pane fade show active"
+                            id="login"
+                            role="tabpanel"
+                            aria-labelledby="tab1"
+                          >
+                            <h5 className="heading-design-h5">
+                              Đăng nhập vào tài khoản của bạn
+                            </h5>
+                            <fieldset className="form-group">
+                              <label>Email/Số điện thoại</label>
+                              <input
+                                value={userName}
+                                onChange={(e) => {
+                                  setUsername(e.target.value);
+                                }}
+                                type="text"
+                                className="form-control"
+                                placeholder="nhập email/số điện thoại..."
+                              />
+                            </fieldset>
+                            <fieldset className="form-group">
+                              <label>Mật khẩu</label>
+                              <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => {
+                                  setPassword(e.target.value);
+                                }}
+                                className="form-control"
+                                placeholder="nhập mật khẩu..."
+                              />
+                            </fieldset>
+                            <fieldset className="form-group">
+                              <button
+                                className="btn btn-lg btn-secondary btn-block"
+                                onClick={handleLogin}
+                              >
+                                Đăng nhập
+                              </button>
+                            </fieldset>
 
-                              <div className="custom-control">
-                                <input
-                                  type="checkbox"
-                                  className="custom-control-input"
-                                  id="customCheck1"
-                                />
+                            <div className="custom-control">
+                              <input
+                                type="checkbox"
+                                className="custom-control-input"
+                                id="customCheck1"
+                              />
 
-                                <label
-                                  className="custom-control-label"
-                                  htmlFor="customCheck1"
-                                >
-                                  Nhớ mật khẩu
-                                </label>
-                                <div className="float-right">
-                                  <Link to="#">Quên mật khẩu</Link>{" "}
-                                </div>
-                              </div>
-                              <div className="login-with-sites text-center">
-                                <p>Đăng nhập bằng tài khoản khác:</p>
-                                <button className="btn-facebook login-icons btn-lg">
-                                  <i className="mdi mdi-facebook"></i> Facebook
-                                </button>
-                                <button className="btn-google login-icons btn-lg">
-                                  <i className="mdi mdi-google"></i> Google
-                                </button>
+                              <label
+                                className="custom-control-label"
+                                htmlFor="customCheck1"
+                              >
+                                Nhớ mật khẩu
+                              </label>
+                              <div className="float-right">
+                                <Link to="#">Quên mật khẩu</Link>{" "}
                               </div>
                             </div>
-                          {/* </form> */}
+                            <div className="login-with-sites text-center">
+                              <p>Đăng nhập bằng tài khoản khác:</p>
+                              <button className="btn-facebook login-icons btn-lg">
+                                <i className="mdi mdi-facebook"></i> Facebook
+                              </button>
+                              <button className="btn-google login-icons btn-lg">
+                                <i className="mdi mdi-google"></i> Google
+                              </button>
+                            </div>
+                          </div>
                           <form
                             className="tab-pane fade show"
                             id="register"
@@ -145,9 +138,7 @@ const Login = () => {
                                 />
                               </fieldset>
                               <fieldset className="form-group">
-                                <button
-                                  className="btn btn-lg btn-secondary btn-block"
-                                >
+                                <button className="btn btn-lg btn-secondary btn-block">
                                   Đăng ký
                                 </button>
                               </fieldset>
