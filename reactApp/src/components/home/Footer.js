@@ -7,22 +7,22 @@ const Footer = () => {
                         <div className="col-lg-4 col-sm-6">
                             <div className="feature-box">
                                 <i className="mdi mdi-truck-fast"></i>
-                                <h6>Free & Next Day Delivery</h6>
-                                <p>Lorem ipsum dolor sit amet, cons...</p>
+                                <h6>Giao hàng nhanh chóng</h6>
+                                <p>Giao hàng ngay khi chiến dịch kết thúc</p>
                             </div>
                         </div>
                         <div className="col-lg-4 col-sm-6">
                             <div className="feature-box">
                                 <i className="mdi mdi-basket"></i>
-                                <h6>100% Satisfaction Guarantee</h6>
-                                <p>Rorem Ipsum Dolor sit amet, cons...</p>
+                                <h6>Sản phẩm tươi sạch</h6>
+                                <p>Thu hoạch trước khi vận chuyển</p>
                             </div>
                         </div>
                         <div className="col-lg-4 col-sm-6">
                             <div className="feature-box">
                                 <i className="mdi mdi-tag-heart"></i>
-                                <h6>Great Daily Deals Discount</h6>
-                                <p>Sorem Ipsum Dolor sit amet, Cons...</p>
+                                <h6>Giá cả siêu rẻ</h6>
+                                <p>Giá tại vườn, không qua trung gian</p>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@ const Footer = () => {
                         <div className="col-lg-3 col-md-3">
                             <h4 className="mb-5 mt-0">
                                 <a className="logo" href="index.html">
-                                    <img src="img/logo-footer.png" alt="Groci" />
+                                    <img src="/img/logo-footer.png" alt="Groci" />
                                 </a>
                             </h4>
                             <p className="mb-0">
@@ -132,7 +132,7 @@ const Footer = () => {
                             </div>
                             <h6 className="mb-3 mt-4">GET IN TOUCH</h6>
                             <div className="footer-social">
-                                <a className="btn-facebook" href="#">
+                                <a className="btn-facebook" target="_blank" href="https://www.facebook.com/linhtam.gunner">
                                     <i className="mdi mdi-facebook"></i>
                                 </a>
                                 <a className="btn-twitter" href="#">
@@ -161,23 +161,10 @@ const Footer = () => {
                     <div className="row no-gutters">
                         <div className="col-lg-6 col-sm-6">
                             <p className="mt-1 mb-0">
-                                &copy; Copyright 2020 <strong className="text-dark">Groci</strong>
-                                . All Rights Reserved
+                                &copy; Copyright 2021 <strong className="text-dark">Dichonao</strong>
+                                 . All Rights Reserved
                                 <br />
-                                <small className="mt-0 mb-0">
-                                    Made with <i className="mdi mdi-heart text-danger"></i> by{" "}
-                                    <a
-                                        href="https://askbootstrap.com/"
-                                        target="_blank"
-                                        className="text-primary"
-                                    >
-                                        Ask Bootstrap
-                                    </a>
-                                </small>
                             </p>
-                        </div>
-                        <div className="col-lg-6 col-sm-6 text-right">
-                            <img alt="osahan logo" src="img/payment_methods.png" />
                         </div>
                     </div>
                 </div>

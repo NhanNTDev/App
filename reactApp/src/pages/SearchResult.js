@@ -7,7 +7,7 @@ import ProductItem from "../components/product/ProductItem";
 import harvestApi from "../apis/harvestApi";
 import productApi from "../apis/productApi";
 
-const ViewAllCampaigns = () => {
+const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(12);
   const [searchProducts, setSearchProducts] = useState([]);
@@ -114,4 +114,4 @@ const ViewAllCampaigns = () => {
   );
 };
 
-export default ViewAllCampaigns;
+export default SearchResult;

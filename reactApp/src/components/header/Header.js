@@ -1,39 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import LoginPopup from "../login/LoginPopup";
 import TopOption from "./TopOption";
 import NavBar from "./NavBar";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
-  const [city, setCity] = useState("0");
   const navigate = useNavigate();
-  const citys = [
-    {
-      id: "0",
-      name: "Chọn Thành Phố",
-    },
-    {
-      id: "1",
-      name: "Hồ Chí Minh",
-    },
-    {
-      id: "2",
-      name: "Hà Nội",
-    },
-    {
-      id: "3",
-      name: "Đà Nẵng",
-    },
-    {
-      id: "4",
-      name: "Cần Thơ",
-    },
-    {
-      id: "5",
-      name: "Quy Nhơn",
-    },
-  ];
+  const user = JSON.parse(localStorage.getItem("USER"));
+  const handleLogout = () => {
+    if (localStorage) {
+      localStorage.removeItem("USER");
+    }
+    navigate("/login");
+  };
 
   return (
     <>
@@ -60,19 +39,6 @@ const Header = () => {
               <div className="top-categories-search">
                 <div className="input-group">
                   <span className="input-group-btn categories-dropdown">
-                    {/* <select
-                      className="form-control"
-                      value={city}
-                      onChange={(e) => {
-                        setCity(e.target.value);
-                      }}
-                    >
-                      {citys.map((city) => (
-                        <option value={city.id} key={city.id}>
-                          {city.name}
-                        </option>
-                      ))}
-                    </select> */}
                     <button className="form-control locate-btn">
                       <span
                         className="mdi mdi-map-marker-circle"
@@ -114,14 +80,67 @@ const Header = () => {
             </div>
             <div className="my-2 my-lg-0">
               <ul className="list-inline main-nav-right">
-                <li className="list-inline-item">
-                  <Link
-                    to="/login"
-                    className="btn btn-link"
-                  >
-                    <i className="mdi mdi-account-circle"></i> Đăng nhập/Đăng ký
-                  </Link>
-                </li>
+                {user !== null ? (
+                  <li className="list-inline-item dropdown osahan-top-dropdown">
+                    <a
+                      className="btn btn-theme-round dropdown-toggle dropdown-toggle-top-user"
+                      href="#"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <img
+                        alt="logo"
+                        src={user.image !== null ? user.image : "img/user.jpg"}
+                      />
+                      <strong>Hi</strong> {user.shortName}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-list-design">
+                      <Link to="/account" className="dropdown-item">
+                        <i
+                          aria-hidden="true"
+                          className="mdi mdi-account-outline"
+                        ></i>{" "}
+                        Thông Tin Cá Nhân
+                      </Link>
+                      <Link to="/address" className="dropdown-item">
+                        <i
+                          aria-hidden="true"
+                          className="mdi mdi-map-marker-circle"
+                        ></i>{" "}
+                        Thông Tin Giao Hàng
+                      </Link>
+                      <Link to="/wishList" className="dropdown-item">
+                        <i
+                          aria-hidden="true"
+                          className="mdi mdi-heart-outline"
+                        ></i>{" "}
+                        Mục Yêu Thích{" "}
+                      </Link>
+                      <Link to="orderList" className="dropdown-item">
+                        <i
+                          aria-hidden="true"
+                          className="mdi mdi-format-list-bulleted"
+                        ></i>{" "}
+                        Lịch Sử Đặt Hàng
+                      </Link>
+                      <div className="dropdown-divider"></div>
+                      <a
+                        className="dropdown-item"
+                        onClick={() => handleLogout()}
+                      >
+                        <i className="mdi mdi-lock"></i> Đăng xuất
+                      </a>
+                    </div>
+                  </li>
+                ) : (
+                  <li className="list-inline-item">
+                    <Link to="/login" className="btn btn-link">
+                      <i className="mdi mdi-account-circle"></i> Đăng nhập/Đăng
+                      ký
+                    </Link>
+                  </li>
+                )}
                 <li className="list-inline-item cart-btn">
                   <Link
                     to="/cart"
@@ -138,7 +157,6 @@ const Header = () => {
         </div>
       </nav>
       <NavBar />
-    
     </>
   );
 };
