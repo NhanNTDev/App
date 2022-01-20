@@ -8,7 +8,7 @@ const CampaignSliderItem = (props) => {
       <div className="product">
         <Link to={`/campaign/${props.id}`}>
           <div className="product-header">
-            <img className="img-fluid" src={props.image1} alt="" />
+            <img className="img-fluid" style={{objectFit: "cover", backgroundSize: "cover",width: "100%"}} src={props.image1} alt="" />
             <span className="veg text-success mdi mdi-circle"></span>
           </div>
           <div className="product-body">
