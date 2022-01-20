@@ -58,7 +58,7 @@ $(document).ready(function() {
                     items: 8,
                 },
             },
-            items: 8,
+            items: 6,
             lazyLoad: true,
             pagination: false,
             loop: true,
