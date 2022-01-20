@@ -2,11 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import TopOption from "./TopOption";
 import NavBar from "./NavBar";
+import LocationSearch from "./LocationSearch";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("USER"));
+  const [address, setAddess] = useState(localStorage.getItem("ADDRESS"));
   const handleLogout = () => {
     if (localStorage) {
       localStorage.removeItem("USER");
@@ -39,14 +41,18 @@ const Header = () => {
               <div className="top-categories-search">
                 <div className="input-group">
                   <span className="input-group-btn categories-dropdown">
-                    <button className="form-control locate-btn">
+                    <button
+                      className="form-control locate-btn"
+                      data-toggle="offcanvas"
+                      // onClick={() => getLocation()}
+                    >
                       <span
                         className="mdi mdi-map-marker-circle"
                         style={{ color: "orange" }}
                       >
                         {" "}
                       </span>
-                      Cập nhật vị trí hiện tại
+                      {address !== null ? address : "Cập nhật vị trí hiện tại"}
                     </button>
                   </span>
                   <input
@@ -93,7 +99,7 @@ const Header = () => {
                         alt="logo"
                         src={user.image !== null ? user.image : "img/user.jpg"}
                       />
-                      <strong>Hi</strong> {user.shortName}
+                      {user.shortName !== null ? user.shortName : user.userName}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-list-design">
                       <Link to="/account" className="dropdown-item">
@@ -157,6 +163,7 @@ const Header = () => {
         </div>
       </nav>
       <NavBar />
+      <LocationSearch callback={(address) => setAddess(address)} />
     </>
   );
 };

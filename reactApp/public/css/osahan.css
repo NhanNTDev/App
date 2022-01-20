@@ -605,13 +605,13 @@ body.toggled::after {
   z-index: 9;
   top: 0;
 }
-.cart-sidebar {
+.location-search-slider {
   background: #fff none repeat scroll 0 0;
   overflow: auto;
   position: fixed;
-  right: -400px;
+  left: -600px;
   top: 0;
-  width: 400px;
+  width: 600px;
   z-index: 99;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -619,36 +619,36 @@ body.toggled::after {
   transition: all 0.5s ease;
   height: 100vh;
 }
-.toggled .cart-sidebar {
-  right: 0px;
+.toggled .location-search-slider {
+  left: 0px;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
-.cart-sidebar-body {
+.location-search-slider-body {
   height: 66vh;
   overflow: inherit;
 }
-.cart-sidebar-header {
-  background: #1c2224 none repeat scroll 0 0;
+.location-search-slider-header {
+  
   color: #fff;
   padding: 18px 20px;
 }
-.cart-sidebar-header h5 {
+.location-search-slider-header h5 {
   color: #fff;
   font-size: 16px;
   line-height: 24px;
   margin: 0;
 }
-.cart-sidebar-header .float-right {
-  background: #fff none repeat scroll 0 0;
+.location-search-slider-header .float-right {
   border-radius: 24px;
   color: #000;
-  height: 26px;
+  font-size: 30px;
+  height: 40px;
   line-height: 25px;
   text-align: center;
-  width: 26px;
+  width: 40px;
 }
 .cart-list-product {
   border-bottom: 1px solid #ececec;
@@ -699,7 +699,7 @@ body.toggled::after {
   font-weight: 500;
   padding: 3px 6px;
 }
-.cart-sidebar-footer {
+.location-search-slider-footer {
   background: #ececec none repeat scroll 0 0;
   padding: 14px 20px;
 }
@@ -709,7 +709,7 @@ body.toggled::after {
 .cart-store-details h6 {
   margin: 10px 0 19px;
 }
-.cart-sidebar-footer .btn {
+.location-search-slider-footer .btn {
   padding: 15px 17px;
 }
 /* Shop Filters */
@@ -1265,7 +1265,7 @@ label {
     border-radius: 2px 0 0 2px !important;
     min-width: auto;
   }
-  .cart-sidebar {
+  .location-search-slider {
     width: 320px;
   }
   .login-modal-right {

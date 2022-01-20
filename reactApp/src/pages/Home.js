@@ -12,7 +12,6 @@ const Home = () => {
   const [hotCampaigns, setHotCampaign] = useState([]);
 
   const [categories, setCategories] = useState([]);
-
   useEffect(() => {
     deleteScript();
   }, []);
