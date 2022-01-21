@@ -8,7 +8,7 @@ const Header = () => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("USER"));
-  const [address, setAddess] = useState(localStorage.getItem("ADDRESS"));
+  const [address, setAddess] = useState(localStorage.getItem("dichonao_userAddress"));
   const handleLogout = () => {
     if (localStorage) {
       localStorage.removeItem("USER");
