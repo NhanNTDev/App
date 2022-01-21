@@ -20,7 +20,15 @@ const ProductItemShort = (props) => {
 
           <div className="product-body">
             <div style={{ height: 80 }}>
-              <h4>{props.harvestCampaign.harvest.product.name}</h4>
+              <h4
+                style={{
+                  height: 40,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {props.harvestCampaign.harvest.product.name}
+              </h4>
               <p className="offer-price">
                 <i className="mdi mdi-tag-outline"></i>{" "}
                 {props.harvestCampaign.price.toLocaleString()} {" VNĐ / "}{" "}
