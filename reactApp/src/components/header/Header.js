@@ -44,7 +44,6 @@ const Header = () => {
                     <button
                       className="form-control locate-btn"
                       data-toggle="offcanvas"
-                      // onClick={() => getLocation()}
                     >
                       <span
                         className="mdi mdi-map-marker-circle"
