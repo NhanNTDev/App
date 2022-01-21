@@ -5,21 +5,21 @@ import { useState } from "react";
 const LocationSearch = ({ callback }) => {
   const [address, setAddress] = useState();
   const offcanvas = () => {
-    let offButton = document.getElementById("of-location-search-slider");
+    let offButton = document.getElementById("off-location-search-slider");
     offButton.click();
   };
 
   const handleChange = (address) => {
     setAddress(address);
-    callback(address);
   };
 
   const handleSelect = (address) => {
     setAddress(address);
     if (localStorage) {
-      localStorage.setItem("ADDRESS", address);
+      localStorage.setItem("dichonao_userAddress", address);
     }
     callback(address);
+    setAddress("");
     offcanvas();
   };
   const getLocation = async () => {
@@ -55,9 +55,10 @@ const LocationSearch = ({ callback }) => {
     console.log(address);
     setAddress(address);
     if (localStorage) {
-      localStorage.setItem("ADDRESS", address);
+      localStorage.setItem("dichonao_userAddress", address);
     }
     callback(address);
+    setAddress("");
     offcanvas();
   };
 
@@ -68,13 +69,13 @@ const LocationSearch = ({ callback }) => {
           <a
             data-toggle="offcanvas"
             className="float-right"
-            id="of-location-search-slider"
+            id="off-location-search-slider"
           >
             <i className="mdi mdi-close"></i>
           </a>
         </div>
         <div className="location-search-slider-body">
-          <div>
+          <div style={{ marginLeft: 50 }}>
             <PlacesAutocomplete
               value={address}
               onChange={handleChange}
@@ -118,12 +119,13 @@ const LocationSearch = ({ callback }) => {
                 </div>
               )}
             </PlacesAutocomplete>
+            <br />
+            <strong className="d-flex justify-content-center">Hoặc</strong>
+            <br />
+            <button className="form-control locate-btn" onClick={getLocation}>
+              <i className="mdi mdi-crosshairs-gps"></i> Lấy vị trí hiện tại
+            </button>
           </div>
-          <br />
-          <br />
-          <button className="form-control locate-btn" onClick={getLocation}>
-            Lấy vị trí hiện tại
-          </button>
         </div>
       </div>
     </>
