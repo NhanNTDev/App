@@ -64,6 +64,7 @@ const LocationSearch = ({ callback }) => {
 
   return (
     <>
+    <div id="toggle">
       <div className="location-search-slider">
         <div className="location-search-slider-header">
           <a
@@ -127,6 +128,7 @@ const LocationSearch = ({ callback }) => {
             </button>
           </div>
         </div>
+      </div>
       </div>
     </>
   );
