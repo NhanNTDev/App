@@ -2,13 +2,23 @@ import { Link } from "react-router-dom";
 
 const CampaignSliderItem = (props) => {
   const date = new Date(props.endAt);
-  let endDate = date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear();
+  let endDate =
+    date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear();
   return (
     <div className="item" key={props.id}>
       <div className="product">
         <Link to={`/campaign/${props.id}`}>
           <div className="product-header">
-            <img className="img-fluid" style={{objectFit: "cover", backgroundSize: "cover",width: "100%"}} src={props.image1} alt="" />
+            <img
+              className="img-fluid"
+              style={{
+                objectFit: "cover",
+                backgroundSize: "cover",
+                width: "100%",
+              }}
+              src={props.image1}
+              alt=""
+            />
             <span className="veg text-success mdi mdi-circle"></span>
           </div>
           <div className="product-body">
