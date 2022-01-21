@@ -4,27 +4,42 @@ const ProductItem = (props) => {
   return (
     <div className="col-md-3">
       <div className="product">
-        <Link to={`/products/${props.product.productCategory.campaignId}/${props.product.id}`}>
+        <Link
+          to={`/products/${props.product.productCategory.campaignId}/${props.product.id}`}
+        >
           <div className="product-header">
-            <img className="img-fluid" src={props.product.image1} alt="" />
+            {props.product.image1 !== null ? (
+              <img
+                className="img-fluid"
+                src={props.product.image1}
+                alt=""
+              />
+            ) : (
+              <img className="img-fluid" src="/img/item/1.jpg" alt="" />
+            )}
             <span className="veg text-success mdi mdi-circle"></span>
           </div>
           <div className="product-body">
-            <div>
+            <div style={{ height: 90 }}>
               <h4
                 style={{
-                  height: 50,
+                  height: 40,
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                 }}
               >
                 {props.product.name}
               </h4>
+              <p className="offer-price mb-0">
+                <i className="mdi mdi-tag-outline"></i>{" "}
+                {props.product.price.toLocaleString()} {" VNĐ / "}{" "}
+                {props.product.unit}
+              </p>
               <h6>
                 <strong>
                   <span class="mdi mdi-approval"></span> Còn lại:
                 </strong>{" "}
-                {/* {props.product.product.available} {" / "} {props.product.product.maxQuantity} {props.product.product.unit} */}
+                {props.product.quantity} {props.product.unit}
               </h6>
             </div>
             <div>
@@ -33,7 +48,7 @@ const ProductItem = (props) => {
                   <span className="mdi mdi-map-marker-circle"></span> Chiến
                   dịch:
                 </strong>{" "}
-                {props.product.productCategory.campaign.name}
+                {props.product.productCategory.name}
               </h5>
               <h5>
                 <strong>
@@ -54,10 +69,6 @@ const ProductItem = (props) => {
           >
             <i className="mdi mdi-cart"></i> Thêm vào giỏ hàng
           </button>
-          <p className="offer-price mb-0">
-            <i className="mdi mdi-tag-outline"></i>{" "}
-            {props.product.product.price.toLocaleString()} {" VNĐ / "} {props.product.product.unit}
-          </p>
           <br />
         </div> */}
       </div>

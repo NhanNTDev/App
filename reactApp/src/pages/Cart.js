@@ -1,3 +1,4 @@
+import { Checkbox } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -9,7 +10,8 @@ const Cart = () => {
       farms: [
         {
           farmId: "1",
-          farmName: "Nguyễn Thành Nhân's Farm",
+          farmName: "Lâm Đồng Milk Farm",
+          address: "Thôn Cầu Sắt, xã Tu Tra, TP.Đà Lạt, Lâm Đồng",  
           products: [
             {
               productId: "1",
@@ -31,7 +33,8 @@ const Cart = () => {
         },
         {
           farmId: "2",
-          farmName: "Nguyễn Thành Nhân's Farm",
+          farmName: "Amavi Farm Bảo Lộc",
+          address: "99A Lê Thị Pha, Phường 1, TP.Bảo Lộc, Lâm Đồng",  
           products: [
             {
               productId: "3",
@@ -60,7 +63,8 @@ const Cart = () => {
       farms: [
         {
           farmId: "3",
-          farmName: "Nguyễn Thành Nhân's Farm",
+          farmName: "Midori Coffee Farm",
+          address: "235 Thôn 3, Huyện Lâm Hà, Lâm Đống",  
           products: [
             {
               productId: "5",
@@ -82,7 +86,8 @@ const Cart = () => {
         },
         {
           farmId: "4",
-          farmName: "Nguyễn Thành Nhân's Farm",
+          farmName: "EdnaFarm",
+          address: "503 Nguyên Tử Lực, Phường 8, TP.Đà Lạt, Lâm Đồng",  
           products: [
             {
               productId: "7",
@@ -142,78 +147,68 @@ const Cart = () => {
     return (
       <>
         <div className="table-responsive">
-          {renderCampaignHeader(props.campaignName)}
+          <div className="cart-campaign-header text-left">
+            <h5>{props.campaignName}</h5>
+          </div>
           <table className="table cart_summary">
             {renderTableHead()}
             <tbody>
               {props.farms.map((farm) => renderCartForFarm({ ...farm }))}
             </tbody>
-            {renderTableFoot({
-              total: total,
-              discount: discount,
-              mustPay: mustPay,
-            })}
+            {renderTableFoot()}
           </table>
-          <Link to="/checkout">
-            <button
-              className="btn btn-secondary-sm btn-block text-left"
-              type="button"
-            >
-              <span className="float-left">
-                <i className="mdi mdi-cart-outline"></i> Tiến hành thanh toán{" "}
-              </span>
-              <span className="float-right">
-                <strong>{mustPay.toLocaleString()} VNĐ</strong>{" "}
-                <span className="mdi mdi-chevron-right"></span>
-              </span>
-            </button>
-          </Link>
         </div>
-        <br />
-        <br />
       </>
     );
   };
 
   const renderCartForFarm = (props) => {
     return (
-      <>
-        {renderFarmHeader(props.farmName)}
+      <>   
         {props.products.map((product) => renderTableItem({ ...product }))}
+        <tr>
+          <td colSpan="8">
+            <div className="cart-farm-header">
+              <h5>{props.farmName}</h5>
+              <h6>
+                <i>
+                  <span className="mdi mdi-map-marker"></span> Địa Chỉ:
+                </i>{" "}
+                {props.address}
+              </h6>
+              <h6>
+                <i>
+                  Đánh giá:{" "}
+                  <span
+                    className="mdi mdi-star"
+                    style={{ color: "#ebd428" }}
+                  ></span>
+                  <span
+                    className="mdi mdi-star"
+                    style={{ color: "#ebd428" }}
+                  ></span>
+                  <span
+                    className="mdi mdi-star"
+                    style={{ color: "#ebd428" }}
+                  ></span>
+                  <span
+                    className="mdi mdi-star"
+                    style={{ color: "#ebd428" }}
+                  ></span>
+                </i>{" "}
+              </h6>
+            </div>
+          </td>
+        </tr>
       </>
-    );
-  };
-  const renderCampaignHeader = (props) => {
-    return (
-      <div className="cart-campaign-header text-left">
-        <strong>Chiến dịch:</strong>
-        {"   "}
-        {props}
-      </div>
-    );
-  };
-
-  const renderFarmHeader = (props) => {
-    return (
-      <tr>
-        <td colSpan="7">
-          <div
-            className="cart-farm-header text-center"
-          >
-            <strong>Nông trại:</strong>
-            {"   "}
-            {props}
-          </div>
-        </td>
-      </tr>
     );
   };
 
   const renderTableFoot = (props) => {
     return (
       <tfoot>
-        <tr className="form-group">
-          <td colSpan="2"></td>
+        <tr>
+          <td colSpan="3"></td>
           <td colSpan="2">
             <input
               type="text"
@@ -227,30 +222,6 @@ const Cart = () => {
             </button>
           </td>
         </tr>
-        <tr>
-          <td colSpan="2"></td>
-          <td colSpan="1" className="font-weight-bold">
-            {" "}
-            Giảm giá:{" "}
-          </td>
-          <td colSpan="4"> {props.discount.toLocaleString()} VNĐ </td>
-        </tr>
-        <tr>
-          <td colSpan="2"></td>
-          <td colSpan="1" className="font-weight-bold">
-            {" "}
-            Thành tiền:{" "}
-          </td>
-          <td colSpan="4"> {props.total.toLocaleString()} VNĐ </td>
-        </tr>
-        <tr>
-          <td colSpan="2"></td>
-          <td colSpan="1" className="font-weight-bold">
-            {" "}
-            Tiền phải trả:{" "}
-          </td>
-          <td colSpan="4"> {props.mustPay.toLocaleString()} VNĐ </td>
-        </tr>
       </tfoot>
     );
   };
@@ -259,16 +230,16 @@ const Cart = () => {
     return (
       <thead>
         <tr>
-          <th className="cart_product">Hình ảnh</th>
-          <th>Tên sản phẩm</th>
+          <th>
+            <Checkbox />
+          </th>
+          <th className="cart_product">Sản phẩm</th>
+          <th></th>
           <th>Đơn giá</th>
           <th>Số lượng</th>
           <th>Đơn vị</th>
           <th>Thành Tiền</th>
-          <th className="text-center">Hành động</th>
-          {/* <th className="action">
-            <i className="mdi mdi-delete-forever"></i>
-          </th> */}
+          <th className="text-center">Thao tác</th>
         </tr>
       </thead>
     );
@@ -277,21 +248,31 @@ const Cart = () => {
   const renderTableItem = (props) => {
     return (
       <tr>
+        <td className="cart_checkbox">
+          <Checkbox />
+        </td>
         <td className="cart_product">
           <a href="#">
             <img alt="Product" src={props.productImage} />
           </a>
         </td>
         <td className="cart_description">
-          <h5 className="product-name">
-            <a href="#">{props.productName}</a>
-          </h5>
+          <h5 className="product_name">{props.productName}</h5>
         </td>
         <td className="price">
           <span>{props.productPrice.toLocaleString()} VNĐ</span>
         </td>
         <td className="qty">
           <div className="input-group">
+            <span className="input-group-btn">
+              <button
+                disabled="disabled"
+                className="btn btn-theme-round btn-number"
+                type="button"
+              >
+                -
+              </button>
+            </span>
             <input
               type="Number"
               min="1"
@@ -299,12 +280,17 @@ const Cart = () => {
               value={props.productQuantity}
               className="form-control border-form-control form-control-sm input-number"
             />
+            <span className="input-group-btn">
+              <button className="btn btn-theme-round btn-number" type="button">
+                +
+              </button>
+            </span>
           </div>
         </td>
         <td className="productUnit">
           <span>{props.productUnit}</span>
         </td>
-        <td className="price">
+        <td className="total_item">
           <span>
             {(props.productPrice * props.productQuantity).toLocaleString()} VNĐ
           </span>
@@ -348,15 +334,13 @@ const Cart = () => {
               <div className="card card-body cart-table">
                 {cart.map((campaign) => renderCartForCampaign({ ...campaign }))}
 
-                <br />
-                <br />
                 <Link to="/checkout">
                   <button
                     className="btn btn-secondary btn-lg btn-block text-left"
                     type="button"
                   >
                     <span className="float-left">
-                      <i className="mdi mdi-cart-outline"></i> Thanh toán tất cả{" "}
+                      <i className="mdi mdi-cart-outline"></i> Thanh toán{" "}
                     </span>
                     <span className="float-right">
                       <strong>{totalAll.toLocaleString()} VNĐ</strong>{" "}

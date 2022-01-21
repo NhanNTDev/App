@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 
 const AccountLeft = () => {
+  const user = JSON.parse(localStorage.getItem('USER'));
   return (
     <div className="card account-left">
       <div className="user-profile-header">
-        <img alt="logo" src="img/user.jpg" />
+        <img alt="logo" src={user !== null ? user.image: "/image/user/1.png"} />
         <h5 className="mb-1 text-secondary">
-          <strong>Hi </strong> TAM
+          <strong></strong> {user.name}
         </h5>
-        <p> +84 966016658</p>
+        <p>@{user.username}</p>
       </div>
       <div className="list-group">
         <Link to="/account" className="list-group-item list-group-item-action active">
