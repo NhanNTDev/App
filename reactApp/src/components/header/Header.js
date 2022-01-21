@@ -149,7 +149,6 @@ const Header = () => {
                 <li className="list-inline-item cart-btn">
                   <Link
                     to="/cart"
-                    // data-toggle="offcanvas"
                     className="btn btn-link border-none"
                   >
                     <i className="mdi mdi-cart"></i> Giỏ hàng{" "}
