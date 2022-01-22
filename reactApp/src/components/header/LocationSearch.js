@@ -5,9 +5,17 @@ import { useState } from "react";
 const LocationSearch = ({ callback }) => {
   const [address, setAddress] = useState();
   const offcanvas = () => {
-    let offButton = document.getElementById("off-location-search-slider");
-    offButton.click();
+    // let offButton = document.getElementById("off-location-search-slider");
+    // offButton.click();
+    var element = document.getElementById("toggle");
+    element.classList.toggle("toggled");
   };
+
+  const handleLocationButtonClick = () => {
+    var element = document.getElementById("toggle");
+    element.classList.toggle("toggled");
+  }
+
 
   const handleChange = (address) => {
     setAddress(address);
@@ -68,7 +76,8 @@ const LocationSearch = ({ callback }) => {
       <div className="location-search-slider">
         <div className="location-search-slider-header">
           <a
-            data-toggle="offcanvas"
+            // data-toggle="offcanvas"
+            onClick={handleLocationButtonClick}
             className="float-right"
             id="off-location-search-slider"
           >
