@@ -16,6 +16,11 @@ const Header = () => {
     navigate("/login");
   };
 
+  const handleLocationButtonClick = () => {
+    var element = document.getElementById("toggle");
+    element.classList.toggle("toggled");
+  }
+
   return (
     <>
       <TopOption />
@@ -43,7 +48,8 @@ const Header = () => {
                   <span className="input-group-btn categories-dropdown">
                     <button
                       className="form-control locate-btn"
-                      data-toggle="offcanvas"
+                      // data-toggle="offcanvas"
+                      onClick = {handleLocationButtonClick}
                     >
                       <span
                         className="mdi mdi-map-marker-circle"
