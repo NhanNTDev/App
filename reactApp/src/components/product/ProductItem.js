@@ -5,13 +5,13 @@ const ProductItem = (props) => {
     <div className="col-md-3">
       <div className="product">
         <Link
-          to={`/products/${props.product.productCategory.campaignId}/${props.product.id}`}
+          to={`/products/${props.campaignId}/${props.id}`}
         >
           <div className="product-header">
-            {props.product.image1 !== null ? (
+            {props.harvest.product.image1 !== null ? (
               <img
                 className="img-fluid"
-                src={props.product.image1}
+                src={props.harvest.product.image1}
                 alt=""
               />
             ) : (
@@ -28,18 +28,18 @@ const ProductItem = (props) => {
                   textOverflow: "ellipsis",
                 }}
               >
-                {props.product.name}
+                {props.productName}
               </h4>
               <p className="offer-price mb-0">
                 <i className="mdi mdi-tag-outline"></i>{" "}
-                {props.product.price.toLocaleString()} {" VNĐ / "}{" "}
-                {props.product.unit}
+                {props.price.toLocaleString()} {" VNĐ / "}{" "}
+                {props.unit}
               </p>
               <h6>
                 <strong>
                   <span class="mdi mdi-approval"></span> Còn lại:
                 </strong>{" "}
-                {props.product.quantity} {props.product.unit}
+                {props.inventory} {props.unit}
               </h6>
             </div>
             <div>
@@ -48,13 +48,13 @@ const ProductItem = (props) => {
                   <span className="mdi mdi-map-marker-circle"></span> Chiến
                   dịch:
                 </strong>{" "}
-                {props.product.productCategory.name}
+                {props.campaign.name}
               </h5>
               <h5>
                 <strong>
                   <span className="mdi mdi-flower"></span> Nông trại:
                 </strong>{" "}
-                {props.product.farm.name}
+                {props.harvest.farm.name}
               </h5>
               <br />
             </div>

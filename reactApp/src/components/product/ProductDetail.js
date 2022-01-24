@@ -1,3 +1,4 @@
+import { Button, message, Space } from "antd";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import farmApi from "../../apis/farmApi";
@@ -13,6 +14,13 @@ const ProductDetail = (props) => {
     };
     fetchFarm();
   }, []);
+
+  const success = () => {
+    message.success({
+      duration: 2,
+      content: 'Sản phẩm đã được thêm vào giỏ hàng'
+    });
+  };
 
   return (
     <div className="shop-detail-right">
@@ -45,18 +53,20 @@ const ProductDetail = (props) => {
       </h5>
       <h5>
         <i>
-          Đánh giá: <span className="mdi mdi-star" style={{color: '#ebd428'}} ></span>
-          <span className="mdi mdi-star" style={{color: '#ebd428'}}></span>
-          <span className="mdi mdi-star" style={{color: '#ebd428'}}></span>
-          <span className="mdi mdi-star" style={{color: '#ebd428'}}></span>
+          Đánh giá:{" "}
+          <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
+          <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
+          <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
+          <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
         </i>{" "}
       </h5>
 
-      <Link to="/checkout">
-        <button type="button" className="btn btn-secondary btn-lg">
+      <Space>
+        <button type="button" className="btn btn-secondary btn-lg" onClick={success}>
           <i className="mdi mdi-cart-outline"></i> Thêm vào giỏ hàng
         </button>{" "}
-      </Link>
+      </Space>
+
       <div className="short-description">
         <h5>Mô tả:</h5>
         <p
