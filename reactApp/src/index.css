@@ -13,3 +13,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.add-to-cart-msg{
+  width: 400px;
+  height: 500px;
+}

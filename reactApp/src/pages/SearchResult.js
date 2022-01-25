@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../constants/Constants";
-import { productsList } from "../constants/Data";
 import { Pagination } from "antd";
 import {useSearchParams } from "react-router-dom";
 import ProductItem from "../components/product/ProductItem";
 import harvestApi from "../apis/harvestApi";
-import productApi from "../apis/productApi";
 
 const SearchResult = () => {
   const [page, setPage] = useState(1);
@@ -23,9 +21,9 @@ const SearchResult = () => {
       const params = {
         page: page,
         size: 12,
-        name: searchValue,
+        'product-name': searchValue,
       };
-      const productsResponse = await productApi.getAll(params);
+      const productsResponse = await harvestApi.getAll(params);
       setSearchProducts(productsResponse.data);
       setTotalRecords(productsResponse.metadata.total);
     };
@@ -103,7 +101,7 @@ const SearchResult = () => {
                 <h5 className="mb-4">Kết quả cho '{searchValue}'</h5>
               </div>
               <div className="row no-gutters">
-                {searchProducts.map((product) => <ProductItem product = {{...product}}/>)}
+                {searchProducts.map((harvest) => <ProductItem {...harvest}/>)}
               </div>
               {renderPagination()}
             </div>
