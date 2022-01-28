@@ -1,5 +1,6 @@
 import { Checkbox } from "antd";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import cartApi from "../apis/cartApi";
 import CartItem from "../components/cart/CartItem";
@@ -9,7 +10,9 @@ import TableHead from "../components/cart/TableHead";
 import Farm from "./Farm";
 
 const Cart = () => {
-  const [cart, setCart] = useState([]);
+  const cartState = useSelector((state) => state.cart);
+  console.log(cartState);
+  const [cart, setCart] = useState(cartState);
   const [totalAll, setTotalAll] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [harvestCampaigns, setHarvestCampaigns] = useState([]);
@@ -23,13 +26,14 @@ const Cart = () => {
   //   return result;
   // };
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      const cartItemsResponse = await cartApi.getAll();
-      setCart(cartItemsResponse);
-    };
-    fetchCartItems();
-  }, []);
+  // useEffect(() => {
+  //   const fetchCartItems = async () => {
+  //     const cartItemsResponse = await cartApi.getAll();
+  //     console.log(cartItemsResponse);
+  //     setCart(cartItemsResponse);
+  //   };
+  //   fetchCartItems();
+  // }, []);
 
   // useEffect(() => {
   //   setTotalAll(caculateTotalAll());
@@ -67,9 +71,7 @@ const Cart = () => {
             <TableHead />
             <tbody>
               {newObject.map(([key, value], index) => {
-                return (
-                  <TableBody farm={value}/>
-                );
+                return <TableBody farm={value} />;
               })}
             </tbody>
             <TableFoot />
@@ -79,7 +81,9 @@ const Cart = () => {
     );
   };
 
-  return (
+  return cart == null ? (
+    <h1>giỏ hàng trống</h1>
+  ) : (
     <>
       <section className="pt-3 pb-3 page-info section-padding border-bottom bg-white">
         <div className="container">
@@ -101,7 +105,9 @@ const Cart = () => {
           <div className="row">
             <div className="col-md-12">
               <div className="card card-body cart-table">
-                {cart.map((campaign) => renderCartForCampaign({ ...campaign }))}
+                {Object.values(cart).map((campaign) =>
+                  renderCartForCampaign({ ...campaign })
+                )}
 
                 <Link to="/checkout">
                   <button

@@ -3,6 +3,7 @@ import ProductDetail from "../components/product/ProductDetail";
 import ProductPicture from "../components/product/ProductPicture";
 import harvestApi from "../apis/harvestApi";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Product = () => {
   const params = useParams();
@@ -17,7 +18,7 @@ const Product = () => {
     fetchProducts();
   }, []);
 
-  console.log(harvestCampaign);
+ 
 
   return (
     <>

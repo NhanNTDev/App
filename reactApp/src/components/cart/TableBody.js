@@ -5,7 +5,7 @@ const TableBody = (props) => {
   console.log(props);
   return (
     <>
-      {props.farm.map(item => <CartItem {...item}/>)}
+      
       <tr>
         <td colSpan="8">
           <div className="cart-farm-header">
@@ -40,6 +40,7 @@ const TableBody = (props) => {
           </div>
         </td>
       </tr>
+      {props.farm.map(item => <CartItem {...item}/>)}
     </>
   );
 };

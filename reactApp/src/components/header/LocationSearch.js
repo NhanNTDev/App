@@ -14,8 +14,7 @@ const LocationSearch = ({ callback }) => {
   const handleLocationButtonClick = () => {
     var element = document.getElementById("toggle");
     element.classList.toggle("toggled");
-  }
-
+  };
 
   const handleChange = (address) => {
     setAddress(address);
@@ -72,72 +71,72 @@ const LocationSearch = ({ callback }) => {
 
   return (
     <>
-    <div id="toggle">
-      <div className="location-search-slider">
-        <div className="location-search-slider-header">
-          <a
-            // data-toggle="offcanvas"
-            onClick={handleLocationButtonClick}
-            className="float-right"
-            id="off-location-search-slider"
-          >
-            <i className="mdi mdi-close"></i>
-          </a>
-        </div>
-        <div className="location-search-slider-body">
-          <div style={{ marginLeft: 50 }}>
-            <PlacesAutocomplete
-              value={address}
-              onChange={handleChange}
-              onSelect={handleSelect}
+      <div id="toggle">
+        <div className="location-search-slider">
+          <div className="location-search-slider-header">
+            <a
+              // data-toggle="offcanvas"
+              onClick={handleLocationButtonClick}
+              className="float-right"
+              id="off-location-search-slider"
             >
-              {({
-                getInputProps,
-                suggestions,
-                getSuggestionItemProps,
-                loading,
-              }) => (
-                <div>
-                  <input
-                    {...getInputProps({
-                      placeholder: "Nhập địa chỉ",
-                      className: "form-control",
-                    })}
-                  />
-                  <div className="autocomplete-dropdown-container">
-                    {loading && <div>Đang tải...</div>}
-                    {suggestions.map((suggestion) => {
-                      const className = suggestion.active
-                        ? "suggestion-item--active"
-                        : "suggestion-item";
-                      // inline style for demonstration purpose
-                      const style = suggestion.active
-                        ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                        : { backgroundColor: "#ffffff", cursor: "pointer" };
-                      return (
-                        <div
-                          {...getSuggestionItemProps(suggestion, {
-                            className,
-                            style,
-                          })}
-                        >
-                          <span>{suggestion.description}</span>
-                        </div>
-                      );
-                    })}
+              <i className="mdi mdi-close"></i>
+            </a>
+          </div>
+          <div className="location-search-slider-body">
+            <div style={{ marginLeft: 50 }}>
+              <PlacesAutocomplete
+                value={address}
+                onChange={handleChange}
+                onSelect={handleSelect}
+              >
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                  loading,
+                }) => (
+                  <div>
+                    <input
+                      {...getInputProps({
+                        placeholder: "Nhập địa chỉ",
+                        className: "form-control",
+                      })}
+                    />
+                    <div className="autocomplete-dropdown-container">
+                      {loading && <div>Đang tải...</div>}
+                      {suggestions.map((suggestion) => {
+                        const className = suggestion.active
+                          ? "suggestion-item--active"
+                          : "suggestion-item";
+                        // inline style for demonstration purpose
+                        const style = suggestion.active
+                          ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                          : { backgroundColor: "#ffffff", cursor: "pointer" };
+                        return (
+                          <div
+                            {...getSuggestionItemProps(suggestion, {
+                              className,
+                              style,
+                            })}
+                          >
+                            <span>{suggestion.description}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              )}
-            </PlacesAutocomplete>
-            <br />
-            <strong className="d-flex justify-content-center">Hoặc</strong>
-            <br />
-            <button className="form-control locate-btn" onClick={getLocation}>
-              <i className="mdi mdi-crosshairs-gps"></i> Lấy vị trí hiện tại
-            </button>
+                )}
+              </PlacesAutocomplete>
+              <br />
+              <strong className="d-flex justify-content-center">Hoặc</strong>
+              <br />
+              <button className="form-control locate-btn" onClick={getLocation}>
+                <i className="mdi mdi-crosshairs-gps"></i> Lấy vị trí hiện tại
+              </button>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </>
   );

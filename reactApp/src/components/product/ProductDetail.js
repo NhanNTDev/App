@@ -1,7 +1,9 @@
 import { Button, message, Space } from "antd";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import farmApi from "../../apis/farmApi";
+import { addToCart } from "../../state_manager_redux/cart/cartSlice";
 
 const ProductDetail = (props) => {
   const [farm, setFarm] = useState({});
@@ -14,11 +16,17 @@ const ProductDetail = (props) => {
     };
     fetchFarm();
   }, []);
+  const dispatch = useDispatch();
 
-  const success = () => {
+  const handleAddToCart = () => {
+    const action = addToCart({
+      id: "1",
+    });
+    dispatch(action);
+
     message.success({
       duration: 2,
-      content: 'Sản phẩm đã được thêm vào giỏ hàng'
+      content: "Sản phẩm đã được thêm vào giỏ hàng",
     });
   };
 
@@ -62,7 +70,11 @@ const ProductDetail = (props) => {
       </h5>
 
       <Space>
-        <button type="button" className="btn btn-secondary btn-lg" onClick={success}>
+        <button
+          type="button"
+          className="btn btn-secondary btn-lg"
+          onClick={handleAddToCart}
+        >
           <i className="mdi mdi-cart-outline"></i> Thêm vào giỏ hàng
         </button>{" "}
       </Space>

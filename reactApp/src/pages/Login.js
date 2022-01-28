@@ -20,7 +20,8 @@ const Login = () => {
         .catch(() => setLoginFail(true));
       if (result) {
         if (localStorage) {
-          localStorage.setItem("USER", JSON.stringify({ ...result }));
+          const user = result.user;
+          localStorage.setItem("USER", JSON.stringify({ ...user }));
         }
         navigate(`/home`);
       }
