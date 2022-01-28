@@ -6,16 +6,31 @@ import { useState, useEffect } from "react";
 import TopBanner from "../components/home/TopBanner";
 import campaignsApi from "../apis/campaignsApi";
 import categoriesApi from "../apis/categoriesApi";
+import cartApi from "../apis/cartApi";
+import { useDispatch } from "react-redux";
+import { setCart } from "../state_manager_redux/cart/cartSlice";
 
 const Home = () => {
   const [weeklyCampaigns, setWeeklyCampaigns] = useState([]);
   const [hotCampaigns, setHotCampaign] = useState([]);
 
   const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
     deleteScript();
   }, []);
-
+  // Get cart from server
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      const cartItemsResponse = await cartApi.getAll();
+      console.log(cartItemsResponse);
+      const action = setCart(cartItemsResponse);
+      dispatch(action);
+      // setCart(cartItemsResponse);
+    };
+    fetchCartItems();
+  }, []);
+  // Get category
   useEffect(() => {
     const fetchCategories = async () => {
       const categoriesResponse = await categoriesApi.getAll();
@@ -23,7 +38,7 @@ const Home = () => {
     };
     fetchCategories();
   }, []);
-
+  // Get campaign
   useEffect(() => {
     const params = {
       page: 1,

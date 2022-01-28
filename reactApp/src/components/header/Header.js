@@ -8,7 +8,9 @@ const Header = () => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("USER"));
-  const [address, setAddess] = useState(localStorage.getItem("dichonao_userAddress"));
+  const [address, setAddess] = useState(
+    localStorage.getItem("dichonao_userAddress")
+  );
   const handleLogout = () => {
     if (localStorage) {
       localStorage.removeItem("USER");
@@ -19,7 +21,7 @@ const Header = () => {
   const handleLocationButtonClick = () => {
     var element = document.getElementById("toggle");
     element.classList.toggle("toggled");
-  }
+  };
 
   return (
     <>
@@ -49,7 +51,7 @@ const Header = () => {
                     <button
                       className="form-control locate-btn"
                       // data-toggle="offcanvas"
-                      onClick = {handleLocationButtonClick}
+                      onClick={handleLocationButtonClick}
                     >
                       <span
                         className="mdi mdi-map-marker-circle"
@@ -153,10 +155,7 @@ const Header = () => {
                   </li>
                 )}
                 <li className="list-inline-item cart-btn">
-                  <Link
-                    to="/cart"
-                    className="btn btn-link border-none"
-                  >
+                  <Link to="/cart" className="btn btn-link border-none">
                     <i className="mdi mdi-cart"></i> Giỏ hàng{" "}
                     <small className="cart-value">5</small>
                   </Link>
