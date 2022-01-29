@@ -10,9 +10,8 @@ import TableHead from "../components/cart/TableHead";
 import Farm from "./Farm";
 
 const Cart = () => {
-  const cartState = useSelector((state) => state.cart);
-  console.log(cartState);
-  const [cart, setCart] = useState(cartState);
+  const cart = useSelector((state) => state.cart);
+
   const [totalAll, setTotalAll] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [harvestCampaigns, setHarvestCampaigns] = useState([]);

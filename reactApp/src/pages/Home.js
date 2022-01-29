@@ -26,6 +26,9 @@ const Home = () => {
       console.log(cartItemsResponse);
       const action = setCart(cartItemsResponse);
       dispatch(action);
+      if(localStorage) {
+        localStorage.setItem("dichonao_cart", JSON.stringify({ ...cartItemsResponse }));
+      }
       // setCart(cartItemsResponse);
     };
     fetchCartItems();

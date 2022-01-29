@@ -1,15 +1,35 @@
 import { Checkbox } from "antd";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart, setQuantity } from "../../state_manager_redux/cart/cartSlice";
 
 const CartItem = (props) => {
-  console.log(props);
+  const cartState = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const hanldeRemoveItem = () => {
+    const action = removeFromCart({
+      campaignId: props.campaignId,
+      productId: props.id,
+    });
+    dispatch(action);
+  };
+  const hanldeUpdateQuantity = ({newQuantity}) => {
+    const action = setQuantity({
+      campaignId: props.campaignId,
+      productId: props.id,
+      newQuantity: newQuantity,
+    });
+    dispatch(action);
+  };
   return (
     <tr>
       <td className="cart_checkbox">
         <Checkbox />
       </td>
       <td className="cart_product">
-        <a href="#"><img alt="Product" src={props.harvest.product.image1} /></a>
+        <a href="#">
+          <img alt="Product" src={props.harvest.product.image1} />
+        </a>
       </td>
       <td className="cart_description">
         <h5 className="product_name">{props.productName}</h5>
@@ -21,44 +41,44 @@ const CartItem = (props) => {
         <div className="input-group">
           <span className="input-group-btn">
             <button
-              disabled="disabled"
+              disabled={props.itemCarts[0].quantity === 1 ? "disabled" : null}
               className="btn btn-theme-round btn-number"
               type="button"
+              onClick={() => hanldeUpdateQuantity({newQuantity: props.itemCarts[0].quantity - 1})}
             >
               -
             </button>
           </span>
           <input
-            type="Number"
-            min="1"
-            max="10"
-              value={props.itemCarts[0].quantity}
+            value={props.itemCarts[0].quantity}
             className="form-control border-form-control form-control-sm input-number"
           />
           <span className="input-group-btn">
-            <button className="btn btn-theme-round btn-number" type="button">
+            <button className="btn btn-theme-round btn-number" type="button"
+            onClick={() => hanldeUpdateQuantity({newQuantity: props.itemCarts[0].quantity + 1})}>
               +
             </button>
           </span>
         </div>
       </td>
-      <td className="productUnit"><span>{props.unit}</span></td>
+      <td className="productUnit">
+        <span>{props.unit}</span>
+      </td>
       <td className="total_item">
-        <span>
-          {props.itemCarts[0].total.toLocaleString()} VNĐ
-        </span>
+        <span>{props.itemCarts[0].total.toLocaleString()} VNĐ</span>
       </td>
       <td className="action text-center">
-        <a
+        <button
           className="btn btn-sm btn-danger"
           data-original-title="Remove"
-          href="#"
-          title=""
-          data-placement="top"
-          data-toggle="tooltip"
+          // href="#"
+          // title=""
+          // data-placement="top"
+          // data-toggle="tooltip"
+          onClick={hanldeRemoveItem}
         >
           <i className="mdi mdi-close-circle-outline"></i>
-        </a>
+        </button>
       </td>
     </tr>
   );

@@ -2,7 +2,6 @@ import React from "react";
 import CartItem from "./CartItem";
 
 const TableBody = (props) => {
-  console.log(props);
   return (
     <>
       
