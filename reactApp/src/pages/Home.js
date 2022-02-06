@@ -7,7 +7,7 @@ import TopBanner from "../components/home/TopBanner";
 import campaignsApi from "../apis/campaignsApi";
 import categoriesApi from "../apis/categoriesApi";
 import cartApi from "../apis/cartApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCart } from "../state_manager_redux/cart/cartSlice";
 
 const Home = () => {
@@ -16,6 +16,7 @@ const Home = () => {
 
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
+  const address = useSelector((state) => state.location);
   useEffect(() => {
     deleteScript();
   }, []);
@@ -23,13 +24,8 @@ const Home = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       const cartItemsResponse = await cartApi.getAll();
-      console.log(cartItemsResponse);
       const action = setCart(cartItemsResponse);
       dispatch(action);
-      if(localStorage) {
-        localStorage.setItem("dichonao_cart", JSON.stringify({ ...cartItemsResponse }));
-      }
-      // setCart(cartItemsResponse);
     };
     fetchCartItems();
   }, []);
@@ -53,8 +49,10 @@ const Home = () => {
       setHotCampaign(campaigns.data);
       runScript();
     };
+    console.log("rerenderHome");
+    console.log(address);
     fetchCampaigns();
-  }, []);
+  }, [address]);
 
   return (
     <>

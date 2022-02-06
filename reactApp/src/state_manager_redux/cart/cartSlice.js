@@ -6,6 +6,18 @@ const cartSlice = createSlice({
   reducers: {
     //set value for cart state
     setCart(state, action) {
+      if (action.payload.length === 0) {
+        if (localStorage) {
+          localStorage.setItem("dichonao_cart", null);
+        }
+        return null;
+      }
+      if (localStorage) {
+        localStorage.setItem(
+          "dichonao_cart",
+          JSON.stringify({ ...action.payload })
+        );
+      }
       return action.payload;
     },
     //setQuantity for cart item

@@ -1,12 +1,13 @@
 import PlacesAutocomplete from "react-places-autocomplete";
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setLocation } from "../../state_manager_redux/location/locationSlice";
 
-const LocationSearch = ({ callback }) => {
+const LocationSearch = () => {
   const [address, setAddress] = useState();
+  const dispatch = useDispatch();
   const offcanvas = () => {
-    // let offButton = document.getElementById("off-location-search-slider");
-    // offButton.click();
     var element = document.getElementById("toggle");
     element.classList.toggle("toggled");
   };
@@ -22,10 +23,8 @@ const LocationSearch = ({ callback }) => {
 
   const handleSelect = (address) => {
     setAddress(address);
-    if (localStorage) {
-      localStorage.setItem("dichonao_userAddress", address);
-    }
-    callback(address);
+    const action = setLocation({ location: address });
+    dispatch(action);
     setAddress("");
     offcanvas();
   };
@@ -36,7 +35,6 @@ const LocationSearch = ({ callback }) => {
         getLocationSuccess,
         showError
       );
-      console.log(location);
     }
   };
   const getLocationSuccess = (position) => {
@@ -55,16 +53,12 @@ const LocationSearch = ({ callback }) => {
       position.coords.longitude +
       "&sensor=true" +
       "&key=" +
-      process.env.REACT_APP_GEOLOCATION_API_KEY;
+      process.env.REACT_APP_GOOGLE_MAP_API_KEY;
     const result = await axios(url);
-    console.log(result);
     const address = result.data.results[0].formatted_address;
-    console.log(address);
     setAddress(address);
-    if (localStorage) {
-      localStorage.setItem("dichonao_userAddress", address);
-    }
-    callback(address);
+    const action = setLocation({ location: address });
+    dispatch(action);
     setAddress("");
     offcanvas();
   };

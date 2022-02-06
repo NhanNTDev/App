@@ -3,14 +3,13 @@ import { useState } from "react";
 import TopOption from "./TopOption";
 import NavBar from "./NavBar";
 import LocationSearch from "./LocationSearch";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("USER"));
-  const [address, setAddess] = useState(
-    localStorage.getItem("dichonao_userAddress")
-  );
+  const address = useSelector((state) => state.location);
   const handleLogout = () => {
     if (localStorage) {
       localStorage.removeItem("USER");
@@ -166,7 +165,7 @@ const Header = () => {
         </div>
       </nav>
       <NavBar />
-      <LocationSearch callback={(address) => setAddess(address)} />
+      <LocationSearch />
     </>
   );
 };
