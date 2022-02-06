@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import userApi from "../apis/userApi";
 import validator from "validator";
+import { useDispatch } from "react-redux";
+import { setUser } from "../state_manager_redux/user/userSlice";
 const Login = () => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -9,7 +11,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [validateMsg, setValidateMsg] = useState("");
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleLogin = () => {
     setLoginFail(false);
     const isValid = validateAll();
@@ -18,11 +20,9 @@ const Login = () => {
       const result = await userApi
         .login({ userName, password })
         .catch(() => setLoginFail(true));
-      if (result) {
-        if (localStorage) {
-          const user = result.user;
-          localStorage.setItem("USER", JSON.stringify({ ...user }));
-        }
+      if (result && result.user.role === "customer") {
+        const action = setUser({...result})
+        dispatch(action);
         navigate(`/home`);
       }
     };

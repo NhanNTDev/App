@@ -3,17 +3,18 @@ import { useState } from "react";
 import TopOption from "./TopOption";
 import NavBar from "./NavBar";
 import LocationSearch from "./LocationSearch";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../state_manager_redux/user/userSlice";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("USER"));
+  const user = useSelector((state) => state.user);
   const address = useSelector((state) => state.location);
+  const dispatch = useDispatch();
   const handleLogout = () => {
-    if (localStorage) {
-      localStorage.removeItem("USER");
-    }
+    const action = logout();
+    dispatch(action);
     navigate("/login");
   };
 
