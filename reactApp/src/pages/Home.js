@@ -29,8 +29,7 @@ const Home = () => {
       const action = setCart(cartItemsResponse);
       dispatch(action);
     };
-    fetchCartItems();
-
+    if(user !== null) fetchCartItems();
   }, []);
   // Get category
   useEffect(() => {
