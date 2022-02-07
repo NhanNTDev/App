@@ -12,6 +12,7 @@ const userSlice = createSlice({
     logout() {
       localStorage.removeItem("dichonao_user");
       localStorage.removeItem("dichonao_user_token");
+      localStorage.removeItem("dichonao_cart");
       return null;
     }
   },
