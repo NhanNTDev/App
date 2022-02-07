@@ -1,12 +1,13 @@
 import { Button, message, Space } from "antd";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import farmApi from "../../apis/farmApi";
 import { addToCart } from "../../state_manager_redux/cart/cartSlice";
 
 const ProductDetail = (props) => {
   const [farm, setFarm] = useState({});
+  const user = useSelector((state) => state.user);
+  console.log(user.id);
 
   useEffect(() => {
     const fetchFarm = async () => {
@@ -20,7 +21,8 @@ const ProductDetail = (props) => {
 
   const handleAddToCart = () => {
     const action = addToCart({
-      id: "1",
+      productId: props.harvest.product.id,
+      customerId: user.id
     });
     dispatch(action);
 
