@@ -33,7 +33,6 @@ const Farm = () => {
     runScript();
   },[farms]);
 
-  console.log(farm)
 
   return (
     <>

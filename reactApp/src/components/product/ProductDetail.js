@@ -2,17 +2,15 @@ import { Button, message, Space } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import farmApi from "../../apis/farmApi";
-import { addToCart } from "../../state_manager_redux/cart/cartSlice";
+import {addToCartThunk } from "../../state_manager_redux/cart/cartSlice";
 
 const ProductDetail = (props) => {
   const [farm, setFarm] = useState({});
   const user = useSelector((state) => state.user);
-  console.log(user.id);
 
   useEffect(() => {
     const fetchFarm = async () => {
       const farmResponse = await farmApi.get(props.harvest.farmId);
-      console.log(farmResponse);
       setFarm(farmResponse);
     };
     fetchFarm();
@@ -20,7 +18,7 @@ const ProductDetail = (props) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    const action = addToCart({
+    const action = addToCartThunk({
       productId: props.harvest.product.id,
       customerId: user.id
     });

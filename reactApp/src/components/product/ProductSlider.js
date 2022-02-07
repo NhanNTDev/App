@@ -11,7 +11,6 @@ const ProductSlider = (props) => {
     runScript();
   }, []);
   
-  console.log(props.listProduct);
   return (
     <section className="product-items-slider section-padding">
       <div className="container">

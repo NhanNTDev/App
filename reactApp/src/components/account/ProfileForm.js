@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const ProfileRight = () => {
   
-  const user = JSON.parse(localStorage.getItem("USER"));
+  const user = useSelector((state) => state.user);
   const getLastName = () => {
     return user.name.slice(0, user.name.indexOf(" "));
   }
@@ -54,9 +55,9 @@ const ProfileRight = () => {
                 </label>
                 <input
                   className="form-control border-form-control"
-                  value=""
+                  value={user.phoneNumber}
                   placeholder="123 456 7890"
-                  type="number"
+                  type="text"
                 />
               </div>
             </div>

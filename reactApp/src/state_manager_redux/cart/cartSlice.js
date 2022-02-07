@@ -1,6 +1,23 @@
-import cartApi from "../../apis/cartApi";
-const { createSlice, current } = require("@reduxjs/toolkit");
 
+import cartApi from "../../apis/cartApi";
+const { createSlice, current, createAsyncThunk } = require("@reduxjs/toolkit");
+export const addToCartThunk = createAsyncThunk(
+  "cart/addToCartThunk",
+  async (data) => {
+    const params = {
+      quantity: "1",
+      harvestCampaignId: data.productId,
+      customerId: data.customerId,
+    };
+    let cartResponse;
+    await cartApi.addNew(params);
+    cartResponse = await cartApi.getAll(
+      JSON.parse(localStorage.getItem("dichonao_user")).id
+    );
+    localStorage.setItem("dichonao_cart", JSON.stringify({ ...cartResponse }));
+    return cartResponse;
+  }
+);
 const cartSlice = createSlice({
   name: "cart",
   initialState: JSON.parse(localStorage.getItem("dichonao_cart")),
@@ -40,33 +57,17 @@ const cartSlice = createSlice({
       });
       newState = { ...listCampaigns };
       localStorage.setItem("dichonao_cart", JSON.stringify({ ...newState }));
-      const data = {
-        quantity: action.payload.newQuantity,
-        harvestCampaignId : action.payload.productId,
-        customerId :  localStorage.USER.user.id
-      }
-      cartApi.update(data);
-      return newState;
-    },
-    //add item to cart
-    addToCart(state, action) {
-      console.log("add to cart");
-      let newState = current(state);
-      let cartResponse = [];
-      const data = {
-        quantity: "1",
-        harvestCampaignId : action.payload.productId,
-        customerId :  action.payload.customerId
-      }
-      cartApi.addNew(data);
-      const fetchCart =  async () => {
-        cartResponse = await cartApi.getAll(action.payload.customerId);
-        console.log(cartResponse);
-      }
-      fetchCart();
-      newState = cartResponse;
-      localStorage.setItem("dichonao_cart", JSON.stringify({ ...newState }));
-      console.log(newState);
+
+      const updateDB = async () => {
+        const data = {
+          id: action.payload.itemCartId,
+          quantity: action.payload.newQuantity,
+        };
+        const response = await cartApi.update(data);
+        console.log(response);
+      };
+      updateDB();
+
       return newState;
     },
     //remove item from cart
@@ -92,12 +93,11 @@ const cartSlice = createSlice({
         newState = null;
       }
       localStorage.setItem("dichonao_cart", JSON.stringify({ ...newState }));
+
       const data = {
-        quantity: action.payload.newQuantity,
-        harvestCampaignId : action.payload.productId,
-        customerId :  localStorage.USER.user.id
-      }
-      cartApi.update(data);
+        id: action.payload.itemCartId,
+      };
+      cartApi.delete(data);
       return newState;
     },
     //clear cart
@@ -105,9 +105,17 @@ const cartSlice = createSlice({
       return null;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(addToCartThunk.fulfilled, (state, action) => {
+      localStorage.setItem(
+        "dichonao_cart",
+        JSON.stringify({ ...action.payload })
+      );
+      return action.payload;
+    });
+  },
 });
 
 const { actions, reducer } = cartSlice;
-export const { setCart, setQuantity, addToCart, removeFromCart, clearCart } =
-  actions;
+export const { setCart, setQuantity, removeFromCart, clearCart } = actions;
 export default reducer;

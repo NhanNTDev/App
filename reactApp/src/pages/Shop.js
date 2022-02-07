@@ -10,8 +10,6 @@ const Shop = () => {
   }, []);
   runScript();
   const hotCampaigns = hotCampaign;
-  // let params = useParams();
-  // console.log(params.type);
   const categorys = [
     {
       id: "1",

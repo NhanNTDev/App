@@ -12,7 +12,6 @@ const Product = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const harvestsResponse = await harvestApi.get(params.productId);
-      console.log(harvestsResponse);
       setHarvestCampaign(harvestsResponse);
     };
     fetchProducts();

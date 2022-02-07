@@ -17,17 +17,20 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
   const address = useSelector((state) => state.location);
+  const user = useSelector((state) => state.user);
   useEffect(() => {
     deleteScript();
   }, []);
   // Get cart from server
   useEffect(() => {
     const fetchCartItems = async () => {
-      const cartItemsResponse = await cartApi.getAll();
+      const cartItemsResponse = await cartApi.getAll(user.id);
+      console.log(cartItemsResponse);
       const action = setCart(cartItemsResponse);
       dispatch(action);
     };
     fetchCartItems();
+
   }, []);
   // Get category
   useEffect(() => {
@@ -49,7 +52,7 @@ const Home = () => {
       setHotCampaign(campaigns.data);
       runScript();
     };
-    console.log("rerenderHome");
+    console.log("recall api");
     console.log(address);
     fetchCampaigns();
   }, [address]);

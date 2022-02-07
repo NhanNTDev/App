@@ -1,7 +1,8 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const AccountLeft = () => {
-  const user = JSON.parse(localStorage.getItem('USER'));
+  const user = useSelector((state) => state.user)
   return (
     <div className="card account-left">
       <div className="user-profile-header">
@@ -9,7 +10,7 @@ const AccountLeft = () => {
         <h5 className="mb-1 text-secondary">
           <strong></strong> {user.name}
         </h5>
-        <p>@{user.username}</p>
+        <p>{user.phoneNumber}</p>
       </div>
       <div className="list-group">
         <Link to="/account" className="list-group-item list-group-item-action active">

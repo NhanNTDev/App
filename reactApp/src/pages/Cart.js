@@ -1,53 +1,14 @@
-import { Checkbox } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import cartApi from "../apis/cartApi";
-import CartItem from "../components/cart/CartItem";
 import TableBody from "../components/cart/TableBody";
 import TableFoot from "../components/cart/TableFoot";
 import TableHead from "../components/cart/TableHead";
-import Farm from "./Farm";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
 
   const [totalAll, setTotalAll] = useState(0);
-  const [cartItems, setCartItems] = useState([]);
-  const [harvestCampaigns, setHarvestCampaigns] = useState([]);
-  // const caculateTotalAll = () => {
-  //   let result = 0;
-  //   cart.map(
-  //     (campaign) =>
-  //       (result =
-  //         result + caculateTotal({ ...campaign }) - campaign.campaignDiscount)
-  //   );
-  //   return result;
-  // };
-
-  // useEffect(() => {
-  //   const fetchCartItems = async () => {
-  //     const cartItemsResponse = await cartApi.getAll();
-  //     console.log(cartItemsResponse);
-  //     setCart(cartItemsResponse);
-  //   };
-  //   fetchCartItems();
-  // }, []);
-
-  // useEffect(() => {
-  //   setTotalAll(caculateTotalAll());
-  // }, [cart]);
-
-  // const caculateTotal = (props) => {
-  //   let result = 0;
-  //   props.farms.map((farm) =>
-  //     farm.products.map(
-  //       (product) =>
-  //         (result = result + product.productPrice * product.productQuantity)
-  //     )
-  //   );
-  //   return result;
-  // };
 
   const renderCartForCampaign = (props) => {
     var result = props.harvestCampaigns.reduce(function (r, a) {
@@ -56,10 +17,6 @@ const Cart = () => {
       return r;
     }, Object.create(null));
     const newObject = Object.entries(result);
-    // let total = caculateTotal({ ...props });
-    // let discount = props.campaignDiscount;
-    // console.log(props.campaignDiscount);
-    // let mustPay = total - discount;
     return (
       <>
         <div className="table-responsive">

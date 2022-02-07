@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import LocationSearch from "./LocationSearch";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../state_manager_redux/user/userSlice";
+import { getCartCouter } from "../../state_manager_redux/cart/cartSelector";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -17,6 +18,7 @@ const Header = () => {
     dispatch(action);
     navigate("/login");
   };
+  const cartCouter = useSelector(getCartCouter);
 
   const handleLocationButtonClick = () => {
     var element = document.getElementById("toggle");
@@ -157,7 +159,7 @@ const Header = () => {
                 <li className="list-inline-item cart-btn">
                   <Link to="/cart" className="btn btn-link border-none">
                     <i className="mdi mdi-cart"></i> Giỏ hàng{" "}
-                    <small className="cart-value">5</small>
+                    {cartCouter === 0 ? null : <small className="cart-value">{cartCouter}</small>}
                   </Link>
                 </li>
               </ul>
