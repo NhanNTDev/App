@@ -2,8 +2,8 @@ import axiosClient from "./axiosClient";
 
 const cartApi = {
     getAll(id) {
-        const url = '/item-carts';
-        return axiosClient.get(url, id);
+        const url = `/item-carts?customer-id=${id}`;
+        return axiosClient.get(url);
     },
     addNew(data) {
         const url = '/item-carts';
@@ -12,6 +12,10 @@ const cartApi = {
     update(data) {
         const url = `/item-carts/${data.id}`;
         return axiosClient.put(url, data);
+    },
+    delete(data) {
+        const url = `/item-carts/${data.id}`;
+        return axiosClient.delete(url, data);
     }
 }
 

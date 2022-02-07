@@ -1,23 +1,27 @@
 import { Checkbox } from "antd";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, setQuantity } from "../../state_manager_redux/cart/cartSlice";
+import { useDispatch } from "react-redux";
+import {
+  removeFromCart,
+  setQuantity,
+} from "../../state_manager_redux/cart/cartSlice";
 
 const CartItem = (props) => {
-  const cartState = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const hanldeRemoveItem = () => {
     const action = removeFromCart({
       campaignId: props.campaignId,
       productId: props.id,
+      itemCartId: props.itemCarts[0].id,
     });
     dispatch(action);
   };
-  const hanldeUpdateQuantity = ({newQuantity}) => {
+  const hanldeUpdateQuantity = ({ newQuantity }) => {
     const action = setQuantity({
       campaignId: props.campaignId,
       productId: props.id,
       newQuantity: newQuantity,
+      itemCartId: props.itemCarts[0].id,
     });
     dispatch(action);
   };
@@ -44,7 +48,11 @@ const CartItem = (props) => {
               disabled={props.itemCarts[0].quantity === 1 ? "disabled" : null}
               className="btn btn-theme-round btn-number"
               type="button"
-              onClick={() => hanldeUpdateQuantity({newQuantity: props.itemCarts[0].quantity - 1})}
+              onClick={() =>
+                hanldeUpdateQuantity({
+                  newQuantity: props.itemCarts[0].quantity - 1,
+                })
+              }
             >
               -
             </button>
@@ -54,8 +62,15 @@ const CartItem = (props) => {
             className="form-control border-form-control form-control-sm input-number"
           />
           <span className="input-group-btn">
-            <button className="btn btn-theme-round btn-number" type="button"
-            onClick={() => hanldeUpdateQuantity({newQuantity: props.itemCarts[0].quantity + 1})}>
+            <button
+              className="btn btn-theme-round btn-number"
+              type="button"
+              onClick={() =>
+                hanldeUpdateQuantity({
+                  newQuantity: props.itemCarts[0].quantity + 1,
+                })
+              }
+            >
               +
             </button>
           </span>
@@ -71,10 +86,6 @@ const CartItem = (props) => {
         <button
           className="btn btn-sm btn-danger"
           data-original-title="Remove"
-          // href="#"
-          // title=""
-          // data-placement="top"
-          // data-toggle="tooltip"
           onClick={hanldeRemoveItem}
         >
           <i className="mdi mdi-close-circle-outline"></i>

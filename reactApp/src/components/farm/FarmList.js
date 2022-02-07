@@ -25,7 +25,6 @@ const FarmList = ({ campaignId }) => {
     fetchFarms();
   }, [page]);
   
-  console.log(farms);
 
   const renderPagination = () => {
     return (

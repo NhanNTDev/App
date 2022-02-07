@@ -19,7 +19,6 @@ const ProductList = (props) => {
         size: 12,
       };
       const harvestsResponse = await harvestApi.getAll(param);
-      console.log(harvestsResponse);
       setTotalRecords(harvestsResponse.metadata.total);
       setHarvests(harvestsResponse.data);
     };
