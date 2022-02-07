@@ -1,3 +1,4 @@
+import cartApi from "../../apis/cartApi";
 const { createSlice, current } = require("@reduxjs/toolkit");
 
 const cartSlice = createSlice({
@@ -6,18 +7,6 @@ const cartSlice = createSlice({
   reducers: {
     //set value for cart state
     setCart(state, action) {
-      if (action.payload.length === 0) {
-        if (localStorage) {
-          localStorage.setItem("dichonao_cart", null);
-        }
-        return null;
-      }
-      if (localStorage) {
-        localStorage.setItem(
-          "dichonao_cart",
-          JSON.stringify({ ...action.payload })
-        );
-      }
       return action.payload;
     },
     //setQuantity for cart item
@@ -51,11 +40,34 @@ const cartSlice = createSlice({
       });
       newState = { ...listCampaigns };
       localStorage.setItem("dichonao_cart", JSON.stringify({ ...newState }));
+      const data = {
+        quantity: action.payload.newQuantity,
+        harvestCampaignId : action.payload.productId,
+        customerId :  localStorage.USER.user.id
+      }
+      cartApi.update(data);
       return newState;
     },
     //add item to cart
     addToCart(state, action) {
       console.log("add to cart");
+      let newState = current(state);
+      let cartResponse = [];
+      const data = {
+        quantity: "1",
+        harvestCampaignId : action.payload.productId,
+        customerId :  action.payload.customerId
+      }
+      cartApi.addNew(data);
+      const fetchCart =  async () => {
+        cartResponse = await cartApi.getAll(action.payload.customerId);
+        console.log(cartResponse);
+      }
+      fetchCart();
+      newState = cartResponse;
+      localStorage.setItem("dichonao_cart", JSON.stringify({ ...newState }));
+      console.log(newState);
+      return newState;
     },
     //remove item from cart
     removeFromCart(state, action) {
@@ -80,6 +92,12 @@ const cartSlice = createSlice({
         newState = null;
       }
       localStorage.setItem("dichonao_cart", JSON.stringify({ ...newState }));
+      const data = {
+        quantity: action.payload.newQuantity,
+        harvestCampaignId : action.payload.productId,
+        customerId :  localStorage.USER.user.id
+      }
+      cartApi.update(data);
       return newState;
     },
     //clear cart
