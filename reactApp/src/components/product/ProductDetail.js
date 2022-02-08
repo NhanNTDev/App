@@ -1,12 +1,14 @@
 import { Button, message, Space } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import farmApi from "../../apis/farmApi";
-import {addToCartThunk } from "../../state_manager_redux/cart/cartSlice";
+import { addToCartThunk } from "../../state_manager_redux/cart/cartSlice";
 
 const ProductDetail = (props) => {
   const [farm, setFarm] = useState({});
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFarm = async () => {
@@ -18,16 +20,21 @@ const ProductDetail = (props) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    const action = addToCartThunk({
-      productId: props.harvest.product.id,
-      customerId: user.id
-    });
-    dispatch(action);
+    if (user !== null) {
+      const action = addToCartThunk({
+        productId: props.harvest.product.id,
+        customerId: user.id,
+      });
+      dispatch(action);
+      message.success({
+        duration: 2,
+        content: "Sản phẩm đã được thêm vào giỏ hàng",
+      });
+    } else {
+      navigate("/login");
+    }
 
-    message.success({
-      duration: 2,
-      content: "Sản phẩm đã được thêm vào giỏ hàng",
-    });
+    
   };
 
   return (
