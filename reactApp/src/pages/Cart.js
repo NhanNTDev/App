@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TableBody from "../components/cart/TableBody";
 import TableFoot from "../components/cart/TableFoot";
 import TableHead from "../components/cart/TableHead";
@@ -9,6 +9,7 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
 
   const [totalAll, setTotalAll] = useState(0);
+  const navigate = useNavigate();
 
   const renderCartForCampaign = (props) => {
     var result = props.harvestCampaigns.reduce(function (r, a) {
@@ -37,8 +38,14 @@ const Cart = () => {
     );
   };
 
-  return cart == null ? (
-    <h1>giỏ hàng trống</h1>
+  return cart === null ? (
+    <>
+      <h1 className="d-flex justify-content-center">Giỏ hàng của bạn đang trống!</h1>
+      <span className="d-flex justify-content-center"><button onClick={() => {navigate("/home")}}> Quay về trang chủ</button></span>
+      <br/>
+      <br/>
+      
+    </>
   ) : (
     <>
       <section className="pt-3 pb-3 page-info section-padding border-bottom bg-white">
