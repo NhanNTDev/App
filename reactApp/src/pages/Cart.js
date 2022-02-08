@@ -1,15 +1,24 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-lone-blocks */
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import TableBody from "../components/cart/TableBody";
 import TableFoot from "../components/cart/TableFoot";
 import TableHead from "../components/cart/TableHead";
+import { setOrder } from "../state_manager_redux/order/orderSlice";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-
   const [totalAll, setTotalAll] = useState(0);
+  const dispatch = useDispatch();
 
+  const handleOrders = () => {
+    const action = setOrder({
+      cart: cart
+    });
+    dispatch(action);
+  }
   const renderCartForCampaign = (props) => {
     var result = props.harvestCampaigns.reduce(function (r, a) {
       r[a.harvest.farmId] = r[a.harvest.farmId] || [];
@@ -17,6 +26,7 @@ const Cart = () => {
       return r;
     }, Object.create(null));
     const newObject = Object.entries(result);
+  
     return (
       <>
         <div className="table-responsive">
@@ -69,6 +79,7 @@ const Cart = () => {
                   <button
                     className="btn btn-secondary btn-lg btn-block text-left"
                     type="button"
+                    onClick={handleOrders}
                   >
                     <span className="float-left">
                       <i className="mdi mdi-cart-outline"></i> Thanh toán{" "}

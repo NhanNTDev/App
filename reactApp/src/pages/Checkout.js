@@ -1,4 +1,4 @@
-import CheckoutSection from "../components/CheckoutSection";
+import CheckoutSection from "../components/checkout/CheckoutSection";
 
 const Checkout = () => {
   return (

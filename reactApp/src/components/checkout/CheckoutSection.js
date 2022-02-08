@@ -1,4 +1,25 @@
+import { useSelector } from "react-redux";
+import orderApi from "../../apis/orderApi";
+
 const CheckoutSection = () => {
+  const order = useSelector((state) => state.order);
+  const address= useSelector((state) => state.location);
+  const user = useSelector(state => state.user)
+  console.log(user);
+  console.log(order);
+  
+  const handleCheckout = () => {
+    const data = {
+      phone: user.phoneNumber,
+      email: user.email,
+      address: address,
+      campaignId: 1,
+      customerId: user.id,
+      deliveryZoneId: 0,
+      farmOrders: order
+    };
+    orderApi.post(data);
+  }
   return (
     <>
       <section className="checkout-page section-padding">
@@ -7,69 +28,6 @@ const CheckoutSection = () => {
             <div className="col-md-8">
               <div className="checkout-step">
                 <div className="accordion" id="accordionExample">
-                  <div className="card checkout-step-one">
-                    <div className="card-header" id="headingOne">
-                      <h5 className="mb-0">
-                        <button
-                          className="btn btn-link"
-                          type="button"
-                          data-toggle="collapse"
-                          data-target="#collapseOne"
-                          aria-expanded="true"
-                          aria-controls="collapseOne"
-                        >
-                          <span className="number">1</span> Xác Minh Số Điện Thoại
-                        </button>
-                      </h5>
-                    </div>
-
-                    <div
-                      id="collapseOne"
-                      className="collapse show"
-                      aria-labelledby="headingOne"
-                      data-parent="#accordionExample"
-                    >
-                      <div className="card-body">
-                        <p>
-                          Chúng tôi cần số điện thoại để cập nhật cho bạn trạng thái đơn hàng. 
-                        </p>
-                        <form>
-                          <div className="form-row align-items-center">
-                            <div className="col-auto">
-                              <label className="sr-only">phone number</label>
-                              <div className="input-group mb-2">
-                                <div className="input-group-prepend">
-                                  <div className="input-group-text">
-                                    <span className="mdi mdi-cellphone-iphone"></span>
-                                  </div>
-                                </div>
-                                <input
-                                  value=""
-                                  type="text"
-                                  className="form-control"
-                                  placeholder="Nhập số điện thoại"
-                                  onChange={()=>{}}
-                                />
-                              </div>
-                            </div>
-                            <div className="col-auto">
-                              <button
-                                type="button"
-                                data-toggle="collapse"
-                                data-target="#collapseTwo"
-                                aria-expanded="false"
-                                aria-controls="collapseTwo"
-                                className="btn btn-secondary mb-2 btn-lg"
-                              >
-                                TIẾP
-                              </button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-
                   <div className="card checkout-step-two">
                     <div className="card-header" id="headingTwo">
                       <h5 className="mb-0">
@@ -78,10 +36,10 @@ const CheckoutSection = () => {
                           type="button"
                           data-toggle="collapse"
                           data-target="#collapseTwo"
-                          aria-expanded="false"
+                          aria-expanded="true"
                           aria-controls="collapseTwo"
                         >
-                          <span className="number">2</span> Địa Chỉ Giao Hàng
+                          <span className="number">1</span> Địa Chỉ Giao Hàng
                         </button>
                       </h5>
                     </div>
@@ -97,49 +55,36 @@ const CheckoutSection = () => {
                             <div className="col-sm-6">
                               <div className="form-group">
                                 <label className="control-label">
-                                  Họ <span className="required">*</span>
+                                  Tên khách hàng <span className="required">*</span>
                                 </label>
                                 <input
                                   className="form-control border-form-control"
-                                  value=""
-                                  placeholder="Nguyen"
+                                  value={user.name}
+                                  placeholder={user.name}
                                   type="text"
-                                  onChange={()=>{}}
+                                  onChange={() => {}}
                                 />
-                              </div>
+                              </div>                             
                             </div>
                             <div className="col-sm-6">
                               <div className="form-group">
                                 <label className="control-label">
-                                  Tên <span className="required">*</span>
+                                  Số Điện Thoại{" "}
+                                  <span className="required">*</span>
                                 </label>
                                 <input
                                   className="form-control border-form-control"
-                                  value=""
-                                  placeholder="Tam"
-                                  type="text"
-                                  onChange={()=> {}}
+                                  value={user.phoneNumber}
+                                  placeholder={user.phoneNumber}
+                                  type="number"
+                                  onChange={() => {}}
                                 />
                               </div>
                             </div>
                           </div>
 
                           <div className="row">
-                            <div className="col-sm-6">
-                              <div className="form-group">
-                                <label className="control-label">
-                                  Số Điện Thoại <span className="required">*</span>
-                                </label>
-                                <input
-                                  className="form-control border-form-control"
-                                  value=""
-                                  placeholder="123 456 7890"
-                                  type="number"
-                                  onChange={()=>{}}
-                                />
-                              </div>
-                            </div>
-                            <div className="col-sm-6">
+                          <div className="col-sm-6">
                               <div className="form-group">
                                 <label className="control-label">
                                   Email <span className="required">*</span>
@@ -147,27 +92,10 @@ const CheckoutSection = () => {
                                 <input
                                   className="form-control border-form-control "
                                   value=""
-                                  placeholder="nguyenxuanlinhtam0205@gmail.com"
+                                  placeholder={user.email}
                                   disabled=""
                                   type="email"
-                                  onChange={()=>{}}
-                                />
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="row">
-                            <div className="col-sm-6">
-                              <div className="form-group">
-                                <label className="control-label">
-                                  Zip Code <span className="required">*</span>
-                                </label>
-                                <input
-                                  className="form-control border-form-control"
-                                  value=""
-                                  placeholder="123456"
-                                  type="number"
-                                  onChange={()=>{}}
+                                  onChange={() => {}}
                                 />
                               </div>
                             </div>
@@ -193,7 +121,7 @@ const CheckoutSection = () => {
                                 <label className="control-label">
                                   Địa Chỉ <span className="required">*</span>
                                 </label>
-                                <textarea className="form-control border-form-control"></textarea>
+                                <textarea className="form-control border-form-control">{address}</textarea>
                                 <small className="text-danger">
                                   Vui lòng cung cấp tên đường và số nhà.
                                 </small>
@@ -204,10 +132,11 @@ const CheckoutSection = () => {
                           <button
                             type="button"
                             data-toggle="collapse"
-                            data-target="#collapseThree"
+                            data-target="#collapsefour"
                             aria-expanded="false"
-                            aria-controls="collapseThree"
+                            aria-controls="collapsefour"
                             className="btn btn-secondary mb-2 btn-lg"
+                            onClick={handleCheckout}
                           >
                             TIẾP
                           </button>
@@ -216,7 +145,7 @@ const CheckoutSection = () => {
                     </div>
                   </div>
 
-                  <div className="card">
+                  {/* <div className="card">
                     <div className="card-header" id="headingThree">
                       <h5 className="mb-0">
                         <button
@@ -317,7 +246,7 @@ const CheckoutSection = () => {
                         </form>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="card">
                     <div className="card-header" id="headingThree">
@@ -330,7 +259,7 @@ const CheckoutSection = () => {
                           aria-expanded="false"
                           aria-controls="collapsefour"
                         >
-                          <span className="number">4</span> Hoàn Tất Đặt Hàng
+                          <span className="number">2</span> Hoàn Tất Đặt Hàng
                         </button>
                       </h5>
                     </div>
@@ -392,14 +321,12 @@ const CheckoutSection = () => {
                       <span className="regular-price">36.000 VNĐ</span>
                     </p>
                   </div>
-                  
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      
     </>
   );
 };
