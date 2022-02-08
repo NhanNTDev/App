@@ -11,7 +11,7 @@ const TableHead = () => {
       <th className="cart_product">Sản phẩm</th>
       <th></th>
       <th>Đơn giá</th>
-      <th>Số lượng</th>
+      <th className="d-flex justify-content-center">Số lượng</th>
       <th>Đơn vị</th>
       <th>Thành Tiền</th>
       <th className="text-center">Thao tác</th>
