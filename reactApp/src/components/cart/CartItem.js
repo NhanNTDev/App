@@ -1,5 +1,5 @@
 import { Checkbox } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   removeFromCart,
@@ -8,6 +8,9 @@ import {
 
 const CartItem = (props) => {
   const dispatch = useDispatch();
+  const [cartItemQuantity, setCartItemQuantity] = useState(
+    props.itemCarts[0].quantity
+  );
   const hanldeRemoveItem = () => {
     const action = removeFromCart({
       campaignId: props.campaignId,
@@ -17,6 +20,7 @@ const CartItem = (props) => {
     dispatch(action);
   };
   const hanldeUpdateQuantity = ({ newQuantity }) => {
+    setCartItemQuantity(newQuantity);
     const action = setQuantity({
       campaignId: props.campaignId,
       productId: props.id,
@@ -24,6 +28,21 @@ const CartItem = (props) => {
       itemCartId: props.itemCarts[0].id,
     });
     dispatch(action);
+  };
+
+  const handleOnchangeQuantity = (e) => {
+    if (e.target.validity.valid) {
+      setCartItemQuantity(e.target.value);
+      if (e.target.value !== "") {
+        const action = setQuantity({
+          campaignId: props.campaignId,
+          productId: props.id,
+          newQuantity: parseInt(e.target.value),
+          itemCartId: props.itemCarts[0].id,
+        });
+        dispatch(action);
+      }
+    } else setCartItemQuantity(cartItemQuantity);
   };
   return (
     <tr>
@@ -43,37 +62,36 @@ const CartItem = (props) => {
       </td>
       <td className="qty">
         <div className="input-group">
-          <span className="input-group-btn">
-            <button
-              disabled={props.itemCarts[0].quantity === 1 ? "disabled" : null}
-              className="btn btn-theme-round btn-number"
-              type="button"
-              onClick={() =>
-                hanldeUpdateQuantity({
-                  newQuantity: props.itemCarts[0].quantity - 1,
-                })
-              }
-            >
-              -
-            </button>
-          </span>
+          <button
+            disabled={props.itemCarts[0].quantity === 1 ? "disabled" : null}
+            className="btn-update-quantity"
+            type="button"
+            onClick={() =>
+              hanldeUpdateQuantity({
+                newQuantity: props.itemCarts[0].quantity - 1,
+              })
+            }
+          >
+            -
+          </button>
           <input
-            value={props.itemCarts[0].quantity}
-            className="form-control border-form-control form-control-sm input-number"
+            value={cartItemQuantity}
+            type="text"
+            pattern="^[1-9]{1}[0-9]*"
+            onChange={(e) => handleOnchangeQuantity(e)}
+            className="form-control border-form-control form-control-lg input-number"
           />
-          <span className="input-group-btn">
-            <button
-              className="btn btn-theme-round btn-number"
-              type="button"
-              onClick={() =>
-                hanldeUpdateQuantity({
-                  newQuantity: props.itemCarts[0].quantity + 1,
-                })
-              }
-            >
-              +
-            </button>
-          </span>
+          <button
+            className="btn-update-quantity"
+            type="button"
+            onClick={() =>
+              hanldeUpdateQuantity({
+                newQuantity: props.itemCarts[0].quantity + 1,
+              })
+            }
+          >
+            +
+          </button>
         </div>
       </td>
       <td className="productUnit">
@@ -88,7 +106,8 @@ const CartItem = (props) => {
           data-original-title="Remove"
           onClick={hanldeRemoveItem}
         >
-          <i className="mdi mdi-close-circle-outline"></i>
+          {/* <i className="mdi mdi-close-circle-outline"></i> */}
+          Xóa
         </button>
       </td>
     </tr>
