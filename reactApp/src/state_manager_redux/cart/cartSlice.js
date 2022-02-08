@@ -1,4 +1,3 @@
-
 import cartApi from "../../apis/cartApi";
 const { createSlice, current, createAsyncThunk } = require("@reduxjs/toolkit");
 export const addToCartThunk = createAsyncThunk(
@@ -20,11 +19,18 @@ export const addToCartThunk = createAsyncThunk(
 );
 const cartSlice = createSlice({
   name: "cart",
-  initialState: JSON.parse(localStorage.getItem("dichonao_cart")),
+  initialState:
+    Object.keys(JSON.parse(localStorage.getItem("dichonao_cart"))).length === 0
+      ? null
+      : JSON.parse(localStorage.getItem("dichonao_cart")),
   reducers: {
     //set value for cart state
     setCart(state, action) {
-      return action.payload;
+      localStorage.setItem(
+        "dichonao_cart",
+        JSON.stringify({ ...action.payload })
+      );
+      return Object.keys(action.payload).length === 0 ? null : action.payload;
     },
     //setQuantity for cart item
     setQuantity(state, action) {
@@ -40,6 +46,7 @@ const cartSlice = createSlice({
               listItemCarts.push({
                 ...harvestCampaign.itemCarts[0],
                 quantity: action.payload.newQuantity,
+                total: action.payload.newQuantity * harvestCampaign.price,
               });
               listHavestInCampaigns.push({
                 ...harvestCampaign,
