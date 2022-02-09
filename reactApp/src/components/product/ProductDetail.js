@@ -22,7 +22,7 @@ const ProductDetail = (props) => {
   const handleAddToCart = () => {
     if (user !== null) {
       const action = addToCartThunk({
-        productId: props.harvest.product.id,
+        productId: props.id,
         customerId: user.id,
       });
       dispatch(action);
