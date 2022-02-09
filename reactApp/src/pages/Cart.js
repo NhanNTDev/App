@@ -27,7 +27,7 @@ const Cart = () => {
       return r;
     }, Object.create(null));
     const newObject = Object.entries(result);
-  
+    console.log(newObject);
     return (
       <>
         <div className="table-responsive">

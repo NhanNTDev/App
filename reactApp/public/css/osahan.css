@@ -149,6 +149,16 @@ a:focus {
   margin: 1px;
   padding-bottom: 5px;
 }
+.btn-update-quantity-2 {
+  border: 1px solid;
+  border-radius: 2px;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 1px;
+  padding-bottom: 5px;
+}
 .heading-design-h5 {
   font-size: 18px;
   margin-bottom: 14px;
@@ -838,18 +848,18 @@ body.toggled::after {
 .shop-detail-right h2 {
   font-size: 24px;
   font-weight: 600;
-  margin: 10px 0 5px;
+  margin: 10px 0 15px;
 }
 .shop-detail-right h5 {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
-  margin: 5px 0 5px;
+  margin: 10px 0 10px;
 }
 .shop-detail-right > h6 {
   color: #666;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
-  margin: 20px 0 5px;
+  margin: 10px 0 10px;
 }
 .shop-detail-right .btn {
   font-weight: 500;
@@ -932,6 +942,7 @@ body.toggled::after {
   text-align: center;
   width: 18px;
 }
+
 .qty .btn {
   background: #5a6268 none repeat scroll 0 0;
   border-radius: 2px !important;

@@ -4,7 +4,7 @@ export const addToCartThunk = createAsyncThunk(
   "cart/addToCartThunk",
   async (data) => {
     const params = {
-      quantity: "1",
+      quantity: data.quantity,
       harvestCampaignId: data.productId,
       customerId: data.customerId,
     };
