@@ -1,6 +1,7 @@
 import { Checkbox } from "antd";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   removeFromCart,
   setQuantity,
@@ -55,7 +56,9 @@ const CartItem = (props) => {
         </a>
       </td>
       <td className="cart_description">
-        <h5 className="product_name">{props.productName}</h5>
+      <Link to={`/products/${props.campaignId}/${props.id}`}>
+        <h5 className="product_name" onClick={{}}>{props.productName}</h5>
+      </Link>
       </td>
       <td className="price">
         <span>{props.price.toLocaleString()} VNĐ</span>

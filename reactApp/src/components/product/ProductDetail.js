@@ -42,10 +42,6 @@ const ProductDetail = (props) => {
         quantity: quantity,
       });
       dispatch(action);
-      message.success({
-        duration: 2,
-        content: "Sản phẩm đã được thêm vào giỏ hàng",
-      });
     } else {
       navigate("/login");
     }
@@ -53,7 +49,7 @@ const ProductDetail = (props) => {
 
   return (
     <div className="shop-detail-right">
-      <h2>{props.harvest.product.name}</h2>
+      <h2>{props.productName}</h2>
       <p className="offer-price mb-0">
         <span className="mdi mdi-tag"></span>{" "}
         <span className="price-offer">

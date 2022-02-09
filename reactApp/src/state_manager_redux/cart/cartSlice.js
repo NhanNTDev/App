@@ -1,19 +1,34 @@
+import { message } from "antd";
 import cartApi from "../../apis/cartApi";
 const { createSlice, current, createAsyncThunk } = require("@reduxjs/toolkit");
 export const addToCartThunk = createAsyncThunk(
   "cart/addToCartThunk",
   async (data) => {
+    let error = "";
     const params = {
       quantity: data.quantity,
       harvestCampaignId: data.productId,
       customerId: data.customerId,
     };
     let cartResponse;
-    await cartApi.addNew(params);
+    await cartApi.addNew(params).catch((e) => (error = e.message));
+
     cartResponse = await cartApi.getAll(
       JSON.parse(localStorage.getItem("dichonao_user")).id
     );
     localStorage.setItem("dichonao_cart", JSON.stringify({ ...cartResponse }));
+    if (error === "") {
+      message.success({
+        duration: 2,
+        content: "Sản phẩm đã được thêm vào giỏ hàng!",
+      });
+    } else {
+      message.error({
+        duration: 2,
+        content: "Sản phẩm đã hết hàng!",
+      });
+    }
+
     return cartResponse;
   }
 );
