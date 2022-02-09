@@ -1,7 +1,6 @@
 import CampaignSlider from "../components/campaign/CampaignSlider";
 import { runScript,deleteScript } from "../utils/Common";
 import { hotCampaign } from "../constants/Data";
-import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 const Shop = () => {
