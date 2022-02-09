@@ -22,7 +22,6 @@ axiosClient.interceptors.response.use(
   (response) => {
     console.log("interceptors response");
     if (response && response.data) {
-      console.log("data nè");
       return response.data;
     }
     return response;
