@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { deleteScript, runScript } from "../../utils/Common";
-import ProductSliderItem from "./ProductItemShort";
+import ProductItemShort from "./ProductItemShort";
 
 
 const ProductSlider = (props) => {
@@ -24,7 +24,7 @@ const ProductSlider = (props) => {
         </div>
         <div className="owl-carousel owl-carousel-featured">
           {props.listProduct &&
-            props.listProduct.map((harvest) => <ProductSliderItem harvest = {{...harvest}}/>)}
+            props.listProduct.map((harvest) => <ProductItemShort harvest = {{...harvest}}/>)}
         </div>
       </div>
     </section>

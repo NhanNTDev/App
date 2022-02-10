@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import userApi from "../apis/userApi";
 import validator from "validator";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+
 import { useDispatch } from "react-redux";
 import { setUser } from "../state_manager_redux/user/userSlice";
 const Login = () => {
@@ -12,17 +15,21 @@ const Login = () => {
   const [validateMsg, setValidateMsg] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
+  const [loading, setLoading] = useState(false);
   const handleLogin = () => {
     setLoginFail(false);
     const isValid = validateAll();
     if (!isValid) return;
+    setLoading(true);
     const login = async () => {
-      const result = await userApi
-        .login({ userName, password })
-        .catch(() => setLoginFail(true));
+      const result = await userApi.login({ userName, password }).catch(() => {
+        setLoginFail(true);
+        setLoading(false);
+      });
       if (result && result.user.role === "customer") {
-        const action = setUser({...result})
-        dispatch(action);
+        const setUserAction = setUser({ ...result });
+        dispatch(setUserAction);
         navigate(`/home`);
       }
     };
@@ -52,6 +59,13 @@ const Login = () => {
 
   return (
     <>
+      <div className="d-flex justify-content-center">
+        {loading ? (
+          <>
+            <Spin indicator={antIcon} /> <br /> <br />{" "}
+          </>
+        ) : null}
+      </div>
       <div className="container d-flex justify-content-center">
         <div className="login-modal-main" id="bd-example-modal">
           <div className="modal-lg modal-dialog-centered" role="document">
@@ -75,7 +89,7 @@ const Login = () => {
                               Đăng nhập vào tài khoản của bạn
                             </h5>
                             <fieldset className="form-group">
-                              <label>Tên đăng nhập *</label>
+                              <label>Số điện thoại *</label>
                               <input
                                 required
                                 value={userName}

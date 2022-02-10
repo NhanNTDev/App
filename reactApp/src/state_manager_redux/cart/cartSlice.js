@@ -4,20 +4,23 @@ const { createSlice, current, createAsyncThunk } = require("@reduxjs/toolkit");
 export const addToCartThunk = createAsyncThunk(
   "cart/addToCartThunk",
   async (data) => {
-    let error = "";
+    let errorMessage = "";
     const params = {
       quantity: data.quantity,
       harvestCampaignId: data.productId,
       customerId: data.customerId,
     };
     let cartResponse;
-    await cartApi.addNew(params).catch((e) => (error = e.message));
+    await cartApi.addNew(params).catch((err) => {
+      errorMessage = err.response.data.error.message;
+      console.log(errorMessage);
+    });
 
     cartResponse = await cartApi.getAll(
       JSON.parse(localStorage.getItem("dichonao_user")).id
     );
     localStorage.setItem("dichonao_cart", JSON.stringify({ ...cartResponse }));
-    if (error === "") {
+    if (errorMessage === "") {
       message.success({
         duration: 2,
         content: "Sản phẩm đã được thêm vào giỏ hàng!",

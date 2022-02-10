@@ -4,27 +4,29 @@ import { Pagination } from "antd";
 import { useSearchParams } from "react-router-dom";
 import CampaignItem from "../components/campaign/CampaignItem";
 import campaignsApi from "../apis/campaignsApi";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const ViewAllCampaigns = () => {
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(1);
   const [campaigns, setCampaigns] = useState([]);
+  const [loading, setLoading] = useState(true);
   let [searchParams] = useSearchParams();
-
 
   useEffect(() => {
     const params = {
       page: page,
       size: RECORD_PER_PAGE,
-    }
+    };
     const fetchCampaigns = async () => {
       const campaignsResponse = await campaignsApi.getAll(params);
       setCampaigns(campaignsResponse.data);
       setTotalRecords(campaignsResponse.metadata.total);
+      setLoading(false);
     };
 
     fetchCampaigns();
-
   }, [page]);
 
   const renderPagination = () => {
@@ -90,6 +92,7 @@ const ViewAllCampaigns = () => {
           </div>
         </div>
       </section>
+
       <section className="shop-list section-padding">
         <div className="container">
           <div className="row">
@@ -102,6 +105,9 @@ const ViewAllCampaigns = () => {
                     : "Chiến dịch trong tuần"}
                 </h5>
               </div>
+              {loading && (
+                <Skeleton count={12} width="25%" inline={true} height={250} />
+              )}
               <div className="row no-gutters">
                 {campaigns.map((campaign) => (
                   <CampaignItem {...campaign} />

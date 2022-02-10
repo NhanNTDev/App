@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../constants/Constants";
 import { Pagination } from "antd";
-import {useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import ProductItem from "../components/product/ProductItem";
 import harvestApi from "../apis/harvestApi";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(12);
   const [searchProducts, setSearchProducts] = useState([]);
-  let [searchParams, setSearchParam] = useSearchParams();
-  const [searchValue, setSearchValue] = useState('');
+  let [searchParams] = useSearchParams();
+  const [searchValue, setSearchValue] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setSearchValue(searchParams.get('searchValue'));
+    setSearchValue(searchParams.get("searchValue"));
   }, [searchParams]);
 
   useEffect(() => {
@@ -21,11 +24,12 @@ const SearchResult = () => {
       const params = {
         page: page,
         size: 12,
-        'product-name': searchValue,
+        "product-name": searchValue,
       };
       const productsResponse = await harvestApi.getAll(params);
       setSearchProducts(productsResponse.data);
       setTotalRecords(productsResponse.metadata.total);
+      setLoading(false);
     };
     fetchProducts();
   }, [searchValue, page]);
@@ -74,7 +78,6 @@ const SearchResult = () => {
     );
   };
 
-
   return (
     <>
       <section className="pt-3 pb-3 page-info section-padding border-bottom bg-white">
@@ -100,14 +103,20 @@ const SearchResult = () => {
                 {renderSortDrop()}
                 <h5 className="mb-4">Kết quả cho '{searchValue}'</h5>
               </div>
+              {loading && (
+                <Skeleton count={12} width="25%" inline={true} height={250} />
+              )}
               <div className="row no-gutters">
-                {searchProducts.map((harvest) => <ProductItem {...harvest}/>)}
+                {searchProducts.map((harvest) => (
+                  <ProductItem {...harvest} />
+                ))}
               </div>
               {renderPagination()}
             </div>
           </div>
         </div>
-      </section>;;
+      </section>
+      ;;
     </>
   );
 };
