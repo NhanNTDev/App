@@ -2,9 +2,14 @@ import React from "react";
 import CartItem from "./CartItem";
 
 const TableBody = (props) => {
+  const getTotal = (item) => {
+    props.calculateTotal(item.itemCarts[0].total)
+  }
   return (
     <>
-      
+      {props.farm.map((item) => (
+        <CartItem item={item} />
+      ))}
       <tr>
         <td colSpan="8">
           <div className="cart-farm-header">
@@ -39,7 +44,6 @@ const TableBody = (props) => {
           </div>
         </td>
       </tr>
-      {props.farm.map(item => <CartItem {...item}/>)}
     </>
   );
 };

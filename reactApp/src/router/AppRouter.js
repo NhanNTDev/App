@@ -16,6 +16,7 @@ import ViewAllCampaigns from "../pages/ViewAllCampaigns";
 import Wishlist from "../pages/Wishlist";
 import SearchResult from "../pages/SearchResult";
 import { useSelector } from "react-redux";
+import GetStarted from "../pages/GetStarted";
 
 const AppRouter = () => {
   const user = useSelector((state) => state.user);
@@ -69,6 +70,14 @@ const AppRouter = () => {
         element={
           <PrivateRoute>
             <Cart />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/getStarted"
+        element={
+          <PrivateRoute>
+            <GetStarted />
           </PrivateRoute>
         }
       />

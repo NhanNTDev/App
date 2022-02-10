@@ -6,7 +6,7 @@ export const addToCartThunk = createAsyncThunk(
   async (data) => {
     let errorMessage = "";
     const params = {
-      quantity: "1",
+      quantity: data.quantity,
       harvestCampaignId: data.productId,
       customerId: data.customerId,
     };

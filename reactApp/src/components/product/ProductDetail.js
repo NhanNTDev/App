@@ -1,4 +1,4 @@
-import { Button, message, Space } from "antd";
+import { message, Space } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { addToCartThunk } from "../../state_manager_redux/cart/cartSlice";
 
 const ProductDetail = (props) => {
   const [farm, setFarm] = useState({});
+  const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -19,18 +20,31 @@ const ProductDetail = (props) => {
   }, []);
   const dispatch = useDispatch();
 
+  const decreaseQuantity = () => {
+    setQuantity(quantity - 1);
+  };
+
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleOnchangeQuantity = (e) => {
+    if (e.target.validity.valid) {
+      setQuantity(e.target.value);
+    } else setQuantity(quantity);
+  };
+
   const handleAddToCart = () => {
     if (user !== null) {
       const action = addToCartThunk({
         productId: props.id,
         customerId: user.id,
+        quantity: quantity,
       });
       dispatch(action);
     } else {
       navigate("/login");
     }
-
-    
   };
 
   return (
@@ -39,26 +53,28 @@ const ProductDetail = (props) => {
       <p className="offer-price mb-0">
         <span className="mdi mdi-tag"></span>{" "}
         <span className="price-offer">
-          {props.price.toLocaleString()}
-          {" VNĐ / "}
-          {props.unit}
+          <strong>
+            {props.price.toLocaleString()}
+            {" VNĐ / "}
+            {props.unit}
+          </strong> 
         </span>
       </p>
       <h6>
         <strong>
-          <span className="mdi mdi-approval"></span> Còn lại:
+          <span className="mdi mdi-approval"></span> Còn lại :
         </strong>{" "}
         {props.inventory} {props.unit}
       </h6>
       <h5>
         <i>
-          <span className="mdi mdi-home-circle"></span> Nông trại:
+          <span className="mdi mdi-home-circle"></span> Nông trại :
         </i>{" "}
         {farm.name}
       </h5>
       <h5>
         <i>
-          <span className="mdi mdi-map-marker"></span> Địa Chỉ:
+          <span className="mdi mdi-map-marker"></span> Địa Chỉ :
         </i>{" "}
         {farm.address}
       </h5>
@@ -71,6 +87,38 @@ const ProductDetail = (props) => {
           <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
         </i>{" "}
       </h5>
+
+      <div className="qty">
+        <div className="input-group" style={{ width: 250 }}>
+          <h5>
+            <i>Số lượng : </i>
+          </h5>
+          <button
+            disabled={quantity === 1 ? "disabled" : null}
+            className="btn-update-quantity-2"
+            type="button"
+            onClick={decreaseQuantity}
+            style={{ marginLeft: 10 }}
+          >
+            -
+          </button>
+          <input
+            value={quantity}
+            type="text"
+            pattern="^[1-9]{1}[0-9]*"
+            onChange={(e) => handleOnchangeQuantity(e)}
+            className="form-control border-form-control form-control-lg input-number"
+            style={{ height: 30 }}
+          />
+          <button
+            className="btn-update-quantity-2"
+            type="button"
+            onClick={increaseQuantity}
+          >
+            +
+          </button>
+        </div>
+      </div>
 
       <Space>
         <button

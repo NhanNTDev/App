@@ -104,6 +104,9 @@ a:focus {
 .btn-secondary {
   background: #e96125 none repeat scroll 0 0 !important;
 }
+.btn-secondary-lighter {
+  background: white none repeat scroll 0 0 !important;
+}
 .btn-secondary-sm {
   background: #f77d48 none repeat scroll 0 0 !important;
 }
@@ -144,6 +147,16 @@ a:focus {
   border-radius: 2px;
   width: 38px;
   height: 38px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 1px;
+  padding-bottom: 5px;
+}
+.btn-update-quantity-2 {
+  border: 1px solid;
+  border-radius: 2px;
+  width: 30px;
+  height: 30px;
   font-size: 16px;
   font-weight: 600;
   margin: 1px;
@@ -838,18 +851,18 @@ body.toggled::after {
 .shop-detail-right h2 {
   font-size: 24px;
   font-weight: 600;
-  margin: 10px 0 5px;
+  margin: 10px 0 15px;
 }
 .shop-detail-right h5 {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
-  margin: 5px 0 5px;
+  margin: 10px 0 10px;
 }
 .shop-detail-right > h6 {
   color: #666;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
-  margin: 20px 0 5px;
+  margin: 10px 0 10px;
 }
 .shop-detail-right .btn {
   font-weight: 500;
@@ -932,6 +945,7 @@ body.toggled::after {
   text-align: center;
   width: 18px;
 }
+
 .qty .btn {
   background: #5a6268 none repeat scroll 0 0;
   border-radius: 2px !important;
@@ -1591,6 +1605,67 @@ label {
   .container {
     max-width: 100%;
   }
+}
+
+/* Get started page */
+.get-started-page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  ),
+  url("https://www.nhonmy.com/wp-content/uploads/2018/05/web-thuc-pham-sach.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.get-started-page .form{
+  background-color: white;
+  padding: 50px 80px;
+  border-radius: 10px;
+}
+
+.get-started-page h1{
+  color: rgb(18, 238, 48);
+}
+
+.get-started-page .form-control {
+  font-size: 13px;
+  height: 38px;
+  min-width: 384px;
+}
+
+.get-started-page .btn {
+  border-radius: 0 2px 2px 0 !important;
+  font-weight: 500;
+  height: 38px;
+  padding: 0 21px;
+  text-transform: uppercase;
+}
+
+.get-started-page .icons{
+  width: 500%;
+}
+
+.get-started-page .form-message{
+  padding: 20px 0px;
+}
+
+.get-started-page .form-message h2{
+  font-size: 24px;
+  font-weight: 500;
+  color: rgb(71, 67, 67);
+}
+
+.get-started-page .form-message h5{
+  font-size: 16px;
+  font-weight: 400;
+}
+.get-started-page li{
+  padding-left: 120px;
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
