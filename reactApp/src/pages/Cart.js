@@ -1,10 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-lone-blocks */
 import { useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-
-
 import { Link, useNavigate } from "react-router-dom";
 import TableBody from "../components/cart/TableBody";
 import TableFoot from "../components/cart/TableFoot";
@@ -17,12 +14,17 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const calculateTotal = (props) => {
+    setTotalAll(totalAll + props)
+  }
+
   const handleOrders = () => {
     const action = setOrder({
       cart: cart
     });
     dispatch(action);
   }
+
   const renderCartForCampaign = (props) => {
     var result = props.harvestCampaigns.reduce(function (r, a) {
       r[a.harvest.farmId] = r[a.harvest.farmId] || [];
@@ -30,7 +32,7 @@ const Cart = () => {
       return r;
     }, Object.create(null));
     const newObject = Object.entries(result);
-  
+    console.log(newObject);
     return (
       <>
         <div className="table-responsive">
@@ -41,7 +43,7 @@ const Cart = () => {
             <TableHead />
             <tbody>
               {newObject.map(([key, value], index) => {
-                return <TableBody farm={value} />;
+                return <TableBody farm={value} calculateTotal={calculateTotal}/>;
               })}
             </tbody>
             <TableFoot />

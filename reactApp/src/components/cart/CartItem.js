@@ -10,23 +10,25 @@ import {
 const CartItem = (props) => {
   const dispatch = useDispatch();
   const [cartItemQuantity, setCartItemQuantity] = useState(
-    props.itemCarts[0].quantity
+    props.item.itemCarts[0].quantity
   );
+
   const hanldeRemoveItem = () => {
     const action = removeFromCart({
-      campaignId: props.campaignId,
-      productId: props.id,
-      itemCartId: props.itemCarts[0].id,
+      campaignId: props.item.campaignId,
+      productId: props.item.id,
+      itemCartId: props.item.itemCarts[0].id,
     });
     dispatch(action);
   };
+
   const hanldeUpdateQuantity = ({ newQuantity }) => {
     setCartItemQuantity(newQuantity);
     const action = setQuantity({
-      campaignId: props.campaignId,
-      productId: props.id,
+      campaignId: props.item.campaignId,
+      productId: props.item.id,
       newQuantity: newQuantity,
-      itemCartId: props.itemCarts[0].id,
+      itemCartId: props.item.itemCarts[0].id,
     });
     dispatch(action);
   };
@@ -36,15 +38,17 @@ const CartItem = (props) => {
       setCartItemQuantity(e.target.value);
       if (e.target.value !== "") {
         const action = setQuantity({
-          campaignId: props.campaignId,
-          productId: props.id,
+          campaignId: props.item.campaignId,
+          productId: props.item.id,
           newQuantity: parseInt(e.target.value),
-          itemCartId: props.itemCarts[0].id,
+          itemCartId: props.item.itemCarts[0].id,
         });
         dispatch(action);
       }
     } else setCartItemQuantity(cartItemQuantity);
   };
+
+
   return (
     <tr>
       <td className="cart_checkbox">
@@ -52,26 +56,26 @@ const CartItem = (props) => {
       </td>
       <td className="cart_product">
         <a href="#">
-          <img alt="Product" src={props.harvest.product.image1} />
+          <img alt="Product" src={props.item.harvest.product.image1} />
         </a>
       </td>
       <td className="cart_description">
-      <Link to={`/products/${props.campaignId}/${props.id}`}>
-        <h5 className="product_name" onClick={{}}>{props.productName}</h5>
+      <Link to={`/products/${props.item.campaignId}/${props.item.id}`}>
+        <h5 className="product_name" onClick={{}}>{props.item.productName}</h5>
       </Link>
       </td>
       <td className="price">
-        <span>{props.price.toLocaleString()} VNĐ</span>
+        <span>{props.item.price.toLocaleString()} VNĐ</span>
       </td>
       <td className="qty">
         <div className="input-group">
           <button
-            disabled={props.itemCarts[0].quantity === 1 ? "disabled" : null}
+            disabled={props.item.itemCarts[0].quantity === 1 ? "disabled" : null}
             className="btn-update-quantity"
             type="button"
             onClick={() =>
               hanldeUpdateQuantity({
-                newQuantity: props.itemCarts[0].quantity - 1,
+                newQuantity: props.item.itemCarts[0].quantity - 1,
               })
             }
           >
@@ -89,7 +93,7 @@ const CartItem = (props) => {
             type="button"
             onClick={() =>
               hanldeUpdateQuantity({
-                newQuantity: props.itemCarts[0].quantity + 1,
+                newQuantity: props.item.itemCarts[0].quantity + 1,
               })
             }
           >
@@ -98,10 +102,10 @@ const CartItem = (props) => {
         </div>
       </td>
       <td className="productUnit">
-        <span>{props.unit}</span>
+        <span>{props.item.unit}</span>
       </td>
       <td className="total_item">
-        <span>{props.itemCarts[0].total.toLocaleString()} VNĐ</span>
+        <span>{props.item.itemCarts[0].total.toLocaleString()} VNĐ</span>
       </td>
       <td className="action text-center">
         <button
