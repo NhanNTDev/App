@@ -9,15 +9,18 @@ import categoriesApi from "../apis/categoriesApi";
 import cartApi from "../apis/cartApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setCart } from "../state_manager_redux/cart/cartSlice";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const Home = () => {
   const [weeklyCampaigns, setWeeklyCampaigns] = useState([]);
   const [hotCampaigns, setHotCampaign] = useState([]);
-
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const address = useSelector((state) => state.location);
   const user = useSelector((state) => state.user);
+  const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
   useEffect(() => {
     deleteScript();
   }, []);
@@ -29,7 +32,7 @@ const Home = () => {
       const action = setCart(cartItemsResponse);
       dispatch(action);
     };
-    if(user !== null) fetchCartItems();
+    if (user !== null) fetchCartItems();
   }, []);
   // Get category
   useEffect(() => {
@@ -49,15 +52,21 @@ const Home = () => {
       const campaigns = await campaignsApi.getAll(params);
       setWeeklyCampaigns(campaigns.data);
       setHotCampaign(campaigns.data);
+      setLoading(false);
       runScript();
     };
-    console.log("recall api");
-    console.log(address);
     fetchCampaigns();
   }, [address]);
 
   return (
     <>
+      <div className="d-flex justify-content-center">
+        {loading ? (
+          <>
+            <Spin indicator={antIcon} /> <br /> <br />{" "}
+          </>
+        ) : null}
+      </div>
       <TopBanner />
       <TopCategory listCategories={categories}></TopCategory>
       <CampaignSlider

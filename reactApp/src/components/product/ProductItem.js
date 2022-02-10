@@ -4,9 +4,7 @@ const ProductItem = (props) => {
   return (
     <div className="col-md-3">
       <div className="product">
-        <Link
-          to={`/products/${props.campaignId}/${props.id}`}
-        >
+        <Link to={`/products/${props.campaignId}/${props.id}`}>
           <div className="product-header">
             {props.harvest.product.image1 !== null ? (
               <img
@@ -32,8 +30,7 @@ const ProductItem = (props) => {
               </h4>
               <p className="offer-price mb-0">
                 <i className="mdi mdi-tag-outline"></i>{" "}
-                {props.price.toLocaleString()} {" VNĐ / "}{" "}
-                {props.unit}
+                {props.price.toLocaleString()} {" VNĐ / "} {props.unit}
               </p>
               <h6>
                 <strong>

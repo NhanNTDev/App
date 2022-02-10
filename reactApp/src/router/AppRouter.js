@@ -15,8 +15,10 @@ import Shop from "../pages/Shop";
 import ViewAllCampaigns from "../pages/ViewAllCampaigns";
 import Wishlist from "../pages/Wishlist";
 import SearchResult from "../pages/SearchResult";
+import { useSelector } from "react-redux";
 
 const AppRouter = () => {
+  const user = useSelector((state) => state.user);
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -76,7 +78,7 @@ const AppRouter = () => {
       <Route path="/campaign/:id" element={<Campaign />} />
       <Route path="/campaign/:campaignId/:farmId" element={<Farm />} />
       <Route path="/search-result" element={<SearchResult />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={user === null ? <Login /> : <Navigate replace to="/"/>} />
       <Route path="/*" element={<Navigate replace to="/page-not-found" />} />
     </Routes>
   );

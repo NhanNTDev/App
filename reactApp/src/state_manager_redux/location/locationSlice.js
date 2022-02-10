@@ -2,7 +2,8 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const locationSlice = createSlice({
   name: "location",
-  initialState: localStorage.getItem("dichonao_user_location"),
+  initialState:
+    localStorage.getItem("dichonao_user_location"),
   reducers: {
     setLocation(state, action) {
       localStorage.setItem("dichonao_user_location", action.payload.location);

@@ -27,7 +27,7 @@ const ProductItemShort = (props) => {
                   textOverflow: "ellipsis",
                 }}
               >
-                {props.harvestCampaign.harvest.product.name}
+                {props.harvestCampaign.productName}
               </h4>
               <p className="offer-price">
                 <i className="mdi mdi-tag-outline"></i>{" "}

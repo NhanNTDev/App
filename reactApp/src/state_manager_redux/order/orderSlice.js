@@ -1,4 +1,3 @@
-/* eslint-disable array-callback-return */
 const { createSlice } = require("@reduxjs/toolkit");
 
 const orderSlice = createSlice({
@@ -34,7 +33,7 @@ const orderSlice = createSlice({
           harvestOrders: listItem,
         });
       });
-      localStorage.setItem("dichonao_order", JSON.stringify({...farmOrders}));
+      localStorage.setItem("dichonao_order", JSON.stringify({ ...farmOrders }));
       return farmOrders;
     },
   },
