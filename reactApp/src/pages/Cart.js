@@ -14,12 +14,17 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const calculateTotal = (props) => {
+    setTotalAll(totalAll + props)
+  }
+
   const handleOrders = () => {
     const action = setOrder({
       cart: cart
     });
     dispatch(action);
   }
+
   const renderCartForCampaign = (props) => {
     var result = props.harvestCampaigns.reduce(function (r, a) {
       r[a.harvest.farmId] = r[a.harvest.farmId] || [];
@@ -38,7 +43,7 @@ const Cart = () => {
             <TableHead />
             <tbody>
               {newObject.map(([key, value], index) => {
-                return <TableBody farm={value} />;
+                return <TableBody farm={value} calculateTotal={calculateTotal}/>;
               })}
             </tbody>
             <TableFoot />

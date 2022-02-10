@@ -35,7 +35,10 @@ export const addToCartThunk = createAsyncThunk(
 const cartSlice = createSlice({
   name: "cart",
   initialState:
-    Object.keys(JSON.parse(localStorage.getItem("dichonao_cart"))).length === 0
+    localStorage.getItem("dichonao_cart") === null
+      ? null
+      : Object.keys(JSON.parse(localStorage.getItem("dichonao_cart")))
+          .length === 0
       ? null
       : JSON.parse(localStorage.getItem("dichonao_cart")),
   reducers: {

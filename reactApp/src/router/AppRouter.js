@@ -15,6 +15,7 @@ import Shop from "../pages/Shop";
 import ViewAllCampaigns from "../pages/ViewAllCampaigns";
 import Wishlist from "../pages/Wishlist";
 import SearchResult from "../pages/SearchResult";
+import GetStarted from "../pages/GetStarted";
 
 const AppRouter = () => {
   return (
@@ -67,6 +68,14 @@ const AppRouter = () => {
         element={
           <PrivateRoute>
             <Cart />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/getStarted"
+        element={
+          <PrivateRoute>
+            <GetStarted />
           </PrivateRoute>
         }
       />
