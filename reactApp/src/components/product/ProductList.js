@@ -17,6 +17,7 @@ const ProductList = (props) => {
       const param = {
         page: page,
         size: 12,
+        "campaign-id": params.id
       };
       const harvestsResponse = await harvestApi.getAll(param);
       setTotalRecords(harvestsResponse.metadata.total);
@@ -27,7 +28,7 @@ const ProductList = (props) => {
 
   useEffect(() => {
     const fetchHarvestsCampaign = async () => {
-      setHarvestsCampaign(harvests.filter(c => c.campaignId.toString() ===  params.id));
+      setHarvestsCampaign(harvests);
     };
     fetchHarvestsCampaign();
   }, [harvests]);

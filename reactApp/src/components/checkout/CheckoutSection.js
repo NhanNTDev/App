@@ -3,21 +3,20 @@ import orderApi from "../../apis/orderApi";
 
 const CheckoutSection = () => {
   const order = useSelector((state) => state.order);
+  const cart = useSelector((state) => state.cart);
   const address= useSelector((state) => state.location);
   const user = useSelector(state => state.user)
-  console.log(user);
-  console.log(order);
   
   const handleCheckout = () => {
     const data = {
       phone: user.phoneNumber,
       email: user.email,
       address: address,
-      campaignId: 1,
       customerId: user.id,
-      deliveryZoneId: 0,
-      farmOrders: order
+      deliveryZoneId: 1,
+      campaign: order
     };
+    console.log(data);
     orderApi.post(data);
   }
   return (
