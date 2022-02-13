@@ -75,7 +75,11 @@ const GetStarted = () => {
         </div>
 
         <div className="form-message">
-          {user !== null ? <h2>Chào mừng {user.shortName}</h2>:<h2>Bạn ở đâu?</h2>}
+          {user !== null ? (
+            <h2>Chào mừng {user.shortName}</h2>
+          ) : (
+            <h2>Bạn ở đâu?</h2>
+          )}
           <i>
             <h5>
               Hãy nhập địa chỉ để tìm kiếm những chiến dịch ưu đãi nhất ở gần
