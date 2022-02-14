@@ -1,12 +1,13 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-lone-blocks */
+import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import TableBody from "../components/cart/TableBody";
 import TableFoot from "../components/cart/TableFoot";
 import TableHead from "../components/cart/TableHead";
-import { setOrder } from "../state_manager_redux/order/orderSlice";
+import { setOrder, setTotal } from "../state_manager_redux/order/orderSlice";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -14,16 +15,27 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const calculateTotal = (props) => {
-    setTotalAll(totalAll + props)
-  }
-
   const handleOrders = () => {
     const action = setOrder({
-      cart: cart
+      cart: cart,
     });
     dispatch(action);
-  }
+  };
+
+  const calculateTotal = () => {
+    let total = 0;
+    Object.values(cart).map((campaign) => {
+      let campaignValue = Object.values(campaign);
+      Object.values(campaignValue[2]).map((item) => {
+        let itemValue = Object.values(item);
+        let itemCart = Object.values(itemValue[8][0]);
+        total = total + itemCart[2];
+        console.log(total);
+      });
+    });
+    console.log(total);
+    setTotalAll(total);
+  };
 
   const renderCartForCampaign = (props) => {
     var result = props.harvestCampaigns.reduce(function (r, a) {
@@ -32,7 +44,6 @@ const Cart = () => {
       return r;
     }, Object.create(null));
     const newObject = Object.entries(result);
-    console.log(newObject);
     return (
       <>
         <div className="table-responsive">
@@ -43,7 +54,7 @@ const Cart = () => {
             <TableHead />
             <tbody>
               {newObject.map(([key, value], index) => {
-                return <TableBody farm={value} calculateTotal={calculateTotal}/>;
+                return <TableBody farm={value} />;
               })}
             </tbody>
             <TableFoot />
@@ -53,13 +64,27 @@ const Cart = () => {
     );
   };
 
+  useEffect(()=> {
+    calculateTotal();
+  }, [cart]);
+  
   return cart === null ? (
     <>
-      <h1 className="d-flex justify-content-center">Giỏ hàng của bạn đang trống!</h1>
-      <span className="d-flex justify-content-center"><button onClick={() => {navigate("/home")}}> Quay về trang chủ</button></span>
-      <br/>
-      <br/>
-      
+      <h1 className="d-flex justify-content-center">
+        Giỏ hàng của bạn đang trống!
+      </h1>
+      <span className="d-flex justify-content-center">
+        <button
+          onClick={() => {
+            navigate("/home");
+          }}
+        >
+          {" "}
+          Quay về trang chủ
+        </button>
+      </span>
+      <br />
+      <br />
     </>
   ) : (
     <>
