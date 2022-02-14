@@ -4,6 +4,7 @@ const orderSlice = createSlice({
   name: "order",
   initialState: JSON.parse(localStorage.getItem("dichonao_order")),
   reducers: {
+    //set value for order
     setOrder(state, action) {
       console.log("order");
       let listFarms = [];
@@ -37,10 +38,10 @@ const orderSlice = createSlice({
       });
       localStorage.setItem("dichonao_order", JSON.stringify({ ...farmOrders }));
       return farmOrders;
-    },
+    }
   },
 });
 
 const { actions, reducer } = orderSlice;
-export const { setOrder } = actions;
+export const { setOrder, setTotal } = actions;
 export default reducer;
