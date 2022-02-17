@@ -65,7 +65,7 @@ const Cart = () => {
   };
 
   useEffect(()=> {
-    calculateTotal();
+    cart && calculateTotal();
   }, [cart]);
   
   return cart === null ? (
