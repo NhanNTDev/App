@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 
 const cartApi = {
     getAll(id) {
-        const url = `/item-carts?customer-id=${id}`;
+        const url = `/item-carts/${id}`;
         return axiosClient.get(url);
     },
     addNew(data) {
