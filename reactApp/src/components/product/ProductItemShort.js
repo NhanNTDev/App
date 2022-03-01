@@ -6,10 +6,10 @@ const ProductItemShort = (props) => {
       <div className="product">
         <Link to={`/products/${props.campaignId}/${props.harvestCampaign.id}`}>
           <div className="product-header">
-            {props.harvestCampaign.harvest.product.image1 !== null ? (
+            {props.harvestCampaign.harvest.image1 !== null ? (
               <img
                 className="img-fluid"
-                src={props.harvestCampaign.harvest.product.image1}
+                src={props.harvestCampaign.harvest.image1}
                 alt=""
               />
             ) : (
@@ -32,12 +32,12 @@ const ProductItemShort = (props) => {
               <p className="offer-price">
                 <i className="mdi mdi-tag-outline"></i>{" "}
                 {props.harvestCampaign.price.toLocaleString()} {" VNĐ / "}{" "}
-                {props.harvestCampaign.unit}
+                {props.harvestCampaign.harvest.unit}
               </p>
               <div className="detail">
                 <h6>
                   <span class="mdi mdi-approval"></span> Còn lại:
-                  {props.harvestCampaign.inventory} {props.harvestCampaign.unit}
+                  {props.harvestCampaign.inventory} {props.harvestCampaign.harvest.unit}
                 </h6>
                 <h5>
                   <i>

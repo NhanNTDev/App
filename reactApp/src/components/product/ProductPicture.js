@@ -13,49 +13,49 @@ const ProductPicture = (props) => {
           <div className="item">
             <img
               alt=""
-              src={props.harvest.product.image1}
+              src={props.harvest.image1}
               className="img-fluid img-center"
             />
           </div>
-          {props.harvest.product.image2 !== null ? (
+          {props.harvest.image2 && (
             <div className="item">
               <img
                 alt=""
-                src={props.harvest.product.image2}
+                src={props.harvest.image2}
                 className="img-fluid img-center"
               />
             </div>
-          ) : null}
+          ) }
 
-          {props.harvest.product.image3 !== null ? (
+          {props.harvest.image3 && (
             <div className="item">
               <img
                 alt=""
-                src={props.harvest.product.image3}
+                src={props.harvest.image3}
                 className="img-fluid img-center"
               />
             </div>
-          ) : null}
+          ) }
 
-          {props.harvest.product.image4 !== null ? (
+          {props.harvest.image4 && (
             <div className="item">
               <img
                 alt=""
-                src={props.harvest.product.image4}
+                src={props.harvest.image4}
                 className="img-fluid img-center"
               />
             </div>
-          ) : null}
+          ) }
 
-          {props.harvest.product.image5 !== null ? (
+          {props.harvest.image5 && (
             <div className="item">
               <img
                 alt=""
-                src={props.harvest.product.image}
+                src={props.harvest.image}
                 className="img-fluid img-center"
               />
             </div>
-          ) : null}
+          ) }
         </div>
         {/* <div id="sync2" className="owl-carousel">
           <div className="item">

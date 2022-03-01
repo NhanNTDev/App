@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
+  checkCartItem,
   removeFromCart,
   setQuantity,
 } from "../../state_manager_redux/cart/cartSlice";
@@ -48,15 +49,20 @@ const CartItem = (props) => {
     } else setCartItemQuantity(cartItemQuantity);
   };
 
+  const handleCheckbox = () => {
+      const action = checkCartItem({harvestCampaignId: props.item.id, currentValue: props.item.checked});
+      dispatch(action);
+  }
+
 
   return (
     <tr>
       <td className="cart_checkbox">
-        <Checkbox />
+        <Checkbox checked={props.item.checked} onChange={handleCheckbox}/>
       </td>
       <td className="cart_product">
         <a href="#">
-          <img alt="Product" src={props.item.harvest.product.image1} />
+          <img alt="Product" src={props.item.harvest.image1} />
         </a>
       </td>
       <td className="cart_description">

@@ -31,7 +31,7 @@ const CheckoutSection = () => {
                     <div className="card-header" id="headingTwo">
                       <h5 className="mb-0">
                         <button
-                          className="btn btn-link collapsed"
+                          className="btn btn-link"
                           type="button"
                           data-toggle="collapse"
                           data-target="#collapseTwo"
@@ -44,7 +44,7 @@ const CheckoutSection = () => {
                     </div>
                     <div
                       id="collapseTwo"
-                      className="collapse"
+                      className="collapse show"
                       aria-labelledby="headingTwo"
                       data-parent="#accordionExample"
                     >
@@ -253,8 +253,8 @@ const CheckoutSection = () => {
                         <button
                           className="btn btn-link collapsed"
                           type="button"
-                          data-toggle="collapse"
-                          data-target="#collapsefour"
+                          // data-toggle="collapse"
+                          // data-target="#collapsefour"
                           aria-expanded="false"
                           aria-controls="collapsefour"
                         >
