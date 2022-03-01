@@ -56,7 +56,7 @@ const ProductDetail = (props) => {
           <strong>
             {props.price.toLocaleString()}
             {" VNĐ / "}
-            {props.unit}
+            {props.harvest.unit}
           </strong> 
         </span>
       </p>
@@ -64,7 +64,7 @@ const ProductDetail = (props) => {
         <strong>
           <span className="mdi mdi-approval"></span> Còn lại :
         </strong>{" "}
-        {props.inventory} {props.unit}
+        {props.inventory} {props.harvest.unit}
       </h6>
       <h5>
         <i>
@@ -139,7 +139,7 @@ const ProductDetail = (props) => {
             maxHeight: 150,
           }}
         >
-          {props.harvest.product.description}
+          {props.harvest.description}
         </p>
         <p
           className="mb-0"

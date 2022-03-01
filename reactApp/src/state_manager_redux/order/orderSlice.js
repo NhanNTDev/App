@@ -19,7 +19,7 @@ const orderSlice = createSlice({
           return r;
         }, Object.create(null));
         listFarms = Object.entries(result);
-        listFarms.map((farm) => {         
+        listFarms.map((farm) => {
           let listItem = [];
           farm[1].map((item) => {
             listItem.push({
@@ -37,8 +37,8 @@ const orderSlice = createSlice({
         });
       });
       localStorage.setItem("dichonao_order", JSON.stringify({ ...farmOrders }));
-      return farmOrders;
-    }
+      return listCampaigns;
+    },
   },
 });
 

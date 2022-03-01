@@ -6,15 +6,13 @@ const ProductItem = (props) => {
       <div className="product">
         <Link to={`/products/${props.campaignId}/${props.id}`}>
           <div className="product-header">
-            {props.harvest.product.image1 !== null ? (
+            {props.harvest.image1 && (
               <img
                 className="img-fluid"
-                src={props.harvest.product.image1}
+                src={props.harvest.image1}
                 alt=""
               />
-            ) : (
-              <img className="img-fluid" src="/img/item/1.jpg" alt="" />
-            )}
+            ) }
             <span className="veg text-success mdi mdi-circle"></span>
           </div>
           <div className="product-body">
@@ -30,13 +28,13 @@ const ProductItem = (props) => {
               </h4>
               <p className="offer-price mb-0">
                 <i className="mdi mdi-tag-outline"></i>{" "}
-                {props.price.toLocaleString()} {" VNĐ / "} {props.unit}
+                {props.price.toLocaleString()} {" VNĐ / "} {props.harvest.unit}
               </p>
               <h6>
                 <strong>
                   <span class="mdi mdi-approval"></span> Còn lại:
                 </strong>{" "}
-                {props.inventory} {props.unit}
+                {props.inventory} {props.harvest.unit}
               </h6>
             </div>
             <div>

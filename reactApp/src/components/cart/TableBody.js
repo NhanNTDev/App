@@ -4,9 +4,7 @@ import CartItem from "./CartItem";
 const TableBody = (props) => {
   return (
     <>
-      {props.farm.map((item) => (
-        <CartItem item={item} />
-      ))}
+      
       <tr>
         <td colSpan="8">
           <div className="cart-farm-header">
@@ -15,6 +13,7 @@ const TableBody = (props) => {
               <i>
                 <span className="mdi mdi-map-marker"></span> Địa Chỉ:
               </i>{" "}
+              {props.farm[0].harvest.farm.address}
               {/* {props.address} */}
             </h6>
             <h6>
@@ -41,6 +40,9 @@ const TableBody = (props) => {
           </div>
         </td>
       </tr>
+      {props.farm.map((item) => (
+        <CartItem item={item} />
+      ))}
     </>
   );
 };

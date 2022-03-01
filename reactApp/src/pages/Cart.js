@@ -7,11 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 import TableBody from "../components/cart/TableBody";
 import TableFoot from "../components/cart/TableFoot";
 import TableHead from "../components/cart/TableHead";
-import { setOrder, setTotal } from "../state_manager_redux/order/orderSlice";
+import { getCartTotal } from "../state_manager_redux/cart/cartSelector";
+import { setOrder } from "../state_manager_redux/order/orderSlice";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  const [totalAll, setTotalAll] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,22 +21,9 @@ const Cart = () => {
     });
     dispatch(action);
   };
+  const cartTotal = useSelector(getCartTotal);
 
-  const calculateTotal = () => {
-    let total = 0;
-    Object.values(cart).map((campaign) => {
-      let campaignValue = Object.values(campaign);
-      Object.values(campaignValue[2]).map((item) => {
-        let itemValue = Object.values(item);
-        let itemCart = Object.values(itemValue[8][0]);
-        total = total + itemCart[2];
-        console.log(total);
-      });
-    });
-    console.log(total);
-    setTotalAll(total);
-  };
-
+  
   const renderCartForCampaign = (props) => {
     var result = props.harvestCampaigns.reduce(function (r, a) {
       r[a.harvest.farmId] = r[a.harvest.farmId] || [];
@@ -51,7 +38,7 @@ const Cart = () => {
             <h5>{props.name}</h5>
           </div>
           <table className="table cart_summary">
-            <TableHead />
+            <TableHead campaignId={props.id} checked={props.checked}/>
             <tbody>
               {newObject.map(([key, value], index) => {
                 return <TableBody farm={value} />;
@@ -64,10 +51,7 @@ const Cart = () => {
     );
   };
 
-  useEffect(()=> {
-    cart && calculateTotal();
-  }, [cart]);
-  
+
   return cart === null ? (
     <>
       <h1 className="d-flex justify-content-center">
@@ -122,7 +106,7 @@ const Cart = () => {
                       <i className="mdi mdi-cart-outline"></i> Thanh toán{" "}
                     </span>
                     <span className="float-right">
-                      <strong>{totalAll.toLocaleString()} VNĐ</strong>{" "}
+                      <strong>{cartTotal.toLocaleString()} VNĐ</strong>{" "}
                       <span className="mdi mdi-chevron-right"></span>
                     </span>
                   </button>

@@ -48,11 +48,25 @@ const cartSlice = createSlice({
   reducers: {
     //set value for cart state
     setCart(state, action) {
+      let listCampaigns = [];
+      let listHarvestInCampaigns = [];
+      let listCart = action.payload;
+      listCart.map((campaign) => {
+        campaign.harvestCampaigns.map((harvestCampaign) => {
+          listHarvestInCampaigns.push({ ...harvestCampaign, checked: false });
+        });
+        listCampaigns.push({
+          ...campaign,
+          harvestCampaigns: listHarvestInCampaigns,
+          checked: false,
+        });
+        listHarvestInCampaigns = [];
+      });
       localStorage.setItem(
         "dichonao_cart",
-        JSON.stringify({ ...action.payload })
+        JSON.stringify({ ...listCampaigns })
       );
-      return Object.keys(action.payload).length === 0 ? null : action.payload;
+      return Object.keys(action.payload).length === 0 ? null : listCampaigns;
     },
     //setQuantity for cart item
     setQuantity(state, action) {
@@ -133,7 +147,143 @@ const cartSlice = createSlice({
     clearCart(state) {
       return null;
     },
+
+    //Handle checkbox campaign in cart page
+    checkCampaign(state, action) {
+      const campaignId = action.payload.campaignId;
+      const currentValue = action.payload.currentValue;
+      let newState = current(state);
+      let listCampaigns = [];
+      let listHarvestInCampaigns = [];
+      //Hanlde check Campaign
+      const handleCheckCampaign = () => {
+        Object.values(newState).map((campaign) => {
+          if (campaign.id === campaignId) {
+            campaign.harvestCampaigns.map((harvestCampaign) => {
+              listHarvestInCampaigns.push({
+                ...harvestCampaign,
+                checked: true,
+              });
+            });
+            listCampaigns.push({
+              ...campaign,
+              harvestCampaigns: listHarvestInCampaigns,
+              checked: true,
+            });
+            listHarvestInCampaigns = [];
+          } else {
+            listCampaigns.push({ ...campaign });
+          }
+        });
+      };
+      //Handle uncheck cartItem
+      const handleUnCheckCampaign = () => {
+        Object.values(newState).map((campaign) => {
+          if (campaign.id === campaignId) {
+            campaign.harvestCampaigns.map((harvestCampaign) => {
+              listHarvestInCampaigns.push({
+                ...harvestCampaign,
+                checked: false,
+              });
+            });
+            listCampaigns.push({
+              ...campaign,
+              harvestCampaigns: listHarvestInCampaigns,
+              checked: false,
+            });
+            listHarvestInCampaigns = [];
+          } else {
+            listCampaigns.push({ ...campaign });
+          }
+        });
+      };
+      if (currentValue) {
+        handleUnCheckCampaign();
+      } else {
+        handleCheckCampaign();
+      }
+      localStorage.setItem(
+        "dichonao_cart",
+        JSON.stringify({ ...listCampaigns })
+      );
+      return listCampaigns;
+    },
+
+    //Handle checkbox cartItem in cart page
+    checkCartItem(state, action) {
+      const harvestCampaignId = action.payload.harvestCampaignId;
+      const currentValue = action.payload.currentValue;
+      let newState = current(state);
+      let listCampaigns = [];
+      let listHarvestInCampaigns = [];
+      let campaignChecked = true;
+      //Hanlde check cartItem
+      const handleCheckCartItem = () => {
+        Object.values(newState).map((campaign) => {
+          campaign.harvestCampaigns.map((harvestCampaign) => {
+            if (harvestCampaign.id === harvestCampaignId) {
+              listHarvestInCampaigns.push({
+                ...harvestCampaign,
+                checked: true,
+              });
+            } else {
+              listHarvestInCampaigns.push({ ...harvestCampaign });
+            }
+          });
+          listHarvestInCampaigns.map((harvestCampaign) => {
+            if (!harvestCampaign.checked) {
+              campaignChecked = false;
+            }
+          });
+
+          listCampaigns.push({
+            ...campaign,
+            harvestCampaigns: listHarvestInCampaigns,
+            checked: campaignChecked,
+          });
+          listHarvestInCampaigns = [];
+        });
+      };
+      //Handle uncheck cartItem
+      const handleUnCheckCartItem = () => {
+        Object.values(newState).map((campaign) => {
+          campaign.harvestCampaigns.map((harvestCampaign) => {
+            if (harvestCampaign.id === harvestCampaignId) {
+              listHarvestInCampaigns.push({
+                ...harvestCampaign,
+                checked: false,
+              });
+            } else {
+              listHarvestInCampaigns.push({ ...harvestCampaign });
+            }
+          });
+          listHarvestInCampaigns.map((harvestCampaign) => {
+            if (!harvestCampaign.checked) {
+              campaignChecked = false;
+            }
+          });
+
+          listCampaigns.push({
+            ...campaign,
+            harvestCampaigns: listHarvestInCampaigns,
+            checked: campaignChecked,
+          });
+          listHarvestInCampaigns = [];
+        });
+      };
+      if (currentValue) {
+        handleUnCheckCartItem();
+      } else {
+        handleCheckCartItem();
+      }
+      localStorage.setItem(
+        "dichonao_cart",
+        JSON.stringify({ ...listCampaigns })
+      );
+      return listCampaigns;
+    },
   },
+
   extraReducers: (builder) => {
     builder.addCase(addToCartThunk.fulfilled, (state, action) => {
       localStorage.setItem(
@@ -146,5 +296,12 @@ const cartSlice = createSlice({
 });
 
 const { actions, reducer } = cartSlice;
-export const { setCart, setQuantity, removeFromCart, clearCart } = actions;
+export const {
+  setCart,
+  setQuantity,
+  removeFromCart,
+  clearCart,
+  checkCampaign,
+  checkCartItem,
+} = actions;
 export default reducer;
