@@ -75,7 +75,7 @@ const Header = () => {
                     }}
                     onKeyPress={(e) => {
                       if (e.key == "Enter") {
-                        navigate(`/search-result?searchValue=${searchValue}`);
+                        navigate(`/search-result?searchValue=${searchValue}`, { replace: true });
                       }
                     }}
                   />
@@ -84,7 +84,7 @@ const Header = () => {
                       className="btn btn-secondary"
                       type="button"
                       onClick={() => {
-                        navigate(`/search-result?searchValue=${searchValue}`);
+                        navigate(`/search-result?searchValue=${searchValue}`, { replace: true });
                       }}
                     >
                       <i className="mdi mdi-file-find"></i> Tìm Kiếm
@@ -108,7 +108,7 @@ const Header = () => {
                         alt="logo"
                         src={user.image !== null ? user.image : "img/user.jpg"}
                       />
-                      {user.shortName !== null ? user.shortName : user.userName}
+                      {user.name!== null ? user.name : user.userName}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-list-design">
                       <Link to="/account" className="dropdown-item">
@@ -124,13 +124,6 @@ const Header = () => {
                           className="mdi mdi-map-marker-circle"
                         ></i>{" "}
                         Thông Tin Giao Hàng
-                      </Link>
-                      <Link to="/wishList" className="dropdown-item">
-                        <i
-                          aria-hidden="true"
-                          className="mdi mdi-heart-outline"
-                        ></i>{" "}
-                        Mục Yêu Thích{" "}
                       </Link>
                       <Link to="orderList" className="dropdown-item">
                         <i

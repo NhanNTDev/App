@@ -1,4 +1,4 @@
-import AccountLeft from "../components/account/AccountLeft";
+import MenuAccountLeft from "../components/account/MenuAccountLeft";
 import ProfileForm from "../components/account/ProfileForm";
 
 
@@ -10,7 +10,7 @@ const Account = () => {
             <div className="col-lg-9 mx-auto">
               <div className="row no-gutters">
                 <div className="col-md-4">
-                  <AccountLeft />
+                  <MenuAccountLeft type="account"/>
                 </div>
                 <div className="col-md-8">
                   <ProfileForm/>

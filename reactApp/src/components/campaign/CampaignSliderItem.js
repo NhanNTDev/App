@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 
 const CampaignSliderItem = (props) => {
   const date = new Date(props.endAt);
-  let endDate =
-    date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear();
+  const endDate = date.getDate() + "-" + (date.getMonth()+1)  + "-" + date.getFullYear();
   return (
     <div className="item" key={props.id}>
       <div className="product">

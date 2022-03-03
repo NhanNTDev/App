@@ -103,14 +103,15 @@ const SearchResult = () => {
                 {renderSortDrop()}
                 <h5 className="mb-4">Kết quả cho '{searchValue}'</h5>
               </div>
-              {loading && (
-                <Skeleton count={12} width="25%" inline={true} height={250} />
-              )}
+              
               <div className="row no-gutters">
                 {searchProducts.map((harvest) => (
                   <ProductItem {...harvest} />
                 ))}
               </div>
+              {loading && (
+                <Skeleton count={12} width="25%" inline={true} height={250} />
+              )}
               {renderPagination()}
             </div>
           </div>

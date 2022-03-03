@@ -17,13 +17,13 @@ const Home = () => {
   const [hotCampaigns, setHotCampaign] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
   const address = useSelector((state) => state.location);
   const user = useSelector((state) => state.user);
   const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
+  const dispatch = useDispatch();
   useEffect(() => {
     deleteScript();
-  }, []);
+  });
   // Get cart from server
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -34,14 +34,7 @@ const Home = () => {
     };
     if (user !== null) fetchCartItems();
   }, []);
-  // Get category
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const categoriesResponse = await categoriesApi.getAll();
-      setCategories(categoriesResponse.data);
-    };
-    fetchCategories();
-  }, []);
+  
   // Get campaign
   useEffect(() => {
     const params = {
@@ -51,12 +44,21 @@ const Home = () => {
     const fetchCampaigns = async () => {
       const campaigns = await campaignsApi.getAll(params);
       setWeeklyCampaigns(campaigns.data);
-      setHotCampaign(campaigns.data);
-      setLoading(false);
-      runScript();
+      setHotCampaign(campaigns.data);    
     };
     fetchCampaigns();
   }, [address]);
+  // Get category
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categoriesResponse = await categoriesApi.getAll();
+      setCategories(categoriesResponse.data);
+      runScript();
+      setLoading(false);
+    };
+    fetchCategories();
+  }, []);
+
 
   return (
     <>

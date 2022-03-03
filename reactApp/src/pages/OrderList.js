@@ -1,5 +1,5 @@
-import AccountLeft from "../components/account/AccountLeft";
-import OrderTable from "../components/OrderTable";
+import MenuAccountLeft from "../components/account/MenuAccountLeft";
+import OrderTable from "../components/account/OrderTable";
 
 const OrderList = () => {
   return (
@@ -9,7 +9,7 @@ const OrderList = () => {
           <div className="col-lg-9 mx-auto">
             <div className="row no-gutters">
               <div className="col-md-4">
-                <AccountLeft />
+                <MenuAccountLeft type="orderList"/>
               </div>
               <div className="col-md-8">
                 <OrderTable />
