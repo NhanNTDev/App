@@ -6,10 +6,10 @@ const orderSlice = createSlice({
   reducers: {
     //set value for order
     setOrder(state, action) {
-      console.log("order");
       let listFarms = [];
       let farmOrders = [];
       let listCampaigns = [];
+      let checked = false;
       Object.values(action.payload.cart).map((campaign) => {
         farmOrders = [];
         let campaignValue = Object.values(campaign);
@@ -22,14 +22,19 @@ const orderSlice = createSlice({
         listFarms.map((farm) => {
           let listItem = [];
           farm[1].map((item) => {
-            listItem.push({
-              itemCartId: item.itemCarts[0].id,
+            checked = Object.values(item);
+            if (checked[9]) {
+              listItem.push({
+                itemCartId: item.itemCarts[0].id,
+              });
+            }
+          });
+          if (listItem.length > 0) {
+            farmOrders.push({
+              farmId: farm[1][0].harvest.farmId,
+              harvestOrders: listItem,
             });
-          });
-          farmOrders.push({
-            farmId: farm[1][0].harvest.farmId,
-            harvestOrders: listItem,
-          });
+          }
         });
         listCampaigns.push({
           campaignId: campaignValue[0],
@@ -37,6 +42,7 @@ const orderSlice = createSlice({
         });
       });
       localStorage.setItem("dichonao_order", JSON.stringify({ ...farmOrders }));
+      console.log(listCampaigns);
       return listCampaigns;
     },
   },
