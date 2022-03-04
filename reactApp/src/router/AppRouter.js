@@ -13,7 +13,6 @@ import PageNotFound from "../pages/PageNotFound";
 import Product from "../pages/Product";
 import Shop from "../pages/Shop";
 import ViewAllCampaigns from "../pages/ViewAllCampaigns";
-import Wishlist from "../pages/Wishlist";
 import SearchResult from "../pages/SearchResult";
 import { useSelector } from "react-redux";
 import GetStarted from "../pages/GetStarted";
@@ -45,14 +44,6 @@ const AppRouter = () => {
         element={
           <PrivateRoute>
             <Address />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/wishlist"
-        element={
-          <PrivateRoute>
-            <Wishlist />
           </PrivateRoute>
         }
       />

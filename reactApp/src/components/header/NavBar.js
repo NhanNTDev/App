@@ -42,11 +42,6 @@ const NavBar = () => {
         },
         {
           id: "3",
-          title: "Mục Yêu Thích",
-          link: "/wishlist",
-        },
-        {
-          id: "4",
           title: "Lịch Sử Đặt Hàng",
           link: "/orderlist",
         },

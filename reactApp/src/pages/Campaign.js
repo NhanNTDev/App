@@ -48,10 +48,11 @@ const Campaign = () => {
               <CampaignDetail campaign={{ ...campaign }} />
             </div>
             <div className="col-md-8">
-              {loading && (
+              {loading === true ? (
                 <Skeleton count={8} width="50%" inline={true} height={250} />
+              ) : (
+                <ProductList campaignId={params.id} />
               )}
-              <ProductList campaignId={params.id} />
             </div>
           </div>
         </div>

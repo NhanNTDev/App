@@ -1625,7 +1625,8 @@ label {
 .get-started-page .form{
   background-color: white;
   padding: 50px 80px;
-  width: 50%;
+  width: 60%;
+  height: 80%;
   border-radius: 10px;
 }
 

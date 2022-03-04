@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const CampaignItem = (props) => {
   const date = new Date(props.endAt);
-  let endDate = date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear();
+  const endDate = date.getDate() + "-" + (date.getMonth()+1)  + "-" + date.getFullYear();
   return (
     <div className="col-md-3">
       <div className="product">

@@ -1,4 +1,4 @@
-import AccountLeft from "../components/account/AccountLeft";
+import MenuAccountLeft from "../components/account/MenuAccountLeft";
 import AddressForm from "../components/account/AddressForm";
 
 const Address = () => {
@@ -9,7 +9,7 @@ const Address = () => {
           <div className="col-lg-9 mx-auto">
             <div className="row no-gutters">
               <div className="col-md-4">
-                <AccountLeft/>
+                <MenuAccountLeft type="address"/>
               </div>
               <div className="col-md-8">
                 <AddressForm/>
