@@ -43,7 +43,7 @@ const ProductDetail = (props) => {
       });
       dispatch(action);
     } else {
-      navigate("/login");
+      navigate(`/login?urlRedirect=/products/${props.campaignId}/${props.id}`);
     }
   };
 

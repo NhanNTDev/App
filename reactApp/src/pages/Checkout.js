@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CheckoutSection from "../components/checkout/CheckoutSection";
 
 const Checkout = () => {
@@ -7,13 +8,13 @@ const Checkout = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <a href="#">
+              <Link to="/">
                 <strong>
                   <span className="mdi mdi-home"></span> Trang chủ
                 </strong>
-              </a>{" "}
+              </Link>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">Thanh toán</a>
+              <span>Thanh toán</span>
             </div>
           </div>
         </div>

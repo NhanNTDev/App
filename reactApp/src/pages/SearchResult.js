@@ -1,17 +1,42 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../constants/Constants";
-import { Pagination } from "antd";
+import { Pagination, Select } from "antd";
 import { useSearchParams } from "react-router-dom";
 import ProductItem from "../components/product/ProductItem";
 import harvestCampaignApi from "../apis/harvestCampaignApi";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+const { Option } = Select;
+//Sort list by price low to high
+const sortByPriceLowToHigh = (listProduct) => {
+  listProduct.sort(function (product1, product2) {
+    return product1.price - product2.price;
+  });
+  return listProduct;
+};
+//Sort list by price high to low
+const sortByPriceHighToLow = (listProduct) => {
+  listProduct.sort(function (product1, product2) {
+    return product2.price - product1.price;
+  });
+  return listProduct;
+};
+//Sort list by name A-Z
+const sortByNameAZ = (listProduct) => {
+  listProduct.sort(function (product1, product2) {
+    let a = product1.productName.toLowerCase();
+    let b = product2.productName.toLowerCase();
+    return a === b ? 0 : a > b ? 1 : -1;
+  });
+  return listProduct;
+};
 
 const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(12);
   const [searchProducts, setSearchProducts] = useState([]);
-  let [searchParams] = useSearchParams();
+  const [displayProducts, setDisplayProducts] = useState([]);
+  const [searchParams] = useSearchParams();
   const [searchValue, setSearchValue] = useState("");
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
@@ -23,40 +48,28 @@ const SearchResult = () => {
     setCategory(searchParams.get("category"));
   }, [searchParams]);
 
-  const sortByPriceLowToHigh = () => {
-      searchProducts.sort(function (product1, product2) {
-        return product1.price - product2.price;
-      })
-
-  };
-
-  const sortByPriceHighToLow = () => {
-
-      searchProducts.sort(function (product1, product2) {
-        return product2.price - product1.price;
-      })
-  };
-  const sortByNameAZ = () => {
-
-      searchProducts.sort(function (product1, product2) {
-        return product1.name - product2.name;
-      })
-  };
   //Hanlde sort
   useEffect(() => {
-    switch (sortType) {
-      case 1:
-        sortByPriceLowToHigh();
-        break;
-      case 2:
-        sortByPriceHighToLow();
-        break;
-      case 3:
-        sortByNameAZ();
-        break;
-    }
+    const sort = async () => {
+      switch (sortType) {
+        case 0:
+          setDisplayProducts(searchProducts);
+          break;
+        case 1:
+          setDisplayProducts(sortByPriceLowToHigh(searchProducts));
+          break;
+        case 2:
+          setDisplayProducts(sortByPriceHighToLow(searchProducts));
+          break;
+        case 3:
+          setDisplayProducts(sortByNameAZ(searchProducts));
+          break;
+      }
+    };
+    sort();
   }, [sortType]);
 
+  //Get data from server
   useEffect(() => {
     const fetchProducts = async () => {
       const params = {
@@ -67,13 +80,12 @@ const SearchResult = () => {
       };
       const productsResponse = await harvestCampaignApi.getAll(params);
       setSearchProducts(productsResponse.data);
+      setDisplayProducts(productsResponse.data);
       setTotalRecords(productsResponse.metadata.total);
       setLoading(false);
     };
     fetchProducts();
-  }, [searchValue,category, page]);
-
-  console.log(searchProducts);
+  }, [searchValue, category, page]);
 
   const renderPagination = () => {
     return (
@@ -89,6 +101,10 @@ const SearchResult = () => {
     );
   };
   const sortTypes = [
+    {
+      id: 0,
+      title: "Xắp xếp mặc định   ",
+    },
     {
       id: 1,
       title: "Giá (thấp đến cao)",
@@ -106,29 +122,30 @@ const SearchResult = () => {
   const renderSortDrop = () => {
     return (
       <div className="btn-group float-right mt-2">
-        <button
-          type="button"
-          className="btn btn-secondary dropdown-toggle"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
+        <Select
+          className="btn btn-secondary dropdown-menu"
+          onChange={(value) => {
+            setSortType(value);
+          }}
+          defaultValue={0}
         >
-          Xắp xếp sản phẩm &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </button>
-        <div className="dropdown-menu dropdown-menu-right">
           {sortTypes.map((sortType) => (
-            <button
-              className="dropdown-item"
-              key={sortType.id}
-              onClick={() => {
-                setSortType(sortType.id);
-              }}
-            >
+            <Option className="dropdown-item" value={sortType.id}>
               {sortType.title}
-            </button>
+            </Option>
           ))}
-        </div>
+        </Select>
       </div>
+    );
+  };
+
+  const renderProductList = (listProduct) => {
+    return (
+      <>
+        {listProduct.map((harvestCampaign) => (
+          <ProductItem {...harvestCampaign} />
+        ))}
+      </>
     );
   };
 
@@ -161,9 +178,7 @@ const SearchResult = () => {
               </div>
 
               <div className="row no-gutters">
-                {searchProducts.map((harvest) => (
-                  <ProductItem {...harvest} />
-                ))}
+                {renderProductList(displayProducts)}
               </div>
               {loading && (
                 <Skeleton count={12} width="25%" inline={true} height={250} />

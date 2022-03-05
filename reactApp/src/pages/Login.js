@@ -1,13 +1,16 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import userApi from "../apis/userApi";
 import validator from "validator";
-import { Spin } from "antd";
+import { Spin, message } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../state_manager_redux/user/userSlice";
 const Login = () => {
+  useEffect(() => {
+    user && navigate("/home");
+  }, []);
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginFail, setLoginFail] = useState(false);
@@ -17,6 +20,9 @@ const Login = () => {
   const dispatch = useDispatch();
   const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
   const [loading, setLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  const urlRedirect = searchParams.get("urlRedirect");
+  const user = useSelector((state) => state.user);
   const handleLogin = () => {
     setLoginFail(false);
     const isValid = validateAll();
@@ -30,7 +36,11 @@ const Login = () => {
       if (result && result.user.role === "customer") {
         const setUserAction = setUser({ ...result });
         dispatch(setUserAction);
-        navigate(`/home`);
+        urlRedirect !== null ? navigate(`${urlRedirect}`) : navigate("/home");
+        message.success({
+          duration: 3,
+          content: "Đăng nhập thành công",
+        });
       }
     };
     login();

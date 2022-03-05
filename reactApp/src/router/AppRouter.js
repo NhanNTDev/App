@@ -19,6 +19,7 @@ import GetStarted from "../pages/GetStarted";
 
 const AppRouter = () => {
   const user = useSelector((state) => state.user);
+  const location = useSelector((state) => state.location);
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -34,7 +35,7 @@ const AppRouter = () => {
       <Route
         path="/account"
         element={
-          <PrivateRoute>
+          <PrivateRoute urlRedirect="/account">
             <Account />
           </PrivateRoute>
         }
@@ -42,7 +43,7 @@ const AppRouter = () => {
       <Route
         path="/address"
         element={
-          <PrivateRoute>
+          <PrivateRoute urlRedirect="/address">
             <Address />
           </PrivateRoute>
         }
@@ -50,7 +51,7 @@ const AppRouter = () => {
       <Route
         path="/orderlist"
         element={
-          <PrivateRoute>
+          <PrivateRoute urlRedirect="/orderlist">
             <OrderList />
           </PrivateRoute>
         }
@@ -59,26 +60,19 @@ const AppRouter = () => {
       <Route
         path="/cart"
         element={
-          <PrivateRoute>
+          <PrivateRoute urlRedirect="/cart">
             <Cart />
           </PrivateRoute>
         }
       />
-      <Route
-        path="/getStarted"
-        element={
-          <PrivateRoute>
-            <GetStarted />
-          </PrivateRoute>
-        }
-      />
+      <Route path="/getStarted" element={location === null ? <GetStarted /> : <Home/>} />
       <Route path="/page-not-found" element={<PageNotFound />} />
       <Route path="/products/:campaignId/:productId" element={<Product />} />
       <Route path="/all-campaigns" element={<ViewAllCampaigns />} />
       <Route path="/campaign/:id" element={<Campaign />} />
       <Route path="/campaign/:campaignId/:farmId" element={<Farm />} />
       <Route path="/search-result" element={<SearchResult />} />
-      <Route path="/login" element={user === null ? <Login /> : <Navigate replace to="/"/>} />
+      <Route path="/login" element={<Login />} />
       <Route path="/*" element={<Navigate replace to="/page-not-found" />} />
     </Routes>
   );
