@@ -1,12 +1,18 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import orderApi from "../../apis/orderApi";
 
 const CheckoutSection = () => {
   const order = useSelector((state) => state.order);
   const cart = useSelector((state) => state.cart);
-  const address= useSelector((state) => state.location);
-  const user = useSelector(state => state.user)
-  
+  const location = useSelector((state) => state.location);
+  const user = useSelector((state) => state.user);
+  const [address, setAdress] = useState(location);
+
+  const onChangeAddress = (event) => {
+    setAdress(event.target.value);
+  };
+
   const handleCheckout = () => {
     const data = {
       phone: user.phoneNumber,
@@ -14,11 +20,11 @@ const CheckoutSection = () => {
       address: address,
       customerId: user.id,
       deliveryZoneId: 1,
-      campaign: order
+      campaign: order,
     };
     console.log(data);
     orderApi.post(data);
-  }
+  };
   return (
     <>
       <section className="checkout-page section-padding">
@@ -54,7 +60,8 @@ const CheckoutSection = () => {
                             <div className="col-sm-6">
                               <div className="form-group">
                                 <label className="control-label">
-                                  Tên khách hàng <span className="required">*</span>
+                                  Tên khách hàng{" "}
+                                  <span className="required">*</span>
                                 </label>
                                 <input
                                   className="form-control border-form-control"
@@ -63,7 +70,7 @@ const CheckoutSection = () => {
                                   type="text"
                                   onChange={() => {}}
                                 />
-                              </div>                             
+                              </div>
                             </div>
                             <div className="col-sm-6">
                               <div className="form-group">
@@ -83,7 +90,7 @@ const CheckoutSection = () => {
                           </div>
 
                           <div className="row">
-                          <div className="col-sm-6">
+                            <div className="col-sm-6">
                               <div className="form-group">
                                 <label className="control-label">
                                   Email <span className="required">*</span>
@@ -120,10 +127,16 @@ const CheckoutSection = () => {
                                 <label className="control-label">
                                   Địa Chỉ <span className="required">*</span>
                                 </label>
-                                <textarea className="form-control border-form-control">{address}</textarea>
-                                <small className="text-danger">
-                                  Vui lòng cung cấp tên đường và số nhà.
-                                </small>
+                                <textarea
+                                  className="form-control border-form-control"
+                                  value={address}
+                                  onChange={onChangeAddress}
+                                />
+                                {address == "" ? (
+                                  <small className="text-danger">
+                                    Vui lòng cung cấp tên đường và số nhà.
+                                  </small>
+                                ) : null}
                               </div>
                             </div>
                           </div>
