@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import ProductDetail from "../components/product/ProductDetail";
 import ProductPicture from "../components/product/ProductPicture";
-import harvestApi from "../apis/harvestApi";
+import harvestCampaignApi from "../apis/harvestCampaignApi";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 const Product = () => {
   const params = useParams();
@@ -11,13 +10,12 @@ const Product = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const harvestsResponse = await harvestApi.get(params.productId);
+      const harvestsResponse = await harvestCampaignApi.get(params.productId);
       setHarvestCampaign(harvestsResponse);
+      console.log(harvestsResponse);
     };
     fetchProducts();
   }, []);
-
- 
 
   return (
     <>

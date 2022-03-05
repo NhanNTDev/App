@@ -28,13 +28,13 @@ const ProductItem = (props) => {
               </h4>
               <p className="offer-price mb-0">
                 <i className="mdi mdi-tag-outline"></i>{" "}
-                {props.price.toLocaleString()} {" VNĐ / "} {props.harvest.unit}
+                {props.price.toLocaleString()} {" VNĐ / "} {props.unit}
               </p>
               <h6>
                 <strong>
                   <span class="mdi mdi-approval"></span> Còn lại:
                 </strong>{" "}
-                {props.inventory} {props.harvest.unit}
+                {props.inventory} {props.unit}
               </h6>
             </div>
             <div>

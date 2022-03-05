@@ -67,7 +67,7 @@ const CartItem = (props) => {
       </td>
       <td className="cart_description">
       <Link to={`/products/${props.item.campaignId}/${props.item.id}`}>
-        <h5 className="product_name" onClick={{}}>{props.item.productName}</h5>
+        <h5 className="product_name">{props.item.productName}</h5>
       </Link>
       </td>
       <td className="price">

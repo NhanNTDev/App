@@ -5,7 +5,7 @@ const TopCategory = (props) => {
     return (
       <div className="item" key={props.id}>
         <div className="category-item">
-          <Link to="/search-result">
+          <Link to={`/search-result?category=${props.name}`}>
             <img className="img-fluid" src={props.image} alt="" />
             <h6>{props.name}</h6>
             <p>{props.productInventory} Sản Phẩm</p>

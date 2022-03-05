@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../constants/Constants";
 import { Pagination } from "antd";
 import { useSearchParams } from "react-router-dom";
 import ProductItem from "../components/product/ProductItem";
-import harvestApi from "../apis/harvestApi";
+import harvestCampaignApi from "../apis/harvestCampaignApi";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -13,11 +13,49 @@ const SearchResult = () => {
   const [searchProducts, setSearchProducts] = useState([]);
   let [searchParams] = useSearchParams();
   const [searchValue, setSearchValue] = useState("");
+  const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
+  const [sortType, setSortType] = useState(0);
 
+  //Get params from url
   useEffect(() => {
     setSearchValue(searchParams.get("searchValue"));
+    setCategory(searchParams.get("category"));
   }, [searchParams]);
+
+  const sortByPriceLowToHigh = () => {
+      searchProducts.sort(function (product1, product2) {
+        return product1.price - product2.price;
+      })
+
+  };
+
+  const sortByPriceHighToLow = () => {
+
+      searchProducts.sort(function (product1, product2) {
+        return product2.price - product1.price;
+      })
+  };
+  const sortByNameAZ = () => {
+
+      searchProducts.sort(function (product1, product2) {
+        return product1.name - product2.name;
+      })
+  };
+  //Hanlde sort
+  useEffect(() => {
+    switch (sortType) {
+      case 1:
+        sortByPriceLowToHigh();
+        break;
+      case 2:
+        sortByPriceHighToLow();
+        break;
+      case 3:
+        sortByNameAZ();
+        break;
+    }
+  }, [sortType]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,14 +63,15 @@ const SearchResult = () => {
         page: page,
         size: 12,
         "product-name": searchValue,
+        categorys: category,
       };
-      const productsResponse = await harvestApi.getAll(params);
+      const productsResponse = await harvestCampaignApi.getAll(params);
       setSearchProducts(productsResponse.data);
       setTotalRecords(productsResponse.metadata.total);
       setLoading(false);
     };
     fetchProducts();
-  }, [searchValue, page]);
+  }, [searchValue,category, page]);
 
   console.log(searchProducts);
 
@@ -49,10 +88,19 @@ const SearchResult = () => {
       </div>
     );
   };
-  const sortTitles = [
-    "Giá (thấp đến cao)",
-    "Giá (cao xuống thấp)",
-    "Tên (A - Z)",
+  const sortTypes = [
+    {
+      id: 1,
+      title: "Giá (thấp đến cao)",
+    },
+    {
+      id: 2,
+      title: "Giá (cao xuống thấp)",
+    },
+    {
+      id: 3,
+      title: "Tên (A - Z)",
+    },
   ];
 
   const renderSortDrop = () => {
@@ -60,17 +108,23 @@ const SearchResult = () => {
       <div className="btn-group float-right mt-2">
         <button
           type="button"
-          className="btn btn-dark dropdown-toggle"
+          className="btn btn-secondary dropdown-toggle"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
         >
-          Sort by Products &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Xắp xếp sản phẩm &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </button>
         <div className="dropdown-menu dropdown-menu-right">
-          {sortTitles.map((sortTitle, index) => (
-            <button className="dropdown-item" key={index} onClick={() => {}}>
-              {sortTitle}
+          {sortTypes.map((sortType) => (
+            <button
+              className="dropdown-item"
+              key={sortType.id}
+              onClick={() => {
+                setSortType(sortType.id);
+              }}
+            >
+              {sortType.title}
             </button>
           ))}
         </div>
@@ -101,9 +155,11 @@ const SearchResult = () => {
             <div className="col-md-12">
               <div className="shop-head">
                 {renderSortDrop()}
-                <h5 className="mb-4">Kết quả cho '{searchValue}'</h5>
+                <h5 className="mb-4">
+                  Kết quả cho '{searchValue || category}'
+                </h5>
               </div>
-              
+
               <div className="row no-gutters">
                 {searchProducts.map((harvest) => (
                   <ProductItem {...harvest} />
