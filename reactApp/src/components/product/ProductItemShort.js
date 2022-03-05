@@ -32,12 +32,12 @@ const ProductItemShort = (props) => {
               <p className="offer-price">
                 <i className="mdi mdi-tag-outline"></i>{" "}
                 {props.harvestCampaign.price.toLocaleString()} {" VNĐ / "}{" "}
-                {props.harvestCampaign.harvest.unit}
+                {props.harvestCampaign.unit}
               </p>
               <div className="detail">
                 <h6>
                   <span class="mdi mdi-approval"></span> Còn lại:
-                  {props.harvestCampaign.inventory} {props.harvestCampaign.harvest.unit}
+                  {props.harvestCampaign.unit}
                 </h6>
                 <h5>
                   <i>

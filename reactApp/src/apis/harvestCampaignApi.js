@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 
-const harvestApi = {
+const harvestCampaignApi = {
     getAll(params) {
         const url = '/harvest-campaigns';
         return axiosClient.get(url, {params});
@@ -11,4 +11,4 @@ const harvestApi = {
     }
 }
 
-export default harvestApi;
+export default harvestCampaignApi;

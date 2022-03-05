@@ -10,7 +10,7 @@ const ProductDetail = (props) => {
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-
+  console.log(props);
   useEffect(() => {
     const fetchFarm = async () => {
       const farmResponse = await farmApi.get(props.harvest.farmId);
@@ -56,15 +56,15 @@ const ProductDetail = (props) => {
           <strong>
             {props.price.toLocaleString()}
             {" VNĐ / "}
-            {props.harvest.unit}
-          </strong> 
+            {props.unit}
+          </strong>
         </span>
       </p>
       <h6>
         <strong>
           <span className="mdi mdi-approval"></span> Còn lại :
         </strong>{" "}
-        {props.inventory} {props.harvest.unit}
+        {props.inventory} {props.unit}
       </h6>
       <h5>
         <i>
@@ -131,6 +131,11 @@ const ProductDetail = (props) => {
       </Space>
 
       <div className="short-description">
+        {props.unit !== props.unitOfSystem ? (
+          <p>
+            <strong>Quy cách đóng gói:</strong> 1 {props.unit} = {props.valueChangeOfUnit} {props.unitOfSystem}
+          </p>
+        ) : null}
         <h5>Mô tả:</h5>
         <p
           style={{

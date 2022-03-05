@@ -1,7 +1,7 @@
 import { Col, Pagination} from "antd";
 import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../../constants/Constants";
-import harvestApi from "../../apis/harvestApi";
+import harvestCampaignApi from "../../apis/harvestCampaignApi";
 import ProductSliderItem from "./ProductItemShort";
 import { useParams } from "react-router-dom";
 
@@ -9,7 +9,6 @@ const ProductList = (props) => {
   const params = useParams();
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(1);
-  const [harvests, setHarvests] = useState([]);
   const [harvestsCampaign, setHarvestsCampaign] = useState([]);
 
   useEffect(() => {
@@ -19,19 +18,15 @@ const ProductList = (props) => {
         size: 12,
         "campaign-id": params.id
       };
-      const harvestsResponse = await harvestApi.getAll(param);
+      const harvestsResponse = await harvestCampaignApi.getAll(param);
       setTotalRecords(harvestsResponse.metadata.total);
-      setHarvests(harvestsResponse.data);
+      setHarvestsCampaign(harvestsResponse.data);
+      console.log(harvestsResponse.data);
     };
     fetchHarvests();
   }, [page]);
 
-  useEffect(() => {
-    const fetchHarvestsCampaign = async () => {
-      setHarvestsCampaign(harvests);
-    };
-    fetchHarvestsCampaign();
-  }, [harvests]);
+
 
   const renderPagination = () => {
     return (
