@@ -18,6 +18,38 @@ const CheckoutSection = () => {
     setAdress(event.target.value);
   };
 
+  const renderCampaign = (props) => {
+    return props.harvestCampaigns.map((harvest) =>
+      renderHarvestCampaign({ ...harvest })
+    );
+  };
+
+  const renderHarvestCampaign = (props) => {
+    console.log(props);
+    if (props.checked) {
+      return (
+        <div className="card-body pt-0 pr-0 pl-0 pb-0">
+          <div className="cart-list-product">
+            <a className="float-right remove-cart" href="#">
+              <i className="mdi mdi-close"></i>
+            </a>
+            <img className="img-fluid" src={props.harvest.image1} alt="" />
+            <h5>
+              <a href="#">{props.productName}</a>
+            </h5>
+            <h6>
+              <strong>Số lượng:</strong> {props.itemCarts[0].quantity}{" "}
+              {props.unit}
+            </h6>
+            <p className="offer-price mb-0">
+              {props.price} <i className="mdi mdi-tag-outline"></i>{" "}
+            </p>
+          </div>
+        </div>
+      );
+    }
+  };
+
   const handleCheckout = () => {
     setLoading(true);
     const checkout = async () => {
@@ -226,27 +258,9 @@ const CheckoutSection = () => {
                   Giỏ Hàng
                   <span className="text-secondary float-right">(5 item)</span>
                 </h5>
-                <div className="card-body pt-0 pr-0 pl-0 pb-0">
-                  <div className="cart-list-product">
-                    <a className="float-right remove-cart" href="#">
-                      <i className="mdi mdi-close"></i>
-                    </a>
-                    <img className="img-fluid" src="img/item/11.jpg" alt="" />
-                    <h5>
-                      <a href="#">Dâu Tây</a>
-                    </h5>
-                    <h6>
-                      <strong>
-                        <span className="mdi mdi-approval"></span> Có sẵn
-                      </strong>{" "}
-                      - 500 gm
-                    </h6>
-                    <p className="offer-price mb-0">
-                      32.000 VNĐ <i className="mdi mdi-tag-outline"></i>{" "}
-                      <span className="regular-price">36.000 VNĐ</span>
-                    </p>
-                  </div>
-                </div>
+                {Object.values(cart).map((campaign) =>
+                  renderCampaign({ ...campaign })
+                )}
               </div>
             </div>
           </div>
