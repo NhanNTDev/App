@@ -1,7 +1,5 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-lone-blocks */
-import { useEffect } from "react";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import TableBody from "../components/cart/TableBody";
