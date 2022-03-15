@@ -10,7 +10,6 @@ const ProductDetail = (props) => {
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-  console.log(props);
   useEffect(() => {
     const fetchFarm = async () => {
       const farmResponse = await farmApi.get(props.harvest.farmId);
@@ -78,7 +77,7 @@ const ProductDetail = (props) => {
         </i>{" "}
         {farm.address}
       </h5>
-      <h5>
+      {/* <h5>
         <i>
           Đánh giá:{" "}
           <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
@@ -86,7 +85,7 @@ const ProductDetail = (props) => {
           <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
           <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
         </i>{" "}
-      </h5>
+      </h5> */}
 
       <div className="qty">
         <div className="input-group" style={{ width: 250 }}>

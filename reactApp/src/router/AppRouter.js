@@ -11,14 +11,12 @@ import Login from "../pages/Login";
 import OrderList from "../pages/OrderList";
 import PageNotFound from "../pages/PageNotFound";
 import Product from "../pages/Product";
-import Shop from "../pages/Shop";
 import ViewAllCampaigns from "../pages/ViewAllCampaigns";
 import SearchResult from "../pages/SearchResult";
 import { useSelector } from "react-redux";
 import GetStarted from "../pages/GetStarted";
 
 const AppRouter = () => {
-  const user = useSelector((state) => state.user);
   const location = useSelector((state) => state.location);
   return (
     <Routes>
@@ -56,7 +54,6 @@ const AppRouter = () => {
           </PrivateRoute>
         }
       />
-      <Route path="/shop" element={<Shop />} />
       <Route
         path="/cart"
         element={

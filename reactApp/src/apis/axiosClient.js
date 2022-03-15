@@ -7,7 +7,7 @@ const axiosClient = axios.create({
     "content-type": "application/json",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    timeout: 3000,
+    "timeout": 1000,
   },
   paramsSerializer: (params) => queryString.stringify(params),
 });

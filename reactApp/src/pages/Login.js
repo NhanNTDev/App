@@ -61,7 +61,6 @@ const Login = () => {
     if (validator.isEmpty(password)) {
       msg.password = "Vui lòng nhập mục này";
     }
-
     setValidateMsg(msg);
     if (Object.keys(msg).length > 0) return false;
     return true;

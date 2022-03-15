@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import orderApi from "../../apis/orderApi";
+import cartApi from "../../apis/cartApi";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import { setCart } from "../../state_manager_redux/cart/cartSlice";
 
 const CheckoutSection = () => {
   const order = useSelector((state) => state.order);
@@ -13,6 +15,7 @@ const CheckoutSection = () => {
   const [address, setAdress] = useState(location);
   const [loading, setLoading] = useState(false);
   const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
+  const dispatch = useDispatch();
 
   const onChangeAddress = (event) => {
     setAdress(event.target.value);
@@ -25,7 +28,6 @@ const CheckoutSection = () => {
   };
 
   const renderHarvestCampaign = (props) => {
-    console.log(props);
     if (props.checked) {
       return (
         <div className="card-body pt-0 pr-0 pl-0 pb-0">
@@ -42,7 +44,8 @@ const CheckoutSection = () => {
               {props.unit}
             </h6>
             <p className="offer-price mb-0">
-              {props.price} <i className="mdi mdi-tag-outline"></i>{" "}
+              {props.price.toLocaleString()}{" "}
+              <i className="mdi mdi-tag-outline"></i>{" "}
             </p>
           </div>
         </div>
@@ -62,9 +65,15 @@ const CheckoutSection = () => {
         campaign: order,
       };
       await orderApi.post(data);
+    };
+    const fetchCartItems = async () => {
+      const cartItemsResponse = await cartApi.getAll(user.id);
+      const action = setCart(cartItemsResponse);
+      dispatch(action);
       setLoading(false);
     };
     checkout();
+    fetchCartItems();
   };
   return (
     <>

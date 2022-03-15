@@ -62,7 +62,10 @@ const LocationSearch = () => {
     setAddress("");
     offcanvas();
   };
-
+  const searchOptions = {
+    componentRestrictions: { country: ['vn'] },
+    types: ['address']
+  }
   return (
     <>
       <div id="toggle">
@@ -83,6 +86,7 @@ const LocationSearch = () => {
                 value={address}
                 onChange={handleChange}
                 onSelect={handleSelect}
+                searchOptions={searchOptions}
               >
                 {({
                   getInputProps,

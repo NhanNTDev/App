@@ -4,9 +4,6 @@ import farmApi from "../apis/farmApi";
 import FarmDetail from "../components/farm/FarmDetail";
 import FarmPicture from "../components/farm/FarmPicture";
 import ProductList from "../components/product/ProductList";
-import {
-  page1_farm,
-} from "../constants/Data";
 import { deleteScript, runScript } from "../utils/Common";
 
 const Farm = () => {

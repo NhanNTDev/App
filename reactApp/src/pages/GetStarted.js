@@ -60,6 +60,10 @@ const GetStarted = () => {
     setAddress("");
   };
   const user = useSelector((state) => state.user);
+  const searchOptions = {
+    componentRestrictions: { country: ['vn'] },
+    types: ['address']
+  }
   return (
     <div className="get-started-page">
       <div className="form">
@@ -94,6 +98,7 @@ const GetStarted = () => {
               value={address}
               onChange={handleChange}
               onSelect={handleSelect}
+              searchOptions={searchOptions}
             >
               {({
                 getInputProps,

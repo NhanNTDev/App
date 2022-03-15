@@ -1,6 +1,5 @@
 import React from "react";
-import WelcomePage from "./pages/WelcomePage";
-import Account from "./pages/Account";
+import WelcomePage from "../pages/WelcomePage";
 class App extends React.Component {
   render() {
     return (

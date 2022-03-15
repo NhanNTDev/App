@@ -75,7 +75,9 @@ const Header = () => {
                     }}
                     onKeyPress={(e) => {
                       if (e.key == "Enter") {
-                        navigate(`/search-result?searchValue=${searchValue}`, { replace: true });
+                        navigate(`/search-result?searchValue=${searchValue}`, {
+                          replace: true,
+                        });
                       }
                     }}
                   />
@@ -84,7 +86,9 @@ const Header = () => {
                       className="btn btn-secondary"
                       type="button"
                       onClick={() => {
-                        navigate(`/search-result?searchValue=${searchValue}`, { replace: true });
+                        navigate(`/search-result?searchValue=${searchValue}`, {
+                          replace: true,
+                        });
                       }}
                     >
                       <i className="mdi mdi-file-find"></i> Tìm Kiếm
@@ -105,12 +109,13 @@ const Header = () => {
                       aria-expanded="false"
                     >
                       <img
-                        alt="logo"
-                        src={user.image !== null ? user.image : "img/user.jpg"}
+                        src={
+                          user.image !== "" ? user.image : "/img/user/user.jpg"
+                        }
                       />
-                      {user.name!== null ? user.name : user.userName}
+                      {user.name !== null ? user.name : user.userName}
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-list-design">
+                    <div className="dropdown-menu dropdown-menu-right dropdown-list-design">
                       <Link to="/account" className="dropdown-item">
                         <i
                           aria-hidden="true"
@@ -152,7 +157,9 @@ const Header = () => {
                 <li className="list-inline-item cart-btn">
                   <Link to="/cart" className="btn btn-link border-none">
                     <i className="mdi mdi-cart"></i> Giỏ hàng{" "}
-                    {cartCouter === 0 ? null : <small className="cart-value">{cartCouter}</small>}
+                    {cartCouter === 0 ? null : (
+                      <small className="cart-value">{cartCouter}</small>
+                    )}
                   </Link>
                 </li>
               </ul>

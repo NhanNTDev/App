@@ -12,7 +12,6 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleOrders = () => {
     const action = setOrder({
       cart: cart,
@@ -21,7 +20,6 @@ const Cart = () => {
   };
   const cartTotal = useSelector(getCartTotal);
 
-  
   const renderCartForCampaign = (props) => {
     var result = props.harvestCampaigns.reduce(function (r, a) {
       r[a.harvest.farmId] = r[a.harvest.farmId] || [];
@@ -36,7 +34,7 @@ const Cart = () => {
             <h5>{props.name}</h5>
           </div>
           <table className="table cart_summary">
-            <TableHead campaignId={props.id} checked={props.checked}/>
+            <TableHead campaignId={props.id} checked={props.checked} />
             <tbody>
               {newObject.map(([key, value], index) => {
                 return <TableBody farm={value} />;
@@ -49,7 +47,6 @@ const Cart = () => {
     );
   };
 
-
   return cart === null ? (
     <>
       <h1 className="d-flex justify-content-center">
@@ -57,12 +54,13 @@ const Cart = () => {
       </h1>
       <span className="d-flex justify-content-center">
         <button
+          className="btn btn-secondary"
           onClick={() => {
             navigate("/home");
           }}
         >
           {" "}
-          Quay về trang chủ
+          Tiếp tục mua hàng
         </button>
       </span>
       <br />

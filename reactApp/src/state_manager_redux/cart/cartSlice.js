@@ -10,17 +10,15 @@ export const addToCartThunk = createAsyncThunk(
       harvestCampaignId: data.productId,
       customerId: data.customerId,
     };
-    console.log(params);
     let cartResponse;
     await cartApi.addNew(params).catch((err) => {
       errorMessage = err.response.data.error.message;
-      console.log(errorMessage);
     });
 
     cartResponse = await cartApi.getAll(
       JSON.parse(localStorage.getItem("dichonao_user")).id
     );
-    localStorage.setItem("dichonao_cart", JSON.stringify({ ...cartResponse }));
+    // localStorage.setItem("dichonao_cart", JSON.stringify({ ...cartResponse }));
     if (errorMessage === "") {
       message.success({
         duration: 2,
@@ -212,14 +210,16 @@ const cartSlice = createSlice({
     //Handle checkbox cartItem in cart page
     checkCartItem(state, action) {
       const harvestCampaignId = action.payload.harvestCampaignId;
+      const campaignId = action.payload.campaignId;
       const currentValue = action.payload.currentValue;
       let newState = current(state);
       let listCampaigns = [];
       let listHarvestInCampaigns = [];
-      let campaignChecked = true;
+      
       //Hanlde check cartItem
       const handleCheckCartItem = () => {
         Object.values(newState).map((campaign) => {
+          let campaignChecked = true;
           campaign.harvestCampaigns.map((harvestCampaign) => {
             if (harvestCampaign.id === harvestCampaignId) {
               listHarvestInCampaigns.push({
@@ -230,10 +230,11 @@ const cartSlice = createSlice({
               listHarvestInCampaigns.push({ ...harvestCampaign });
             }
           });
+
           listHarvestInCampaigns.map((harvestCampaign) => {
             if (!harvestCampaign.checked) {
               campaignChecked = false;
-            }
+            } 
           });
 
           listCampaigns.push({
@@ -247,6 +248,7 @@ const cartSlice = createSlice({
       //Handle uncheck cartItem
       const handleUnCheckCartItem = () => {
         Object.values(newState).map((campaign) => {
+          let campaignChecked = true;
           campaign.harvestCampaigns.map((harvestCampaign) => {
             if (harvestCampaign.id === harvestCampaignId) {
               listHarvestInCampaigns.push({
