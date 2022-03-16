@@ -1,30 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import orderApi from "../../apis/orderApi";
 import cartApi from "../../apis/cartApi";
-import { Spin } from "antd";
+import { Spin, Radio, Space} from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { setCart } from "../../state_manager_redux/cart/cartSlice";
+import addressApi from "../../apis/addressApis";
+import { getOrderCouter } from "../../state_manager_redux/cart/cartSelector";
+import CreateAddressForm from "../address/CreateAddressFrom";
 
 const CheckoutSection = () => {
   const order = useSelector((state) => state.order);
   const cart = useSelector((state) => state.cart);
-  const location = useSelector((state) => state.location);
   const user = useSelector((state) => state.user);
-  const [address, setAdress] = useState(location);
   const [loading, setLoading] = useState(false);
   const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
+  const [addresses, setAddresses] = useState([]);
+  const orderCount = useSelector(getOrderCouter);
+  const [selectedAddress, setSelectedAddress] = useState();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onChangeAddress = (event) => {
-    setAdress(event.target.value);
-  };
+
+  useEffect(() => {
+    const fetchAddess = async () => {
+      const result = await addressApi
+        .getAll(user.id)
+        .catch((err) => console.log(err));
+      if (result !== null) {
+        setAddresses(result);
+        setSelectedAddress(result[0]);
+      }
+    };
+    fetchAddess();
+  }, []);
+
 
   const renderCampaign = (props) => {
     return props.harvestCampaigns.map((harvest) =>
       renderHarvestCampaign({ ...harvest })
     );
+  };
+  
+
+  const onChangeRadio = (e) => {
+    setSelectedAddress(e.target.value);
   };
 
   const renderHarvestCampaign = (props) => {
@@ -53,18 +74,28 @@ const CheckoutSection = () => {
     }
   };
 
+  const renderAddressRadioItem = (props) => {
+    return (
+      <Radio key={props.id} value={props}>
+        <>
+          <strong>{props.name}</strong> - <strong>{props.phone}</strong> <br /> {props.address1}
+        </>
+      </Radio>
+    );
+  };
+
   const handleCheckout = () => {
     setLoading(true);
     const checkout = async () => {
       const data = {
-        phone: user.phoneNumber,
+        phone: selectedAddress.phone,
         email: user.email,
-        address: address,
+        address: selectedAddress.address1,
         customerId: user.id,
-        deliveryZoneId: 1,
+        paymentId: 1,
         campaign: order,
       };
-      await orderApi.post(data);
+      await orderApi.post(data).catch((err) => console.log(err));
     };
     const fetchCartItems = async () => {
       const cartItemsResponse = await cartApi.getAll(user.id);
@@ -75,6 +106,7 @@ const CheckoutSection = () => {
     checkout();
     fetchCartItems();
   };
+ 
   return (
     <>
       <section className="checkout-page section-padding">
@@ -89,12 +121,11 @@ const CheckoutSection = () => {
                         <button
                           className="btn btn-link"
                           type="button"
-                          // data-toggle="collapse"
-                          // data-target="#collapseTwo"
                           aria-expanded="true"
                           aria-controls="collapseTwo"
                         >
-                          <span className="number">1</span> Địa Chỉ Giao Hàng
+                          <span className="number">1</span>Xác Nhận Địa Chỉ Giao
+                          Hàng
                         </button>
                       </h5>
                     </div>
@@ -105,104 +136,38 @@ const CheckoutSection = () => {
                       data-parent="#accordionExample"
                     >
                       <div className="card-body">
-                        <form>
-                          <div className="row">
-                            <div className="col-sm-6">
-                              <div className="form-group">
-                                <label className="control-label">
-                                  Tên khách hàng{" "}
-                                  <span className="required">*</span>
-                                </label>
-                                <input
-                                  className="form-control border-form-control"
-                                  value={user.name}
-                                  placeholder={user.name}
-                                  type="text"
-                                  onChange={() => {}}
-                                />
-                              </div>
-                            </div>
-                            <div className="col-sm-6">
-                              <div className="form-group">
-                                <label className="control-label">
-                                  Số Điện Thoại{" "}
-                                  <span className="required">*</span>
-                                </label>
-                                <input
-                                  className="form-control border-form-control"
-                                  value={user.phoneNumber}
-                                  placeholder={user.phoneNumber}
-                                  type="number"
-                                  onChange={() => {}}
-                                />
-                              </div>
-                            </div>
-                          </div>
+                        <div className="row">
+                          <Radio.Group onChange={onChangeRadio} value={selectedAddress}>
+                            <Space direction="vertical">
+                              {addresses.map((address) =>
+                                renderAddressRadioItem(address)
+                              )}
+                            </Space>
+                          </Radio.Group>
+                        </div>
+                        <br />
+                        <CreateAddressForm/>
+                        <br />
 
-                          <div className="row">
-                            <div className="col-sm-6">
-                              <div className="form-group">
-                                <label className="control-label">
-                                  Email <span className="required">*</span>
-                                </label>
-                                <input
-                                  className="form-control border-form-control "
-                                  value={user.email}
-                                  placeholder={user.email}
-                                  disabled=""
-                                  type="email"
-                                  onChange={() => {}}
-                                />
-                              </div>
-                            </div>
-                            {/* <div className="col-sm-6">
-                              <div className="form-group">
-                                <label className="control-label">
-                                  Khu Vực <span className="required">*</span>
-                                </label>
-                                <select className="select2 form-control border-form-control">
-                                  <option value="">Chọn Quận</option>
-                                  <option value="AF">Thủ Đức</option>
-                                  <option value="AX">Quận 7</option>
-                                  <option value="AL">Bình Thạnh</option>
-                                  <option value="DZ">Quận 1</option>
-                                </select>
-                              </div>
-                            </div> */}
-                          </div>
-
-                          <div className="row">
-                            <div className="col-sm-12">
-                              <div className="form-group">
-                                <label className="control-label">
-                                  Địa Chỉ <span className="required">*</span>
-                                </label>
-                                <textarea
-                                  className="form-control border-form-control"
-                                  value={address}
-                                  onChange={onChangeAddress}
-                                />
-                                {address === "" ? (
-                                  <small className="text-danger">
-                                    Vui lòng cung cấp tên đường và số nhà.
-                                  </small>
-                                ) : null}
-                              </div>
-                            </div>
-                          </div>
-
-                          <button
-                            type="button"
-                            data-toggle="collapse"
-                            data-target="#collapsefour"
-                            aria-expanded="false"
-                            aria-controls="collapsefour"
-                            className="btn btn-secondary mb-2 btn-lg"
-                            onClick={handleCheckout}
-                          >
-                            TIẾP
-                          </button>
-                        </form>
+                        <button
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapsefour"
+                          aria-expanded="false"
+                          aria-controls="collapsefour"
+                          className="btn btn-secondary mb-2 btn-lg"
+                          onClick={handleCheckout}
+                        >
+                          Tiếp
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => navigate("/cart")}
+                          style={{ marginLeft: 30 }}
+                          className="btn btn-secondary mb-2 btn-lg"
+                        >
+                          Trở về
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -265,7 +230,9 @@ const CheckoutSection = () => {
               <div className="card">
                 <h5 className="card-header">
                   Giỏ Hàng
-                  <span className="text-secondary float-right">(5 item)</span>
+                  <span className="text-secondary float-right">
+                    {orderCount} sản phẩm
+                  </span>
                 </h5>
                 {Object.values(cart).map((campaign) =>
                   renderCampaign({ ...campaign })

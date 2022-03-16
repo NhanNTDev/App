@@ -9,7 +9,6 @@ import {
 } from "../../state_manager_redux/cart/cartSlice";
 
 const CartItem = (props) => {
-  console.log(props);
   const dispatch = useDispatch();
   const [cartItemQuantity, setCartItemQuantity] = useState(
     props.item.itemCarts[0].quantity

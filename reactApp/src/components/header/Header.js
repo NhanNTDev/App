@@ -12,13 +12,14 @@ const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const address = useSelector((state) => state.location);
+  const cartCouter = useSelector(getCartCouter);
   const dispatch = useDispatch();
   const handleLogout = () => {
     const action = logout();
     dispatch(action);
     navigate("/login");
   };
-  const cartCouter = useSelector(getCartCouter);
+  
 
   const handleLocationButtonClick = () => {
     var element = document.getElementById("toggle");
@@ -52,7 +53,6 @@ const Header = () => {
                   <span className="input-group-btn categories-dropdown">
                     <button
                       className="form-control locate-btn"
-                      // data-toggle="offcanvas"
                       onClick={handleLocationButtonClick}
                     >
                       <span

@@ -18,7 +18,7 @@ export const addToCartThunk = createAsyncThunk(
     cartResponse = await cartApi.getAll(
       JSON.parse(localStorage.getItem("dichonao_user")).id
     );
-    // localStorage.setItem("dichonao_cart", JSON.stringify({ ...cartResponse }));
+    localStorage.setItem("dichonao_cart", JSON.stringify({ ...cartResponse }));
     if (errorMessage === "") {
       message.success({
         duration: 2,
@@ -215,7 +215,7 @@ const cartSlice = createSlice({
       let newState = current(state);
       let listCampaigns = [];
       let listHarvestInCampaigns = [];
-      
+
       //Hanlde check cartItem
       const handleCheckCartItem = () => {
         Object.values(newState).map((campaign) => {
@@ -234,7 +234,7 @@ const cartSlice = createSlice({
           listHarvestInCampaigns.map((harvestCampaign) => {
             if (!harvestCampaign.checked) {
               campaignChecked = false;
-            } 
+            }
           });
 
           listCampaigns.push({

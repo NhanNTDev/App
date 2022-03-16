@@ -29,6 +29,10 @@ const ProductDetail = (props) => {
 
   const handleOnchangeQuantity = (e) => {
     if (e.target.validity.valid) {
+      if (e.target.value > props.quantity) {
+        setQuantity(props.quantity);
+        return;
+      }
       setQuantity(e.target.value);
     } else setQuantity(quantity);
   };
@@ -63,7 +67,7 @@ const ProductDetail = (props) => {
         <strong>
           <span className="mdi mdi-approval"></span> Còn lại :
         </strong>{" "}
-        {props.inventory} {props.unit}
+        {props.quantity} {props.unit}
       </h6>
       <h5>
         <i>
@@ -77,15 +81,7 @@ const ProductDetail = (props) => {
         </i>{" "}
         {farm.address}
       </h5>
-      {/* <h5>
-        <i>
-          Đánh giá:{" "}
-          <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
-          <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
-          <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
-          <span className="mdi mdi-star" style={{ color: "#ebd428" }}></span>
-        </i>{" "}
-      </h5> */}
+      
 
       <div className="qty">
         <div className="input-group" style={{ width: 250 }}>
@@ -110,6 +106,7 @@ const ProductDetail = (props) => {
             style={{ height: 30 }}
           />
           <button
+            disabled={quantity === props.quantity ? "disabled" : null}
             className="btn-update-quantity-2"
             type="button"
             onClick={increaseQuantity}
@@ -132,7 +129,8 @@ const ProductDetail = (props) => {
       <div className="short-description">
         {props.unit !== props.unitOfSystem ? (
           <p>
-            <strong>Quy cách đóng gói:</strong> 1 {props.unit} = {props.valueChangeOfUnit} {props.unitOfSystem}
+            <strong>Quy cách đóng gói:</strong> 1 {props.unit} ={" "}
+            {props.valueChangeOfUnit} {props.unitOfSystem}
           </p>
         ) : null}
         <h5>Mô tả:</h5>
