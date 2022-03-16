@@ -1,27 +1,38 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-lone-blocks */
+import { message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import TableBody from "../components/cart/TableBody";
 import TableFoot from "../components/cart/TableFoot";
 import TableHead from "../components/cart/TableHead";
-import { getCartTotal } from "../state_manager_redux/cart/cartSelector";
+import {
+  getCartTotal,
+  getOrderCouter,
+} from "../state_manager_redux/cart/cartSelector";
 import { setOrder } from "../state_manager_redux/order/orderSlice";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const cartTotal = useSelector(getCartTotal);
+  const orderCount = useSelector(getOrderCouter);
   const handleOrders = () => {
+    if (orderCount === 0) {
+      message.error({
+        duration: 2,
+        content: "Vui lòng chọn sản phẩm!",
+      });
+      return;
+    }
     const action = setOrder({
       cart: cart,
     });
     dispatch(action);
+    navigate("/checkout");
   };
-  const cartTotal = useSelector(getCartTotal);
 
-  
   const renderCartForCampaign = (props) => {
     var result = props.harvestCampaigns.reduce(function (r, a) {
       r[a.harvest.farmId] = r[a.harvest.farmId] || [];
@@ -36,7 +47,7 @@ const Cart = () => {
             <h5>{props.name}</h5>
           </div>
           <table className="table cart_summary">
-            <TableHead campaignId={props.id} checked={props.checked}/>
+            <TableHead campaignId={props.id} checked={props.checked} />
             <tbody>
               {newObject.map(([key, value], index) => {
                 return <TableBody farm={value} />;
@@ -49,7 +60,6 @@ const Cart = () => {
     );
   };
 
-
   return cart === null ? (
     <>
       <h1 className="d-flex justify-content-center">
@@ -57,12 +67,13 @@ const Cart = () => {
       </h1>
       <span className="d-flex justify-content-center">
         <button
+          className="btn btn-secondary"
           onClick={() => {
             navigate("/home");
           }}
         >
           {" "}
-          Quay về trang chủ
+          Tiếp tục mua hàng
         </button>
       </span>
       <br />
@@ -94,21 +105,21 @@ const Cart = () => {
                   renderCartForCampaign({ ...campaign })
                 )}
 
-                <Link to="/checkout">
-                  <button
-                    className="btn btn-secondary btn-lg btn-block text-left"
-                    type="button"
-                    onClick={handleOrders}
-                  >
-                    <span className="float-left">
-                      <i className="mdi mdi-cart-outline"></i> Thanh toán{" "}
-                    </span>
-                    <span className="float-right">
-                      <strong>{cartTotal.toLocaleString()} VNĐ</strong>{" "}
-                      <span className="mdi mdi-chevron-right"></span>
-                    </span>
-                  </button>
-                </Link>
+                {/* <Link to="/checkout"> */}
+                <button
+                  className="btn btn-secondary btn-lg btn-block text-left"
+                  type="button"
+                  onClick={handleOrders}
+                >
+                  <span className="float-left">
+                    <i className="mdi mdi-cart-outline"></i> Thanh toán{" "}
+                  </span>
+                  <span className="float-right">
+                    <strong>{cartTotal.toLocaleString()} VNĐ</strong>{" "}
+                    <span className="mdi mdi-chevron-right"></span>
+                  </span>
+                </button>
+                {/* </Link> */}
               </div>
             </div>
           </div>

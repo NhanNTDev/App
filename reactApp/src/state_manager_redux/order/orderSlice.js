@@ -6,44 +6,58 @@ const orderSlice = createSlice({
   reducers: {
     //set value for order
     setOrder(state, action) {
-      let listFarms = [];
-      let farmOrders = [];
-      let listCampaigns = [];
-      let checked = false;
+      let listFarmIds = [];
+      let listFarmOrders = [];
+      let listHarvestCampaignOrder = [];
+      let listCampaignIds = [];
+      let listCampaignOrder = [];
+      //Get list harvestCampaignId checked
       Object.values(action.payload.cart).map((campaign) => {
-        farmOrders = [];
-        let campaignValue = Object.values(campaign);
-        var result = campaign.harvestCampaigns.reduce(function (r, a) {
-          r[a.harvest.farmId] = r[a.harvest.farmId] || [];
-          r[a.harvest.farmId].push(a);
-          return r;
-        }, Object.create(null));
-        listFarms = Object.entries(result);
-        listFarms.map((farm) => {
-          let listItem = [];
-          farm[1].map((item) => {
-            checked = Object.values(item);
-            if (checked[9]) {
-              listItem.push({
-                itemCartId: item.itemCarts[0].id,
-              });
-            }
-          });
-          if (listItem.length > 0) {
-            farmOrders.push({
-              farmId: farm[1][0].harvest.farmId,
-              harvestOrders: listItem,
-            });
+        campaign.harvestCampaigns.map((harvestCampaign) => {
+          if (harvestCampaign.checked) {
+            listHarvestCampaignOrder.push(harvestCampaign);
           }
         });
-        listCampaigns.push({
-          campaignId: campaignValue[0],
-          farmOrders: farmOrders,
-        });
       });
-      localStorage.setItem("dichonao_order", JSON.stringify({ ...farmOrders }));
-      console.log(listCampaigns);
-      return listCampaigns;
+      //Get listCampaignId and listFarmId
+      listHarvestCampaignOrder.map((harvestCampaign) => {
+        if (!listCampaignIds.includes(harvestCampaign.campaignId)) {
+          listCampaignIds.push(harvestCampaign.campaignId);
+        }
+        if (!listFarmIds.includes(harvestCampaign.harvest.farmId)) {
+          listFarmIds.push(harvestCampaign.harvest.farmId);
+        }
+      });
+      //Format json for server
+      listCampaignIds.map((campaignId) => {
+        listFarmIds.map((farmId) => {
+          let listHarvest = [];
+          listHarvestCampaignOrder.map((harvestCampaignOrder) => {
+            if (harvestCampaignOrder.campaignId === campaignId) {
+              if (harvestCampaignOrder.harvest.farmId === farmId) {
+                listHarvest.push({
+                  itemCartId: harvestCampaignOrder.itemCarts[0].id,
+                });
+              }
+            }
+          });
+          if (Object.entries(listHarvest).length > 0)
+            listFarmOrders.push({ farmId: farmId, harvestOrders: listHarvest });
+          listHarvest = [];
+        });
+        listCampaignOrder.push({
+          campaignId: campaignId,
+          farmOrders: listFarmOrders,
+        });
+        listFarmOrders = [];
+      });
+
+      //Set new State
+      localStorage.setItem(
+        "dichonao_order",
+        JSON.stringify({ ...listCampaignOrder })
+      );
+      return listCampaignOrder;
     },
   },
 });

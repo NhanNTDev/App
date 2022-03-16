@@ -34,13 +34,16 @@ const sortByNameAZ = (listProduct) => {
 const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(12);
-  const [searchProducts, setSearchProducts] = useState([]);
-  const [displayProducts, setDisplayProducts] = useState([]);
+  // const [searchProducts, setSearchProducts] = useState([]);
+  const [displayProducts, setDisplayProducts] = useState({
+    list: [],
+    changePlag: true,
+  });
   const [searchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState("");
-  const [category, setCategory] = useState("");
+  const [searchValue, setSearchValue] = useState(null);
+  const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [sortType, setSortType] = useState(0);
+  const [sortType, setSortType] = useState();
 
   //Get params from url
   useEffect(() => {
@@ -51,18 +54,31 @@ const SearchResult = () => {
   //Hanlde sort
   useEffect(() => {
     const sort = async () => {
+      let newList = [];
       switch (sortType) {
         case 0:
-          setDisplayProducts(searchProducts);
+          // setDisplayProducts(searchProducts);
           break;
         case 1:
-          setDisplayProducts(sortByPriceLowToHigh(searchProducts));
+          newList = sortByPriceLowToHigh(displayProducts.list);
+          setDisplayProducts({
+            list: newList,
+            changePlag: !displayProducts.changePlag,
+          });
           break;
         case 2:
-          setDisplayProducts(sortByPriceHighToLow(searchProducts));
+          newList = sortByPriceHighToLow(displayProducts.list);
+          setDisplayProducts({
+            list: newList,
+            changePlag: !displayProducts.changePlag,
+          });
           break;
         case 3:
-          setDisplayProducts(sortByNameAZ(searchProducts));
+          newList = sortByNameAZ(displayProducts.list);
+          setDisplayProducts({
+            list: newList,
+            changePlag: !displayProducts.changePlag,
+          });
           break;
       }
     };
@@ -72,15 +88,24 @@ const SearchResult = () => {
   //Get data from server
   useEffect(() => {
     const fetchProducts = async () => {
-      const params = {
-        page: page,
-        size: 12,
-        "product-name": searchValue,
-        categorys: category,
-      };
+      const params =
+        searchValue !== null
+          ? {
+              page: page,
+              size: 12,
+              "product-name": searchValue,
+            }
+          : {
+              page: page,
+              size: 12,
+              categorys: category,
+            };
       const productsResponse = await harvestCampaignApi.getAll(params);
-      setSearchProducts(productsResponse.data);
-      setDisplayProducts(productsResponse.data);
+      // setSearchProducts(productsResponse.data);
+      setDisplayProducts({
+        list: productsResponse.data,
+        changePlag: !displayProducts.changePlag,
+      });
       setTotalRecords(productsResponse.metadata.total);
       setLoading(false);
     };
@@ -103,7 +128,7 @@ const SearchResult = () => {
   const sortTypes = [
     {
       id: 0,
-      title: "Xắp xếp mặc định   ",
+      title: "Xắp xếp theo   ",
     },
     {
       id: 1,
@@ -130,7 +155,11 @@ const SearchResult = () => {
           defaultValue={0}
         >
           {sortTypes.map((sortType) => (
-            <Option className="dropdown-item" value={sortType.id}>
+            <Option
+              className="dropdown-item"
+              value={sortType.id}
+              disabled={sortType.id === 0 ? true : null}
+            >
               {sortType.title}
             </Option>
           ))}
@@ -178,7 +207,7 @@ const SearchResult = () => {
               </div>
 
               <div className="row no-gutters">
-                {renderProductList(displayProducts)}
+                {renderProductList(displayProducts.list)}
               </div>
               {loading && (
                 <Skeleton count={12} width="25%" inline={true} height={250} />

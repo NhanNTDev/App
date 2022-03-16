@@ -50,15 +50,18 @@ const CartItem = (props) => {
   };
 
   const handleCheckbox = () => {
-      const action = checkCartItem({harvestCampaignId: props.item.id, currentValue: props.item.checked});
-      dispatch(action);
-  }
-
+    const action = checkCartItem({
+      harvestCampaignId: props.item.id,
+      currentValue: props.item.checked,
+      campaignId: props.item.campaignId,
+    });
+    dispatch(action);
+  };
 
   return (
     <tr>
       <td className="cart_checkbox">
-        <Checkbox checked={props.item.checked} onChange={handleCheckbox}/>
+        <Checkbox checked={props.item.checked} onChange={handleCheckbox} />
       </td>
       <td className="cart_product">
         <a href="#">
@@ -66,9 +69,9 @@ const CartItem = (props) => {
         </a>
       </td>
       <td className="cart_description">
-      <Link to={`/products/${props.item.campaignId}/${props.item.id}`}>
-        <h5 className="product_name">{props.item.productName}</h5>
-      </Link>
+        <Link to={`/products/${props.item.campaignId}/${props.item.id}`}>
+          <h5 className="product_name">{props.item.productName}</h5>
+        </Link>
       </td>
       <td className="price">
         <span>{props.item.price.toLocaleString()} VNĐ</span>
@@ -76,7 +79,9 @@ const CartItem = (props) => {
       <td className="qty">
         <div className="input-group">
           <button
-            disabled={props.item.itemCarts[0].quantity === 1 ? "disabled" : null}
+            disabled={
+              props.item.itemCarts[0].quantity === 1 ? "disabled" : null
+            }
             className="btn-update-quantity"
             type="button"
             onClick={() =>

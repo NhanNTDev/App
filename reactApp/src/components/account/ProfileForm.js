@@ -1,29 +1,85 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { DatePicker } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { DatePicker, Spin, message } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import validator from "validator";
 import moment from "moment";
+import { updateUser } from "../../state_manager_redux/user/userSlice";
+import userApi from "../../apis/userApi";
 
 const ProfileRight = () => {
   const user = useSelector((state) => state.user);
-
-  const getLastName = () => {
-    return user.name.slice(0, user.name.indexOf(" "));
-  };
-  const getFirstName = () => {
-    return user.name.slice(user.name.indexOf(" "), user.name.length);
-  };
-  const [lastName, setLastname] = useState(getLastName);
-  const [firstName, setFirstName] = useState(getFirstName);
-  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
-
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [gender, setGender] = useState(user.gender);
+  const [dateOfBirth, setDateOfBirth] = useState(user.dateOfBirth);
+  const [validateMsg, setValidateMsg] = useState("");
+  const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
+  const [loading, setLoading] = useState(false);
   const handleOnChangeDatePicker = () => {};
-  const dateFormat = "DD-MM-YYYY";
-  const date = new Date(user.dateOfBirth);
-  let dateOfBirth =
-    date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+  const dateFormat = "YYYY-MM-DD";
+  const dispatch = useDispatch();
+  const validateAll = () => {
+    const msg = {};
+    if (validator.isEmpty(name)) {
+      msg.name = "Không để trống mục này!";
+    }
+    if (!validator.isEmail(email)) {
+      msg.email = "Email không hợp lệ!";
+    }
+
+    setValidateMsg(msg);
+    if (Object.keys(msg).length > 0) return false;
+    return true;
+  };
+
+  const handleUpdate = () => {
+    const isValid = validateAll();
+    const update = async (data) => {
+      const result = await userApi.update(data).catch((err) => {
+        console.log(err);
+      });
+      setLoading(false);
+      if (result.succeeded) {
+        message.success({
+          duration: 2,
+          content: "Cập nhật thành công!",
+        });
+        return true;
+      } else {
+        message.error({
+          duration: 2,
+          content: "Cập nhật thất bại!",
+        });
+        return false;
+      }
+    };
+    if (isValid) {
+      const dataUpdate = {
+        id: user.id,
+        email: email,
+        name: name,
+        gender: gender,
+        dateOfBirth: dateOfBirth,
+      };
+      setLoading(true);
+      const result = update(dataUpdate);
+      if (result) {
+        const action = updateUser(dataUpdate);
+        dispatch(action);
+      }
+    }
+  };
 
   return (
     <div className="card card-body account-right">
+      <div className="d-flex justify-content-center">
+        {loading ? (
+          <>
+            <Spin indicator={antIcon} /> <br /> <br />{" "}
+          </>
+        ) : null}
+      </div>
       <div className="widget">
         <div className="section-header">
           <h5 className="heading-design-h5">Thông Tin Của Tôi</h5>
@@ -33,17 +89,19 @@ const ProfileRight = () => {
             <div className="col-sm-6">
               <div className="form-group">
                 <label className="control-label">
-                  Họ <span className="required">*</span>
+                  Họ Và Tên<span className="required">*</span>
                 </label>
                 <input
                   className="form-control border-form-control"
-                  value={lastName}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   type="text"
                 />
+                <span style={{ color: "red" }}>{validateMsg.name}</span>
               </div>
             </div>
             <div className="col-sm-6">
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label className="control-label">
                   Tên <span className="required">*</span>
                 </label>
@@ -52,10 +110,24 @@ const ProfileRight = () => {
                   value={firstName.slice(1, firstName.length)}
                   type="text"
                 />
+              </div> */}
+              <div className="form-group">
+                <label className="control-label">
+                  Email
+                  <span className="required">*</span>
+                </label>
+                <input
+                  className="form-control border-form-control "
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="email"
+                  type="email"
+                />
+                <span style={{ color: "red" }}>{validateMsg.email}</span>
               </div>
             </div>
           </div>
-          <div className="row">
+          {/* <div className="row">
             <div className="col-sm-6">
               <div className="form-group">
                 <label className="control-label">
@@ -71,20 +143,9 @@ const ProfileRight = () => {
               </div>
             </div>
             <div className="col-sm-6">
-              <div className="form-group">
-                <label className="control-label">
-                  Email
-                  <span className="required">*</span>
-                </label>
-                <input
-                  className="form-control border-form-control "
-                  value={user.email}
-                  placeholder="email"
-                  type="email"
-                />
-              </div>
+             
             </div>
-          </div>
+          </div> */}
           <div className="row">
             <div className="col-sm-6">
               <div className="form-group">
@@ -95,7 +156,8 @@ const ProfileRight = () => {
                   className="form-control"
                   name="gender"
                   id="gender"
-                  value={user.gender}
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
                 >
                   <option value="Nam">Nam</option>
                   <option value="Nữ">Nữ</option>
@@ -114,6 +176,10 @@ const ProfileRight = () => {
                   placeholder="Chọn ngày"
                   format={dateFormat}
                   value={moment(dateOfBirth, dateFormat)}
+                  defaultValue={moment(dateOfBirth, dateFormat)}
+                  onChange={(dates) => {
+                    dates && setDateOfBirth(dates);
+                  }}
                 />
               </div>
             </div>
@@ -121,7 +187,11 @@ const ProfileRight = () => {
 
           <div className="row">
             <div className="col-sm-12 text-right">
-              <button type="button" className="btn btn-success btn-lg">
+              <button
+                type="button"
+                className="btn btn-success btn-lg"
+                onClick={handleUpdate}
+              >
                 Cập nhật
               </button>
             </div>

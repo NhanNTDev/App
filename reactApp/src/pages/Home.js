@@ -28,13 +28,20 @@ const Home = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       const cartItemsResponse = await cartApi.getAll(user.id);
-      console.log(cartItemsResponse);
       const action = setCart(cartItemsResponse);
       dispatch(action);
     };
     if (user !== null) fetchCartItems();
   }, []);
-  
+  // Get category
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categoriesResponse = await categoriesApi.getAll();
+      setCategories(categoriesResponse.data);
+      
+    };
+    fetchCategories();
+  }, []);
   // Get campaign
   useEffect(() => {
     const params = {
@@ -44,21 +51,13 @@ const Home = () => {
     const fetchCampaigns = async () => {
       const campaigns = await campaignsApi.getAll(params);
       setWeeklyCampaigns(campaigns.data);
-      setHotCampaign(campaigns.data);    
+      setHotCampaign(campaigns.data);
+      runScript();
+      setLoading(false);
+      
     };
     fetchCampaigns();
   }, [address]);
-  // Get category
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const categoriesResponse = await categoriesApi.getAll();
-      setCategories(categoriesResponse.data);
-      runScript();
-      setLoading(false);
-    };
-    fetchCategories();
-  }, []);
-
 
   return (
     <>

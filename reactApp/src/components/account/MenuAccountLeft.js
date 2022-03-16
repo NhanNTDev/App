@@ -7,8 +7,8 @@ const MenuAccountLeft = ({ type }) => {
     <div className="card account-left">
       <div className="user-profile-header">
         <img
-          alt="logo"
-          src={user !== null ? user.image : "/image/user/1.png"}
+         
+          src={user.image !== "" ? user.image : "/img/user/user.jpg"}
         />
         <h5 className="mb-1 text-secondary">
           <strong></strong> {user.name}
