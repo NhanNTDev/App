@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import orderApi from "../../apis/orderApi";
 import cartApi from "../../apis/cartApi";
-import { Spin, Radio, Space} from "antd";
+import { Spin, Radio, Space } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { setCart } from "../../state_manager_redux/cart/cartSlice";
 import addressApi from "../../apis/addressApis";
@@ -22,6 +22,11 @@ const CheckoutSection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  useEffect (() => {
+    if(orderCount ===0) {
+      navigate("/cart");
+    }
+  }, [])
 
   useEffect(() => {
     const fetchAddess = async () => {
@@ -36,13 +41,11 @@ const CheckoutSection = () => {
     fetchAddess();
   }, []);
 
-
   const renderCampaign = (props) => {
     return props.harvestCampaigns.map((harvest) =>
       renderHarvestCampaign({ ...harvest })
     );
   };
-  
 
   const onChangeRadio = (e) => {
     setSelectedAddress(e.target.value);
@@ -78,7 +81,8 @@ const CheckoutSection = () => {
     return (
       <Radio key={props.id} value={props}>
         <>
-          <strong>{props.name}</strong> - <strong>{props.phone}</strong> <br /> {props.address1}
+          <strong>{props.name}</strong> - <strong>{props.phone}</strong> <br />{" "}
+          {props.address1}
         </>
       </Radio>
     );
@@ -95,7 +99,9 @@ const CheckoutSection = () => {
         paymentId: 1,
         campaign: order,
       };
-      await orderApi.post(data).catch((err) => console.log(err));
+      await orderApi.post(data).catch((err) => {
+        console.log(err);
+      });
     };
     const fetchCartItems = async () => {
       const cartItemsResponse = await cartApi.getAll(user.id);
@@ -106,7 +112,7 @@ const CheckoutSection = () => {
     checkout();
     fetchCartItems();
   };
- 
+
   return (
     <>
       <section className="checkout-page section-padding">
@@ -116,13 +122,13 @@ const CheckoutSection = () => {
               <div className="checkout-step">
                 <div className="accordion" id="accordionExample">
                   <div className="card checkout-step-two">
-                    <div className="card-header" id="headingTwo">
+                    <div className="card-header" id="headingOne">
                       <h5 className="mb-0">
                         <button
                           className="btn btn-link"
                           type="button"
                           aria-expanded="true"
-                          aria-controls="collapseTwo"
+                          aria-controls="collapseOne"
                         >
                           <span className="number">1</span>Xác Nhận Địa Chỉ Giao
                           Hàng
@@ -130,14 +136,17 @@ const CheckoutSection = () => {
                       </h5>
                     </div>
                     <div
-                      id="collapseTwo"
+                      id="collapseOne"
                       className="collapse show"
-                      aria-labelledby="headingTwo"
+                      aria-labelledby="headingOne"
                       data-parent="#accordionExample"
                     >
                       <div className="card-body">
                         <div className="row">
-                          <Radio.Group onChange={onChangeRadio} value={selectedAddress}>
+                          <Radio.Group
+                            onChange={onChangeRadio}
+                            value={selectedAddress}
+                          >
                             <Space direction="vertical">
                               {addresses.map((address) =>
                                 renderAddressRadioItem(address)
@@ -146,15 +155,15 @@ const CheckoutSection = () => {
                           </Radio.Group>
                         </div>
                         <br />
-                        <CreateAddressForm/>
+                        <CreateAddressForm />
                         <br />
 
                         <button
                           type="button"
                           data-toggle="collapse"
-                          data-target="#collapsefour"
+                          data-target="#collapseTwo"
                           aria-expanded="false"
-                          aria-controls="collapsefour"
+                          aria-controls="collapseTwo"
                           className="btn btn-secondary mb-2 btn-lg"
                           onClick={handleCheckout}
                         >
@@ -173,22 +182,22 @@ const CheckoutSection = () => {
                   </div>
 
                   <div className="card">
-                    <div className="card-header" id="headingThree">
+                    <div className="card-header" id="headingTwo">
                       <h5 className="mb-0">
                         <button
                           className="btn btn-link collapsed"
                           type="button"
                           aria-expanded="false"
-                          aria-controls="collapsefour"
+                          aria-controls="collapseTwo"
                         >
                           <span className="number">2</span> Hoàn Tất Đặt Hàng
                         </button>
                       </h5>
                     </div>
                     <div
-                      id="collapsefour"
+                      id="collapseTwo"
                       className="collapse"
-                      aria-labelledby="headingThree"
+                      aria-labelledby="headingTwo"
                       data-parent="#accordionExample"
                     >
                       <div className="card-body">
@@ -234,9 +243,11 @@ const CheckoutSection = () => {
                     {orderCount} sản phẩm
                   </span>
                 </h5>
-                {Object.values(cart).map((campaign) =>
-                  renderCampaign({ ...campaign })
-                )}
+
+                {cart &&
+                  Object.values(cart).map((campaign) =>
+                    renderCampaign({ ...campaign })
+                  )}
               </div>
             </div>
           </div>

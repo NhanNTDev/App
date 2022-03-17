@@ -33,31 +33,26 @@ const Home = () => {
     };
     if (user !== null) fetchCartItems();
   }, []);
-  // Get category
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const categoriesResponse = await categoriesApi.getAll();
-      setCategories(categoriesResponse.data);
-      
-    };
-    fetchCategories();
-  }, []);
-  // Get campaign
+ 
+  // Get campaign and categories
   useEffect(() => {
     const params = {
       page: 1,
       size: 10,
     };
-    const fetchCampaigns = async () => {
+    const fetchData = async () => {
+      //FetchCategory
+      const categoriesResponse = await categoriesApi.getAll();
+      setCategories(categoriesResponse.data);
       const campaigns = await campaignsApi.getAll(params);
       setWeeklyCampaigns(campaigns.data);
       setHotCampaign(campaigns.data);
       runScript();
       setLoading(false);
-      
     };
-    fetchCampaigns();
+    fetchData();
   }, [address]);
+
 
   return (
     <>

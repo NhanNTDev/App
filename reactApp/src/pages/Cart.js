@@ -1,8 +1,8 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable no-lone-blocks */
 import { message } from "antd";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import cartApi from "../apis/cartApi";
 import TableBody from "../components/cart/TableBody";
 import TableFoot from "../components/cart/TableFoot";
 import TableHead from "../components/cart/TableHead";
@@ -10,6 +10,7 @@ import {
   getCartTotal,
   getOrderCouter,
 } from "../state_manager_redux/cart/cartSelector";
+import { setCart } from "../state_manager_redux/cart/cartSlice";
 import { setOrder } from "../state_manager_redux/order/orderSlice";
 
 const Cart = () => {
@@ -18,6 +19,16 @@ const Cart = () => {
   const navigate = useNavigate();
   const cartTotal = useSelector(getCartTotal);
   const orderCount = useSelector(getOrderCouter);
+  const user = useSelector((state) => state.user);
+  // Get cart from server
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      const cartItemsResponse = await cartApi.getAll(user.id);
+      const action = setCart(cartItemsResponse);
+      dispatch(action);
+    };
+    if (user !== null) fetchCartItems();
+  }, []);
   const handleOrders = () => {
     if (orderCount === 0) {
       message.error({
@@ -60,7 +71,7 @@ const Cart = () => {
     );
   };
 
-  return cart === null ? (
+  return cart === null || Object.entries(cart).length === 0 ? (
     <>
       <h1 className="d-flex justify-content-center">
         Giỏ hàng của bạn đang trống!

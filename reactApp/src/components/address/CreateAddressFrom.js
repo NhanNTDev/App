@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Spin, Radio, Space, Button, Modal } from "antd";
+import { Button, Modal, message } from "antd";
 import validator from "validator";
 import PlacesAutocomplete from "react-places-autocomplete";
+import addressApi from "../../apis/addressApis";
 
-const CreateAddressForm = () => {
+const CreateAddressForm = ({currentPage, callback}) => {
   const location = useSelector((state) => state.location);
   const user = useSelector((state) => state.user);
   const [name, setName] = useState(user.name);
@@ -15,9 +16,39 @@ const CreateAddressForm = () => {
   const showModal = () => {
     setIsModalVisible(true);
   };
-
+  
   const handleOk = () => {
-    setIsModalVisible(false);
+    const valid = validateAll();
+    if (!valid) {
+      return;
+    }
+    const createNewAddress = async () => {
+      const data = {
+        name: name,
+        phone: phone,
+        address1: address,
+        customerId: user.id,
+      };
+      const result = await addressApi.create(data).catch((err) => {
+        console.log(err);
+      });
+      if (result === "Create successfully!") {
+        message.success({
+          duration: 2,
+          content: "Tạo địa chỉ thành công!",
+        });
+      } else {
+        message.error({
+          duration: 2,
+          content: "Địa chỉ thất bại!",
+        });
+      }
+      setIsModalVisible(false);
+      if(currentPage === "address") {
+        callback();
+      }
+    };
+    createNewAddress();
   };
 
   const handleCancel = () => {
@@ -68,7 +99,6 @@ const CreateAddressForm = () => {
           onCancel={handleCancel}
           cancelText="Hủy"
           okText="Tiếp tục"
-          onOk={validateAll}
         >
           <div className="row">
             <div className="col-sm-6">
