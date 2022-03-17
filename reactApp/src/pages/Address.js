@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import MenuAccountLeft from "../components/account/MenuAccountLeft";
-import AddressForm from "../components/account/AddressForm";
 import addressApi from "../apis/addressApis";
 import { useSelector } from "react-redux";
 import CreateAddressForm from "../components/address/CreateAddressFrom";
-import { Button } from "antd";
+import { Modal, Button, message } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+
+const { confirm } = Modal;
 
 const Address = () => {
   const [addresses, setAddresses] = useState([]);
   const user = useSelector((state) => state.user);
+  const [updateFlag, setUpdateFlag] = useState(true);
   useEffect(() => {
     const fetchAddess = async () => {
       const result = await addressApi
@@ -19,12 +22,48 @@ const Address = () => {
       }
     };
     fetchAddess();
-  }, []);
+  }, [updateFlag]);
+
+  const affterCreateCallback = () => {
+    setUpdateFlag(!updateFlag);
+  };
+
+  function showDeleteConfirm(addressId) {
+    confirm({
+      title: "Bạn có chắc muốn xóa địa chỉ này?",
+      icon: <ExclamationCircleOutlined />,
+      content: "Sau khi xóa sẽ không thể khôi phục!",
+      okText: "Xóa",
+      okType: "danger",
+      cancelText: "Hủy",
+      onOk() {
+        const deleteAddress = async () => {
+          const result = await addressApi.delete(addressId).catch((err) => {
+            console.log(err);
+            message.error({
+              duration: 2,
+              content: "Xóa không thành công!",
+            });
+          });
+          if (result === "Delete successfully!") {
+            message.success({
+              duration: 2,
+              content: "Xóa thành công!",
+            });
+            setUpdateFlag(!updateFlag);
+          }
+        };
+        deleteAddress();
+      },
+      onCancel() {},
+    });
+  }
 
   const renderAddressItem = (props) => {
     return (
       <>
         <div className="border">
+          <br />
           <div className="col">
             <strong>Tên người nhận: </strong> {props.name}
             <br />
@@ -39,8 +78,12 @@ const Address = () => {
           </div>
           <br />
           <div className="row">
-            <div className="col-sm-12 text-right">
-              <Button className="btn" style={{ marginRight: 10 }}>
+            <div className="col-sm-12 text-right mb-2">
+              <Button
+                className="btn"
+                style={{ marginRight: 10 }}
+                onClick={() => showDeleteConfirm(props.id)}
+              >
                 {" "}
                 Xóa{" "}
               </Button>
@@ -62,9 +105,12 @@ const Address = () => {
               </div>
               <div className="col-md-8">
                 {addresses.map((address) => renderAddressItem(address))}
-                {/* <AddressForm /> */}
                 <br />
-                <CreateAddressForm />
+                <CreateAddressForm
+                  currentPage="address"
+                  callback={affterCreateCallback}
+                />
+                <br />
               </div>
             </div>
           </div>
