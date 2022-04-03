@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { message, notification } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -31,9 +31,10 @@ const Cart = () => {
   }, []);
   const handleOrders = () => {
     if (orderCount === 0) {
-      message.error({
-        duration: 2,
-        content: "Vui lòng chọn sản phẩm!",
+      notification.error({
+        duration: 3,
+        message: "Vui lòng chọn sản phẩm!",
+        style:{fontSize: 16},
       });
       return;
     }
@@ -45,24 +46,22 @@ const Cart = () => {
   };
 
   const renderCartForCampaign = (props) => {
-    var result = props.harvestCampaigns.reduce(function (r, a) {
-      r[a.harvest.farmId] = r[a.harvest.farmId] || [];
-      r[a.harvest.farmId].push(a);
-      return r;
-    }, Object.create(null));
-    const newObject = Object.entries(result);
+    // var result = props.harvestCampaigns.reduce(function (r, a) {
+    //   r[a.harvest.farmId] = r[a.harvest.farmId] || [];
+    //   r[a.harvest.farmId].push(a);
+    //   return r;
+    // }, Object.create(null));
+    // const newObject = Object.entries(result);
     return (
       <>
         <div className="table-responsive">
           <div className="cart-campaign-header text-left">
-            <h5>{props.name}</h5>
+            <h5>{cart.campaignName}</h5>
           </div>
           <table className="table cart_summary">
-            <TableHead campaignId={props.id} checked={props.checked} />
+            <TableHead campaignId={cart.campaignId} checked={cart.checked} />
             <tbody>
-              {newObject.map(([key, value], index) => {
-                return <TableBody farm={value} />;
-              })}
+              {cart.farms.map(farm => <TableBody farm= {farm} campaignId= {cart.campaignId}/>)}
             </tbody>
             <TableFoot />
           </table>
@@ -112,9 +111,9 @@ const Cart = () => {
           <div className="row">
             <div className="col-md-12">
               <div className="card card-body cart-table">
-                {Object.values(cart).map((campaign) =>
-                  renderCartForCampaign({ ...campaign })
-                )}
+                
+                  {renderCartForCampaign({ ...cart })}
+                
 
                 {/* <Link to="/checkout"> */}
                 <button

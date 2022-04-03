@@ -10,12 +10,12 @@ const cartApi = {
         return axiosClient.post(url, data);
     },
     update(data) {
-        const url = `/item-carts/${data.id}`;
-        return axiosClient.put(url, data);
+        const url = `/item-carts/${data.customerId}/${data.harvestCampaignId}?quantity=${data.quantity}`;
+        return axiosClient.put(url);
     },
     delete(data) {
-        const url = `/item-carts/${data.id}`;
-        return axiosClient.delete(url, data);
+        const url = `/item-carts/${data.customerId}/${data.harvestCampaignId}`;
+        return axiosClient.delete(url);
     }
 }
 

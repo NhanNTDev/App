@@ -1,18 +1,24 @@
-import { message, Space } from "antd";
+import { Modal, message, Space } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import cartApi from "../../apis/cartApi";
 import farmApi from "../../apis/farmApi";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { addToCartThunk } from "../../state_manager_redux/cart/cartSlice";
+const { confirm } = Modal;
 
 const ProductDetail = (props) => {
   const [farm, setFarm] = useState({});
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
+  console.log(props);
   useEffect(() => {
     const fetchFarm = async () => {
-      const farmResponse = await farmApi.get(props.harvest.farmId);
+      const farmResponse = await farmApi.get(props.farmId);
+      console.log(farmResponse);
       setFarm(farmResponse);
     };
     fetchFarm();
@@ -26,7 +32,31 @@ const ProductDetail = (props) => {
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
   };
-
+  function showAddOtherCampaignConfirm() {
+    confirm({
+      title: "Bạn đang mua hàng tại một chiến dịch khác",
+      icon: <ExclamationCircleOutlined />,
+      content: "Hành động này sẽ xóa giỏ hàng cũ của bạn khỏi hệ thống!",
+      okText: "Xác nhận",
+      okType: "danger",
+      cancelText: "Hủy",
+      onOk() {
+        if (user !== null) {
+          const action = addToCartThunk({
+            productId: props.id,
+            customerId: user.id,
+            quantity: quantity,
+          });
+          dispatch(action);
+        } else {
+          navigate(
+            `/login?urlRedirect=/products/${props.campaign.id}/${props.id}`
+          );
+        }
+      },
+      onCancel() {},
+    });
+  }
   const handleOnchangeQuantity = (e) => {
     if (e.target.validity.valid) {
       if (e.target.value > props.quantity) {
@@ -38,7 +68,9 @@ const ProductDetail = (props) => {
   };
 
   const handleAddToCart = () => {
-    if (user !== null) {
+    if (cart !== null && props.campaign.id !== cart.campaignId) {
+      showAddOtherCampaignConfirm();
+    } else if (user !== null) {
       const action = addToCartThunk({
         productId: props.id,
         customerId: user.id,
@@ -46,7 +78,7 @@ const ProductDetail = (props) => {
       });
       dispatch(action);
     } else {
-      navigate(`/login?urlRedirect=/products/${props.campaignId}/${props.id}`);
+      navigate(`/login?urlRedirect=/products/${props.campaign.id}/${props.id}`);
     }
   };
 
@@ -81,7 +113,6 @@ const ProductDetail = (props) => {
         </i>{" "}
         {farm.address}
       </h5>
-      
 
       <div className="qty">
         <div className="input-group" style={{ width: 250 }}>
@@ -130,7 +161,7 @@ const ProductDetail = (props) => {
         {props.unit !== props.unitOfSystem ? (
           <p>
             <strong>Quy cách đóng gói:</strong> 1 {props.unit} ={" "}
-            {props.valueChangeOfUnit} {props.unitOfSystem}
+            {props.valueChangeOfUnit} {props.systemUnit}
           </p>
         ) : null}
         <h5>Mô tả:</h5>
@@ -141,7 +172,7 @@ const ProductDetail = (props) => {
             maxHeight: 150,
           }}
         >
-          {props.harvest.description}
+          {props.harvestDescription}
         </p>
         <p
           className="mb-0"
@@ -152,9 +183,9 @@ const ProductDetail = (props) => {
           }}
         >
           {" "}
-          <strong>Mùa vụ: </strong> {props.harvest.name}
+          <strong>Mùa vụ: </strong> {props.harvestName}
           <br />
-          {props.harvest.description}
+          {props.harvestDescription}
         </p>
       </div>
     </div>

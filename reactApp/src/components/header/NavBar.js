@@ -45,6 +45,11 @@ const NavBar = () => {
           title: "Lịch Sử Đặt Hàng",
           link: "/orderlist",
         },
+        {
+          id: "4",
+          title: "Đổi Mật Khẩu",
+          link: "/changePassword",
+        },
       ],
       link: "",
     },

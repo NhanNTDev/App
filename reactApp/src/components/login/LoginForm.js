@@ -1,7 +1,7 @@
 import validator from "validator";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
-import { Spin, message } from "antd";
+import { Spin, message, notification } from "antd";
 import userApi from "../../apis/userApi";
 import { LoadingOutlined } from "@ant-design/icons";
 import { setUser } from "../../state_manager_redux/user/userSlice";
@@ -34,10 +34,11 @@ const LoginForm = () => {
         const setUserAction = setUser({ ...result });
         dispatch(setUserAction);
         urlRedirect !== null ? navigate(`${urlRedirect}`) : navigate("/home");
-        message.success({
+        notification.success({
           duration: 3,
-          content: "Đăng nhập thành công",
-        });
+          message: "Đăng nhập thành công",
+          style: { fontSize: 16}
+        })
       }
     };
     login();

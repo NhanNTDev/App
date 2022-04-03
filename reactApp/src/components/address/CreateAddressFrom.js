@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Modal, message } from "antd";
+import { Button, Modal, notification } from "antd";
 import validator from "validator";
 import PlacesAutocomplete from "react-places-autocomplete";
 import addressApi from "../../apis/addressApis";
 
-const CreateAddressForm = ({currentPage, callback}) => {
+const CreateAddressForm = ({ currentPage, callback }) => {
   const location = useSelector((state) => state.location);
   const user = useSelector((state) => state.user);
   const [name, setName] = useState(user.name);
@@ -16,7 +16,7 @@ const CreateAddressForm = ({currentPage, callback}) => {
   const showModal = () => {
     setIsModalVisible(true);
   };
-  
+
   const handleOk = () => {
     const valid = validateAll();
     if (!valid) {
@@ -33,20 +33,20 @@ const CreateAddressForm = ({currentPage, callback}) => {
         console.log(err);
       });
       if (result === "Create successfully!") {
-        message.success({
-          duration: 2,
-          content: "Tạo địa chỉ thành công!",
+        notification.success({
+          duration: 3,
+          message: "Tạo địa chỉ thành công!",
+          style:{fontSize: 16},
         });
       } else {
-        message.error({
-          duration: 2,
-          content: "Địa chỉ thất bại!",
+        notification.error({
+          duration: 3,
+          message: "Tạo địa chỉ thất bại!",
+          style:{fontSize: 16},
         });
       }
       setIsModalVisible(false);
-      if(currentPage === "address") {
-        callback();
-      }
+      callback();
     };
     createNewAddress();
   };

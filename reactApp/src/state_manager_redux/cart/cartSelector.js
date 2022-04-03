@@ -5,9 +5,9 @@ const cartSelector = (state) => state.cart;
 export const getCartCouter = createSelector(cartSelector, (cartSelector) => {
   let counter = 0;
   if (cartSelector !== null) {
-    Object.values(cartSelector).map((campaign) => {
-      campaign.harvestCampaigns.map(() => counter++);
-    });
+    cartSelector.farms.map((farm) =>
+      farm.harvestInCampaigns.map(() => counter++)
+    );
   }
 
   return counter;
@@ -16,13 +16,11 @@ export const getCartCouter = createSelector(cartSelector, (cartSelector) => {
 export const getCartTotal = createSelector(cartSelector, (cartSelector) => {
   let total = 0;
   if (cartSelector !== null) {
-    Object.values(cartSelector).map((campaign) => {
-      campaign.harvestCampaigns.map((harvestCampaign) => {
-        if (harvestCampaign.checked) {
-          total += harvestCampaign.itemCarts[0].total;
-        }
-      });
-    });
+    cartSelector.farms.map((farm) =>
+      farm.harvestInCampaigns.map((harvestCampaign) => {
+        if (harvestCampaign.checked) total += harvestCampaign.total;
+      })
+    );
   }
 
   return total;
@@ -31,14 +29,11 @@ export const getCartTotal = createSelector(cartSelector, (cartSelector) => {
 export const getOrderCouter = createSelector(cartSelector, (cartSelector) => {
   let counter = 0;
   if (cartSelector !== null) {
-    Object.values(cartSelector).map((campaign) => {
-      campaign.harvestCampaigns.map((harvestCampaign) => {
-        if (harvestCampaign.checked) {
-          counter++;
-        }
-      });
-    });
+    cartSelector.farms.map((farm) =>
+      farm.harvestInCampaigns.map((harvestCampaign) => {
+        if (harvestCampaign.checked) counter++;
+      })
+    );
   }
-
   return counter;
 });

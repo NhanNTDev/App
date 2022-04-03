@@ -6,6 +6,7 @@ import CampaignItem from "../components/campaign/CampaignItem";
 import campaignsApi from "../apis/campaignsApi";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useSelector } from "react-redux";
 
 const ViewAllCampaigns = () => {
   const [page, setPage] = useState(1);
@@ -13,9 +14,11 @@ const ViewAllCampaigns = () => {
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
   let [searchParams] = useSearchParams();
+  const  address = useSelector(state => state.location);
 
   useEffect(() => {
     const params = {
+      address: address,
       page: page,
       size: RECORD_PER_PAGE,
     };
@@ -27,7 +30,7 @@ const ViewAllCampaigns = () => {
     };
 
     fetchCampaigns();
-  }, [page]);
+  }, [page, address]);
 
   const renderPagination = () => {
     return (

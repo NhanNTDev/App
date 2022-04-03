@@ -5,7 +5,7 @@ import { checkCampaign } from '../../state_manager_redux/cart/cartSlice';
 
 const TableHead = ({campaignId, checked}) => {
   const dispatch = useDispatch();
-  const action = checkCampaign({campaignId: campaignId, currentValue: checked});
+  const action = checkCampaign({currentValue: checked});
   const handleCheckbox = () => {
     dispatch(action);
   }
