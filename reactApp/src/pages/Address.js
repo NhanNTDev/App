@@ -3,8 +3,9 @@ import MenuAccountLeft from "../components/account/MenuAccountLeft";
 import addressApi from "../apis/addressApis";
 import { useSelector } from "react-redux";
 import CreateAddressForm from "../components/address/CreateAddressFrom";
-import { Modal, Button, message } from "antd";
+import { Modal, Button, message, notification } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import UpdateAddressForm from "../components/address/UpdateAddressFrom";
 
 const { confirm } = Modal;
 
@@ -24,7 +25,7 @@ const Address = () => {
     fetchAddess();
   }, [updateFlag]);
 
-  const affterCreateCallback = () => {
+  const changeFlagCallback = () => {
     setUpdateFlag(!updateFlag);
   };
 
@@ -40,15 +41,17 @@ const Address = () => {
         const deleteAddress = async () => {
           const result = await addressApi.delete(addressId).catch((err) => {
             console.log(err);
-            message.error({
-              duration: 2,
-              content: "Xóa không thành công!",
+            notification.error({
+              duration: 3,
+              message: "Xóa không thành công!",
+              style:{fontSize: 16},
             });
           });
           if (result === "Delete successfully!") {
-            message.success({
-              duration: 2,
-              content: "Xóa thành công!",
+            notification.success({
+              duration: 3,
+              message: "Xóa thành công!",
+              style:{fontSize: 16},
             });
             setUpdateFlag(!updateFlag);
           }
@@ -87,7 +90,7 @@ const Address = () => {
                 {" "}
                 Xóa{" "}
               </Button>
-              <Button className="btn"> Cập Nhật </Button>
+              <UpdateAddressForm currentValue= {props} callback= {changeFlagCallback}/>
             </div>
           </div>
         </div>
@@ -98,7 +101,7 @@ const Address = () => {
     <section className="account-page section-padding">
       <div className="container">
         <div className="row">
-          <div className="col-lg-9 mx-auto">
+          <div className="col-lg-12 mx-auto">
             <div className="row no-gutters">
               <div className="col-md-4">
                 <MenuAccountLeft type="address" />
@@ -108,7 +111,7 @@ const Address = () => {
                 <br />
                 <CreateAddressForm
                   currentPage="address"
-                  callback={affterCreateCallback}
+                  callback={changeFlagCallback}
                 />
                 <br />
               </div>

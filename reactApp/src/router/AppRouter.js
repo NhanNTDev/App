@@ -15,6 +15,8 @@ import ViewAllCampaigns from "../pages/ViewAllCampaigns";
 import SearchResult from "../pages/SearchResult";
 import { useSelector } from "react-redux";
 import GetStarted from "../pages/GetStarted";
+import ChangePassword from "../pages/ChangePassword";
+import OrderDetails from "../pages/OrderDetails";
 
 const AppRouter = () => {
   const location = useSelector((state) => state.location);
@@ -59,6 +61,22 @@ const AppRouter = () => {
         element={
           <PrivateRoute urlRedirect="/cart">
             <Cart />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/changePassword"
+        element={
+          <PrivateRoute urlRedirect="/changePassword">
+            <ChangePassword />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/orderDetails"
+        element={
+          <PrivateRoute urlRedirect="/changePassword">
+            <OrderDetails />
           </PrivateRoute>
         }
       />

@@ -6,6 +6,7 @@ import ProductItem from "../components/product/ProductItem";
 import harvestCampaignApi from "../apis/harvestCampaignApi";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useSelector } from "react-redux";
 const { Option } = Select;
 //Sort list by price low to high
 const sortByPriceLowToHigh = (listProduct) => {
@@ -34,7 +35,6 @@ const sortByNameAZ = (listProduct) => {
 const SearchResult = () => {
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(12);
-  // const [searchProducts, setSearchProducts] = useState([]);
   const [displayProducts, setDisplayProducts] = useState({
     list: [],
     changePlag: true,
@@ -44,6 +44,7 @@ const SearchResult = () => {
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sortType, setSortType] = useState();
+  const address = useSelector(state => state.location);
 
   //Get params from url
   useEffect(() => {
@@ -57,7 +58,6 @@ const SearchResult = () => {
       let newList = [];
       switch (sortType) {
         case 0:
-          // setDisplayProducts(searchProducts);
           break;
         case 1:
           newList = sortByPriceLowToHigh(displayProducts.list);
@@ -94,14 +94,15 @@ const SearchResult = () => {
               page: page,
               size: 12,
               "product-name": searchValue,
+              address: address,
             }
           : {
               page: page,
               size: 12,
               categorys: category,
+              address: address,
             };
       const productsResponse = await harvestCampaignApi.getAll(params);
-      // setSearchProducts(productsResponse.data);
       setDisplayProducts({
         list: productsResponse.data,
         changePlag: !displayProducts.changePlag,

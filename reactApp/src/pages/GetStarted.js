@@ -61,9 +61,9 @@ const GetStarted = () => {
   };
   const user = useSelector((state) => state.user);
   const searchOptions = {
-    componentRestrictions: { country: ['vn'] },
-    types: ['address']
-  }
+    componentRestrictions: { country: ["vn"] },
+    types: ["address"],
+  };
   return (
     <div className="get-started-page">
       <div className="form">
@@ -80,14 +80,18 @@ const GetStarted = () => {
 
         <div className="form-message">
           {user !== null ? (
-            <h2>Chào mừng {user.shortName}</h2>
+            <>
+              <h2>
+                Chào mừng <strong>{user.name},</strong>
+              </h2>
+              <h5>Có vẻ như bạn chưa thiết lập địa chỉ</h5>
+            </>
           ) : (
             <h2>Bạn ở đâu?</h2>
           )}
           <i>
             <h5>
-              Hãy nhập địa chỉ để tìm kiếm những chiến dịch ưu đãi nhất ở gần
-              bạn.
+              Hãy nhập địa chỉ để chúng tôi có thể xác định chính xác những chiến dịch phù hợp với bạn!
             </h5>
           </i>
         </div>

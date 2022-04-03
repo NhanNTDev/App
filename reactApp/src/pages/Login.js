@@ -3,12 +3,12 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import LoginForm from "../components/login/LoginForm";
 import RegisterForm from "../components/login/RegisterForm";
-import { message } from "antd";
+import { message, notification } from "antd";
 const Login = () => {
   const [searchParams] = useSearchParams();
   useEffect(() => {
     if (searchParams.get("afterRegister")) {
-      message.success({ duration: 2, content: "Đăng ký thành công!" });
+      notification.success({ duration: 3, message: "Đăng ký thành công!", style:{fontSize: 16} });
     }
   }, []);
   useEffect(() => {

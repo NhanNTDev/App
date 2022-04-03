@@ -13,67 +13,50 @@ const ProductPicture = (props) => {
           <div className="item">
             <img
               alt=""
-              src={props.harvest.image1}
+              src={props.image1}
               className="img-fluid img-center"
             />
           </div>
-          {props.harvest.image2 && (
+          {props.image2 && (
             <div className="item">
               <img
                 alt=""
-                src={props.harvest.image2}
+                src={props.image2}
                 className="img-fluid img-center"
               />
             </div>
           ) }
 
-          {props.harvest.image3 && (
+          {props.image3 && (
             <div className="item">
               <img
                 alt=""
-                src={props.harvest.image3}
+                src={props.image3}
                 className="img-fluid img-center"
               />
             </div>
           ) }
 
-          {props.harvest.image4 && (
+          {props.image4 && (
             <div className="item">
               <img
                 alt=""
-                src={props.harvest.image4}
+                src={props.image4}
                 className="img-fluid img-center"
               />
             </div>
           ) }
 
-          {props.harvest.image5 && (
+          {props.image5 && (
             <div className="item">
               <img
                 alt=""
-                src={props.harvest.image}
+                src={props.image5}
                 className="img-fluid img-center"
               />
             </div>
           ) }
         </div>
-        {/* <div id="sync2" className="owl-carousel">
-          <div className="item">
-            <img alt="" src={props.harvest.harvest.product.image1} className="img-fluid img-center" />
-          </div>
-          <div className="item">
-            <img alt="" src={props.harvest.harvest.product.image2} className="img-fluid img-center" />
-          </div>
-          <div className="item">
-            <img alt="" src={props.harvest.harvest.product.image3} className="img-fluid img-center" />
-          </div>
-          <div className="item">
-            <img alt="" src={props.harvest.harvest.product.image4} className="img-fluid img-center" />
-          </div>
-          <div className="item">
-            <img alt="" src={props.harvest.harvest.product.image5} className="img-fluid img-center" />
-          </div>
-        </div> */}
       </div>
     </div>
   );

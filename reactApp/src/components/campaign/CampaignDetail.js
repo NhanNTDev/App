@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 
 const CampaignDetail = (props) => {
   return (
@@ -10,7 +9,7 @@ const CampaignDetail = (props) => {
       <h6>
           <span className="mdi mdi-corn"></span> Tổng nông trại tham gia: {props.campaign.farmInCampaign}
       </h6>
-      <p className="offer-price mt-2">
+      {/* <p className="offer-price mt-2">
         <span className="mdi mdi-tag">Giá ưu đãi</span>
       </p>
       <p className="offer-price mt-2">
@@ -18,7 +17,7 @@ const CampaignDetail = (props) => {
       </p>
       <p className="offer-price mt-2">
         <span className="mdi mdi-approval">Sản phẩm tươi ngon</span>
-      </p>
+      </p> */}
       {/* <Link to="/checkout">
         <button type="button" className="btn btn-secondary btn-lg">
           <i className="mdi mdi-cart-outline"></i> Tham Gia Chiến Dịch

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DatePicker, Spin, message } from "antd";
+import { DatePicker, Spin, message, notification } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import validator from "validator";
 import moment from "moment";
@@ -8,7 +8,7 @@ import PlacesAutocomplete from "react-places-autocomplete";
 import { updateUser } from "../../state_manager_redux/user/userSlice";
 import userApi from "../../apis/userApi";
 
-const ProfileRight = () => {
+const ProfileForm = () => {
   const user = useSelector((state) => state.user);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
@@ -63,15 +63,17 @@ const ProfileRight = () => {
       });
       setLoading(false);
       if (result.succeeded) {
-        message.success({
-          duration: 2,
-          content: "Cập nhật thành công!",
+        notification.success({
+          duration: 3,
+          message: "Cập nhật thành công!",
+          style:{fontSize: 16},
         });
         return true;
       } else {
-        message.error({
-          duration: 2,
-          content: "Cập nhật thất bại!",
+        notification.error({
+          duration: 3,
+          message: "Cập nhật thất bại!",
+          style:{fontSize: 16},
         });
         return false;
       }
@@ -252,4 +254,4 @@ const ProfileRight = () => {
   );
 };
 
-export default ProfileRight;
+export default ProfileForm;

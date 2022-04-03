@@ -49,9 +49,13 @@ const MenuAccountLeft = ({ type }) => {
           <i aria-hidden="true" className="mdi mdi-format-list-bulleted"></i>{" "}
           Lịch Sử Đặt Hàng
         </Link>
-        <a href="#" className="list-group-item list-group-item-action">
-          <i aria-hidden="true" className="mdi mdi-lock"></i> Đăng Xuất
-        </a>
+        <Link to="/changePassword" className={
+            type === "changePassword"
+              ? "list-group-item list-group-item-action active"
+              : "list-group-item list-group-item-action"
+          }>
+          <i aria-hidden="true" className="mdi mdi-lock"></i> Đổi mật khẩu
+        </Link>
       </div>
     </div>
   );

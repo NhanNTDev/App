@@ -5,6 +5,7 @@ import harvestCampaignApi from "../../apis/harvestCampaignApi";
 import ProductSliderItem from "./ProductItemShort";
 import { Select } from "antd";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 const { Option } = Select;
 
 //Sort list by price low to high
@@ -35,6 +36,7 @@ const ProductList = (props) => {
   const params = useParams();
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(1);
+  const address = useSelector(state => state.location);
   // const [products, setproducts] = useState([]);
   const [displayProducts, setDisplayProducts] = useState({
     list: [],
@@ -48,11 +50,6 @@ const ProductList = (props) => {
       let newList = [];
       switch (sortType) {
         case 0:
-          // newList = products;
-          // setDisplayProducts({
-          //   list: newList,
-          //   changePlag: !displayProducts.changePlag,
-          // });
           break;
         case 1:
           newList = sortByPriceLowToHigh(displayProducts.list);
@@ -80,10 +77,6 @@ const ProductList = (props) => {
     sort();
   }, [sortType]);
 
-  // useEffect(() => {
-  //   console.log(products);
-  //   console.log(displayProducts);
-  // }, [displayProducts]);
 
   useEffect(() => {
     const fetchHarvests = async () => {
@@ -91,10 +84,10 @@ const ProductList = (props) => {
         page: page,
         size: 12,
         "campaign-id": params.id,
+        address: address,
       };
       const harvestsResponse = await harvestCampaignApi.getAll(param);
       setTotalRecords(harvestsResponse.metadata.total);
-      // setproducts(harvestsResponse.data);
       setDisplayProducts({
         list: harvestsResponse.data,
         changePlag: !displayProducts.changePlag,

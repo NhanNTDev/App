@@ -7,8 +7,7 @@ import campaignsApi from "../apis/campaignsApi";
 import ProductList from "../components/product/ProductList";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-
-
+import { deleteScript, runScript } from "../utils/Common";
 
 const Campaign = () => {
   const params = useParams();
@@ -21,6 +20,8 @@ const Campaign = () => {
       const campaignResponse = await campaignsApi.get(campaignId);
       setCampaign(campaignResponse);
       setLoading(false);
+      deleteScript();
+      runScript();
     };
     fetchCampaign();
   }, []);
@@ -46,8 +47,8 @@ const Campaign = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-4">
-              <CampaignPicture campaign={{ ...campaign }} />
               <CampaignDetail campaign={{ ...campaign }} />
+              <CampaignPicture campaign={{ ...campaign }} />
             </div>
             <div className="col-md-8">
               {loading === true ? (

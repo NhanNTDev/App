@@ -31,7 +31,7 @@ const CampaignItem = (props) => {
               <strong>
                 <span className="mdi mdi-map-marker-circle"></span> Từ:
               </strong>{" "}
-              {props.farmZone.province}
+              {props.province}
             </h5>
             <h5>
               <strong>

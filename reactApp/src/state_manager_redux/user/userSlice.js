@@ -1,30 +1,6 @@
-import { message } from "antd";
-import userApi from "../../apis/userApi";
 
-const { createSlice, createAsyncThunk, current } = require("@reduxjs/toolkit");
+const { createSlice, current } = require("@reduxjs/toolkit");
 
-// export const updateUserThunk = createAsyncThunk(
-//   "user/updateUserThunk",
-//   async (data, setLoading) => {
-//     console.log("aaa")
-//     setLoading(true);
-//     const result = await userApi.update(data).catch((err) => {console.log(err)});
-//     setLoading(false);
-//     if (result) {
-//       message.success({
-//         duration: 2,
-//         content: "Cập nhật thành công!",
-//       });
-//       return data;
-//     } else {
-//       message.error({
-//         duration: 2,
-//         content: "Cập nhật thất bại!",
-//       });
-//     }
-//     return null;
-//   }
-// );
 const userSlice = createSlice({
   name: "user",
   initialState: JSON.parse(localStorage.getItem("dichonao_user")),

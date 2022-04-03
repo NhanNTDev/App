@@ -12,7 +12,6 @@ const Product = () => {
     const fetchProducts = async () => {
       const harvestsResponse = await harvestCampaignApi.get(params.productId);
       setHarvestCampaign(harvestsResponse);
-      console.log(harvestsResponse);
     };
     fetchProducts();
   }, []);
@@ -29,9 +28,9 @@ const Product = () => {
                 </strong>
               </a>{" "}
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">Đà Lạt - Hồ Chí Minh</a>
+              <a href="#">{harvestCampaign && harvestCampaign.campaign.name}</a>
               <span className="mdi mdi-chevron-right"></span>{" "}
-              <a href="#">{harvestCampaign && harvestCampaign.harvest.name}</a>
+              <a href="#">{harvestCampaign && harvestCampaign.productName}</a>
             </div>
           </div>
         </div>

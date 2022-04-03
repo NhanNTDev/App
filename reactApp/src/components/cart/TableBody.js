@@ -1,20 +1,20 @@
 import React from "react";
 import CartItem from "./CartItem";
 
-const TableBody = (props) => {
+const TableBody = ({farm, campaignId}) => {
   return (
     <>
       
       <tr>
         <td colSpan="8">
           <div className="cart-farm-header">
-            <h5>{props.farm[0].harvest.farm.name}</h5>
+            <h5>{farm.name}</h5>
             <h6>
               <i>
                 <span className="mdi mdi-map-marker"></span> Địa Chỉ:
               </i>{" "}
-              {props.farm[0].harvest.farm.address}
-              {/* {props.address} */}
+              {farm.address}
+              {/* {farm.address} */}
             </h6>
             <h6>
               <i>
@@ -40,8 +40,8 @@ const TableBody = (props) => {
           </div>
         </td>
       </tr>
-      {props.farm.map((item) => (
-        <CartItem item={item} />
+      {farm.harvestInCampaigns.map((item) => (
+        <CartItem item={item} campaignId={campaignId} />
       ))}
     </>
   );

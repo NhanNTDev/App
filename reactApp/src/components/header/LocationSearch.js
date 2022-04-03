@@ -87,6 +87,7 @@ const LocationSearch = () => {
                 onChange={handleChange}
                 onSelect={handleSelect}
                 searchOptions={searchOptions}
+                debounce={100}
               >
                 {({
                   getInputProps,

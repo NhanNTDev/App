@@ -74,7 +74,7 @@ const Header = () => {
                       setSearchValue(e.target.value);
                     }}
                     onKeyPress={(e) => {
-                      if (e.key == "Enter") {
+                      if (e.key === "Enter") {
                         navigate(`/search-result?searchValue=${searchValue}`, {
                           replace: true,
                         });
@@ -130,12 +130,16 @@ const Header = () => {
                         ></i>{" "}
                         Thông Tin Giao Hàng
                       </Link>
-                      <Link to="orderList" className="dropdown-item">
+                      <Link to="/orderList" className="dropdown-item">
                         <i
                           aria-hidden="true"
                           className="mdi mdi-format-list-bulleted"
                         ></i>{" "}
                         Lịch Sử Đặt Hàng
+                      </Link>
+                      <Link to="/changePassword" className="dropdown-item">
+                      <i className="mdi mdi-lock"></i>{" "}
+                        Đổi Mật Khẩu
                       </Link>
                       <div className="dropdown-divider"></div>
                       <a

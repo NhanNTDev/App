@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import orderApi from "../../apis/orderApi";
 import cartApi from "../../apis/cartApi";
-import { Spin, Radio, Space } from "antd";
+import { Spin, Radio, Space, message, notification } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { setCart } from "../../state_manager_redux/cart/cartSlice";
 import addressApi from "../../apis/addressApis";
-import { getOrderCouter } from "../../state_manager_redux/cart/cartSelector";
+import {
+  getCartTotal,
+  getOrderCouter,
+} from "../../state_manager_redux/cart/cartSelector";
 import CreateAddressForm from "../address/CreateAddressFrom";
 
 const CheckoutSection = () => {
@@ -19,15 +22,18 @@ const CheckoutSection = () => {
   const [addresses, setAddresses] = useState([]);
   const orderCount = useSelector(getOrderCouter);
   const [selectedAddress, setSelectedAddress] = useState();
+  const [currentStep, setCurrentStep] = useState(1);
+  const [changePlag, setChangePlag] = useState(true);
+  const [shipCost, setShipCost] = useState(30000);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const cartTotal = useSelector(getCartTotal);
 
-  useEffect (() => {
-    if(orderCount ===0) {
+  useEffect(() => {
+    if (orderCount === 0) {
       navigate("/cart");
     }
-  }, [])
-
+  }, []);
   useEffect(() => {
     const fetchAddess = async () => {
       const result = await addressApi
@@ -39,10 +45,14 @@ const CheckoutSection = () => {
       }
     };
     fetchAddess();
-  }, []);
+  }, [changePlag]);
+
+  const afterCreateAddressCallback = () => {
+    setChangePlag(!changePlag);
+  };
 
   const renderCampaign = (props) => {
-    return props.harvestCampaigns.map((harvest) =>
+    return props.harvestInCampaigns.map((harvest) =>
       renderHarvestCampaign({ ...harvest })
     );
   };
@@ -59,13 +69,12 @@ const CheckoutSection = () => {
             <a className="float-right remove-cart" href="#">
               <i className="mdi mdi-close"></i>
             </a>
-            <img className="img-fluid" src={props.harvest.image1} alt="" />
+            <img className="img-fluid" src={props.image} alt="" />
             <h5>
               <a href="#">{props.productName}</a>
             </h5>
             <h6>
-              <strong>Số lượng:</strong> {props.itemCarts[0].quantity}{" "}
-              {props.unit}
+              <strong>Số lượng:</strong> {props.quantity} {props.unit}
             </h6>
             <p className="offer-price mb-0">
               {props.price.toLocaleString()}{" "}
@@ -96,17 +105,29 @@ const CheckoutSection = () => {
         email: user.email,
         address: selectedAddress.address1,
         customerId: user.id,
-        paymentId: 1,
-        campaign: order,
+        paymentTypeId: 1,
+        campaignId: cart.campaignId,
+        farmOrders: order,
       };
-      await orderApi.post(data).catch((err) => {
-        console.log(err);
+      console.log(data);
+      const result = await orderApi.post(data).catch((err) => {
+        notification.error({
+          duration: 3,
+          message: err.response.data.error.message,
+          style:{fontSize: 16},
+        });
+        setCurrentStep(1);
       });
+      if (result === "Order Successfully!") {
+        setCurrentStep(3);
+      }
     };
+
     const fetchCartItems = async () => {
       const cartItemsResponse = await cartApi.getAll(user.id);
       const action = setCart(cartItemsResponse);
       dispatch(action);
+
       setLoading(false);
     };
     checkout();
@@ -117,15 +138,26 @@ const CheckoutSection = () => {
     <>
       <section className="checkout-page section-padding">
         <div className="container">
+          <div className="d-flex justify-content-center">
+            {loading ? (
+              <>
+                <Spin indicator={antIcon} /> <br /> <br />{" "}
+              </>
+            ) : null}
+          </div>
           <div className="row">
             <div className="col-md-8">
               <div className="checkout-step">
                 <div className="accordion" id="accordionExample">
-                  <div className="card checkout-step-two">
+                  <div className="card checkout-step-one">
                     <div className="card-header" id="headingOne">
                       <h5 className="mb-0">
                         <button
-                          className="btn btn-link"
+                          className={
+                            currentStep === 1
+                              ? "btn btn-link"
+                              : "btn btn-link collapsed"
+                          }
                           type="button"
                           aria-expanded="true"
                           aria-controls="collapseOne"
@@ -137,35 +169,41 @@ const CheckoutSection = () => {
                     </div>
                     <div
                       id="collapseOne"
-                      className="collapse show"
+                      className={
+                        currentStep === 1 ? "collapse show" : "collapse"
+                      }
                       aria-labelledby="headingOne"
                       data-parent="#accordionExample"
                     >
                       <div className="card-body">
                         <div className="row">
                           <Radio.Group
-                            onChange={onChangeRadio}
+                            onChange={(e) => {
+                              onChangeRadio(e);
+                            }}
                             value={selectedAddress}
                           >
                             <Space direction="vertical">
-                              {addresses.map((address) =>
-                                renderAddressRadioItem(address)
-                              )}
+                              {addresses &&
+                                addresses.map((address) =>
+                                  renderAddressRadioItem(address)
+                                )}
                             </Space>
                           </Radio.Group>
                         </div>
                         <br />
-                        <CreateAddressForm />
+                        <CreateAddressForm
+                          currentPage="checkout"
+                          callback={afterCreateAddressCallback}
+                        />
                         <br />
 
                         <button
                           type="button"
-                          data-toggle="collapse"
-                          data-target="#collapseTwo"
                           aria-expanded="false"
                           aria-controls="collapseTwo"
                           className="btn btn-secondary mb-2 btn-lg"
-                          onClick={handleCheckout}
+                          onClick={() => setCurrentStep(2)}
                         >
                           Tiếp
                         </button>
@@ -180,53 +218,138 @@ const CheckoutSection = () => {
                       </div>
                     </div>
                   </div>
-
-                  <div className="card">
-                    <div className="card-header" id="headingTwo">
+                  <div className="card checkout-step-two">
+                    <div className="card-header" id="headingTw0">
                       <h5 className="mb-0">
                         <button
-                          className="btn btn-link collapsed"
+                          className={
+                            currentStep === 2
+                              ? "btn btn-link"
+                              : "btn btn-link collapsed"
+                          }
                           type="button"
-                          aria-expanded="false"
+                          aria-expanded="true"
                           aria-controls="collapseTwo"
                         >
-                          <span className="number">2</span> Hoàn Tất Đặt Hàng
+                          <span className="number">2</span>Xác nhận thông tin
+                          đơn hàng
                         </button>
                       </h5>
                     </div>
                     <div
-                      id="collapseTwo"
-                      className="collapse"
-                      aria-labelledby="headingTwo"
+                      id="collapseTow"
+                      className={
+                        currentStep === 2 ? "collapse show" : "collapse"
+                      }
+                      aria-labelledby="headingTow"
+                      data-parent="#accordionExample"
+                    >
+                      <div className="card-body">
+                        {selectedAddress && (
+                          <div>
+                            <h4>I. Thông tin giao hàng</h4>
+                            <h5>
+                              <strong className="title">
+                                Tên người nhận:{" "}
+                              </strong>{" "}
+                              {selectedAddress.name}
+                            </h5>
+                            <h5>
+                              <strong className="title">Số điện thoại: </strong>{" "}
+                              {selectedAddress.phone}
+                            </h5>
+                            <h5>
+                              <strong className="title">Địa chỉ: </strong>{" "}
+                              {selectedAddress.address1}
+                            </h5>
+                            <h4>II. Thông tin đơn hàng</h4>
+                            <h5>
+                              <strong className="title">Số lượng hàng: </strong>{" "}
+                              {orderCount} sản phẩm
+                            </h5>
+                            <h5>
+                              <strong className="title">Phí ship: </strong>
+                              {shipCost.toLocaleString() + " VNĐ"}
+                            </h5>
+                            <h5>
+                              <strong className="title">Tiền hàng: </strong>{" "}
+                              {cartTotal.toLocaleString() + " VNĐ"}
+                            </h5>
+                            <h5>
+                              <strong className="title">
+                                Cần thanh toán:{" "}
+                              </strong>
+                              {(shipCost + cartTotal).toLocaleString() + " VNĐ"}{" "}
+                            </h5>
+                          </div>
+                        )}
+                        <button
+                          type="button"
+                          aria-expanded="false"
+                          aria-controls="collapseTwo"
+                          className="btn btn-secondary mb-2 btn-lg"
+                          onClick={handleCheckout}
+                        >
+                          Tiếp
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setCurrentStep(1);
+                          }}
+                          style={{ marginLeft: 30 }}
+                          className="btn btn-secondary mb-2 btn-lg"
+                        >
+                          Trở về
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="card">
+                    <div className="card-header" id="headingThree">
+                      <h5 className="mb-0">
+                        <button
+                          className={
+                            currentStep === 3
+                              ? "btn btn-link"
+                              : "btn btn-link collapsed"
+                          }
+                          type="button"
+                          aria-expanded="false"
+                          aria-controls="collapseThree"
+                        >
+                          <span className="number">3</span> Hoàn Tất Đặt Hàng
+                        </button>
+                      </h5>
+                    </div>
+                    <div
+                      id="collapseThree"
+                      className={
+                        currentStep === 3 ? "collapse show" : "collapse"
+                      }
+                      aria-labelledby="headingThree"
                       data-parent="#accordionExample"
                     >
                       <div className="card-body">
                         <div className="text-center">
-                          {loading ? (
-                            <>
-                              <Spin indicator={antIcon} /> <br /> <br />{" "}
-                            </>
-                          ) : (
-                            <>
-                              <div className="col-lg-10 col-md-10 mx-auto order-done">
-                                <i className="mdi mdi-check-circle-outline text-secondary"></i>
+                          <div className="col-lg-10 col-md-10 mx-auto order-done">
+                            <i className="mdi mdi-check-circle-outline text-secondary"></i>
 
-                                <h4 className="text-success">
-                                  Chúc mừng! Đơn hàng của bạn đã thành công.
-                                </h4>
-                              </div>
-                              <div className="text-center">
-                                <Link to="/">
-                                  <button
-                                    type="submit"
-                                    className="btn btn-secondary mb-2 btn-lg"
-                                  >
-                                    Về Trang chủ
-                                  </button>
-                                </Link>
-                              </div>
-                            </>
-                          )}
+                            <h4 className="text-success">
+                              Chúc mừng! Đơn hàng của bạn đã thành công.
+                            </h4>
+                          </div>
+                          <div className="text-center">
+                            <Link to="/">
+                              <button
+                                type="submit"
+                                className="btn btn-secondary mb-2 btn-lg"
+                              >
+                                Về Trang chủ
+                              </button>
+                            </Link>
+                          </div>{" "}
                         </div>
                       </div>
                     </div>
@@ -244,10 +367,7 @@ const CheckoutSection = () => {
                   </span>
                 </h5>
 
-                {cart &&
-                  Object.values(cart).map((campaign) =>
-                    renderCampaign({ ...campaign })
-                  )}
+                {cart && cart.farms.map((farm) => renderCampaign({ ...farm }))}
               </div>
             </div>
           </div>
