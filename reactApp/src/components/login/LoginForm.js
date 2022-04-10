@@ -1,12 +1,13 @@
 import validator from "validator";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
-import { Spin, message, notification } from "antd";
+import { Spin, notification } from "antd";
 import userApi from "../../apis/userApi";
 import { LoadingOutlined } from "@ant-design/icons";
 import { setUser } from "../../state_manager_redux/user/userSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { setLocation } from "../../state_manager_redux/location/locationSlice";
 
 const LoginForm = () => {
   const [userName, setUsername] = useState("");
@@ -32,6 +33,10 @@ const LoginForm = () => {
       });
       if (result && result.user.role === "customer") {
         const setUserAction = setUser({ ...result });
+        if(result.user.address !== null && result.user.address !== "") {
+          const setLocationAction = setLocation({location: result.user.address})
+          dispatch(setLocationAction);
+        }
         dispatch(setUserAction);
         urlRedirect !== null ? navigate(`${urlRedirect}`) : navigate("/home");
         notification.success({
@@ -126,29 +131,10 @@ const LoginForm = () => {
           </span>
         </fieldset>
       )}
-
       <div className="custom-control custom-checkbox">
-        <input
-          type="checkbox"
-          className="custom-control-input"
-          id="customCheck1"
-        />
-
-        <label className="custom-control-label" htmlFor="customCheck1">
-          Nhớ mật khẩu
-        </label>
         <div className="float-right">
           <Link to="#">Quên mật khẩu</Link>{" "}
         </div>
-      </div>
-      <div className="login-with-sites text-center">
-        <p>Đăng nhập bằng tài khoản khác:</p>
-        <button className="btn-facebook login-icons btn-lg">
-          <i className="mdi mdi-facebook"></i> Facebook
-        </button>
-        <button className="btn-google login-icons btn-lg">
-          <i className="mdi mdi-google"></i> Google
-        </button>
       </div>
     </>
   );

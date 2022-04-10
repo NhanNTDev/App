@@ -40,7 +40,7 @@ const CampaignSliderItem = (props) => {
               <strong>
                 <span className="mdi mdi-map-marker-circle"></span> Từ:
               </strong>{" "}
-              {props.province}
+              {props.campaignZoneName}
             </h5>
             <h5>
               <strong>

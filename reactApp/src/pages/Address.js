@@ -3,7 +3,7 @@ import MenuAccountLeft from "../components/account/MenuAccountLeft";
 import addressApi from "../apis/addressApis";
 import { useSelector } from "react-redux";
 import CreateAddressForm from "../components/address/CreateAddressFrom";
-import { Modal, Button, message, notification } from "antd";
+import { Modal, Button, notification, Result } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import UpdateAddressForm from "../components/address/UpdateAddressFrom";
 
@@ -12,21 +12,40 @@ const { confirm } = Modal;
 const Address = () => {
   const [addresses, setAddresses] = useState([]);
   const user = useSelector((state) => state.user);
-  const [updateFlag, setUpdateFlag] = useState(true);
+  const [loadErr, setloadErr] = useState(false);
+  const [reload, setReload] = useState(true);
   useEffect(() => {
     const fetchAddess = async () => {
-      const result = await addressApi
+      setloadErr(false);
+      await addressApi
         .getAll(user.id)
-        .catch((err) => console.log(err));
-      if (result !== null) {
-        setAddresses(result);
-      }
+        .then((result) => {
+          if (Object.entries(result).length !== 0) {
+            setAddresses(result);
+          }
+        })
+        .catch((err) => {
+          if (err.message === "Network Error") {
+            notification.error({
+              duration: 3,
+              message: "Mất kết nối mạng!",
+              style: { fontSize: 16 },
+            });
+          } else {
+            notification.error({
+              duration: 3,
+              message: "Có lỗi xảy ra trong quá trình xử lý!",
+              style: { fontSize: 16 },
+            });
+          }
+          setloadErr(true);
+        });
     };
     fetchAddess();
-  }, [updateFlag]);
+  }, [reload]);
 
   const changeFlagCallback = () => {
-    setUpdateFlag(!updateFlag);
+    setReload(!reload);
   };
 
   function showDeleteConfirm(addressId) {
@@ -44,16 +63,16 @@ const Address = () => {
             notification.error({
               duration: 3,
               message: "Xóa không thành công!",
-              style:{fontSize: 16},
+              style: { fontSize: 16 },
             });
           });
           if (result === "Delete successfully!") {
             notification.success({
               duration: 3,
               message: "Xóa thành công!",
-              style:{fontSize: 16},
+              style: { fontSize: 16 },
             });
-            setUpdateFlag(!updateFlag);
+            setReload(!reload);
           }
         };
         deleteAddress();
@@ -90,7 +109,10 @@ const Address = () => {
                 {" "}
                 Xóa{" "}
               </Button>
-              <UpdateAddressForm currentValue= {props} callback= {changeFlagCallback}/>
+              <UpdateAddressForm
+                currentValue={props}
+                callback={changeFlagCallback}
+              />
             </div>
           </div>
         </div>
@@ -98,28 +120,49 @@ const Address = () => {
     );
   };
   return (
-    <section className="account-page section-padding">
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-12 mx-auto">
-            <div className="row no-gutters">
-              <div className="col-md-4">
-                <MenuAccountLeft type="address" />
-              </div>
-              <div className="col-md-8">
-                {addresses.map((address) => renderAddressItem(address))}
-                <br />
-                <CreateAddressForm
-                  currentPage="address"
-                  callback={changeFlagCallback}
-                />
-                <br />
+    <>
+      {loadErr ? (
+        <Result
+          status="error"
+          title="Đã có lỗi xảy ra!"
+          subTitle="Rất tiếc đã có lỗi xảy ra trong quá trình tải dữ liệu, quý khách vui lòng kiểm tra lại kết nối mạng và thử lại."
+          extra={[
+            <Button
+              type="primary"
+              key="console"
+              onClick={() => {
+                setReload(!reload);
+              }}
+            >
+              Tải lại
+            </Button>,
+          ]}
+        ></Result>
+      ) : (
+        <section className="account-page section-padding">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12 mx-auto">
+                <div className="row no-gutters">
+                  <div className="col-md-4">
+                    <MenuAccountLeft type="address" />
+                  </div>
+                  <div className="col-md-8">
+                    {addresses.map((address) => renderAddressItem(address))}
+                    <br />
+                    <CreateAddressForm
+                      countAddress={Object.entries(addresses).length}
+                      callback={changeFlagCallback}
+                    />
+                    <br />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      )}
+    </>
   );
 };
 

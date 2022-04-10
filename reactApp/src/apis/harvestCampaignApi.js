@@ -2,11 +2,11 @@ import axiosClient from "./axiosClient";
 
 const harvestCampaignApi = {
     getAll(params) {
-        const url = '/harvest-campaigns';
+        const url = '/product-harvest-in-campaigns';
         return axiosClient.get(url, {params});
     },
     get(id) {
-        const url = `/harvest-campaigns/${id}`;
+        const url = `/product-harvest-in-campaigns/${id}`;
         return axiosClient.get(url); 
     }
 }

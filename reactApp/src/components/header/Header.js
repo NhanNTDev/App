@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { useState } from "react";
 import TopOption from "./TopOption";
 import NavBar from "./NavBar";
@@ -19,7 +19,6 @@ const Header = () => {
     dispatch(action);
     navigate("/login");
   };
-  
 
   const handleLocationButtonClick = () => {
     var element = document.getElementById("toggle");
@@ -50,7 +49,7 @@ const Header = () => {
             <div className="navbar-nav mr-auto mt-2 mt-lg-0 margin-auto top-categories-search-main">
               <div className="top-categories-search">
                 <div className="input-group">
-                  <span className="input-group-btn categories-dropdown">
+                  <span className="input-group-btn categories-dropdown" style={{marginRight: 5}}>
                     <button
                       className="form-control locate-btn"
                       onClick={handleLocationButtonClick}
@@ -75,9 +74,14 @@ const Header = () => {
                     }}
                     onKeyPress={(e) => {
                       if (e.key === "Enter") {
-                        navigate(`/search-result?searchValue=${searchValue}`, {
-                          replace: true,
-                        });
+                        if (searchValue.trim() !== "") {
+                          navigate(
+                            `/search-result?searchValue=${searchValue}`,
+                            {
+                              replace: true,
+                            }
+                          );
+                        }
                       }
                     }}
                   />
@@ -86,9 +90,14 @@ const Header = () => {
                       className="btn btn-secondary"
                       type="button"
                       onClick={() => {
-                        navigate(`/search-result?searchValue=${searchValue}`, {
-                          replace: true,
-                        });
+                        if (searchValue.trim() !== "") {
+                          navigate(
+                            `/search-result?searchValue=${searchValue}`,
+                            {
+                              replace: true,
+                            }
+                          );
+                        }
                       }}
                     >
                       <i className="mdi mdi-file-find"></i> Tìm Kiếm
@@ -138,8 +147,7 @@ const Header = () => {
                         Lịch Sử Đặt Hàng
                       </Link>
                       <Link to="/changePassword" className="dropdown-item">
-                      <i className="mdi mdi-lock"></i>{" "}
-                        Đổi Mật Khẩu
+                        <i className="mdi mdi-lock"></i> Đổi Mật Khẩu
                       </Link>
                       <div className="dropdown-divider"></div>
                       <a

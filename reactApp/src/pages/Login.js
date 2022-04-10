@@ -3,17 +3,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import LoginForm from "../components/login/LoginForm";
 import RegisterForm from "../components/login/RegisterForm";
-import { message, notification } from "antd";
 const Login = () => {
-  const [searchParams] = useSearchParams();
-  useEffect(() => {
-    if (searchParams.get("afterRegister")) {
-      notification.success({ duration: 3, message: "Đăng ký thành công!", style:{fontSize: 16} });
-    }
-  }, []);
   useEffect(() => {
     user && navigate("/home");
   }, []);
+  const goToLogin = () => {
+    const loginTab = document.getElementById("tab1");
+    loginTab.click();
+  };
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
@@ -38,7 +35,7 @@ const Login = () => {
                             role="tabpanel"
                             aria-labelledby="tab1"
                           >
-                            <LoginForm />
+                            <LoginForm/>
                           </div>
                           <div
                             className="tab-pane fade show"
@@ -46,7 +43,7 @@ const Login = () => {
                             role="tabpanel"
                             aria-labelledby="tab2"
                           >
-                            <RegisterForm />
+                            <RegisterForm callback={goToLogin} />
                           </div>
                         </div>
                         <div className="clearfix"></div>

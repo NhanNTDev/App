@@ -1,4 +1,4 @@
-import { AutoComplete, Checkbox } from 'antd';
+import { Checkbox } from 'antd';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { checkCampaign } from '../../state_manager_redux/cart/cartSlice';

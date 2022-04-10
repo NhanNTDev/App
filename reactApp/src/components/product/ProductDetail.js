@@ -1,8 +1,7 @@
-import { Modal, message, Space } from "antd";
+import { Modal, Rate, Space } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import cartApi from "../../apis/cartApi";
 import farmApi from "../../apis/farmApi";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { addToCartThunk } from "../../state_manager_redux/cart/cartSlice";
@@ -14,11 +13,9 @@ const ProductDetail = (props) => {
   const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
-  console.log(props);
   useEffect(() => {
     const fetchFarm = async () => {
       const farmResponse = await farmApi.get(props.farmId);
-      console.log(farmResponse);
       setFarm(farmResponse);
     };
     fetchFarm();
@@ -105,8 +102,12 @@ const ProductDetail = (props) => {
         <i>
           <span className="mdi mdi-home-circle"></span> Nông trại :
         </i>{" "}
-        {farm.name}
+        {farm.name}{" "}
+        {farm.totalStar !== 0 && (
+          <Rate value={farm.totalStar} disabled={true}></Rate>
+        )}
       </h5>
+
       <h5>
         <i>
           <span className="mdi mdi-map-marker"></span> Địa Chỉ :

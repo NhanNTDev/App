@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Modal, notification } from "antd";
 import validator from "validator";
@@ -12,6 +12,20 @@ const UpdateAddressForm = ({ currentValue, callback }) => {
   const [address, setAddress] = useState(currentValue.address1);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [validateMsg, setValidateMsg] = useState("");
+  const [gmapsLoaded, setGmapsLoaded] = useState(false);
+
+  useEffect(() => {
+    window.initMap = () => setGmapsLoaded(true);
+    const currentGmap = document.getElementById("gmapScriptEl");
+    if (currentGmap === null) {
+      const gmapScriptEl = document.createElement(`script`);
+      gmapScriptEl.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}&libraries=places&callback=initMap`;
+      gmapScriptEl.id = "gmapScriptEl";
+      document
+        .querySelector(`body`)
+        .insertAdjacentElement(`beforeend`, gmapScriptEl);
+    }
+  }, []);
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -29,23 +43,30 @@ const UpdateAddressForm = ({ currentValue, callback }) => {
         address1: address,
         customerId: user.id,
       };
-      console.log(data);
-      const result = await addressApi.update(data).catch((err) => {
-        console.log(err);
-      });
-      if (result === "Update successfully!") {
-        notification.success({
-          duration: 3,
-          message: "Cập nhật địa chỉ thành công!",
-          style:{fontSize: 16},
+      const result = await addressApi
+        .update(data)
+        .then((result) => {
+          if (result === "Update successfully!") {
+            notification.success({
+              duration: 3,
+              message: "Cập nhật địa chỉ thành công!",
+              style: { fontSize: 16 },
+            });
+          } else {
+            notification.error({
+              duration: 3,
+              message: "Cập nhật địa chỉ thất bại!",
+              style: { fontSize: 16 },
+            });
+          }
+        })
+        .catch(() => {
+          notification.error({
+            duration: 3,
+            message: "Cập nhật địa chỉ thất bại!",
+            style: { fontSize: 16 },
+          });
         });
-      } else {
-        notification.error({
-          duration: 3,
-          message: "Cập nhật địa chỉ thất bại!",
-          style:{fontSize: 16},
-        });
-      }
       setIsModalVisible(false);
       callback();
     };
@@ -136,50 +157,52 @@ const UpdateAddressForm = ({ currentValue, callback }) => {
           <div className="col-sm-12">
             <div className="form-group">
               <label className="control-label">Địa Chỉ</label>
-              <PlacesAutocomplete
-                value={address}
-                onChange={handleChange}
-                onSelect={handleSelect}
-                searchOptions={searchOptions}
-              >
-                {({
-                  getInputProps,
-                  suggestions,
-                  getSuggestionItemProps,
-                  loading,
-                }) => (
-                  <div>
-                    <input
-                      {...getInputProps({
-                        placeholder: "Nhập địa chỉ",
-                        className: "form-control",
-                      })}
-                    />
-                    <div className="autocomplete-dropdown-container">
-                      {loading && <div>Đang tải...</div>}
-                      {suggestions.map((suggestion) => {
-                        const className = suggestion.active
-                          ? "suggestion-item--active"
-                          : "suggestion-item";
-                        // inline style for demonstration purpose
-                        const style = suggestion.active
-                          ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                          : { backgroundColor: "#ffffff", cursor: "pointer" };
-                        return (
-                          <div
-                            {...getSuggestionItemProps(suggestion, {
-                              className,
-                              style,
-                            })}
-                          >
-                            <span>{suggestion.description}</span>
-                          </div>
-                        );
-                      })}
+              {gmapsLoaded && (
+                <PlacesAutocomplete
+                  value={address}
+                  onChange={handleChange}
+                  onSelect={handleSelect}
+                  searchOptions={searchOptions}
+                >
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading,
+                  }) => (
+                    <div>
+                      <input
+                        {...getInputProps({
+                          placeholder: "Nhập địa chỉ",
+                          className: "form-control",
+                        })}
+                      />
+                      <div className="autocomplete-dropdown-container">
+                        {loading && <div>Đang tải...</div>}
+                        {suggestions.map((suggestion) => {
+                          const className = suggestion.active
+                            ? "suggestion-item--active"
+                            : "suggestion-item";
+                          // inline style for demonstration purpose
+                          const style = suggestion.active
+                            ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                            : { backgroundColor: "#ffffff", cursor: "pointer" };
+                          return (
+                            <div
+                              {...getSuggestionItemProps(suggestion, {
+                                className,
+                                style,
+                              })}
+                            >
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </PlacesAutocomplete>
+                  )}
+                </PlacesAutocomplete>
+              )}
               <span style={{ color: "red" }}>{validateMsg.address}</span>
             </div>
           </div>

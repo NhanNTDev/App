@@ -1,33 +1,61 @@
-import { Button, notification, Table, Tag , Modal} from "antd";
+import { Button, notification, Table, Tag, Modal, Result } from "antd";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import orderApi from "../../apis/orderApi";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import CreateRating from "../rating/CreateRating";
+import ViewRating from "../rating/ViewRating";
 const { confirm } = Modal;
 const OrderTable = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [changePlag, setChangePlag] = useState(true);
+  const [reload, setReload] = useState(true);
+  const [loadErr, setLoadErr] = useState(false);
   const user = useSelector((state) => state.user);
   useEffect(() => {
+    setLoadErr(false);
     const getOrderList = async () => {
-      const result = await orderApi.getOrderList(user.id);
-      if (result) {
-        let listOrder = [];
-        let index = 1;
-        setTotal(Object.entries(result).length);
-        result.map((order) => {
-          listOrder.push({ index: index++, ...order });
+      await orderApi
+        .getOrderList(user.id)
+        .then((result) => {
+          if (result) {
+            let listOrder = [];
+            let index = 1;
+            setTotal(Object.entries(result).length);
+            result.map((order) => {
+              listOrder.push({ index: index++, ...order });
+            });
+            setOrders(listOrder);
+          }
+        })
+        .catch((err) => {
+          if (err.message === "Network Error") {
+            notification.error({
+              duration: 3,
+              message: "Mất kết nối mạng!",
+              style: { fontSize: 16 },
+            });
+          } else {
+            notification.error({
+              duration: 3,
+              message: "Có lỗi xảy ra trong quá trình xử lý!",
+              style: { fontSize: 16 },
+            });
+          }
+          setLoadErr(true);
         });
-        setOrders(listOrder);
-        setLoading(false);
-      }
+
+      setLoading(false);
     };
     getOrderList();
-  }, [page, changePlag]);
+  }, [page, reload]);
+
+  const callbackAfterFeedback = () => {
+    setReload(!reload);
+  }
 
   function ShowCancelOrderConfirm(record) {
     confirm({
@@ -39,21 +67,22 @@ const OrderTable = () => {
       cancelText: "Thoát",
       onOk() {
         const cancelOrder = async () => {
-          const result = await orderApi.cancelOrder({orderId: record.id, note: "Khách hàng hủy đơn!"}).catch((err) => {
-            console.log(err);
-            notification.error({
-              duration: 2,
-              message: "Hủy đơn hàng thất bại!",
-              style:{fontSize: 16},
+          const result = await orderApi
+            .cancelOrder({ orderId: record.id, note: "Khách hàng hủy đơn!" })
+            .catch(() => {
+              notification.error({
+                duration: 2,
+                message: "Hủy đơn hàng thất bại!",
+                style: { fontSize: 16 },
+              });
             });
-          });
           if (result === "Reject successfully!") {
             notification.success({
               duration: 2,
               message: "Hủy đơn hàng thành công",
-              style:{fontSize: 16},
+              style: { fontSize: 16 },
             });
-            setChangePlag(!changePlag);
+            setReload(!reload);
           }
         };
         cancelOrder();
@@ -96,7 +125,9 @@ const OrderTable = () => {
             <Tag color="green">{text}</Tag>
           ) : text === "Đã hoàn thành" ? (
             <Tag color="orange">{text}</Tag>
-          ) : text === "Đã hủy" ?<Tag color="red">{text}</Tag> :(
+          ) : text === "Đã hủy" ? (
+            <Tag color="red">{text}</Tag>
+          ) : (
             <Tag color="geekblue">{text}</Tag>
           )}
         </>
@@ -109,7 +140,11 @@ const OrderTable = () => {
       render: (text, record) => (
         <>
           {record.status === "Chờ xác nhận" ? (
-            <Button type="primary" danger onClick={()=> ShowCancelOrderConfirm(record)}>
+            <Button
+              type="primary"
+              danger
+              onClick={() => ShowCancelOrderConfirm(record)}
+            >
               Hủy
             </Button>
           ) : (
@@ -129,36 +164,61 @@ const OrderTable = () => {
           <Link to={`/orderDetails?id=${record.id}`}>Xem chi tiết</Link>
           <br />
           <br />
-          <Button type="default" style={{backgroundColor: 'orange'}}>Đánh giá</Button>
+          {record.status === "Đã hoàn thành" &&
+            (record.star === 0 ? (
+              <CreateRating orderId={record.id} callback={callbackAfterFeedback}/>
+            ) : (
+              <ViewRating {...record}/>
+            ))}
         </>
       ),
     },
   ];
   return (
-    <div class="card card-body account-right">
-      <div class="widget">
-        <div class="section-header">
-          <h5 class="heading-design-h5">Lịch Sử Đặt Hàng</h5>
+    <>
+      {loadErr ? (
+        <Result
+          status="error"
+          title="Đã có lỗi xảy ra!"
+          subTitle="Rất tiếc đã có lỗi xảy ra trong quá trình tải dữ liệu, quý khách vui lòng kiểm tra lại kết nối mạng và thử lại."
+          extra={[
+            <Button
+              type="primary"
+              key="console"
+              onClick={() => {
+                setReload(!reload);
+              }}
+            >
+              Tải lại
+            </Button>,
+          ]}
+        ></Result>
+      ) : (
+        <div class="card card-body account-right">
+          <div class="widget">
+            <div class="section-header">
+              <h5 class="heading-design-h5">Lịch Sử Đặt Hàng</h5>
+            </div>
+            <div class="order-list-tabel-main table-responsive">
+              <Table
+                columns={columns}
+                dataSource={orders}
+                pagination={{
+                  position: ["bottomCenter"],
+                  pageSize: 10,
+                  total: total,
+                  onChange: (page) => {
+                    setPage(page);
+                  },
+                }}
+                loading={loading}
+                style={{ margin: 50 }}
+              />
+            </div>
+          </div>
         </div>
-        <div class="order-list-tabel-main table-responsive">
-          <Table
-            columns={columns}
-            dataSource={orders}
-            pagination={{
-              position: ["bottomCenter"],
-              pageSize: 10,
-              total: total,
-              onChange: (page) => {
-                setPage(page);
-              },
-            }}
-            loading={loading}
-            style={{ margin: 50 }}
-            // onRow={(record, rowIndex) => setOnRow()}
-          />
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

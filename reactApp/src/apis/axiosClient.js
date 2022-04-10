@@ -4,7 +4,8 @@ import queryString from "query-string";
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_BASEURL,
   headers: {
-    "content-type": "application/json",
+    Accept: "application/json, text/plain, multipart/form-data, */*",
+    "content-type": "application/json, multipart/form-data",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
     "timeout": 1000,
@@ -14,13 +15,11 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
   //Handle token.....
-  console.log("interceptors request");
   return config;
 });
 
 axiosClient.interceptors.response.use(
   (response) => {
-    console.log("interceptors response");
     if (response && response.data) {
       return response.data;
     }
