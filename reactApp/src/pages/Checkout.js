@@ -19,7 +19,7 @@ const Checkout = () => {
           </div>
         </div>
       </section>
-      <CheckoutSection></CheckoutSection>
+      <CheckoutSection/>
     </>
   );
 };

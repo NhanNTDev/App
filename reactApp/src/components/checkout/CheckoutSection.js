@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import orderApi from "../../apis/orderApi";
 import cartApi from "../../apis/cartApi";
-import { Spin, Radio, Space, message, notification } from "antd";
+import { Spin, Radio, Space, notification } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { setCart } from "../../state_manager_redux/cart/cartSlice";
 import addressApi from "../../apis/addressApis";
@@ -24,6 +24,7 @@ const CheckoutSection = () => {
   const [selectedAddress, setSelectedAddress] = useState();
   const [currentStep, setCurrentStep] = useState(1);
   const [changePlag, setChangePlag] = useState(true);
+  const [paymentMethod, setPaymentMethod] = useState(1);
   const [shipCost, setShipCost] = useState(30000);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,13 +37,20 @@ const CheckoutSection = () => {
   }, []);
   useEffect(() => {
     const fetchAddess = async () => {
-      const result = await addressApi
+      await addressApi
         .getAll(user.id)
-        .catch((err) => console.log(err));
-      if (result !== null) {
-        setAddresses(result);
-        setSelectedAddress(result[0]);
-      }
+        .then((result) => {
+          if (result !== null) {
+            setAddresses(result);
+            setSelectedAddress(result[0]);
+          }
+        })
+        .catch((err) =>
+          notification.error({
+            duration: 3,
+            message: "có lỗi xảy ra trong quá trình xử lý!",
+          })
+        );
     };
     fetchAddess();
   }, [changePlag]);
@@ -57,8 +65,11 @@ const CheckoutSection = () => {
     );
   };
 
-  const onChangeRadio = (e) => {
+  const onChangeAddress = (e) => {
     setSelectedAddress(e.target.value);
+  };
+  const onChangePaymentMethod = (e) => {
+    setPaymentMethod(e.target.value);
   };
 
   const renderHarvestCampaign = (props) => {
@@ -101,6 +112,7 @@ const CheckoutSection = () => {
     setLoading(true);
     const checkout = async () => {
       const data = {
+        name: selectedAddress.name,
         phone: selectedAddress.phone,
         email: user.email,
         address: selectedAddress.address1,
@@ -109,12 +121,11 @@ const CheckoutSection = () => {
         campaignId: cart.campaignId,
         farmOrders: order,
       };
-      console.log(data);
       const result = await orderApi.post(data).catch((err) => {
         notification.error({
           duration: 3,
           message: err.response.data.error.message,
-          style:{fontSize: 16},
+          style: { fontSize: 16 },
         });
         setCurrentStep(1);
       });
@@ -176,10 +187,10 @@ const CheckoutSection = () => {
                       data-parent="#accordionExample"
                     >
                       <div className="card-body">
-                        <div className="row">
+                        <div className="row" style={{ marginLeft: 50 }}>
                           <Radio.Group
                             onChange={(e) => {
-                              onChangeRadio(e);
+                              onChangeAddress(e);
                             }}
                             value={selectedAddress}
                           >
@@ -203,14 +214,27 @@ const CheckoutSection = () => {
                           aria-expanded="false"
                           aria-controls="collapseTwo"
                           className="btn btn-secondary mb-2 btn-lg"
-                          onClick={() => setCurrentStep(2)}
+                          onClick={() => {
+                            if (
+                              selectedAddress === null ||
+                              selectedAddress === undefined
+                            ) {
+                              notification.warning({
+                                duration: 3,
+                                message: "Vui lòng chọn địa chỉ để tiếp tục!",
+                                style: { fontSize: 16 },
+                              });
+                              return;
+                            }
+                            setCurrentStep(2);
+                          }}
                         >
                           Tiếp
                         </button>
                         <button
                           type="button"
                           onClick={() => navigate("/cart")}
-                          style={{ marginLeft: 30 }}
+                          style={{ marginLeft: 20 }}
                           className="btn btn-secondary mb-2 btn-lg"
                         >
                           Trở về
@@ -288,7 +312,7 @@ const CheckoutSection = () => {
                           aria-expanded="false"
                           aria-controls="collapseTwo"
                           className="btn btn-secondary mb-2 btn-lg"
-                          onClick={handleCheckout}
+                          onClick={() => setCurrentStep(3)}
                         >
                           Tiếp
                         </button>
@@ -297,7 +321,84 @@ const CheckoutSection = () => {
                           onClick={() => {
                             setCurrentStep(1);
                           }}
-                          style={{ marginLeft: 30 }}
+                          style={{ marginLeft: 20 }}
+                          className="btn btn-secondary mb-2 btn-lg"
+                        >
+                          Trở về
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="card checkout-step-three">
+                    <div className="card-header" id="headingthree">
+                      <h5 className="mb-0">
+                        <button
+                          className={
+                            currentStep === 3
+                              ? "btn btn-link"
+                              : "btn btn-link collapsed"
+                          }
+                          type="button"
+                          aria-expanded="true"
+                          aria-controls="collapseOne"
+                        >
+                          <span className="number">3</span>Xác Nhận Hình Thức
+                          Thanh Toán
+                        </button>
+                      </h5>
+                    </div>
+                    <div
+                      id="collapseThree"
+                      className={
+                        currentStep === 3 ? "collapse show" : "collapse"
+                      }
+                      aria-labelledby="headingThree"
+                      data-parent="#accordionExample"
+                    >
+                      <div className="card-body">
+                        <div className="row" style={{ marginLeft: 50 }}>
+                          <Radio.Group
+                            onChange={(e) => {
+                              onChangePaymentMethod(e);
+                            }}
+                            value={paymentMethod}
+                          >
+                            <Space direction="vertical">
+                              <Radio key={1} value={1}>
+                                <>
+                                  <h5>
+                                    <strong>
+                                      Thanh toán khi nhận hàng (COD)
+                                    </strong>
+                                  </h5>
+                                </>
+                              </Radio>
+                              <Radio key={2} value={2}>
+                                <>
+                                  <h5>
+                                    <strong>Thanh toán qua ví </strong>
+                                    <img src="/img/logo-zalopay.svg"></img>
+                                  </h5>
+                                </>
+                              </Radio>
+                            </Space>
+                          </Radio.Group>
+                        </div>
+                        <br />
+
+                        <button
+                          type="button"
+                          aria-expanded="false"
+                          aria-controls="collapseTwo"
+                          className="btn btn-secondary mb-2 btn-lg"
+                          onClick={handleCheckout}
+                        >
+                          Tiếp
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setCurrentStep(2)}
+                          style={{ marginLeft: 20 }}
                           className="btn btn-secondary mb-2 btn-lg"
                         >
                           Trở về
@@ -311,7 +412,7 @@ const CheckoutSection = () => {
                       <h5 className="mb-0">
                         <button
                           className={
-                            currentStep === 3
+                            currentStep === 4
                               ? "btn btn-link"
                               : "btn btn-link collapsed"
                           }
@@ -319,14 +420,14 @@ const CheckoutSection = () => {
                           aria-expanded="false"
                           aria-controls="collapseThree"
                         >
-                          <span className="number">3</span> Hoàn Tất Đặt Hàng
+                          <span className="number">4</span> Hoàn Tất Đặt Hàng
                         </button>
                       </h5>
                     </div>
                     <div
                       id="collapseThree"
                       className={
-                        currentStep === 3 ? "collapse show" : "collapse"
+                        currentStep === 4 ? "collapse show" : "collapse"
                       }
                       aria-labelledby="headingThree"
                       data-parent="#accordionExample"

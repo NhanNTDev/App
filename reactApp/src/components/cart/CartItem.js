@@ -53,7 +53,6 @@ const CartItem = ({item, campaignId}) => {
       currentValue: item.checked,
     });
     dispatch(action);
-    console.log("check nè")
   };
 
   return (

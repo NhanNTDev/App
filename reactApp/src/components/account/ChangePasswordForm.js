@@ -28,6 +28,9 @@ const ChangePasswordForm = () => {
       msg.newPassword =
         "Mật khẩu phải bao gồm ít nhất 1 chữ hoa, 1 chữ thường và chứa ít nhất 8 ký tự!";
     }
+    if (currentPassword === newPassword) {
+      msg.samePasswork = "Mật khẩu trùng với mật khẩu củ!";
+    }
     if (newPassword !== confirmPassword) {
       msg.confirmPassword = "Mật khẩu không khớp!";
     }
@@ -46,32 +49,50 @@ const ChangePasswordForm = () => {
       password: newPassword,
     };
     const changePassword = async () => {
-      const result = await userApi.changePassword(data).catch((err) => {
-        notification.error({
-          duration: 2,
-          message: err.response.data.error.message,
-          style: { fontSize: 16 },
+      await userApi
+        .changePassword(data)
+        .then((result) => {
+          if (result !== undefined) {
+            if (result.succeeded) {
+              notification.success({
+                duration: 2,
+                message: "Đổi mật khẩu thành công",
+                style: { fontSize: 16 },
+              });
+              const logoutAction = logout();
+              dispatch(logoutAction);
+              navigate("/login");
+            }
+            if (!result.succeeded) {
+              notification.success({
+                duration: 2,
+                message: result.errors[0].description,
+                style: { fontSize: 16 },
+              });
+            }
+          }
+        })
+        .catch((err) => {
+          if (err.message === "Network Error") {
+            notification.error({
+              duration: 3,
+              message: "Mất kết nối mạng!",
+              style: { fontSize: 16 },
+            });
+          } else if (err.response.status === 400){
+            notification.error({
+              duration: 3,
+              message: "Mật khẩu không đúng!",
+              style: { fontSize: 16 },
+            });
+          } else {
+            notification.error({
+              duration: 3,
+              message: "Có lỗi xảy ra trong quá trình xử lý!",
+              style: { fontSize: 16 },
+            });
+          }
         });
-      });
-      if (result !== undefined) {
-        if (result.succeeded) {
-          notification.success({
-            duration: 2,
-            message: "Đổi mật khẩu thành công",
-            style: { fontSize: 16 },
-          });
-          const logoutAction = logout();
-          dispatch(logoutAction);
-          navigate("/login");
-        }
-        if (!result.succeeded) {
-          notification.success({
-            duration: 2,
-            message: result.errors[0].description,
-            style: { fontSize: 16 },
-          });
-        }
-      }
 
       setLoading(false);
     };
@@ -137,6 +158,7 @@ const ChangePasswordForm = () => {
                   className={showPassword ? "mdi mdi-eye-off" : "mdi mdi-eye"}
                 ></span>
                 <span style={{ color: "red" }}>{validateMsg.newPassword}</span>
+                <span style={{ color: "red" }}>{validateMsg.samePasswork}</span>
               </fieldset>
             </div>
             <div className="col-sm-12">

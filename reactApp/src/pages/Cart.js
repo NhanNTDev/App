@@ -1,5 +1,6 @@
-import { message, notification } from "antd";
-import { useEffect } from "react";
+import { Button, message, notification, Result } from "antd";
+import { reload } from "firebase/auth";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import cartApi from "../apis/cartApi";
@@ -19,22 +20,44 @@ const Cart = () => {
   const navigate = useNavigate();
   const cartTotal = useSelector(getCartTotal);
   const orderCount = useSelector(getOrderCouter);
+  const [loadErr, setLoadErr] = useState(false);
+  const [reload, setReload] = useState(true);
   const user = useSelector((state) => state.user);
   // Get cart from server
   useEffect(() => {
     const fetchCartItems = async () => {
-      const cartItemsResponse = await cartApi.getAll(user.id);
-      const action = setCart(cartItemsResponse);
-      dispatch(action);
+      setLoadErr(false);
+      await cartApi
+        .getAll(user.id)
+        .then((result) => {
+          const action = setCart(result);
+          dispatch(action);
+        })
+        .catch((err) => {
+          if (err.message === "Network Error") {
+            notification.error({
+              duration: 3,
+              message: "Mất kết nối mạng!",
+              style: { fontSize: 16 },
+            });
+          } else {
+            notification.error({
+              duration: 3,
+              message: "Có lỗi xảy ra trong quá trình xử lý!",
+              style: { fontSize: 16 },
+            });
+          }
+          setLoadErr(true);
+        });
     };
     if (user !== null) fetchCartItems();
-  }, []);
+  }, [reload]);
   const handleOrders = () => {
     if (orderCount === 0) {
       notification.error({
         duration: 3,
         message: "Vui lòng chọn sản phẩm!",
-        style:{fontSize: 16},
+        style: { fontSize: 16 },
       });
       return;
     }
@@ -45,13 +68,7 @@ const Cart = () => {
     navigate("/checkout");
   };
 
-  const renderCartForCampaign = (props) => {
-    // var result = props.harvestCampaigns.reduce(function (r, a) {
-    //   r[a.harvest.farmId] = r[a.harvest.farmId] || [];
-    //   r[a.harvest.farmId].push(a);
-    //   return r;
-    // }, Object.create(null));
-    // const newObject = Object.entries(result);
+  const renderCartForCampaign = () => {
     return (
       <>
         <div className="table-responsive">
@@ -61,7 +78,9 @@ const Cart = () => {
           <table className="table cart_summary">
             <TableHead campaignId={cart.campaignId} checked={cart.checked} />
             <tbody>
-              {cart.farms.map(farm => <TableBody farm= {farm} campaignId= {cart.campaignId}/>)}
+              {cart.farms.map((farm) => (
+                <TableBody farm={farm} campaignId={cart.campaignId} />
+              ))}
             </tbody>
             <TableFoot />
           </table>
@@ -70,71 +89,95 @@ const Cart = () => {
     );
   };
 
-  return cart === null || Object.entries(cart).length === 0 ? (
+  return (
     <>
-      <h1 className="d-flex justify-content-center">
-        Giỏ hàng của bạn đang trống!
-      </h1>
-      <span className="d-flex justify-content-center">
-        <button
-          className="btn btn-secondary"
-          onClick={() => {
-            navigate("/home");
-          }}
-        >
-          {" "}
-          Tiếp tục mua hàng
-        </button>
-      </span>
-      <br />
-      <br />
-    </>
-  ) : (
-    <>
-      <section className="pt-3 pb-3 page-info section-padding border-bottom bg-white">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <Link to="/home">
-                <strong>
-                  <span className="mdi mdi-home"></span> Trang chủ
-                </strong>
-              </Link>{" "}
-              <span className="mdi mdi-chevron-right"></span>{" "}
-              <span>Giỏ hàng</span>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="cart-page section-padding">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="card card-body cart-table">
-                
-                  {renderCartForCampaign({ ...cart })}
-                
-
-                {/* <Link to="/checkout"> */}
-                <button
-                  className="btn btn-secondary btn-lg btn-block text-left"
-                  type="button"
-                  onClick={handleOrders}
-                >
-                  <span className="float-left">
-                    <i className="mdi mdi-cart-outline"></i> Thanh toán{" "}
-                  </span>
-                  <span className="float-right">
-                    <strong>{cartTotal.toLocaleString()} VNĐ</strong>{" "}
-                    <span className="mdi mdi-chevron-right"></span>
-                  </span>
-                </button>
-                {/* </Link> */}
+      {loadErr ? (
+        <Result
+          status="error"
+          title="Đã có lỗi xảy ra!"
+          subTitle="Rất tiếc đã có lỗi xảy ra trong quá trình tải dữ liệu, quý khách vui lòng kiểm tra lại kết nối mạng và thử lại."
+          extra={[
+            <Button
+              type="primary"
+              key="console"
+              onClick={() => {
+                setReload(!reload);
+              }}
+            >
+              Tải lại
+            </Button>,
+          ]}
+        ></Result>
+      ) : (
+        <>
+          {cart === null || Object.entries(cart).length === 0 ? (
+            <>
+              <div className="d-flex justify-content-center">
+                <Result
+                  status="warning"
+                  title="Giỏ hàng của bạn đang trống!"
+                  extra={
+                    <Button
+                      type="default"
+                      className="btn btn-secondary"
+                      onClick={() => {
+                        navigate("/home");
+                      }}
+                    >
+                      {" "}
+                      Tiếp tục mua hàng
+                    </Button>
+                  }
+                />
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
+              <br />
+              <br />
+            </>
+          ) : (
+            <>
+              <section className="pt-3 pb-3 page-info section-padding border-bottom bg-white">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <Link to="/home">
+                        <strong>
+                          <span className="mdi mdi-home"></span> Trang chủ
+                        </strong>
+                      </Link>{" "}
+                      <span className="mdi mdi-chevron-right"></span>{" "}
+                      <span>Giỏ hàng</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section className="cart-page section-padding">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="card card-body cart-table">
+                        {renderCartForCampaign({ ...cart })}
+                        <button
+                          className="btn btn-secondary btn-lg btn-block text-left"
+                          type="button"
+                          onClick={handleOrders}
+                        >
+                          <span className="float-left">
+                            <i className="mdi mdi-cart-outline"></i> Thanh toán{" "}
+                          </span>
+                          <span className="float-right">
+                            <strong>{cartTotal.toLocaleString()} VNĐ</strong>{" "}
+                            <span className="mdi mdi-chevron-right"></span>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </>
+          )}
+        </>
+      )}
     </>
   );
 };

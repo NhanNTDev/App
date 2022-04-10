@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Spin, message, notification } from "antd";
+import { Spin, notification } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import userApi from "../../apis/userApi";
 import { auth } from "../../firebase/firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { async } from "@firebase/util";
 
-const RegisterForm = () => {
+const RegisterForm = ({ callback }) => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,21 +19,26 @@ const RegisterForm = () => {
   const [invalidOtp, setInvalidOtp] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
 
-
   const checkDuplicate = () => {
+    setLoading(true);
     setDuplicate(false);
     const check = async () => {
-      const result = await userApi.checkDuplicate(userName).then(result => {
-        if (result) {
-          setDuplicate(false);
-        }
-      }).catch((err) => {
-        if (err.response.data.error.code === "400")
-          setDuplicate(true);
-      });
-    }
+      await userApi
+        .checkDuplicate(userName)
+        .then((result) => {
+          if (result) {
+            setDuplicate(false);
+            return false;
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 400) setDuplicate(true);
+          return true;
+        });
+      setLoading(false);
+    };
     check();
-  }
+  };
   const handleRegister = () => {
     setLoading(true);
     const data = {
@@ -51,26 +55,30 @@ const RegisterForm = () => {
         notification.error({
           duration: 2,
           message: "Đăng ký thất bại!",
-          style:{fontSize: 16},
+          style: { fontSize: 16 },
         });
         setLoading(false);
-        return false;
       });
-      if (result !== null && result !== undefined) {
-        notification.success({
-          duration: 3,
-          message: "Đăng ký thành công!",
-          style:{fontSize: 16},
-        });
+      if (result) {
+        if (result.succeeded) {
+          notification.success({
+            duration: 3,
+            message: "Đăng ký thành công!",
+            style: { fontSize: 16 },
+          });
+          callback();
+        } else {
+          notification.error({
+            duration: 2,
+            message: "Có lỗi xảy ra trong quá trình xử lý!",
+            style: { fontSize: 16 },
+          });
+        }
+        setLoading(false);
       }
-      setLoading(false);
-      return true;
     };
 
-    const registerResult = register();
-    if (registerResult) {
-      window.location.replace("/login?afterRegister=true");
-    }
+    register();
   };
   const generateRecapcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(
@@ -100,14 +108,12 @@ const RegisterForm = () => {
         window.confirmationResult = confirmationResult;
         setOtpUi(true);
       })
-      .catch((error) => {
+      .catch(() => {
         // Error; SMS not sent
-        console.log(error);
       });
   };
 
   const verifyOtp = () => {
-    setInvalidOtp(true);
     let confirmationResult = window.confirmationResult;
     confirmationResult
       .confirm(otp)
@@ -130,7 +136,8 @@ const RegisterForm = () => {
       msg.userName = "Số điện thoại không hợp lệ";
     }
     if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password)) {
-      msg.password = "Mật khẩu phải bao gồm ít nhất 1 chữ hoa, 1 chữ thường và chứa ít nhất 8 ký tự!";
+      msg.password =
+        "Mật khẩu phải bao gồm ít nhất 1 chữ hoa, 1 chữ thường và chứa ít nhất 8 ký tự!";
     }
     if (password !== confirmPassword) {
       msg.confirmPassword = "Mật khẩu không khớp";
@@ -138,7 +145,6 @@ const RegisterForm = () => {
     if (!ruleCheckbox) {
       msg.rule = "Chấp nhận điều khoản sử dụng để đăng ký!";
     }
-
 
     setValidateMsg(msg);
     if (Object.keys(msg).length > 0) return false;
@@ -167,7 +173,14 @@ const RegisterForm = () => {
                 setOtp(e.target.value);
               }}
             />
-            {invalidOtp && <span className="d-flex justify-content-center" style={{ color: 'red' }}>Mã OTP không đúng!</span>}
+            {invalidOtp && (
+              <span
+                className="d-flex justify-content-center"
+                style={{ color: "red" }}
+              >
+                Mã OTP không đúng!
+              </span>
+            )}
           </fieldset>
 
           <fieldset className="form-group">
@@ -193,7 +206,12 @@ const RegisterForm = () => {
               }}
             />
             <span style={{ color: "red" }}>{validateMsg.userName}</span>
-            {duplicate ? <span style={{ color: "red" }}>Số điện thoại đã tồn tại trong hệ thống!</span> : null}
+            {/* <span style={{ color: "red" }}>{validateMsg.duplicate}</span> */}
+            {duplicate ? (
+              <span style={{ color: "red" }}>
+                Số điện thoại đã tồn tại trong hệ thống!
+              </span>
+            ) : null}
           </fieldset>
           <fieldset className="form-group">
             <label>Mật khẩu:</label>

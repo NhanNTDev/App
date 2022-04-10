@@ -16,6 +16,10 @@ const orderApi = {
     getOrderDetails(id) {
         const url = `/orders/${id}`;
         return axiosClient.get(url);
+    },
+    feedback(params) {
+        const url = `/orders/feedback/${params.id}`;
+        return axiosClient.put(url, params);
     }
 
 }

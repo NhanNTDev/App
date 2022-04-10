@@ -56,16 +56,6 @@ const ProductItem = (props) => {
             <br />
           </div>
         </Link>
-        {/* <div className="product-footer">
-          <button
-            type="button"
-            className="btn btn-secondary btn-sm float-right"
-            onClick={() => {}}
-          >
-            <i className="mdi mdi-cart"></i> Thêm vào giỏ hàng
-          </button>
-          <br />
-        </div> */}
       </div>
     </div>
   );

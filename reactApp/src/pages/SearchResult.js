@@ -1,7 +1,7 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { RECORD_PER_PAGE } from "../constants/Constants";
-import { Pagination, Select } from "antd";
-import { useSearchParams } from "react-router-dom";
+import { Button, notification, Pagination, Result, Row, Select } from "antd";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ProductItem from "../components/product/ProductItem";
 import harvestCampaignApi from "../apis/harvestCampaignApi";
 import Skeleton from "react-loading-skeleton";
@@ -40,16 +40,19 @@ const SearchResult = () => {
     changePlag: true,
   });
   const [searchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState(null);
-  const [category, setCategory] = useState(null);
+  const [searchValue, setSearchValue] = useState(searchParams.get("searchValue"));
+  const [category, setCategory] = useState(searchParams.get("category"));
   const [loading, setLoading] = useState(true);
+  const [noResult, setNoResult] = useState(false);
   const [sortType, setSortType] = useState();
-  const address = useSelector(state => state.location);
-
+  const address = useSelector((state) => state.location);
+  const zoneId = useSelector(state => state.zone);
+  const navigate = useNavigate();
   //Get params from url
   useEffect(() => {
     setSearchValue(searchParams.get("searchValue"));
     setCategory(searchParams.get("category"));
+    setLoading(true);
   }, [searchParams]);
 
   //Hanlde sort
@@ -87,6 +90,7 @@ const SearchResult = () => {
 
   //Get data from server
   useEffect(() => {
+    setNoResult(false);
     const fetchProducts = async () => {
       const params =
         searchValue !== null
@@ -94,20 +98,41 @@ const SearchResult = () => {
               page: page,
               size: 12,
               "product-name": searchValue,
-              address: address,
+              "delivery-zone-id": parseInt(zoneId),
             }
           : {
               page: page,
               size: 12,
               categorys: category,
-              address: address,
+              "delivery-zone-id": parseInt(zoneId),
             };
-      const productsResponse = await harvestCampaignApi.getAll(params);
-      setDisplayProducts({
-        list: productsResponse.data,
-        changePlag: !displayProducts.changePlag,
+      await harvestCampaignApi.getAll(params).then(result => {
+        if(Object.entries(result.data).length === 0) {
+          setNoResult(true);
+          return;
+        }
+        setDisplayProducts({
+          list: result.data,
+          changePlag: !displayProducts.changePlag,
+        });
+        setTotalRecords(result.metadata.total);
+      }).catch(err => {
+        if (err.message === "Network Error") {
+          notification.error({
+            duration: 3,
+            message: "Mất kết nối mạng!",
+            style: { fontSize: 16 },
+          });
+        } else {
+          notification.error({
+            duration: 3,
+            message: "Không tìm thấy sản phẩm!",
+            style: { fontSize: 16 },
+          });
+        }
+        setNoResult(true);
       });
-      setTotalRecords(productsResponse.metadata.total);
+      
       setLoading(false);
     };
     fetchProducts();
@@ -119,9 +144,13 @@ const SearchResult = () => {
         <Pagination
           showSizeChanger={false}
           pageSize={RECORD_PER_PAGE}
-          defaultCurrent={page}
+          defaultCurrent={1}
+          current={page}
           total={totalRecord}
-          onChange={(pageNumber) => setPage(pageNumber)}
+          onChange={(pageNumber) => {
+            setLoading(true);
+            setPage(pageNumber);
+          }}
         />
       </div>
     );
@@ -181,6 +210,18 @@ const SearchResult = () => {
 
   return (
     <>
+    {noResult ? <Result
+    status="warning"
+    title="Không tìm thấy sản phẩm nào!"
+    extra={
+      <Button type="primary" key="console" onClick={() => {
+        navigate("/home")
+      }}>
+        Về trang chủ
+      </Button>
+    }
+  /> : 
+    <>
       <section className="pt-3 pb-3 page-info section-padding border-bottom bg-white">
         <div className="container">
           <div className="row">
@@ -207,18 +248,20 @@ const SearchResult = () => {
                 </h5>
               </div>
 
-              <div className="row no-gutters">
-                {renderProductList(displayProducts.list)}
-              </div>
-              {loading && (
+              {loading ? (
                 <Skeleton count={12} width="25%" inline={true} height={250} />
+              ) : (
+                <Row className="row">
+                  {renderProductList(displayProducts.list)}
+                </Row>
               )}
               {renderPagination()}
             </div>
           </div>
         </div>
       </section>
-      ;;
+    </>
+    }
     </>
   );
 };

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const ProductItemShort = (props) => {
   return (
-    <div className="item">
+    <div className="col-md-4">
       <div className="product">
         <Link to={`/products/${props.campaignId}/${props.harvestCampaign.id}`}>
           <div className="product-header">
@@ -19,10 +19,10 @@ const ProductItemShort = (props) => {
           </div>
 
           <div className="product-body">
-            <div style={{ height: 80 }}>
+            <div style={{ height: 160 }}>
               <h4
                 style={{
-                  height: 40,
+                  height: 55,
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                 }}
@@ -36,7 +36,7 @@ const ProductItemShort = (props) => {
               </p>
               <div className="detail">
                 <h6>
-                  <span class="mdi mdi-approval"></span> Còn lại:
+                  <span class="mdi mdi-approval"></span> Còn lại: {props.harvestCampaign.harvest.inventoryTotal}{"  "}
                   {props.harvestCampaign.unit}
                 </h6>
                 <h5>
@@ -56,10 +56,8 @@ const ProductItemShort = (props) => {
             <br />
           </div>
         </Link>
-        <div className="product-footer">
-          <br />
-        </div>
       </div>
+   
     </div>
   );
 };

@@ -1,11 +1,12 @@
-import { Col, Pagination } from "antd";
+import { notification, Pagination, Row } from "antd";
 import { useEffect, useState } from "react";
-import { RECORD_PER_PAGE } from "../../constants/Constants";
 import harvestCampaignApi from "../../apis/harvestCampaignApi";
 import ProductSliderItem from "./ProductItemShort";
 import { Select } from "antd";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 const { Option } = Select;
 
 //Sort list by price low to high
@@ -32,17 +33,17 @@ const sortByNameAZ = (listProduct) => {
   return listProduct;
 };
 
-const ProductList = (props) => {
+const ProductList = () => {
   const params = useParams();
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(1);
-  const address = useSelector(state => state.location);
-  // const [products, setproducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [displayProducts, setDisplayProducts] = useState({
     list: [],
     changePlag: true,
   });
   const [sortType, setSortType] = useState(null);
+  const zoneId = useSelector(state => state.zone);
 
   //Hanlde sort
   useEffect(() => {
@@ -77,21 +78,40 @@ const ProductList = (props) => {
     sort();
   }, [sortType]);
 
-
   useEffect(() => {
     const fetchHarvests = async () => {
       const param = {
         page: page,
         size: 12,
         "campaign-id": params.id,
-        address: address,
+        "delivery-zone-id": parseInt(zoneId),
       };
-      const harvestsResponse = await harvestCampaignApi.getAll(param);
-      setTotalRecords(harvestsResponse.metadata.total);
-      setDisplayProducts({
-        list: harvestsResponse.data,
-        changePlag: !displayProducts.changePlag,
-      });
+      await harvestCampaignApi
+        .getAll(param)
+        .then((result) => {
+          setTotalRecords(result.metadata.total);
+          setDisplayProducts({
+            list: result.data,
+            changePlag: !displayProducts.changePlag,
+          });
+        })
+        .catch((err) => {
+          if (err.message === "Network Error") {
+            notification.error({
+              duration: 3,
+              message: "Mất kết nối mạng!",
+              style: { fontSize: 16 },
+            });
+          } else {
+            notification.error({
+              duration: 3,
+              message: "Có lỗi xảy ra trong quá trình xử lý!",
+              style: { fontSize: 16 },
+            });
+          }
+        });
+
+      setLoading(false);
     };
     fetchHarvests();
   }, [page]);
@@ -101,10 +121,14 @@ const ProductList = (props) => {
       <div className="pagination justify-content-center mt-4">
         <Pagination
           showSizeChanger={false}
-          pageSize={RECORD_PER_PAGE}
+          pageSize={12}
           defaultCurrent={1}
+          current={page}
           total={totalRecord}
-          onChange={(pageNumber) => setPage(pageNumber)}
+          onChange={(pageNumber) => {
+            setPage(pageNumber);
+            setLoading(true);
+          }}
         />
       </div>
     );
@@ -155,27 +179,31 @@ const ProductList = (props) => {
 
   return (
     <>
-      <section className="shop-list">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="shop-head">
-                {renderSortDrop()}
-                <h5 className="mb-4">Danh Sách Sản Phẩm</h5>
-              </div>
-              <div className="row">
-                {displayProducts.list.map((harvestCampaign) => (
-                  <Col span={12}>
-                    <ProductSliderItem
-                      harvestCampaign={{ ...harvestCampaign }}
-                      campaignId={props.campaignId}
-                    />
-                  </Col>
-                ))}
-              </div>
-              {renderPagination()}
+      <section className="shop-list section-padding">
+        <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="shop-head">
+              {renderSortDrop()}
+              <h5 className="mb-4">Danh Sách Sản Phẩm</h5>
             </div>
+            {loading ? (
+              <Skeleton count={9} width="33%" inline={true} height={250} />
+            ) : (
+              <>
+                <Row className="row">
+                  {displayProducts.list.map((harvestCampaign) => (
+                      <ProductSliderItem
+                        harvestCampaign={{ ...harvestCampaign }}
+                        campaignId={params.id}
+                      />
+                  ))}
+                </Row>
+                {renderPagination()}{" "}
+              </>
+            )}
           </div>
+        </div>
         </div>
       </section>
     </>

@@ -5,7 +5,6 @@ import Address from "../pages/Address";
 import Campaign from "../pages/Campaign";
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
-import Farm from "../pages/Farm";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import OrderList from "../pages/OrderList";
@@ -67,7 +66,7 @@ const AppRouter = () => {
       <Route
         path="/changePassword"
         element={
-          <PrivateRoute urlRedirect="/changePassword">
+          <PrivateRoute urlRedirect="/">
             <ChangePassword />
           </PrivateRoute>
         }
@@ -85,7 +84,6 @@ const AppRouter = () => {
       <Route path="/products/:campaignId/:productId" element={<Product />} />
       <Route path="/all-campaigns" element={<ViewAllCampaigns />} />
       <Route path="/campaign/:id" element={<Campaign />} />
-      <Route path="/campaign/:campaignId/:farmId" element={<Farm />} />
       <Route path="/search-result" element={<SearchResult />} />
       <Route path="/login" element={<Login />} />
       <Route path="/*" element={<Navigate replace to="/page-not-found" />} />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DatePicker, Spin, message, notification } from "antd";
+import { DatePicker, Spin, notification } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import validator from "validator";
 import moment from "moment";
@@ -21,6 +21,20 @@ const ProfileForm = () => {
   const handleOnChangeDatePicker = () => {};
   const dateFormat = "YYYY-MM-DD";
   const dispatch = useDispatch();
+  const [gmapsLoaded, setGmapsLoaded] = useState(false);
+
+  useEffect(() => {
+    window.initMap = () => setGmapsLoaded(true);
+    const currentGmap = document.getElementById("gmapScriptEl");
+    if (currentGmap === null) {
+      const gmapScriptEl = document.createElement(`script`);
+      gmapScriptEl.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}&libraries=places&callback=initMap`;
+      gmapScriptEl.id = "gmapScriptEl";
+      document
+        .querySelector(`body`)
+        .insertAdjacentElement(`beforeend`, gmapScriptEl);
+    }
+  }, []);
   useEffect(() => {
     if (name === null) {
       setName("");
@@ -83,9 +97,9 @@ const ProfileForm = () => {
         id: user.id,
         email: email,
         name: name,
+        address: address,
         gender: gender,
         dateOfBirth: dateOfBirth,
-        address: address,
       };
       setLoading(true);
       const result = update(dataUpdate);
@@ -101,8 +115,12 @@ const ProfileForm = () => {
   };
 
   const handleSelect = (address) => {
+    if(address === undefined || address.trim() === "") return;
     setAddress(address);
   };
+  const disableDate = (current) => {
+    return current && current > moment().endOf("day");
+  }
   const searchOptions = {
     componentRestrictions: { country: ["vn"] },
     types: ["address"],
@@ -173,6 +191,7 @@ const ProfileForm = () => {
                   onChange={handleOnChangeDatePicker}
                   className="form-control"
                   placeholder="Chọn ngày"
+                  disabledDate={disableDate}
                   format={dateFormat}
                   value={dateOfBirth && moment(dateOfBirth, dateFormat)}
                   defaultValue={dateOfBirth && moment(new Date(), dateFormat)}
@@ -188,7 +207,7 @@ const ProfileForm = () => {
             <div className="col-sm-12">
               <div className="form-group">
                 <label className="control-label">Địa Chỉ: </label>
-                <PlacesAutocomplete
+                {gmapsLoaded && <PlacesAutocomplete
                   value={address}
                   onChange={handleChange}
                   onSelect={handleSelect}
@@ -231,7 +250,7 @@ const ProfileForm = () => {
                       </div>
                     </div>
                   )}
-                </PlacesAutocomplete>
+                </PlacesAutocomplete> }
                 <span style={{ color: "red" }}>{validateMsg.address}</span>
               </div>
             </div>

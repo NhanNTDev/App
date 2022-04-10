@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Modal, notification } from "antd";
 import validator from "validator";
 import PlacesAutocomplete from "react-places-autocomplete";
 import addressApi from "../../apis/addressApis";
 
-const CreateAddressForm = ({ currentPage, callback }) => {
+const CreateAddressForm = ({ countAddress, callback }) => {
   const location = useSelector((state) => state.location);
   const user = useSelector((state) => state.user);
   const [name, setName] = useState(user.name);
@@ -13,7 +13,29 @@ const CreateAddressForm = ({ currentPage, callback }) => {
   const [address, setAddress] = useState(location);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [validateMsg, setValidateMsg] = useState("");
+  const [gmapsLoaded, setGmapsLoaded] = useState(false);
+
+  useEffect(() => {
+    window.initMap = () => setGmapsLoaded(true);
+    const currentGmap = document.getElementById("gmapScriptEl");
+    if (currentGmap === null) {
+      const gmapScriptEl = document.createElement(`script`);
+      gmapScriptEl.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}&libraries=places&callback=initMap`;
+      gmapScriptEl.id = "gmapScriptEl";
+      document
+        .querySelector(`body`)
+        .insertAdjacentElement(`beforeend`, gmapScriptEl);
+    }
+  }, []);
   const showModal = () => {
+    if (countAddress === 5) {
+      notification.warning({
+        duration: 3,
+        message: "Bạn đã có tối đa 5 địa chỉ giao hàng, không thể tạo thêm!",
+        style: { fontSize: 16 },
+      });
+      return;
+    }
     setIsModalVisible(true);
   };
 
@@ -29,22 +51,31 @@ const CreateAddressForm = ({ currentPage, callback }) => {
         address1: address,
         customerId: user.id,
       };
-      const result = await addressApi.create(data).catch((err) => {
-        console.log(err);
-      });
-      if (result === "Create successfully!") {
-        notification.success({
-          duration: 3,
-          message: "Tạo địa chỉ thành công!",
-          style:{fontSize: 16},
+      await addressApi
+        .create(data)
+        .then((result) => {
+          if (result === "Create successfully!") {
+            notification.success({
+              duration: 3,
+              message: "Tạo địa chỉ thành công!",
+              style: { fontSize: 16 },
+            });
+          } else {
+            notification.error({
+              duration: 3,
+              message: "Tạo địa chỉ thất bại!",
+              style: { fontSize: 16 },
+            });
+          }
+        })
+        .catch(() => {
+          notification.error({
+            duration: 3,
+            message: "Tạo địa chỉ thất bại!",
+            style: { fontSize: 16 },
+          });
         });
-      } else {
-        notification.error({
-          duration: 3,
-          message: "Tạo địa chỉ thất bại!",
-          style:{fontSize: 16},
-        });
-      }
+
       setIsModalVisible(false);
       callback();
     };
@@ -136,7 +167,7 @@ const CreateAddressForm = ({ currentPage, callback }) => {
             <div className="col-sm-12">
               <div className="form-group">
                 <label className="control-label">Địa Chỉ</label>
-                <PlacesAutocomplete
+                {gmapsLoaded && <PlacesAutocomplete
                   value={address}
                   onChange={handleChange}
                   onSelect={handleSelect}
@@ -179,7 +210,7 @@ const CreateAddressForm = ({ currentPage, callback }) => {
                       </div>
                     </div>
                   )}
-                </PlacesAutocomplete>
+                </PlacesAutocomplete> }
                 <span style={{ color: "red" }}>{validateMsg.address}</span>
               </div>
             </div>
