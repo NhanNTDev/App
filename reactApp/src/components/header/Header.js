@@ -6,6 +6,8 @@ import LocationSearch from "./LocationSearch";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../state_manager_redux/user/userSlice";
 import { getCartCouter } from "../../state_manager_redux/cart/cartSelector";
+import { SearchOutlined, BellTwoTone } from "@ant-design/icons";
+import { Badge } from "antd";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -49,7 +51,10 @@ const Header = () => {
             <div className="navbar-nav mr-auto mt-2 mt-lg-0 margin-auto top-categories-search-main">
               <div className="top-categories-search">
                 <div className="input-group">
-                  <span className="input-group-btn categories-dropdown" style={{marginRight: 5}}>
+                  <span
+                    className="input-group-btn categories-dropdown"
+                    style={{ marginRight: 5 }}
+                  >
                     <button
                       className="form-control locate-btn"
                       onClick={handleLocationButtonClick}
@@ -66,8 +71,8 @@ const Header = () => {
                   <input
                     value={searchValue}
                     className="form-control"
-                    placeholder="Tìm kiếm sản phẩm tại đây"
-                    aria-label="Tìm kiếm sản phẩm tại đây"
+                    placeholder="Nhập tên sản phẩm"
+                    aria-label="Nhập tên sản phẩm"
                     type="text"
                     onChange={(e) => {
                       setSearchValue(e.target.value);
@@ -100,7 +105,10 @@ const Header = () => {
                         }
                       }}
                     >
-                      <i className="mdi mdi-file-find"></i> Tìm Kiếm
+                      <i>
+                        <SearchOutlined style={{ paddingBottom: 5 }} />
+                      </i>{" "}
+                      Tìm Kiếm
                     </button>
                   </span>
                 </div>
@@ -109,55 +117,66 @@ const Header = () => {
             <div className="my-2 my-lg-0">
               <ul className="list-inline main-nav-right">
                 {user !== null ? (
-                  <li className="list-inline-item dropdown osahan-top-dropdown">
-                    <a
-                      className="btn btn-theme-round dropdown-toggle dropdown-toggle-top-user"
-                      href="#"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <img
-                        src={
-                          user.image !== "" ? user.image : "/img/user/user.jpg"
-                        }
-                      />
-                      {user.name !== null ? user.name : user.userName}
-                    </a>
-                    <div className="dropdown-menu dropdown-menu-right dropdown-list-design">
-                      <Link to="/account" className="dropdown-item">
-                        <i
-                          aria-hidden="true"
-                          className="mdi mdi-account-outline"
-                        ></i>{" "}
-                        Thông Tin Cá Nhân
-                      </Link>
-                      <Link to="/address" className="dropdown-item">
-                        <i
-                          aria-hidden="true"
-                          className="mdi mdi-map-marker-circle"
-                        ></i>{" "}
-                        Thông Tin Giao Hàng
-                      </Link>
-                      <Link to="/orderList" className="dropdown-item">
-                        <i
-                          aria-hidden="true"
-                          className="mdi mdi-format-list-bulleted"
-                        ></i>{" "}
-                        Lịch Sử Đặt Hàng
-                      </Link>
-                      <Link to="/changePassword" className="dropdown-item">
-                        <i className="mdi mdi-lock"></i> Đổi Mật Khẩu
-                      </Link>
-                      <div className="dropdown-divider"></div>
+                  <>
+                  
+                    <li className="list-inline-item">
+                      <Badge dot style={{marginRight: 10}}>
+                        <BellTwoTone style={{ fontSize: 24, marginRight: 10 }} />
+                      </Badge>
+                    </li>
+                    
+                    <li className="list-inline-item dropdown osahan-top-dropdown">
                       <a
-                        className="dropdown-item"
-                        onClick={() => handleLogout()}
+                        className="btn btn-theme-round dropdown-toggle dropdown-toggle-top-user"
+                        href="#"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
                       >
-                        <i className="mdi mdi-lock"></i> Đăng xuất
+                        <img
+                          src={
+                            user.image !== ""
+                              ? user.image
+                              : "/img/user/user.jpg"
+                          }
+                        />
+                        {user.name !== null ? user.name : user.userName}
                       </a>
-                    </div>
-                  </li>
+                      <div className="dropdown-menu dropdown-menu-right dropdown-list-design">
+                        <Link to="/account" className="dropdown-item">
+                          <i
+                            aria-hidden="true"
+                            className="mdi mdi-account-outline"
+                          ></i>{" "}
+                          Thông Tin Cá Nhân
+                        </Link>
+                        <Link to="/address" className="dropdown-item">
+                          <i
+                            aria-hidden="true"
+                            className="mdi mdi-map-marker-circle"
+                          ></i>{" "}
+                          Thông Tin Giao Hàng
+                        </Link>
+                        <Link to="/orderList" className="dropdown-item">
+                          <i
+                            aria-hidden="true"
+                            className="mdi mdi-format-list-bulleted"
+                          ></i>{" "}
+                          Lịch Sử Đặt Hàng
+                        </Link>
+                        <Link to="/changePassword" className="dropdown-item">
+                          <i className="mdi mdi-lock"></i> Đổi Mật Khẩu
+                        </Link>
+                        <div className="dropdown-divider"></div>
+                        <a
+                          className="dropdown-item"
+                          onClick={() => handleLogout()}
+                        >
+                          <i className="mdi mdi-lock"></i> Đăng xuất
+                        </a>
+                      </div>
+                    </li>
+                  </>
                 ) : (
                   <li className="list-inline-item">
                     <Link to="/login" className="btn btn-link">

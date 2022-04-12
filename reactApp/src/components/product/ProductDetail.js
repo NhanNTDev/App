@@ -1,7 +1,7 @@
-import { Modal, Rate, Space } from "antd";
+import { Modal, notification, Rate, Space, Tag } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import farmApi from "../../apis/farmApi";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { addToCartThunk } from "../../state_manager_redux/cart/cartSlice";
@@ -57,10 +57,18 @@ const ProductDetail = (props) => {
   const handleOnchangeQuantity = (e) => {
     if (e.target.validity.valid) {
       if (e.target.value > props.quantity) {
+        notification.error({
+          duration: 3,
+          message: `${props.productName} chỉ còn lại ${props.quantity} ${props.unit}!`,
+          style: {fontSize: 16}
+        })
         setQuantity(props.quantity);
-        return;
+      } else if(e.target.value !== ""){
+        setQuantity(e.target.value);
+      } else {
+        setQuantity(1);
       }
-      setQuantity(e.target.value);
+      
     } else setQuantity(quantity);
   };
 
@@ -81,7 +89,10 @@ const ProductDetail = (props) => {
 
   return (
     <div className="shop-detail-right">
-      <h2>{props.productName}</h2>
+      <h2 style={{display: "inline", marginRight: 10}}>{props.productName}</h2> {props.quantity === 0 && <Tag color="red">Hết hàng</Tag>}
+      <Link style={{fontSize: 16}} to={`/ProductOrigin?id=${props.id}`}>Xem nguồn gốc</Link>
+      <br/>
+      <br/>
       <p className="offer-price mb-0">
         <span className="mdi mdi-tag"></span>{" "}
         <span className="price-offer">
@@ -115,13 +126,13 @@ const ProductDetail = (props) => {
         {farm.address}
       </h5>
 
-      <div className="qty">
+      <div className="qty" disabled={props.quantity === 0}>
         <div className="input-group" style={{ width: 250 }}>
           <h5>
             <i>Số lượng : </i>
           </h5>
           <button
-            disabled={quantity === 1 ? "disabled" : null}
+            disabled={quantity <= 1 ? "disabled" : null}
             className="btn-update-quantity-2"
             type="button"
             onClick={decreaseQuantity}
@@ -138,7 +149,7 @@ const ProductDetail = (props) => {
             style={{ height: 30 }}
           />
           <button
-            disabled={quantity === props.quantity ? "disabled" : null}
+            disabled={quantity >= props.quantity ? "disabled" : null}
             className="btn-update-quantity-2"
             type="button"
             onClick={increaseQuantity}
@@ -153,6 +164,8 @@ const ProductDetail = (props) => {
           type="button"
           className="btn btn-secondary btn-lg"
           onClick={handleAddToCart}
+          disabled={props.quantity === 0}
+          
         >
           <i className="mdi mdi-cart-outline"></i> Thêm vào giỏ hàng
         </button>{" "}
@@ -165,16 +178,6 @@ const ProductDetail = (props) => {
             {props.valueChangeOfUnit} {props.systemUnit}
           </p>
         ) : null}
-        <h5>Mô tả:</h5>
-        <p
-          style={{
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            maxHeight: 150,
-          }}
-        >
-          {props.harvestDescription}
-        </p>
         <p
           className="mb-0"
           style={{
@@ -186,8 +189,19 @@ const ProductDetail = (props) => {
           {" "}
           <strong>Mùa vụ: </strong> {props.harvestName}
           <br />
+          {/* {props.harvestDescription} */}
+        </p>
+        <h5>Mô tả:</h5>
+        <p
+          style={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            maxHeight: 150,
+          }}
+        >
           {props.harvestDescription}
         </p>
+        
       </div>
     </div>
   );

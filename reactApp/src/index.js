@@ -6,13 +6,20 @@ import { store } from "./app/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
+import { ConfigProvider } from "antd";
+import viVN from "antd/lib/locale-provider/vi_VN";
+import moment from "moment";
+import 'moment/locale/vi';
+moment.locale("vi");
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
+      <BrowserRouter>
+        <ConfigProvider locale={viVN}>
+          <App />
+        </ConfigProvider>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

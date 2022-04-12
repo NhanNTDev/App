@@ -1,35 +1,56 @@
-import { message, notification } from "antd";
+import { notification } from "antd";
 import cartApi from "../../apis/cartApi";
 const { createSlice, current, createAsyncThunk } = require("@reduxjs/toolkit");
 export const addToCartThunk = createAsyncThunk(
   "cart/addToCartThunk",
   async (data) => {
-    let errorMessage = "";
     const params = {
       quantity: data.quantity,
       harvestCampaignId: data.productId,
       customerId: data.customerId,
     };
     let cartResponse;
-    await cartApi.addNew(params).catch((err) => {
-      notification.error({duration: 3, message: "Có lỗi xảy ra trong quá trình xử lý!", style:{fontSize: 16},});
-    });
+    await cartApi
+      .addNew(params)
+      .then((result) => {
+        if (result === "Add Successfully!") {
+          notification.success({
+            duration: 3,
+            message: "Sản phẩm đã được thêm vào giỏ hàng!",
+            style: { fontSize: 16 },
+          });
+        } else {
+          notification.error({
+            duration: 3,
+            message: "Có lỗi xảy ra trong quá trình xử lý!",
+            style: { fontSize: 16 },
+          });
+        }
+      })
+      .catch((err) => {
+        if (err.message === "Network Error") {
+          notification.error({
+            duration: 3,
+            message: "Mất kết nối mạng!",
+            style: { fontSize: 16 },
+          });
+        } else if (err.response.status === 400) {
+          notification.error({
+            duration: 3,
+            message: err.response.data.error.message,
+            style: { fontSize: 16 },
+          });
+        } else {
+          notification.error({
+            duration: 3,
+            message: "Có lỗi xảy ra trong quá trình xử lý!",
+            style: { fontSize: 16 },
+          });
+        }
+      });
 
     cartResponse = await cartApi.getAll(data.customerId);
     localStorage.setItem("dichonao_cart", JSON.stringify({ ...cartResponse }));
-    if (errorMessage === "") {
-      notification.success({
-        duration: 3,
-        message: "Sản phẩm đã được thêm vào giỏ hàng!",
-        style:{fontSize: 16},
-      });
-    } else {
-      notification.error({
-        duration: 3,
-        message: errorMessage,
-        style:{fontSize: 16},
-      });
-    }
 
     return cartResponse;
   }
@@ -46,7 +67,8 @@ const cartSlice = createSlice({
   reducers: {
     //set value for cart state
     setCart(state, action) {
-      let newState = Object.values(action.payload).length > 0 ? action.payload : null;
+      let newState =
+        Object.values(action.payload).length > 0 ? action.payload : null;
       localStorage.setItem("dichonao_cart", JSON.stringify({ ...newState }));
       return newState;
     },
@@ -77,9 +99,27 @@ const cartSlice = createSlice({
           quantity: action.payload.newQuantity,
           customerId: action.payload.customerId,
         };
-        const response = await cartApi.update(data);
-        console.log(data);
-        console.log(response);
+        await cartApi.update(data).catch((err) => {
+          if (err.message === "Network Error") {
+            notification.error({
+              duration: 3,
+              message: "Mất kết nối mạng!",
+              style: { fontSize: 16 },
+            });
+          } else if (err.response.status === 400) {
+            notification.error({
+              duration: 3,
+              message: err.response.data.error.message,
+              style: { fontSize: 16 },
+            });
+          } else {
+            notification.error({
+              duration: 3,
+              message: "Có lỗi xảy ra trong quá trình xử lý",
+              style: { fontSize: 16 },
+            });
+          }
+        });
       };
       updateCart();
       return newState;

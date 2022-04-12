@@ -107,6 +107,14 @@ const OrderTable = () => {
       key: "dateTimeParse",
     },
     {
+      title: "Phí vận chuyển",
+      dataIndex: "shipCost",
+      key: "shipCost",
+      render: (text, record) => (
+        <div>{record.shipCost.toLocaleString() + " VNĐ"}</div>
+      ),
+    },
+    {
       title: "Tổng tiền",
       dataIndex: "total",
       key: "total",
@@ -119,6 +127,29 @@ const OrderTable = () => {
       title: "Trạng thái",
       dataIndex: "status",
       key: "status",
+      NodeFilter: {
+          okText: "Lọc",
+         
+      },
+      filters: [
+        {
+          text: 'Đã hoàn thành',
+          value: 'Đã hoàn thành',
+        },
+        {
+          text: 'Đã hủy',
+          value: 'Đã hủy',
+        },
+        {
+          text: 'Chờ xác nhận',
+          value: 'Chờ xác nhận',
+        },
+        {
+          text: 'Đang giao hàng',
+          value: 'Đang giao hàng',
+        },
+      ],
+      onFilter: (value, record) => record.status.indexOf(value) === 0,
       render: (text) => (
         <>
           {text === "Chờ xác nhận" ? (
@@ -165,7 +196,7 @@ const OrderTable = () => {
           <br />
           <br />
           {record.status === "Đã hoàn thành" &&
-            (record.star === 0 ? (
+            (record.feedbackCreateAt === null ? (
               <CreateRating orderId={record.id} callback={callbackAfterFeedback}/>
             ) : (
               <ViewRating {...record}/>
@@ -212,7 +243,6 @@ const OrderTable = () => {
                   },
                 }}
                 loading={loading}
-                style={{ margin: 50 }}
               />
             </div>
           </div>

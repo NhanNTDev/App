@@ -95,7 +95,7 @@ const MenuAccountLeft = ({ type }) => {
       <div className="user-profile-header">
         <img src={image !== "" ? image : "/img/user/user.jpg"} />
         <br />
-        <ImgCrop rotate>
+        <ImgCrop rotate modalTitle="Chỉnh ảnh" modalOk="Chọn" modalCancel="Hủy">
           <Upload
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             // listType="picture-card"

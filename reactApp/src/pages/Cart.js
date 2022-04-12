@@ -10,6 +10,7 @@ import TableHead from "../components/cart/TableHead";
 import {
   getCartTotal,
   getOrderCouter,
+  getShipcost,
 } from "../state_manager_redux/cart/cartSelector";
 import { setCart } from "../state_manager_redux/cart/cartSlice";
 import { setOrder } from "../state_manager_redux/order/orderSlice";
@@ -20,6 +21,8 @@ const Cart = () => {
   const navigate = useNavigate();
   const cartTotal = useSelector(getCartTotal);
   const orderCount = useSelector(getOrderCouter);
+  const shipCost = useSelector(getShipcost);
+  const total = parseInt(shipCost) + parseInt(cartTotal);
   const [loadErr, setLoadErr] = useState(false);
   const [reload, setReload] = useState(true);
   const user = useSelector((state) => state.user);
@@ -165,7 +168,7 @@ const Cart = () => {
                             <i className="mdi mdi-cart-outline"></i> Thanh toán{" "}
                           </span>
                           <span className="float-right">
-                            <strong>{cartTotal.toLocaleString()} VNĐ</strong>{" "}
+                            <strong>{total.toLocaleString()} VNĐ</strong>{" "}
                             <span className="mdi mdi-chevron-right"></span>
                           </span>
                         </button>

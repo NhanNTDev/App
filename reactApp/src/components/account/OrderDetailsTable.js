@@ -2,11 +2,14 @@ import { notification, Table, Result, Button } from "antd";
 import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import orderApi from "../../apis/orderApi";
+import CreateRating from "../rating/CreateRating";
+import ViewRating from "../rating/ViewRating";
+import LoadingPage from "../../pages/LoadingPage";
 const OrderDetailsTable = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
   const [products, setProducts] = useState([]);
-  const [order, setOrder] = useState();
+  const [order, setOrder] = useState("");
   const [loading, setLoading] = useState(true);
   const [reload, setReload] = useState(true);
   const [loadErr, setLoadErr] = useState(false);
@@ -111,63 +114,99 @@ const OrderDetailsTable = () => {
           ]}
         ></Result>
       ) : (
-        <div class="card card-body account-right">
-          <div class="widget">
-            <div class="section-header">
-              <Link to="/orderList" className="btn btn-secondary">
-                Trở về
-              </Link>
-              <br />
-              <br />
-              <h4 class="heading-design-h4">
-                Chi tiết đơn hàng {order && order.code}
-              </h4>
+        <>
+          {" "}
+          {loading ? (
+            <LoadingPage />
+          ) : (
+            <div class="card card-body account-right">
+              <div class="widget">
+                <div class="section-header">
+                  <Link to="/orderList" className="btn btn-secondary">
+                    Trở về
+                  </Link>
+                  <br />
+                  <br />
+                  <h4 class="heading-design-h4">
+                    Chi tiết đơn hàng {order && order.code}
+                  </h4>
+                </div>
+                <br />
+                <div class="order-list-tabel-main table-responsive">
+                  <div style={{marginLeft: 40}}>
+                  <h5 class="heading-design-h5">
+                    <strong>Tên chiến dịch: </strong>{" "}
+                    {order && order.campaignName}
+                  </h5>
+                  <h5 class="heading-design-h5">
+                    <strong>Tên người nhận: </strong>
+                    {order && order.customerName}
+                  </h5>
+                  <h5 class="heading-design-h5">
+                    <strong>Địa chỉ nhận hàng: </strong>
+                    {order && order.address}
+                  </h5>
+                  <h5 class="heading-design-h5">
+                    <strong>Số điện thoại nhận hàng: </strong>
+                    {order && order.phone}
+                  </h5>
+                  <h5 class="heading-design-h5">
+                    <strong>Ngày tạo: </strong>
+                    {order && order.dateTimeParse}
+                  </h5>
+                  <h5 class="heading-design-h5">
+                    <strong>Trạng thái: </strong>
+                    {order && order.status}
+                  </h5>
+                  <h5 class="heading-design-h5">
+                    <strong>Phí vận chuyển: </strong>
+                    {order && order.shipCost.toLocaleString() + " VNĐ"}
+                  </h5>
+                  <h5 class="heading-design-h5">
+                    <strong>Tổng tiền: </strong>
+                    {order && order.total.toLocaleString() + " VNĐ"}
+                  </h5>
+                  <h5 class="heading-design-h5">
+                    {order && order.status === "Đã hoàn thành" && (
+                      <>
+                        {order.feedbackCreateAt === null ? (
+                          <>
+                            <strong>Chưa đánh giá: </strong>
+                            <CreateRating {...order} />
+                          </>
+                        ) : (
+                          <>
+                            {" "}
+                            <strong>Đã đánh giá: </strong>
+                            <ViewRating {...order} />
+                          </>
+                        )}
+                      </>
+                    )}
+                  </h5>
+                  </div>
+                  <br/>
+                  <h5 class="heading-design-h5">
+                    <strong>Danh sách sản phẩm: </strong>
+                  </h5>
+                  <Table
+                    columns={columns}
+                    dataSource={products}
+                    pagination={{
+                      position: ["bottomCenter"],
+                      pageSize: 10,
+                      total: total,
+                      onChange: (page) => {
+                        setPage(page);
+                      },
+                    }}
+                    loading={loading}
+                  />
+                </div>
+              </div>
             </div>
-            <br />
-            <div class="order-list-tabel-main table-responsive">
-              <h5 class="heading-design-h5">
-                <strong>Tên chiến dịch: </strong> {order && order.campaignName}
-              </h5>
-              <h5 class="heading-design-h5">
-                <strong>Địa chỉ nhận hàng: </strong>
-                {order && order.address}
-              </h5>
-              <h5 class="heading-design-h5">
-                <strong>Số điện thoại nhận hàng: </strong>
-                {order && order.phone}
-              </h5>
-              <h5 class="heading-design-h5">
-                <strong>Ngày tạo: </strong>
-                {order && order.dateTimeParse}
-              </h5>
-              <h5 class="heading-design-h5">
-                <strong>Trạng thái: </strong>
-                {order && order.status}
-              </h5>
-              <h5 class="heading-design-h5">
-                <strong>Tổng tiền: </strong>
-                {order && order.total.toLocaleString() + " VNĐ"}
-              </h5>
-              <h5 class="heading-design-h5">
-                <strong>Danh sách sản phẩm: </strong>
-              </h5>
-              <Table
-                columns={columns}
-                dataSource={products}
-                pagination={{
-                  position: ["bottomCenter"],
-                  pageSize: 10,
-                  total: total,
-                  onChange: (page) => {
-                    setPage(page);
-                  },
-                }}
-                loading={loading}
-                style={{ margin: 50 }}
-              />
-            </div>
-          </div>
-        </div>
+          )}
+        </>
       )}
     </>
   );
