@@ -1,18 +1,17 @@
-import { Checkbox } from "antd";
+import { Checkbox, notification, Modal } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {ExclamationCircleOutlined} from '@ant-design/icons'
 import { Link } from "react-router-dom";
 import {
   checkCartItem,
   removeFromCart,
   setQuantity,
 } from "../../state_manager_redux/cart/cartSlice";
-
-const CartItem = ({item, campaignId}) => {
+const { confirm } = Modal;
+const CartItem = ({ item, campaignId }) => {
   const dispatch = useDispatch();
-  const [cartItemQuantity, setCartItemQuantity] = useState(
-    item.quantity
-  );
+  const [cartItemQuantity, setCartItemQuantity] = useState(item.quantity);
   const user = useSelector((state) => state.user);
 
   const hanldeRemoveItem = () => {
@@ -28,17 +27,59 @@ const CartItem = ({item, campaignId}) => {
     const action = setQuantity({
       newQuantity: newQuantity,
       harvestCampaignId: item.id,
-      customerId: user.id
+      customerId: user.id,
     });
     dispatch(action);
   };
-
+  function showDeleteConfirm() {
+    confirm({
+      title: "Xác nhận xóa sản phẩm khỏi giỏ hàng!",
+      icon: <ExclamationCircleOutlined />,
+      content:
+        "Sản phẩm này đã hết hàng, bạn có muốn xóa sản phẩm ra khỏi giỏ hàng?",
+      okText: "Xóa",
+      okType: "danger",
+      cancelText: "Hủy",
+      onOk() {
+        const action = removeFromCart({
+          harvestCampaignId: item.id,
+          customerId: user.id,
+        });
+        dispatch(action);
+      },
+      onCancel() {},
+    });
+  }
   const handleOnchangeQuantity = (e) => {
     if (e.target.validity.valid) {
-      setCartItemQuantity(e.target.value);
-      if (e.target.value !== "") {
+      if (e.target.value > item.maxQuantity) {
+        if (item.maxQuantity === 0) {
+          showDeleteConfirm();
+        } else {
+          notification.error({
+            duration: 3,
+            message: `${item.productName} chỉ còn lại ${item.maxQuantity} ${item.unit}!`,
+          });
+          setCartItemQuantity(item.maxQuantity);
+          const action = setQuantity({
+            newQuantity: item.maxQuantity,
+            harvestCampaignId: item.id,
+            customerId: user.id,
+          });
+          dispatch(action);
+        }
+      } else if (e.target.value !== "") {
+        setCartItemQuantity(e.target.value);
         const action = setQuantity({
           newQuantity: parseInt(e.target.value),
+          harvestCampaignId: item.id,
+          customerId: user.id,
+        });
+        dispatch(action);
+      } else {
+        setCartItemQuantity(1);
+        const action = setQuantity({
+          newQuantity: 1,
           harvestCampaignId: item.id,
           customerId: user.id,
         });
@@ -76,9 +117,7 @@ const CartItem = ({item, campaignId}) => {
       <td className="qty">
         <div className="input-group">
           <button
-            disabled={
-              item.quantity === 1 ? "disabled" : null
-            }
+            disabled={item.quantity <= 1 ? "disabled" : null}
             className="btn-update-quantity"
             type="button"
             onClick={() =>
@@ -99,6 +138,7 @@ const CartItem = ({item, campaignId}) => {
           <button
             className="btn-update-quantity"
             type="button"
+            disabled={item.quantity >= item.maxQuantity ? "disabled" : null}
             onClick={() =>
               hanldeUpdateQuantity({
                 newQuantity: item.quantity + 1,

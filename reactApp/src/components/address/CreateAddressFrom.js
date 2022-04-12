@@ -25,6 +25,8 @@ const CreateAddressForm = ({ countAddress, callback }) => {
       document
         .querySelector(`body`)
         .insertAdjacentElement(`beforeend`, gmapScriptEl);
+    } else {
+      setGmapsLoaded(true);
     }
   }, []);
   const showModal = () => {
@@ -167,50 +169,58 @@ const CreateAddressForm = ({ countAddress, callback }) => {
             <div className="col-sm-12">
               <div className="form-group">
                 <label className="control-label">Địa Chỉ</label>
-                {gmapsLoaded && <PlacesAutocomplete
-                  value={address}
-                  onChange={handleChange}
-                  onSelect={handleSelect}
-                  searchOptions={searchOptions}
-                >
-                  {({
-                    getInputProps,
-                    suggestions,
-                    getSuggestionItemProps,
-                    loading,
-                  }) => (
-                    <div>
-                      <input
-                        {...getInputProps({
-                          placeholder: "Nhập địa chỉ",
-                          className: "form-control",
-                        })}
-                      />
-                      <div className="autocomplete-dropdown-container">
-                        {loading && <div>Đang tải...</div>}
-                        {suggestions.map((suggestion) => {
-                          const className = suggestion.active
-                            ? "suggestion-item--active"
-                            : "suggestion-item";
-                          // inline style for demonstration purpose
-                          const style = suggestion.active
-                            ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                            : { backgroundColor: "#ffffff", cursor: "pointer" };
-                          return (
-                            <div
-                              {...getSuggestionItemProps(suggestion, {
-                                className,
-                                style,
-                              })}
-                            >
-                              <span>{suggestion.description}</span>
-                            </div>
-                          );
-                        })}
+                {gmapsLoaded && (
+                  <PlacesAutocomplete
+                    value={address}
+                    onChange={handleChange}
+                    onSelect={handleSelect}
+                    searchOptions={searchOptions}
+                  >
+                    {({
+                      getInputProps,
+                      suggestions,
+                      getSuggestionItemProps,
+                      loading,
+                    }) => (
+                      <div>
+                        <input
+                          {...getInputProps({
+                            placeholder: "Nhập địa chỉ",
+                            className: "form-control",
+                          })}
+                        />
+                        <div className="autocomplete-dropdown-container">
+                          {loading && <div>Đang tải...</div>}
+                          {suggestions.map((suggestion) => {
+                            const className = suggestion.active
+                              ? "suggestion-item--active"
+                              : "suggestion-item";
+                            // inline style for demonstration purpose
+                            const style = suggestion.active
+                              ? {
+                                  backgroundColor: "#fafafa",
+                                  cursor: "pointer",
+                                }
+                              : {
+                                  backgroundColor: "#ffffff",
+                                  cursor: "pointer",
+                                };
+                            return (
+                              <div
+                                {...getSuggestionItemProps(suggestion, {
+                                  className,
+                                  style,
+                                })}
+                              >
+                                <span>{suggestion.description}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </PlacesAutocomplete> }
+                    )}
+                  </PlacesAutocomplete>
+                )}
                 <span style={{ color: "red" }}>{validateMsg.address}</span>
               </div>
             </div>

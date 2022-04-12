@@ -6,12 +6,12 @@ const CenterBanner = () => {
                     <div className="row no-gutters">
                         <div className="col-md-6">
                             <a href="#">
-                                <img className="img-fluid" src="img/ad/ad1.PNG" alt="" />
+                                <img className="img-fluid" src="img/ad/ad1.jpg" alt="" />
                             </a>
                         </div>
                         <div className="col-md-6">
                             <a href="#">
-                                <img className="img-fluid" src="img/ad/ad2.PNG" alt="" />
+                                <img className="img-fluid" src="img/ad/ad2.jpg" alt="" />
                             </a>
                         </div>
                     </div>

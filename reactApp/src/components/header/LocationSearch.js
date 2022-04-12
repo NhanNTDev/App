@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { setLocation } from "../../state_manager_redux/location/locationSlice";
 
 const LocationSearch = () => {
-  const [address, setAddress] = useState();
+  const [address, setAddress] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [gmapsLoaded, setGmapsLoaded] = useState(false);
@@ -21,6 +21,8 @@ const LocationSearch = () => {
       document
         .querySelector(`body`)
         .insertAdjacentElement(`beforeend`, gmapScriptEl);
+    } else {
+      setGmapsLoaded(true);
     }
   }, []);
   const offcanvas = () => {

@@ -1,10 +1,14 @@
+import { Tag } from "antd";
 import { Link } from "react-router-dom";
 
 const ProductItemShort = (props) => {
+  console.log(props);
   return (
     <div className="col-md-4">
-      <div className="product">
-        <Link to={`/products/${props.campaignId}/${props.harvestCampaign.id}`}>
+      <div className="product" style={props.quantity === 0 ? {
+        backgroundColor: 'gray',
+      } : null}>
+        <Link to={props.harvestCampaign.quantity !== 0 ? `/products/${props.campaignId}/${props.harvestCampaign.id}` : '#'}>
           <div className="product-header">
             {props.harvestCampaign.harvest.image1 !== null ? (
               <img
@@ -15,7 +19,7 @@ const ProductItemShort = (props) => {
             ) : (
               <img className="img-fluid" src="/img/item/1.jpg" alt="" />
             )}
-            <span className="veg text-success mdi mdi-circle"></span>
+            {props.harvestCampaign.quantity !== 0 && <span className="veg text-success mdi mdi-circle"></span>}
           </div>
 
           <div className="product-body">
@@ -27,7 +31,7 @@ const ProductItemShort = (props) => {
                   textOverflow: "ellipsis",
                 }}
               >
-                {props.harvestCampaign.productName}
+                {props.harvestCampaign.productName} {props.harvestCampaign.quantity === 0 && <span><Tag color="error">Hết hàng</Tag></span>}
               </h4>
               <p className="offer-price">
                 <i className="mdi mdi-tag-outline"></i>{" "}
@@ -36,7 +40,7 @@ const ProductItemShort = (props) => {
               </p>
               <div className="detail">
                 <h6>
-                  <span class="mdi mdi-approval"></span> Còn lại: {props.harvestCampaign.harvest.inventoryTotal}{"  "}
+                  <span class="mdi mdi-approval"></span> Còn lại: {props.harvestCampaign.quantity}{"  "}
                   {props.harvestCampaign.unit}
                 </h6>
                 <h5>

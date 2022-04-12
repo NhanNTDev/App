@@ -97,7 +97,9 @@ const Home = () => {
       setNetworkErr(false);
       setLoading(true);
       //FetchCategory
-      const categoriesResponse = await categoriesApi.getAll();
+      const categoriesResponse = await categoriesApi.getAll().catch((err) => {
+        setNetworkErr(true);
+      });
       if (categoriesResponse !== undefined) {
         setCategories(categoriesResponse.data);
       }

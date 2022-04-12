@@ -24,6 +24,8 @@ const UpdateAddressForm = ({ currentValue, callback }) => {
       document
         .querySelector(`body`)
         .insertAdjacentElement(`beforeend`, gmapScriptEl);
+    } else {
+      setGmapsLoaded(true);
     }
   }, []);
   const showModal = () => {
@@ -43,7 +45,7 @@ const UpdateAddressForm = ({ currentValue, callback }) => {
         address1: address,
         customerId: user.id,
       };
-      const result = await addressApi
+      await addressApi
         .update(data)
         .then((result) => {
           if (result === "Update successfully!") {

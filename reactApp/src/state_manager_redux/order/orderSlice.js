@@ -16,7 +16,7 @@ const orderSlice = createSlice({
           }
         })
         if(Object.values(listHarvestOrder).length > 0) {
-          listFarmOrders.push({farmId: farm.id, harvestOrders: listHarvestOrder});
+          listFarmOrders.push({farmId: farm.id, productHarvestOrders: listHarvestOrder});
           listHarvestOrder = [];
         }
       })

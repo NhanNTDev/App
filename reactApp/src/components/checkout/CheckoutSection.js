@@ -10,6 +10,7 @@ import addressApi from "../../apis/addressApis";
 import {
   getCartTotal,
   getOrderCouter,
+  getShipcost,
 } from "../../state_manager_redux/cart/cartSelector";
 import CreateAddressForm from "../address/CreateAddressFrom";
 
@@ -25,7 +26,7 @@ const CheckoutSection = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [changePlag, setChangePlag] = useState(true);
   const [paymentMethod, setPaymentMethod] = useState(1);
-  const [shipCost, setShipCost] = useState(30000);
+  const shipCost = parseInt(useSelector(getShipcost));
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartTotal = useSelector(getCartTotal);
@@ -88,7 +89,7 @@ const CheckoutSection = () => {
               <strong>Số lượng:</strong> {props.quantity} {props.unit}
             </h6>
             <p className="offer-price mb-0">
-              {props.price.toLocaleString()}{" "}
+              {(props.price * props.quantity).toLocaleString()}{" "}
               <i className="mdi mdi-tag-outline"></i>{" "}
             </p>
           </div>
@@ -110,6 +111,11 @@ const CheckoutSection = () => {
 
   const handleCheckout = () => {
     setLoading(true);
+    const fetchCartItems = async () => {
+      const cartItemsResponse = await cartApi.getAll(user.id);
+      const action = setCart(cartItemsResponse);
+      dispatch(action);
+    };
     const checkout = async () => {
       const data = {
         name: selectedAddress.name,
@@ -121,28 +127,33 @@ const CheckoutSection = () => {
         campaignId: cart.campaignId,
         farmOrders: order,
       };
-      const result = await orderApi.post(data).catch((err) => {
-        notification.error({
-          duration: 3,
-          message: err.response.data.error.message,
-          style: { fontSize: 16 },
+      await orderApi
+        .post(data)
+        .then((result) => {
+          if (result === "Order Successfully!") {
+            setCurrentStep(4);
+            fetchCartItems();
+          }
+        })
+        .catch((err) => {
+          if (err.message === "Network Error") {
+            notification.error({
+              duration: 3,
+              message: "Mất kết nối mạng!",
+              style: { fontSize: 16 },
+            });
+          } else {
+            notification.error({
+              duration: 3,
+              message: err.response.data.error.message,
+              style: { fontSize: 16 },
+            });
+          }
+          setCurrentStep(1);
         });
-        setCurrentStep(1);
-      });
-      if (result === "Order Successfully!") {
-        setCurrentStep(3);
-      }
-    };
-
-    const fetchCartItems = async () => {
-      const cartItemsResponse = await cartApi.getAll(user.id);
-      const action = setCart(cartItemsResponse);
-      dispatch(action);
-
       setLoading(false);
     };
     checkout();
-    fetchCartItems();
   };
 
   return (
@@ -270,41 +281,58 @@ const CheckoutSection = () => {
                     >
                       <div className="card-body">
                         {selectedAddress && (
-                          <div>
-                            <h4>I. Thông tin giao hàng</h4>
-                            <h5>
-                              <strong className="title">
-                                Tên người nhận:{" "}
-                              </strong>{" "}
-                              {selectedAddress.name}
-                            </h5>
-                            <h5>
-                              <strong className="title">Số điện thoại: </strong>{" "}
-                              {selectedAddress.phone}
-                            </h5>
-                            <h5>
-                              <strong className="title">Địa chỉ: </strong>{" "}
-                              {selectedAddress.address1}
-                            </h5>
-                            <h4>II. Thông tin đơn hàng</h4>
-                            <h5>
-                              <strong className="title">Số lượng hàng: </strong>{" "}
-                              {orderCount} sản phẩm
-                            </h5>
-                            <h5>
-                              <strong className="title">Phí ship: </strong>
-                              {shipCost.toLocaleString() + " VNĐ"}
-                            </h5>
-                            <h5>
-                              <strong className="title">Tiền hàng: </strong>{" "}
-                              {cartTotal.toLocaleString() + " VNĐ"}
-                            </h5>
-                            <h5>
-                              <strong className="title">
-                                Cần thanh toán:{" "}
-                              </strong>
-                              {(shipCost + cartTotal).toLocaleString() + " VNĐ"}{" "}
-                            </h5>
+                          <div style={{ marginLeft: 30 }}>
+                            <h4 className="heading-design-h4">
+                              I. Thông tin giao hàng
+                            </h4>
+                            <br />
+                            <div style={{ marginLeft: 30 }}>
+                              <h5 className="heading-design-h5">
+                                <strong className="title">
+                                  Tên người nhận:{" "}
+                                </strong>{" "}
+                                {selectedAddress.name}
+                              </h5>
+                              <h5 className="heading-design-h5">
+                                <strong className="title">
+                                  Số điện thoại:{" "}
+                                </strong>{" "}
+                                {selectedAddress.phone}
+                              </h5>
+                              <h5 className="heading-design-h5">
+                                <strong className="title">Địa chỉ: </strong>{" "}
+                                {selectedAddress.address1}
+                              </h5>
+                              <br />
+                            </div>
+                            <h4 className="heading-design-h4">
+                              II. Thông tin đơn hàng
+                            </h4>
+                            <br />
+                            <div style={{ marginLeft: 30 }}>
+                              <h5 className="heading-design-h5">
+                                <strong className="title">
+                                  Số lượng hàng:{" "}
+                                </strong>{" "}
+                                {orderCount} sản phẩm
+                              </h5>
+                              <h5 className="heading-design-h5">
+                                <strong className="title">Tiền hàng: </strong>{" "}
+                                {cartTotal.toLocaleString() + " VNĐ"}
+                              </h5>
+                              <h5 className="heading-design-h5">
+                                <strong className="title">Phí ship: </strong>
+                                {shipCost.toLocaleString() + " VNĐ"}
+                              </h5>
+                              <h5 className="heading-design-h5">
+                                <strong className="title">
+                                  Cần thanh toán:{" "}
+                                </strong>
+                                {(shipCost + cartTotal).toLocaleString() +
+                                  " VNĐ"}{" "}
+                              </h5>
+                              <br />
+                            </div>
                           </div>
                         )}
                         <button
@@ -387,6 +415,7 @@ const CheckoutSection = () => {
                         <br />
 
                         <button
+                          disabled={loading}
                           type="button"
                           aria-expanded="false"
                           aria-controls="collapseTwo"
@@ -396,6 +425,7 @@ const CheckoutSection = () => {
                           Tiếp
                         </button>
                         <button
+                          disabled={loading}
                           type="button"
                           onClick={() => setCurrentStep(2)}
                           style={{ marginLeft: 20 }}

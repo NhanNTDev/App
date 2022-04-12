@@ -1,3 +1,4 @@
+import { Tag } from "antd";
 import { Link } from "react-router-dom";
 
 const ProductItem = (props) => {
@@ -13,7 +14,8 @@ const ProductItem = (props) => {
                 alt=""
               />
             ) }
-            <span className="veg text-success mdi mdi-circle"></span>
+            {props.quantity !== 0 && <span className="veg text-success mdi mdi-circle"></span>}
+            
           </div>
           <div className="product-body">
             <div style={{ height: 90 }}>
@@ -24,7 +26,7 @@ const ProductItem = (props) => {
                   textOverflow: "ellipsis",
                 }}
               >
-                {props.productName}
+                {props.productName} {props.quantity === 0 && <span><Tag color="error">Hết hàng</Tag></span>}
               </h4>
               <p className="offer-price mb-0">
                 <i className="mdi mdi-tag-outline"></i>{" "}
@@ -34,7 +36,7 @@ const ProductItem = (props) => {
                 <strong>
                   <span class="mdi mdi-approval"></span> Còn lại:
                 </strong>{" "}
-                {props.inventory} {props.unit}
+                {props.quantity} {props.unit}
               </h6>
             </div>
             <div>

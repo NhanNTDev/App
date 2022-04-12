@@ -33,6 +33,8 @@ const ProfileForm = () => {
       document
         .querySelector(`body`)
         .insertAdjacentElement(`beforeend`, gmapScriptEl);
+    } else {
+      setGmapsLoaded(true);
     }
   }, []);
   useEffect(() => {
