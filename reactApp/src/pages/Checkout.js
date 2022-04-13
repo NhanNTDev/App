@@ -8,7 +8,7 @@ const Checkout = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <Link to="/">
+              <Link to="/home">
                 <strong>
                   <span className="mdi mdi-home"></span> Trang chủ
                 </strong>

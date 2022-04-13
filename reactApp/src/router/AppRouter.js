@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import GetStarted from "../pages/GetStarted";
 import ChangePassword from "../pages/ChangePassword";
 import OrderDetails from "../pages/OrderDetails";
+import ProductOrigin from "../pages/ProductOrigin";
 
 const AppRouter = () => {
   const location = useSelector((state) => state.location);
@@ -80,12 +81,13 @@ const AppRouter = () => {
         }
       />
       <Route path="/getStarted" element={location === null ? <GetStarted /> : <Home/>} />
-      <Route path="/page-not-found" element={<PageNotFound />} />
+      <Route path="/productOrigin" element={<ProductOrigin />} />
       <Route path="/products/:campaignId/:productId" element={<Product />} />
       <Route path="/all-campaigns" element={<ViewAllCampaigns />} />
       <Route path="/campaign/:id" element={<Campaign />} />
       <Route path="/search-result" element={<SearchResult />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/page-not-found" element={<PageNotFound />} />
       <Route path="/*" element={<Navigate replace to="/page-not-found" />} />
     </Routes>
   );

@@ -1,6 +1,5 @@
 import MenuAccountLeft from "../components/account/MenuAccountLeft";
 import OrderDetailsTable from "../components/account/OrderDetailsTable";
-import OrderTable from "../components/account/OrderTable";
 
 const OrderDetails = () => {
   return (

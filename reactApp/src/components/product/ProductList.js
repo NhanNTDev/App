@@ -165,6 +165,7 @@ const ProductList = () => {
         >
           {sortTypes.map((sortType) => (
             <Option
+              key={sortType.id}
               className="dropdown-item"
               value={sortType.id}
               disabled={sortType.id === 0 ? true : null}

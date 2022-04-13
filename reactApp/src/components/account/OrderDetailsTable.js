@@ -119,54 +119,54 @@ const OrderDetailsTable = () => {
           {loading ? (
             <LoadingPage />
           ) : (
-            <div class="card card-body account-right">
-              <div class="widget">
-                <div class="section-header">
-                  <Link to="/orderList" className="btn btn-secondary">
+            <div className="card card-body account-right">
+              <div className="widget">
+                <div className="section-header">
+                  <Link to="/orderList" classNameName="btn btn-secondary">
                     Trở về
                   </Link>
                   <br />
                   <br />
-                  <h4 class="heading-design-h4">
+                  <h4 className="heading-design-h4">
                     Chi tiết đơn hàng {order && order.code}
                   </h4>
                 </div>
                 <br />
-                <div class="order-list-tabel-main table-responsive">
+                <div className="order-list-tabel-main table-responsive">
                   <div style={{marginLeft: 40}}>
-                  <h5 class="heading-design-h5">
+                  <h5 className="heading-design-h5">
                     <strong>Tên chiến dịch: </strong>{" "}
                     {order && order.campaignName}
                   </h5>
-                  <h5 class="heading-design-h5">
+                  <h5 className="heading-design-h5">
                     <strong>Tên người nhận: </strong>
                     {order && order.customerName}
                   </h5>
-                  <h5 class="heading-design-h5">
+                  <h5 className="heading-design-h5">
                     <strong>Địa chỉ nhận hàng: </strong>
                     {order && order.address}
                   </h5>
-                  <h5 class="heading-design-h5">
+                  <h5 className="heading-design-h5">
                     <strong>Số điện thoại nhận hàng: </strong>
                     {order && order.phone}
                   </h5>
-                  <h5 class="heading-design-h5">
+                  <h5 className="heading-design-h5">
                     <strong>Ngày tạo: </strong>
                     {order && order.dateTimeParse}
                   </h5>
-                  <h5 class="heading-design-h5">
+                  <h5 className="heading-design-h5">
                     <strong>Trạng thái: </strong>
                     {order && order.status}
                   </h5>
-                  <h5 class="heading-design-h5">
+                  <h5 className="heading-design-h5">
                     <strong>Phí vận chuyển: </strong>
                     {order && order.shipCost.toLocaleString() + " VNĐ"}
                   </h5>
-                  <h5 class="heading-design-h5">
+                  <h5 className="heading-design-h5">
                     <strong>Tổng tiền: </strong>
                     {order && order.total.toLocaleString() + " VNĐ"}
                   </h5>
-                  <h5 class="heading-design-h5">
+                  <h5 className="heading-design-h5">
                     {order && order.status === "Đã hoàn thành" && (
                       <>
                         {order.feedbackCreateAt === null ? (
@@ -186,7 +186,7 @@ const OrderDetailsTable = () => {
                   </h5>
                   </div>
                   <br/>
-                  <h5 class="heading-design-h5">
+                  <h5 className="heading-design-h5">
                     <strong>Danh sách sản phẩm: </strong>
                   </h5>
                   <Table

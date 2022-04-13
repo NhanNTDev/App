@@ -2,7 +2,6 @@ import { Tag } from "antd";
 import { Link } from "react-router-dom";
 
 const ProductItemShort = (props) => {
-  console.log(props);
   return (
     <div className="col-md-4">
       <div className="product" style={props.quantity === 0 ? {
@@ -40,8 +39,8 @@ const ProductItemShort = (props) => {
               </p>
               <div className="detail">
                 <h6>
-                  <span class="mdi mdi-approval"></span> Còn lại: {props.harvestCampaign.quantity}{"  "}
-                  {props.harvestCampaign.unit}
+                  <span className="mdi mdi-approval"></span> Còn lại: {props.harvestCampaign.quantity}{"  "}
+                  {props.harvestCampaign.unit} <Tag color='gold'>Đã bán {(props.harvestCampaign.inventory - props.harvestCampaign.quantity) + " " + props.harvestCampaign.unit}</Tag>
                 </h6>
                 <h5>
                   <i>

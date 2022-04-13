@@ -22,7 +22,7 @@ const CampaignSlider = (props) => {
         <div className="owl-carousel owl-carousel-featured">
           {props.listCampaigns &&
             props.listCampaigns.map((campaign) => (
-              <CampaignSliderItem {...campaign} />
+              <CampaignSliderItem key={campaign.id} {...campaign} />
             ))}
         </div>
       </div>

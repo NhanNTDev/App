@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ProductDetail from "../components/product/ProductDetail";
 import ProductPicture from "../components/product/ProductPicture";
 import harvestCampaignApi from "../apis/harvestCampaignApi";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button, notification, Result } from "antd";
 import LoadingPage from "./LoadingPage";
 
@@ -70,15 +70,15 @@ const Product = () => {
                 <div className="container">
                   <div className="row">
                     <div className="col-md-12">
-                      <a href="#">
+                      <Link to="/home">
                         <strong>
                           <span className="mdi mdi-home"></span> Trang chủ
                         </strong>
-                      </a>{" "}
+                      </Link>
                       <span className="mdi mdi-chevron-right"></span>{" "}
-                      <a href="#">
+                      <Link to={`/campaign/${harvestCampaign.campaign.id}`}>
                         {harvestCampaign && harvestCampaign.campaign.name}
-                      </a>
+                      </Link>
                       <span className="mdi mdi-chevron-right"></span>{" "}
                       <a href="#">
                         {harvestCampaign && harvestCampaign.productName}

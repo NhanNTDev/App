@@ -1023,7 +1023,7 @@ body.toggled::after {
 }
 /* Login Modal */
 .login-modal-left {
-  background: rgba(0, 0, 0, 0) url("../img/login.jpg") repeat scroll center
+  background: rgba(0, 0, 0, 0) url("../img/login.png") repeat scroll center
     center;
   float: right;
   height: 300px;
