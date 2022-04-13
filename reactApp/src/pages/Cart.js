@@ -75,9 +75,11 @@ const Cart = () => {
     return (
       <>
         <div className="table-responsive">
+          <Link to={`/campaign/${cart.campaignId}`}>
           <div className="cart-campaign-header text-left">
             <h5>{cart.campaignName}</h5>
           </div>
+          </Link>
           <table className="table cart_summary">
             <TableHead campaignId={cart.campaignId} checked={cart.checked} />
             <tbody>

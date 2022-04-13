@@ -14,7 +14,6 @@ const TableBody = ({farm, campaignId}) => {
                 <span className="mdi mdi-map-marker"></span> Địa Chỉ:
               </i>{" "}
               {farm.address}
-              {/* {farm.address} */}
             </h6>
             <h6>
               <i>

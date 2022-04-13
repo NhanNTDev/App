@@ -225,12 +225,12 @@ const OrderTable = () => {
           ]}
         ></Result>
       ) : (
-        <div class="card card-body account-right">
-          <div class="widget">
-            <div class="section-header">
-              <h5 class="heading-design-h5">Lịch Sử Đặt Hàng</h5>
+        <div className="card card-body account-right">
+          <div className="widget">
+            <div className="section-header">
+              <h5 className="heading-design-h5">Lịch Sử Đặt Hàng</h5>
             </div>
-            <div class="order-list-tabel-main table-responsive">
+            <div className="order-list-tabel-main table-responsive">
               <Table
                 columns={columns}
                 dataSource={orders}

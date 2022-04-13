@@ -1,5 +1,5 @@
 import { Link, useNavigate, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TopOption from "./TopOption";
 import NavBar from "./NavBar";
 import LocationSearch from "./LocationSearch";
@@ -7,7 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../state_manager_redux/user/userSlice";
 import { getCartCouter } from "../../state_manager_redux/cart/cartSelector";
 import { SearchOutlined, BellTwoTone } from "@ant-design/icons";
-import { Badge } from "antd";
+import { AutoComplete, Badge, Popover, Tag } from "antd";
+import harvestCampaignApi from "../../apis/harvestCampaignApi";
+import externalApi from "../../apis/externalApis";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -16,6 +18,64 @@ const Header = () => {
   const address = useSelector((state) => state.location);
   const cartCouter = useSelector(getCartCouter);
   const dispatch = useDispatch();
+  const [searchSuggestion, setSearchSuggestion] = useState([]);
+  const zoneId = useSelector((state) => state.zone);
+  const [notification, setNotification] = useState([]);
+
+  const content = (
+    <div>
+      {notification.map((noti) => {
+        return (
+          <>
+            <div
+              style={{
+                width: 350,
+                border: "groove 1px",
+
+                marginBottom: 5,
+                padding: 5,
+              }}
+            >
+              <h5 className="heading-design-h5 d-flex justify-content-center">
+                <strong>{noti.title}</strong>
+              </h5>
+              <h6
+                className="heading-design-h6"
+                style={{ wordWrap: "break-word" }}
+              >
+                {noti.body}
+              </h6>
+              <h6
+                className="heading-design-h6"
+                style={{ textAlign: "right", marginRight: 10 }}
+              >
+                {noti.time}
+              </h6>
+            </div>
+          </>
+        );
+      })}
+    </div>
+  );
+
+  useEffect(() => {
+    const getSuggestion = async () => {
+      await harvestCampaignApi.getSearchOption(zoneId).then((result) => {
+        let options = [];
+        result.map((product) => {
+          options.push({ value: product.productName });
+        });
+        setSearchSuggestion(options);
+      });
+    };
+    getSuggestion();
+    const getNotification = async () => {
+      await externalApi.getNotification(user.id).then((result) => {
+        setNotification(result);
+      });
+    };
+    getNotification();
+  }, []);
   const handleLogout = () => {
     const action = logout();
     dispatch(action);
@@ -32,7 +92,7 @@ const Header = () => {
       <TopOption />
       <nav className="navbar navbar-light navbar-expand-lg bg-dark bg-faded osahan-menu">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/home">
+          <Link className="navbar-brand" to="/home" style={{ marginLeft: 50 }}>
             {" "}
             <img src="/img/logo.png" alt="logo" />{" "}
           </Link>
@@ -68,15 +128,15 @@ const Header = () => {
                       {address !== null ? address : "Cập nhật vị trí hiện tại"}
                     </button>
                   </span>
-                  <input
-                    value={searchValue}
+                  <AutoComplete
+                    size="large"
                     className="form-control"
-                    placeholder="Nhập tên sản phẩm"
-                    aria-label="Nhập tên sản phẩm"
-                    type="text"
-                    onChange={(e) => {
-                      setSearchValue(e.target.value);
-                    }}
+                    options={searchSuggestion}
+                    filterOption={(inputValue, option) =>
+                      option.value
+                        .toUpperCase()
+                        .indexOf(inputValue.toUpperCase()) !== -1
+                    }
                     onKeyPress={(e) => {
                       if (e.key === "Enter") {
                         if (searchValue.trim() !== "") {
@@ -89,7 +149,19 @@ const Header = () => {
                         }
                       }
                     }}
-                  />
+                    onSearch={(value) => {
+                      setSearchValue(value);
+                    }}
+                    value={searchValue}
+                    onSelect={(value) => {
+                      setSearchValue(value);
+                      navigate(`/search-result?searchValue=${value}`, {
+                        replace: true,
+                      });
+                    }}
+                    placeholder="Nhập tên sản phẩm"
+                  ></AutoComplete>
+
                   <span className="input-group-btn">
                     <button
                       className="btn btn-secondary"
@@ -118,13 +190,20 @@ const Header = () => {
               <ul className="list-inline main-nav-right">
                 {user !== null ? (
                   <>
-                  
                     <li className="list-inline-item">
-                      <Badge dot style={{marginRight: 10}}>
-                        <BellTwoTone style={{ fontSize: 24, marginRight: 10 }} />
-                      </Badge>
+                      <Popover
+                        placement="bottom"
+                        content={content}
+                        trigger="click"
+                      >
+                        <Badge dot style={{ marginRight: 10 }}>
+                          <BellTwoTone
+                            style={{ fontSize: 24, marginRight: 10 }}
+                          />
+                        </Badge>
+                      </Popover>
                     </li>
-                    
+
                     <li className="list-inline-item dropdown osahan-top-dropdown">
                       <a
                         className="btn btn-theme-round dropdown-toggle dropdown-toggle-top-user"

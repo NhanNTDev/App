@@ -52,6 +52,7 @@ const SearchResult = () => {
   useEffect(() => {
     setSearchValue(searchParams.get("searchValue"));
     setCategory(searchParams.get("category"));
+    console.log(window.location.href);
     setLoading(true);
   }, [searchParams]);
 

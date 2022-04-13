@@ -2,6 +2,7 @@ import { Tag } from "antd";
 import { Link } from "react-router-dom";
 
 const ProductItem = (props) => {
+  console.log(window.location.href);
   return (
     <div className="col-md-3">
       <div className="product">
@@ -34,9 +35,9 @@ const ProductItem = (props) => {
               </p>
               <h6>
                 <strong>
-                  <span class="mdi mdi-approval"></span> Còn lại:
+                  <span className="mdi mdi-approval"></span> Còn lại:
                 </strong>{" "}
-                {props.quantity} {props.unit}
+                {props.quantity} {props.unit} <Tag color='gold'>Đã bán {(props.inventory - props.quantity) + " " + props.unit}</Tag>
               </h6>
             </div>
             <div>

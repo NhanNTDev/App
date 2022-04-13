@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
+import { parseTimeDMY } from "../../utils/Common";
 
 const CampaignSliderItem = (props) => {
-  const date = new Date(props.endAt);
-  const endDate = date.getDate() + "-" + (date.getMonth()+1)  + "-" + date.getFullYear();
   return (
     <div className="item" key={props.id}>
       <div className="product">
@@ -46,7 +45,13 @@ const CampaignSliderItem = (props) => {
               <strong>
                 <span className="mdi mdi-calendar"></span> Kết thúc:
               </strong>{" "}
-              {endDate}
+              {parseTimeDMY(props.endAt)}
+            </h5>
+            <h5>
+              <strong>
+                <span className="mdi mdi-car"></span> Giao hàng dự kiến:
+              </strong>{" "}
+              {parseTimeDMY(props.expectedDeliveryTime)}
             </h5>
             <br />
           </div>

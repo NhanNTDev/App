@@ -1,17 +1,20 @@
-import { Modal, notification, Rate, Space, Tag } from "antd";
+import { Modal, notification, Rate, Space, Tag, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import farmApi from "../../apis/farmApi";
-import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { ExclamationCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 import { addToCartThunk } from "../../state_manager_redux/cart/cartSlice";
 const { confirm } = Modal;
 
 const ProductDetail = (props) => {
+  console.log(props);
   const [farm, setFarm] = useState({});
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.user);
   const cart = useSelector((state) => state.cart);
+  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const fetchFarm = async () => {
@@ -60,19 +63,19 @@ const ProductDetail = (props) => {
         notification.error({
           duration: 3,
           message: `${props.productName} chỉ còn lại ${props.quantity} ${props.unit}!`,
-          style: {fontSize: 16}
-        })
+          style: { fontSize: 16 },
+        });
         setQuantity(props.quantity);
-      } else if(e.target.value !== ""){
+      } else if (e.target.value !== "") {
         setQuantity(e.target.value);
       } else {
         setQuantity(1);
       }
-      
     } else setQuantity(quantity);
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
+    setLoading(true);
     if (cart !== null && props.campaign.id !== cart.campaignId) {
       showAddOtherCampaignConfirm();
     } else if (user !== null) {
@@ -81,7 +84,8 @@ const ProductDetail = (props) => {
         customerId: user.id,
         quantity: quantity,
       });
-      dispatch(action);
+      await dispatch(action);
+      setLoading(false);
     } else {
       navigate(`/login?urlRedirect=/products/${props.campaign.id}/${props.id}`);
     }
@@ -89,10 +93,15 @@ const ProductDetail = (props) => {
 
   return (
     <div className="shop-detail-right">
-      <h2 style={{display: "inline", marginRight: 10}}>{props.productName}</h2> {props.quantity === 0 && <Tag color="red">Hết hàng</Tag>}
-      <Link style={{fontSize: 16}} to={`/ProductOrigin?id=${props.id}`}>Xem nguồn gốc</Link>
-      <br/>
-      <br/>
+      <h2 style={{ display: "inline", marginRight: 10 }}>
+        {props.productName}
+      </h2>{" "}
+      {props.quantity === 0 && <Tag color="red">Hết hàng</Tag>}
+      <Link style={{ fontSize: 16 }} to={`/productOrigin?id=${props.id}`}>
+        Xem nguồn gốc
+      </Link>
+      <br />
+      <br />
       <p className="offer-price mb-0">
         <span className="mdi mdi-tag"></span>{" "}
         <span className="price-offer">
@@ -107,25 +116,23 @@ const ProductDetail = (props) => {
         <strong>
           <span className="mdi mdi-approval"></span> Còn lại :
         </strong>{" "}
-        {props.quantity} {props.unit}
+        {props.quantity} {props.unit} <Tag color='gold'>Đã bán {(props.inventory - props.quantity) + props.unit}</Tag>
       </h6>
       <h5>
         <i>
           <span className="mdi mdi-home-circle"></span> Nông trại :
         </i>{" "}
         {farm.name}{" "}
-        {farm.totalStar !== 0 && (
-          <Rate value={farm.totalStar} disabled={true}></Rate>
+        {farm.totalStar !== 0 && ( <>
+          <Rate value={farm.totalStar} allowHalf disabled={true}></Rate> {farm.totalStar + "/5"} </>
         )}
       </h5>
-
       <h5>
         <i>
           <span className="mdi mdi-map-marker"></span> Địa Chỉ :
         </i>{" "}
         {farm.address}
       </h5>
-
       <div className="qty" disabled={props.quantity === 0}>
         <div className="input-group" style={{ width: 250 }}>
           <h5>
@@ -158,21 +165,23 @@ const ProductDetail = (props) => {
           </button>
         </div>
       </div>
-
       <Space>
         <button
           type="button"
           className="btn btn-secondary btn-lg"
           onClick={handleAddToCart}
-          disabled={props.quantity === 0}
-          
+          disabled={props.quantity === 0 || loading}
         >
+          {loading ? (
+            <>
+              <Spin indicator={antIcon} style={{marginRight: 10}}/>
+            </>
+          ) : null}
           <i className="mdi mdi-cart-outline"></i> Thêm vào giỏ hàng
         </button>{" "}
       </Space>
-
       <div className="short-description">
-        {props.unit !== props.unitOfSystem ? (
+        {props.unit !== props.systemUnit ? (
           <p>
             <strong>Quy cách đóng gói:</strong> 1 {props.unit} ={" "}
             {props.valueChangeOfUnit} {props.systemUnit}
@@ -189,7 +198,6 @@ const ProductDetail = (props) => {
           {" "}
           <strong>Mùa vụ: </strong> {props.harvestName}
           <br />
-          {/* {props.harvestDescription} */}
         </p>
         <h5>Mô tả:</h5>
         <p
@@ -201,7 +209,6 @@ const ProductDetail = (props) => {
         >
           {props.harvestDescription}
         </p>
-        
       </div>
     </div>
   );

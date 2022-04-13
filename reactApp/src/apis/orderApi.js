@@ -1,3 +1,4 @@
+import { getShipcost } from "../state_manager_redux/cart/cartSelector";
 import axiosClient from "./axiosClient";
 
 const orderApi = {
@@ -20,6 +21,10 @@ const orderApi = {
     feedback(params) {
         const url = `/orders/feedback/${params.id}`;
         return axiosClient.put(url, params);
+    },
+    getShipcost(params) {
+        const url = `/orders/ship-cost?product-cost=${params.cost}&address=${params.address}&campaign-id=${params.campaignId}`;
+        return axiosClient.get(url);
     }
 
 }

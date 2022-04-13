@@ -94,7 +94,7 @@ const NavBar = () => {
           <div className="collapse navbar-collapse" id="navbarText">
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0 margin-auto">
               {navbarItems.map((navbarItem) => (
-                <NavBarItem {...navbarItem} />
+                <NavBarItem key={navbarItem.id} {...navbarItem} />
               ))}
             </ul>
           </div>
