@@ -3,6 +3,14 @@ DiChoNao css
 */
 @import url("https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900|Roboto+Condensed:300,300i,400,400i,700,700i");
 /* Body */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+}
 body {
   background-color: #f9f9f9;
   font-size: 13px;
@@ -1209,7 +1217,6 @@ label {
   .carousel-slider-main .owl-next {
     top: 34%;
   }
-
   .top-categories-search .locate-btn {
     border: medium none;
     font-size: 13px;
@@ -1228,6 +1235,8 @@ label {
   .top-categories-search .input-group {
     max-width: 70%;
   }
+  
+
   .account-left {
     margin-right: 0;
   }

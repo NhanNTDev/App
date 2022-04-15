@@ -20,12 +20,12 @@ const NavBar = () => {
       childrens: [],
       link: "/all-campaigns?type=other",
     },
-    {
-      id: "4",
-      title: "Cộng đồng",
-      childrens: [],
-      link: "/checkout",
-    },
+    // {
+    //   id: "4",
+    //   title: "Cộng đồng",
+    //   childrens: [],
+    //   link: "/checkout",
+    // },
     {
       id: "5",
       title: "Cá Nhân",

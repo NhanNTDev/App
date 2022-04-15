@@ -10,7 +10,6 @@ import addressApi from "../../apis/addressApis";
 import {
   getCartTotal,
   getOrderCouter,
-  getShipcost,
 } from "../../state_manager_redux/cart/cartSelector";
 import CreateAddressForm from "../address/CreateAddressFrom";
 import momoApi from "../../apis/momoApi";
