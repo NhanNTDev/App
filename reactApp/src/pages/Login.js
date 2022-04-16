@@ -1,18 +1,20 @@
 import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { useSelector } from "react-redux";
 import LoginForm from "../components/login/LoginForm";
 import RegisterForm from "../components/login/RegisterForm";
 const Login = () => {
+
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  
   useEffect(() => {
-    user && navigate("/home");
+    user !== null && navigate("/home");
   }, []);
   const goToLogin = () => {
     const loginTab = document.getElementById("tab1");
     loginTab.click();
   };
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
 
   return (
     <>

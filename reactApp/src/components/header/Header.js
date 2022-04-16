@@ -24,33 +24,38 @@ const Header = () => {
 
   const content = (
     <div>
+      <h4 className="heading-design-h4"><strong>Thông báo</strong></h4>
       {notification.map((noti) => {
         return (
           <>
             <div
+              // onMouseOver={(e) => {
+              //   e.target.style.backgroundColor = "lightgrey";
+              // }}
+              // onMouseOut={(e) => {
+              //   e.target.style.backgroundColor = "white";
+              // }}
               style={{
                 width: 350,
                 border: "groove 1px",
-
                 marginBottom: 5,
                 padding: 5,
               }}
             >
-              <h5 className="heading-design-h5 d-flex justify-content-center">
+              <h5 className="heading-design-h5 d-flex justify-content-center" >
                 <strong>{noti.title}</strong>
               </h5>
               <h6
                 className="heading-design-h6"
-                style={{ wordWrap: "break-word" }}
+                
               >
                 {noti.body}
               </h6>
-              <h6
-                className="heading-design-h6"
-                style={{ textAlign: "right", marginRight: 10 }}
+              <span
+                style={{ display:"block", textAlign: "right", marginRight: 10, color: "blue",  }}
               >
-                {noti.time}
-              </h6>
+                <strong>{noti.time}</strong>
+              </span>
             </div>
           </>
         );
@@ -74,7 +79,7 @@ const Header = () => {
         setNotification(result);
       });
     };
-    getNotification();
+    user !== null && getNotification();
   }, []);
   const handleLogout = () => {
     const action = logout();
@@ -92,7 +97,7 @@ const Header = () => {
       <TopOption />
       <nav className="navbar navbar-light navbar-expand-lg bg-dark bg-faded osahan-menu">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/home" style={{ marginLeft: 50 }}>
+          <Link className="navbar-brand" to="/home">
             {" "}
             <img src="/img/logo.png" alt="logo" />{" "}
           </Link>

@@ -1,5 +1,7 @@
 import axios from "axios";
 import queryString from "query-string";
+axios.defaults.timeout = 15000;
+axios.defaults.timeoutErrorMessage='timeout';
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_BASEURL,
@@ -8,10 +10,11 @@ const axiosClient = axios.create({
     "content-type": "application/json, multipart/form-data",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    "timeout": 1000,
+    // "timeout": 1000,
   },
   paramsSerializer: (params) => queryString.stringify(params),
 });
+
 
 axiosClient.interceptors.request.use(async (config) => {
   //Handle token.....
