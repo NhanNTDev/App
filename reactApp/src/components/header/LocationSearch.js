@@ -9,6 +9,7 @@ const LocationSearch = () => {
   const [address, setAddress] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [gmapsLoaded, setGmapsLoaded] = useState(false);
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const LocationSearch = () => {
       setGmapsLoaded(true);
     }
   }, []);
+
   const offcanvas = () => {
     var element = document.getElementById("toggle");
     element.classList.toggle("toggled");
@@ -150,6 +152,7 @@ const LocationSearch = () => {
                   )}
                 </PlacesAutocomplete>
               )}
+
               <br />
               <strong className="d-flex justify-content-center">Hoặc</strong>
               <br />

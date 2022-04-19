@@ -24,17 +24,13 @@ const Header = () => {
 
   const content = (
     <div>
-      <h4 className="heading-design-h4"><strong>Thông báo</strong></h4>
+      <h4 className="heading-design-h4">
+        <strong>Thông báo</strong>
+      </h4>
       {notification.map((noti) => {
         return (
           <>
             <div
-              // onMouseOver={(e) => {
-              //   e.target.style.backgroundColor = "lightgrey";
-              // }}
-              // onMouseOut={(e) => {
-              //   e.target.style.backgroundColor = "white";
-              // }}
               style={{
                 width: 350,
                 border: "groove 1px",
@@ -42,17 +38,17 @@ const Header = () => {
                 padding: 5,
               }}
             >
-              <h5 className="heading-design-h5 d-flex justify-content-center" >
+              <h5 className="heading-design-h5 d-flex justify-content-center">
                 <strong>{noti.title}</strong>
               </h5>
-              <h6
-                className="heading-design-h6"
-                
-              >
-                {noti.body}
-              </h6>
+              <h6 className="heading-design-h6">{noti.body}</h6>
               <span
-                style={{ display:"block", textAlign: "right", marginRight: 10, color: "blue",  }}
+                style={{
+                  display: "block",
+                  textAlign: "right",
+                  marginRight: 10,
+                  color: "blue",
+                }}
               >
                 <strong>{noti.time}</strong>
               </span>
@@ -71,16 +67,16 @@ const Header = () => {
           options.push({ value: product.productName });
         });
         setSearchSuggestion(options);
-      });
+      }).catch(err => {});
     };
-    getSuggestion();
+    zoneId && getSuggestion();
     const getNotification = async () => {
       await externalApi.getNotification(user.id).then((result) => {
         setNotification(result);
-      });
+      }).catch(err => {});
     };
     user !== null && getNotification();
-  }, []);
+  }, [zoneId, user]);
   const handleLogout = () => {
     const action = logout();
     dispatch(action);

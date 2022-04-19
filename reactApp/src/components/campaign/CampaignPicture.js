@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { deleteScript, runScript } from "../../utils/Common";
+
 
 const CampaignPicture = (props) => {
   return (

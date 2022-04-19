@@ -45,14 +45,12 @@ const SearchResult = () => {
   const [loading, setLoading] = useState(true);
   const [noResult, setNoResult] = useState(false);
   const [sortType, setSortType] = useState();
-  const address = useSelector((state) => state.location);
   const zoneId = useSelector(state => state.zone);
   const navigate = useNavigate();
   //Get params from url
   useEffect(() => {
     setSearchValue(searchParams.get("searchValue"));
     setCategory(searchParams.get("category"));
-    console.log(window.location.href);
     setLoading(true);
   }, [searchParams]);
 

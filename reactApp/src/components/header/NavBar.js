@@ -20,12 +20,6 @@ const NavBar = () => {
       childrens: [],
       link: "/all-campaigns?type=other",
     },
-    // {
-    //   id: "4",
-    //   title: "Cộng đồng",
-    //   childrens: [],
-    //   link: "/checkout",
-    // },
     {
       id: "5",
       title: "Cá Nhân",
@@ -67,21 +61,6 @@ const NavBar = () => {
           id: "1",
           title: "Page Not Found",
           link: "/page-not-found",
-        },
-        {
-          id: "2",
-          title: "Mục khác 2",
-          link: "",
-        },
-        {
-          id: "3",
-          title: "Mục khác 3",
-          link: "",
-        },
-        {
-          id: "4",
-          title: "Mục khác 4",
-          link: "",
         },
       ],
       link: "",

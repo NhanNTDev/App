@@ -1,7 +1,7 @@
 import CenterBanner from "../components/home/CenterBanner";
 import CampaignSlider from "../components/campaign/CampaignSlider";
 import TopCategory from "../components/home/TopCategory";
-import { runScript, deleteScript } from "../utils/Common";
+import { runScript } from "../utils/Common";
 import { useState, useEffect } from "react";
 import TopBanner from "../components/home/TopBanner";
 import campaignsApi from "../apis/campaignsApi";
@@ -33,7 +33,7 @@ const Home = () => {
   const zoneId = useSelector((state) => state.zone);
 
   useEffect(() => {
-    if (code !== null) {
+    if (code !== null && code != undefined) {
       const loginByCode = async () => {
         const result = await userApi.loginByCode(code).catch((err) => {
           if (err.message === "Network Error") {
@@ -68,10 +68,7 @@ const Home = () => {
     if (address === null && code === null) {
       navigate("/getStarted");
     }
-  }, [code]);
-  useEffect(() => {
-    deleteScript();
-  });
+  }, []);
   // Get cart from server
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -97,12 +94,15 @@ const Home = () => {
       setNetworkErr(false);
       setLoading(true);
       //FetchCategory
-      const categoriesResponse = await categoriesApi.getAll().catch((err) => {
-        setNetworkErr(true);
-      });
-      if (categoriesResponse !== undefined) {
-        setCategories(categoriesResponse.data);
-      }
+      await categoriesApi
+        .getAll()
+        .then((result) => {
+          setCategories(result.data);
+        })
+        .catch((err) => {
+          setNetworkErr(true);
+        });
+
       await campaignsApi
         .getAll(params)
         .then((result) => {
@@ -136,11 +136,10 @@ const Home = () => {
             setNetworkErr(true);
           }
         });
-
       runScript();
       setLoading(false);
     };
-    if (address !== null) {
+    if (zoneId !== null) {
       fetchData();
     } else {
       setLoading(false);
@@ -169,11 +168,11 @@ const Home = () => {
       ) : (
         <>
           <TopBanner />
-          <TopCategory listCategories={categories}></TopCategory>
           {loading ? (
             <LoadingPage />
           ) : !noCampaign ? (
             <>
+              <TopCategory categories={categories}></TopCategory>
               <CampaignSlider
                 title="Chiến dịch trong tuần"
                 listCampaigns={weeklyCampaigns}

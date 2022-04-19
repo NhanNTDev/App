@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Spin, notification } from "antd";
+import { Spin, notification, Button } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import userApi from "../../apis/userApi";
 import { auth } from "../../firebase/firebase";
@@ -19,26 +19,6 @@ const RegisterForm = ({ callback }) => {
   const [invalidOtp, setInvalidOtp] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
 
-  const checkDuplicate = () => {
-    setLoading(true);
-    setDuplicate(false);
-    const check = async () => {
-      await userApi
-        .checkDuplicate(userName)
-        .then((result) => {
-          if (result) {
-            setDuplicate(false);
-            return false;
-          }
-        })
-        .catch((err) => {
-          if (err.response.status === 400) setDuplicate(true);
-          return true;
-        });
-      setLoading(false);
-    };
-    check();
-  };
   const handleRegister = () => {
     setLoading(true);
     const data = {
@@ -77,14 +57,14 @@ const RegisterForm = ({ callback }) => {
         setLoading(false);
       }
     };
-
     register();
   };
+
   const generateRecapcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier(
-      "recaptcha-container",
+      "sign-in-button",
       {
-        size: "normal",
+        size: "invisible",
         callback: (response) => {
           // reCAPTCHA solved, allow signInWithPhoneNumber.
         },
@@ -92,24 +72,39 @@ const RegisterForm = ({ callback }) => {
       auth
     );
   };
-  const sentOtp = () => {
-    const valid = validateAll();
-    if (!valid) {
-      return;
-    }
-    if (duplicate) {
-      return;
-    }
+  const resentOtp = () => {
+    
     generateRecapcha();
-
     let appVerifier = window.recaptchaVerifier;
     signInWithPhoneNumber(auth, "+84" + userName.substring(1, 10), appVerifier)
       .then((confirmationResult) => {
+        console.log(confirmationResult);
         window.confirmationResult = confirmationResult;
         setOtpUi(true);
       })
-      .catch(() => {
+      .catch((err) => {
         // Error; SMS not sent
+        console.log(err);
+      });
+  };
+  const sentOtp = async () => {
+    console.log("validate");
+    const valid = await validateAll();
+    console.log(valid);
+    if (!valid) return;
+    console.log("sent otp");
+    auth.settings.appVerificationDisabledForTesting = false;
+    generateRecapcha();
+    let appVerifier = window.recaptchaVerifier;
+    signInWithPhoneNumber(auth, "+84" + userName.substring(1, 10), appVerifier)
+      .then((confirmationResult) => {
+        console.log(confirmationResult);
+        window.confirmationResult = confirmationResult;
+        setOtpUi(true);
+      })
+      .catch((err) => {
+        // Error; SMS not sent
+        console.log(err);
       });
   };
 
@@ -125,8 +120,21 @@ const RegisterForm = ({ callback }) => {
       });
   };
 
-  const validateAll = () => {
-    checkDuplicate();
+  const validateAll = async () => {
+    setLoading(true);
+    let duplicateResult = true;
+    await userApi
+      .checkDuplicate(userName)
+      .then((result) => {
+        if (result) {
+          setDuplicate(false);
+          duplicateResult = false;
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 400) setDuplicate(true);
+      });
+    setLoading(false);
     const msg = {};
     if (
       !/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/.test(
@@ -147,7 +155,9 @@ const RegisterForm = ({ callback }) => {
     }
 
     setValidateMsg(msg);
-    if (Object.keys(msg).length > 0) return false;
+    console.log(duplicateResult);
+    console.log(validateMsg);
+    if (Object.keys(msg).length > 0 || duplicateResult !== false) return false;
     return true;
   };
   return (
@@ -182,7 +192,14 @@ const RegisterForm = ({ callback }) => {
               </span>
             )}
           </fieldset>
-
+          <span>
+            Bạn chưa nhận được mã,{" "}
+            <Button style={{ padding: 0 }} type="link" onClick={resentOtp}>
+              Gửi lại
+            </Button>
+          </span>
+          <br />
+          <br />
           <fieldset className="form-group">
             <button
               className="btn btn-lg btn-secondary btn-block"
@@ -206,7 +223,6 @@ const RegisterForm = ({ callback }) => {
               }}
             />
             <span style={{ color: "red" }}>{validateMsg.userName}</span>
-            {/* <span style={{ color: "red" }}>{validateMsg.duplicate}</span> */}
             {duplicate ? (
               <span style={{ color: "red" }}>
                 Số điện thoại đã tồn tại trong hệ thống!
@@ -275,7 +291,7 @@ const RegisterForm = ({ callback }) => {
               Đăng ký
             </button>
           </fieldset>
-          <div id="recaptcha-container"></div>
+          <div id="sign-in-button"></div>
         </>
       )}
     </>

@@ -1,13 +1,12 @@
 
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { deleteScript, runScript } from "../../utils/Common";
+import { runScript } from "../../utils/Common";
 import ProductItemShort from "./ProductItemShort";
 
 
 const ProductSlider = (props) => {
   useEffect(()=>{
-    deleteScript();
     runScript();
   }, []);
   
