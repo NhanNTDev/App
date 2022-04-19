@@ -1,6 +1,7 @@
-import {Link} from 'react-router-dom';
 
-const TopCategory = (props) => {
+import { Link } from "react-router-dom";
+
+const TopCategory = ({categories}) => {
   function renderItem(props) {
     return (
       <div className="item" key={props.id}>
@@ -20,11 +21,10 @@ const TopCategory = (props) => {
       <section className="top-category section-padding">
         <div className="container">
           <div className="owl-carousel owl-carousel-category">
-            
-                  {props.listCategories && props.listCategories.map((category) =>
-                    renderItem({ ...category })
-                  )}
-               
+            {categories &&
+              categories.map((category) =>
+                renderItem({ ...category })
+              )}
           </div>
         </div>
       </section>

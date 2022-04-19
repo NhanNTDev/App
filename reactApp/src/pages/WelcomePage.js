@@ -36,7 +36,7 @@ const WelcomePage = () => {
         });
       setLoading(false);
     };
-    getZone();
+    userLocation && getZone();
   }, [userLocation]);
   return (
     <>

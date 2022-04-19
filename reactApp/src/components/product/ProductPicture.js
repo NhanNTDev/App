@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import { deleteScript, runScript } from "../../utils/Common";
+import { runScript } from "../../utils/Common";
 
 const ProductPicture = (props) => {
   useEffect(() => {
-    deleteScript();
     runScript();
   }, []);
   return (

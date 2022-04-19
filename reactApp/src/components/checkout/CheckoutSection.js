@@ -175,10 +175,11 @@ const CheckoutSection = () => {
         campaignId: cart.campaignId,
         farmOrders: order,
       };
+      console.log(data);
       await orderApi
         .post(data)
         .then((result) => {
-          console.log(result);
+          notification.error({duration: 5, message: result});
           if (paymentMethod === 1) {
             if (result === "Order Successfully!") {
               setCurrentStep(4);

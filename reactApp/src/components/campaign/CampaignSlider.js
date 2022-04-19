@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import CampaignSliderItem from "./CampaignSliderItem";
 
 const CampaignSlider = (props) => {
+
   return (
     <section className="product-items-slider section-padding">
       <div className="container">
