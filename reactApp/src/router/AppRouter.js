@@ -17,6 +17,7 @@ import GetStarted from "../pages/GetStarted";
 import ChangePassword from "../pages/ChangePassword";
 import OrderDetails from "../pages/OrderDetails";
 import ProductOrigin from "../pages/ProductOrigin";
+import Social from "../pages/Social";
 
 const AppRouter = () => {
   const location = useSelector((state) => state.location);
@@ -77,6 +78,14 @@ const AppRouter = () => {
         element={
           <PrivateRoute urlRedirect="/changePassword">
             <OrderDetails />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/social"
+        element={
+          <PrivateRoute urlRedirect="/social">
+            <Social />
           </PrivateRoute>
         }
       />

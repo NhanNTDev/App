@@ -2,7 +2,7 @@ import Footer from "../components/home/Footer";
 import Header from "../components/header/Header";
 import AppRouter from "../router/AppRouter";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import GetStarted from "./GetStarted";
 import Home from "./Home";
@@ -15,6 +15,7 @@ import LoadingPage from "./LoadingPage";
 const WelcomePage = () => {
   const userLocation = useSelector((state) => state.location);
   const user = useSelector((state) => state.user);
+  const zoneId = useSelector(state => state.zone);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -41,7 +42,7 @@ const WelcomePage = () => {
   return (
     <>
       <div style={{ backgroundColor: "#f9f9f9" }}>
-        {userLocation === null ? (
+        {zoneId === null ? (
           <>
             <Routes>
               <Route path="/home" element={<Home />} />

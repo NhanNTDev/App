@@ -116,15 +116,21 @@ const ProductDetail = (props) => {
         <strong>
           <span className="mdi mdi-approval"></span> Còn lại :
         </strong>{" "}
-        {props.quantity} {props.unit} <Tag color='gold'>Đã bán {(props.inventory - props.quantity) + props.unit}</Tag>
+        {props.quantity} {props.unit}{" "}
+        <Tag color="gold">
+          Đã bán {props.inventory - props.quantity + " " + props.unit}
+        </Tag>
       </h6>
       <h5>
         <i>
           <span className="mdi mdi-home-circle"></span> Nông trại :
         </i>{" "}
         {farm.name}{" "}
-        {farm.totalStar !== 0 && ( <>
-          <Rate value={farm.totalStar} allowHalf disabled={true}></Rate> {farm.totalStar + "/5"} </>
+        {farm.totalStar !== 0 && (
+          <>
+            <Rate value={farm.totalStar} allowHalf disabled={true}></Rate>{" "}
+            {farm.totalStar + "/5"}{" "}
+          </>
         )}
       </h5>
       <h5>
@@ -174,7 +180,7 @@ const ProductDetail = (props) => {
         >
           {loading ? (
             <>
-              <Spin indicator={antIcon} style={{marginRight: 10}}/>
+              <Spin indicator={antIcon} style={{ marginRight: 10 }} />
             </>
           ) : null}
           <i className="mdi mdi-cart-outline"></i> Thêm vào giỏ hàng

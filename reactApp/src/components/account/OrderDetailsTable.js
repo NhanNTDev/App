@@ -122,13 +122,13 @@ const OrderDetailsTable = () => {
             <div className="card card-body account-right">
               <div className="widget">
                 <div className="section-header">
-                  <Link to="/orderList" classNameName="btn btn-secondary">
+                  <Link to="/orderList" className="btn btn-secondary">
                     Trở về
                   </Link>
                   <br />
                   <br />
                   <h4 className="heading-design-h4">
-                    Chi tiết đơn hàng {order && order.code}
+                    Chi tiết đơn hàng <strong>{order && order.code}</strong>
                   </h4>
                 </div>
                 <br />

@@ -2,7 +2,6 @@ import axiosClient from "./axiosClient";
 
 const harvestCampaignApi = {
     getAll(params) {
-        console.log(params);
         const url = '/product-harvest-in-campaigns';
         return axiosClient.get(url, {params});
     },

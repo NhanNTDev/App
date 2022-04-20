@@ -51,11 +51,12 @@ const OrderTable = () => {
       setLoading(false);
     };
     getOrderList();
-  }, [page, reload]);
+  }, [reload]);
 
   const callbackAfterFeedback = () => {
+    setLoading(true);
     setReload(!reload);
-  }
+  };
 
   function ShowCancelOrderConfirm(record) {
     confirm({
@@ -128,25 +129,24 @@ const OrderTable = () => {
       dataIndex: "status",
       key: "status",
       NodeFilter: {
-          okText: "Lọc",
-         
+        okText: "Lọc",
       },
       filters: [
         {
-          text: 'Đã hoàn thành',
-          value: 'Đã hoàn thành',
+          text: "Đã hoàn thành",
+          value: "Đã hoàn thành",
         },
         {
-          text: 'Đã hủy',
-          value: 'Đã hủy',
+          text: "Đã hủy",
+          value: "Đã hủy",
         },
         {
-          text: 'Chờ xác nhận',
-          value: 'Chờ xác nhận',
+          text: "Chờ xác nhận",
+          value: "Chờ xác nhận",
         },
         {
-          text: 'Đang giao hàng',
-          value: 'Đang giao hàng',
+          text: "Đang giao hàng",
+          value: "Đang giao hàng",
         },
       ],
       onFilter: (value, record) => record.status.indexOf(value) === 0,
@@ -197,9 +197,12 @@ const OrderTable = () => {
           <br />
           {record.status === "Đã hoàn thành" &&
             (record.feedbackCreateAt === null ? (
-              <CreateRating orderId={record.id} callback={callbackAfterFeedback}/>
+              <CreateRating
+                orderId={record.id}
+                callback={callbackAfterFeedback}
+              />
             ) : (
-              <ViewRating {...record}/>
+              <ViewRating {...record} />
             ))}
         </>
       ),

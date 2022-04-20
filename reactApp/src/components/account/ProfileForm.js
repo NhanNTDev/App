@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DatePicker, Spin, notification } from "antd";
+import { DatePicker, Spin, notification, Switch } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import validator from "validator";
 import moment from "moment";
@@ -14,6 +14,7 @@ const ProfileForm = () => {
   const [email, setEmail] = useState(user.email);
   const [gender, setGender] = useState(user.gender);
   const [address, setAddress] = useState(user.address);
+  const [published, setPublished] = useState(user.published);
   const [dateOfBirth, setDateOfBirth] = useState(user.dateOfBirth);
   const [validateMsg, setValidateMsg] = useState("");
   const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
@@ -102,6 +103,7 @@ const ProfileForm = () => {
         address: address,
         gender: gender,
         dateOfBirth: dateOfBirth,
+        published: published,
       };
       setLoading(true);
       const result = update(dataUpdate);
@@ -173,7 +175,7 @@ const ProfileForm = () => {
           <div className="row">
             <div className="col-sm-6">
               <div className="form-group">
-                <label className="control-label">Giới tính:</label>
+                <label className="control-label">Giới Tính:</label>
                 <select
                   className="form-control"
                   name="gender"
@@ -188,7 +190,7 @@ const ProfileForm = () => {
             </div>
             <div className="col-sm-6">
               <div className="form-group">
-                <label className="control-label">Ngày sinh:</label>
+                <label className="control-label">Ngày Sinh:</label>
                 <DatePicker
                   onChange={handleOnChangeDatePicker}
                   className="form-control"
@@ -202,6 +204,16 @@ const ProfileForm = () => {
                   }}
                 />
                 <span style={{ color: "red" }}>{validateMsg.dateOfBirth}</span>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+          <div className="col-sm-12">
+              <div className="form-group">
+                <label className="control-label">Công Khai Thông Tin Mua Hàng:</label> {"          "}
+                <Switch checked={published} onChange={(checked) => {
+                  setPublished(checked);
+                }}/>
               </div>
             </div>
           </div>

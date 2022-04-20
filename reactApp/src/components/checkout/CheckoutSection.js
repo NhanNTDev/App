@@ -14,7 +14,7 @@ import {
 import CreateAddressForm from "../address/CreateAddressFrom";
 import momoApi from "../../apis/momoApi";
 import LoadingPage from "../../pages/LoadingPage";
-
+import { isMobile } from "react-device-detect";
 const CheckoutSection = () => {
   const order = useSelector((state) => state.order);
   const cart = useSelector((state) => state.cart);
@@ -179,7 +179,7 @@ const CheckoutSection = () => {
       await orderApi
         .post(data)
         .then((result) => {
-          notification.error({duration: 5, message: result});
+          notification.error({ duration: 5, message: result });
           if (paymentMethod === 1) {
             if (result === "Order Successfully!") {
               setCurrentStep(4);
@@ -504,17 +504,19 @@ const CheckoutSection = () => {
                                       </h5>
                                     </>
                                   </Radio>
-                                  <Radio key={2} value={2}>
-                                    <>
-                                      <h5>
-                                        <strong>Thanh toán qua ví </strong>
-                                        <img
-                                          style={{ height: 40, width: 40 }}
-                                          src="/img/MoMo_Logo.png"
-                                        ></img>
-                                      </h5>
-                                    </>
-                                  </Radio>
+                                  {isMobile ? null : (
+                                    <Radio key={2} value={2}>
+                                      <>
+                                        <h5>
+                                          <strong>Thanh toán qua ví </strong>
+                                          <img
+                                            style={{ height: 40, width: 40 }}
+                                            src="/img/MoMo_Logo.png"
+                                          ></img>
+                                        </h5>
+                                      </>
+                                    </Radio>
+                                  )}
                                 </Space>
                               </Radio.Group>
                             </div>

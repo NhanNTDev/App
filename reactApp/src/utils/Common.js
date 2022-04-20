@@ -29,3 +29,10 @@ export const parseTimeDMY = (datetime) => {
     date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
   return formatedDate;
 };
+
+export const parseTimeHMDMY = (datetime) => {
+  const date = new Date(datetime);
+  const formatedDate = date.getHours() + ":" + date.getMinutes() + " "+
+    date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+  return formatedDate;
+};

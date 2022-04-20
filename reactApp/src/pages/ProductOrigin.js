@@ -61,7 +61,7 @@ const ProductOrigin = () => {
           <>
             {productOrigin && (
               <>
-                <h2 className="heading-design-h4" style={{ marginLeft: 20 }}>
+                <h2 className="heading-design-h4" style={{marginBottom: 30, marginTop: 30}}>
                   I. Thông tin nông trại
                 </h2>
                 <div className="row">
@@ -108,45 +108,75 @@ const ProductOrigin = () => {
                         {productOrigin.harvest.farm.image1 && (
                           <div class="carousel-item active">
                             <img
+                              style={{
+                                objectFit: "cover",
+                                backgroundSize: "cover",
+                                width: "100%",
+                                height: 300,
+                                borderRadius: 30,
+                              }}
                               class="d-block w-100"
                               src={productOrigin.harvest.farm.image1}
-                              alt="First slide"
                             />
                           </div>
                         )}
                         {productOrigin.harvest.farm.image2 && (
                           <div class="carousel-item">
                             <img
+                              style={{
+                                objectFit: "cover",
+                                backgroundSize: "cover",
+                                width: "100%",
+                                height: 300,
+                                borderRadius: 30,
+                              }}
                               class="d-block w-100"
                               src={productOrigin.harvest.farm.image2}
-                              alt="Second slide"
                             />
                           </div>
                         )}
                         {productOrigin.harvest.farm.image3 && (
                           <div class="carousel-item">
                             <img
+                              style={{
+                                objectFit: "cover",
+                                backgroundSize: "cover",
+                                width: "100%",
+                                height: 300,
+                                borderRadius: 30,
+                              }}
                               class="d-block w-100"
                               src={productOrigin.harvest.farm.image3}
-                              alt="Second slide"
                             />
                           </div>
                         )}
                         {productOrigin.harvest.farm.image4 && (
                           <div class="carousel-item">
                             <img
+                              style={{
+                                objectFit: "cover",
+                                backgroundSize: "cover",
+                                width: "100%",
+                                height: 300,
+                                borderRadius: 30,
+                              }}
                               class="d-block w-100"
                               src={productOrigin.harvest.farm.image4}
-                              alt="Second slide"
                             />
                           </div>
                         )}
                         {productOrigin.harvest.farm.image5 && (
                           <div class="carousel-item">
                             <img
+                              style={{
+                                objectFit: "cover",
+                                backgroundSize: "cover",
+                                width: "100%",
+                                height: 300,
+                                borderRadius: 30,
+                              }}
                               class="d-block w-100"
                               src={productOrigin.harvest.farm.image5}
-                              alt="Second slide"
                             />
                           </div>
                         )}
@@ -181,7 +211,14 @@ const ProductOrigin = () => {
                     <div style={{ margin: 20 }}>
                       <h5 className="heading-design-h5">
                         <strong>Tên nông trại: </strong>{" "}
-                        {productOrigin.harvest.farm.name} <Rate value={productOrigin.harvest.farm.totalStar} allowHalf disabled={true} style={{marginLeft: 10}}/> {productOrigin.harvest.farm.totalStar + "/5"}
+                        {productOrigin.harvest.farm.name}{" "}
+                        <Rate
+                          value={productOrigin.harvest.farm.totalStar}
+                          allowHalf
+                          disabled={true}
+                          style={{ marginLeft: 10 }}
+                        />{" "}
+                        {productOrigin.harvest.farm.totalStar + "/5"}
                       </h5>
                       <h5 className="heading-design-h5">
                         <strong>Địa chỉ: </strong>{" "}
@@ -202,7 +239,7 @@ const ProductOrigin = () => {
                     </div>
                   </div>
                 </div>
-                <h2 className="heading-design-h4" style={{ marginLeft: 20 }}>
+                <h2 className="heading-design-h4" style={{marginTop: 30, marginBottom: 30}}>
                   II. Thông tin mùa vụ
                 </h2>
                 <div className="row">
@@ -249,6 +286,13 @@ const ProductOrigin = () => {
                         {productOrigin.harvest.farm.image1 && (
                           <div class="carousel-item active">
                             <img
+                              style={{
+                                objectFit: "cover",
+                                backgroundSize: "cover",
+                                width: "100%",
+                                height: 300,
+                                borderRadius: 30,
+                              }}
                               class="d-block w-100"
                               src={productOrigin.harvest.image1}
                             />
@@ -257,6 +301,13 @@ const ProductOrigin = () => {
                         {productOrigin.harvest.image2 && (
                           <div class="carousel-item">
                             <img
+                              style={{
+                                objectFit: "cover",
+                                backgroundSize: "cover",
+                                width: "100%",
+                                height: 300,
+                                borderRadius: 30,
+                              }}
                               class="d-block w-100"
                               src={productOrigin.harvest.image2}
                             />
@@ -265,6 +316,13 @@ const ProductOrigin = () => {
                         {productOrigin.harvest.image3 && (
                           <div class="carousel-item">
                             <img
+                              style={{
+                                objectFit: "cover",
+                                backgroundSize: "cover",
+                                width: "100%",
+                                height: 300,
+                                borderRadius: 30,
+                              }}
                               class="d-block w-100"
                               src={productOrigin.harvest.image3}
                             />
@@ -273,6 +331,13 @@ const ProductOrigin = () => {
                         {productOrigin.harvest.image4 && (
                           <div class="carousel-item">
                             <img
+                              style={{
+                                objectFit: "cover",
+                                backgroundSize: "cover",
+                                width: "100%",
+                                height: 300,
+                                borderRadius: 30,
+                              }}
                               class="d-block w-100"
                               src={productOrigin.harvest.image4}
                             />
@@ -281,6 +346,13 @@ const ProductOrigin = () => {
                         {productOrigin.harvest.image5 && (
                           <div class="carousel-item">
                             <img
+                              style={{
+                                objectFit: "cover",
+                                backgroundSize: "cover",
+                                width: "100%",
+                                height: 300,
+                                borderRadius: 30,
+                              }}
                               class="d-block w-100"
                               src={productOrigin.harvest.image5}
                             />
@@ -339,7 +411,11 @@ const ProductOrigin = () => {
                       </h5>
                       <h5 className="heading-design-h5">
                         <strong>Sản lượng (thực tế): </strong>
-                        {productOrigin.harvest.actualProduction !== null ? productOrigin.harvest.actualProduction + " " + productOrigin.harvest.productSystem.unit : "Chưa xác đ"}
+                        {productOrigin.harvest.actualProduction !== null
+                          ? productOrigin.harvest.actualProduction +
+                            " " +
+                            productOrigin.harvest.productSystem.unit
+                          : "Chưa xác đ"}
                       </h5>
                       <h5 className="heading-design-h5">
                         <strong>Mô tả: </strong>

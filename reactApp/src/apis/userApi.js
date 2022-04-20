@@ -6,7 +6,7 @@ const userApi = {
     return axiosClient.post(url, data);
   },
   update(data) {
-    const url = `/users/update-user/${data.id}`;
+    const url = `/users/update/customer/${data.id}`;
     return axiosClient.put(url, data);
   },
   register(data) {
@@ -27,6 +27,7 @@ const userApi = {
   },
   loginByCode(code) {
       const url =`/webhooks/login/zalo?code=${code}`;
+      console.log(url);
       return axiosClient.post(url);
   }
 };
