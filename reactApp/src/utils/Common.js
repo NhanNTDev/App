@@ -1,4 +1,4 @@
-export const runScript = () => {
+export const runCaroselScript = () => {
   var script = document.getElementById("vendor_carousel");
   var script1 = document.getElementById("custom");
   if (script !== null) {
@@ -26,6 +26,13 @@ export const runScript = () => {
 export const parseTimeDMY = (datetime) => {
   const date = new Date(datetime);
   const formatedDate =
+    date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+  return formatedDate;
+};
+
+export const parseTimeHMDMY = (datetime) => {
+  const date = new Date(datetime);
+  const formatedDate = date.getHours() + ":" + date.getMinutes() + " "+
     date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
   return formatedDate;
 };

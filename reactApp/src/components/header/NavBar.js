@@ -21,6 +21,12 @@ const NavBar = () => {
       link: "/all-campaigns?type=other",
     },
     {
+      id: "4",
+      title: "Cộng đồng",
+      childrens: [],
+      link: "/social",
+    },
+    {
       id: "5",
       title: "Cá Nhân",
       childrens: [

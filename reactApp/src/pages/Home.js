@@ -1,7 +1,7 @@
 import CenterBanner from "../components/home/CenterBanner";
 import CampaignSlider from "../components/campaign/CampaignSlider";
 import TopCategory from "../components/home/TopCategory";
-import { runScript } from "../utils/Common";
+import { runCaroselScript } from "../utils/Common";
 import { useState, useEffect } from "react";
 import TopBanner from "../components/home/TopBanner";
 import campaignsApi from "../apis/campaignsApi";
@@ -29,41 +29,40 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [code, setCode] = useState(searchParams.get("code"));
+  const code = searchParams.get("code");
   const zoneId = useSelector((state) => state.zone);
+  const [loginByCodeFlag, setLoginByCodeFlag] = useState(false);
 
   useEffect(() => {
-    if (code !== null && code != undefined) {
-      const loginByCode = async () => {
-        const result = await userApi.loginByCode(code).catch((err) => {
+    const loginByCode = async () => {
+      await userApi
+        .loginByCode(code)
+        .then((result) => {
+          if (result && result.user.role === "customer") {
+            const setUserAction = setUser({ ...result });
+            dispatch(setUserAction);
+            if (result.user.address !== null && result.user.address !== "") {
+              const setLocationAction = setLocation({
+                location: result.user.address,
+              });
+              dispatch(setLocationAction);
+            }
+          }
+        })
+        .catch((err) => {
           if (err.message === "Network Error") {
             notification.error({
               duration: 3,
               message: "Mất kết nối mạng!",
               style: { fontSize: 16 },
             });
-          } else {
-            notification.error({
-              duration: 3,
-              message: "Có lỗi xảy ra trong quá trình xử lý!",
-              style: { fontSize: 16 },
-            });
           }
           if (address === null) navigate("/page-not-found");
         });
-        if (result && result.user.role === "customer") {
-          setCode(null);
-          const setUserAction = setUser({ ...result });
-          dispatch(setUserAction);
-          if (result.user.address !== null && result.user.address !== "") {
-            const setLocationAction = setLocation({
-              location: result.user.address,
-            });
-            dispatch(setLocationAction);
-          }
-        }
-      };
-      loginByCode();
+    };
+    if (!loginByCodeFlag) {
+      setLoginByCodeFlag(true);
+      code && loginByCode();
     }
     if (address === null && code === null) {
       navigate("/getStarted");
@@ -72,9 +71,9 @@ const Home = () => {
   // Get cart from server
   useEffect(() => {
     const fetchCartItems = async () => {
-      const cartItemsResponse = await cartApi.getAll(user.id).catch((err) => {
-        console.log(err);
-      });
+      const cartItemsResponse = await cartApi
+        .getAll(user.id)
+        .catch((err) => {});
       if (cartItemsResponse !== undefined && cartItemsResponse !== null) {
         const action = setCart(cartItemsResponse);
         dispatch(action);
@@ -136,7 +135,7 @@ const Home = () => {
             setNetworkErr(true);
           }
         });
-      runScript();
+      runCaroselScript();
       setLoading(false);
     };
     if (zoneId !== null) {
@@ -144,7 +143,7 @@ const Home = () => {
     } else {
       setLoading(false);
     }
-  }, [reload]);
+  }, [reload, zoneId]);
 
   return (
     <>

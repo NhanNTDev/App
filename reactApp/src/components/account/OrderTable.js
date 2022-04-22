@@ -17,15 +17,16 @@ const OrderTable = () => {
   const user = useSelector((state) => state.user);
   useEffect(() => {
     setLoadErr(false);
+    setLoading(true);
     const getOrderList = async () => {
       await orderApi
-        .getOrderList(user.id)
+        .getOrderList({ userId: user.id, page: page })
         .then((result) => {
           if (result) {
             let listOrder = [];
-            let index = 1;
-            setTotal(Object.entries(result).length);
-            result.map((order) => {
+            let index = 10 * (page - 1) + 1;
+            setTotal(result.metadata.total);
+            result.data.map((order) => {
               listOrder.push({ index: index++, ...order });
             });
             setOrders(listOrder);
@@ -54,8 +55,9 @@ const OrderTable = () => {
   }, [page, reload]);
 
   const callbackAfterFeedback = () => {
+    setLoading(true);
     setReload(!reload);
-  }
+  };
 
   function ShowCancelOrderConfirm(record) {
     confirm({
@@ -122,31 +124,35 @@ const OrderTable = () => {
         <div>{record.total.toLocaleString() + " VNĐ"}</div>
       ),
     },
-
+    {
+      title: "Thanh Toán",
+      dataIndex: "payment",
+      key: "payment",
+      render: (text, record) => <div>{record.payments[0].status}</div>,
+    },
     {
       title: "Trạng thái",
       dataIndex: "status",
       key: "status",
       NodeFilter: {
-          okText: "Lọc",
-         
+        okText: "Lọc",
       },
       filters: [
         {
-          text: 'Đã hoàn thành',
-          value: 'Đã hoàn thành',
+          text: "Đã hoàn thành",
+          value: "Đã hoàn thành",
         },
         {
-          text: 'Đã hủy',
-          value: 'Đã hủy',
+          text: "Đã hủy",
+          value: "Đã hủy",
         },
         {
-          text: 'Chờ xác nhận',
-          value: 'Chờ xác nhận',
+          text: "Chờ xác nhận",
+          value: "Chờ xác nhận",
         },
         {
-          text: 'Đang giao hàng',
-          value: 'Đang giao hàng',
+          text: "Đang giao hàng",
+          value: "Đang giao hàng",
         },
       ],
       onFilter: (value, record) => record.status.indexOf(value) === 0,
@@ -197,9 +203,12 @@ const OrderTable = () => {
           <br />
           {record.status === "Đã hoàn thành" &&
             (record.feedbackCreateAt === null ? (
-              <CreateRating orderId={record.id} callback={callbackAfterFeedback}/>
+              <CreateRating
+                orderId={record.id}
+                callback={callbackAfterFeedback}
+              />
             ) : (
-              <ViewRating {...record}/>
+              <ViewRating {...record} />
             ))}
         </>
       ),

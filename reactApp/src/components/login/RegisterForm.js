@@ -88,11 +88,8 @@ const RegisterForm = ({ callback }) => {
       });
   };
   const sentOtp = async () => {
-    console.log("validate");
     const valid = await validateAll();
-    console.log(valid);
     if (!valid) return;
-    console.log("sent otp");
     auth.settings.appVerificationDisabledForTesting = false;
     generateRecapcha();
     let appVerifier = window.recaptchaVerifier;

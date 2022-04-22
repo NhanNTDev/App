@@ -16,14 +16,18 @@ const MenuAccountLeft = ({ type }) => {
   const dispath = useDispatch();
 
   const upLoadImage = async (imageAsFile) => {
+    let firebareUrl;
     try {
       const storageRef = ref(storage, `/Images/User/${imageAsFile.name}`);
-      const upLoadTask = uploadBytesResumable(storageRef, imageAsFile);
-      const url = await getDownloadURL(upLoadTask.snapshot.ref);
-      if (url) {
-        return url;
+      const upload = await uploadBytesResumable(storageRef, imageAsFile);
+      if (upload !== undefined) {
+        const url = await getDownloadURL(storageRef);
+        firebareUrl = url;
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
+    return firebareUrl;
   };
 
   const handleChangeAvatar = () => {
@@ -33,6 +37,7 @@ const MenuAccountLeft = ({ type }) => {
         id: user.id,
         image: imageUrl,
       };
+      console.log(params);
       await userApi
         .changeAvatar(params)
         .then(() => {
@@ -98,8 +103,6 @@ const MenuAccountLeft = ({ type }) => {
         <ImgCrop rotate modalTitle="Chỉnh ảnh" modalOk="Chọn" modalCancel="Hủy">
           <Upload
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            // listType="picture-card"
-            // fileList={fileList}
             onChange={onChange}
             onPreview={onPreview}
             maxCount={1}

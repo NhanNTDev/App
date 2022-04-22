@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { RECORD_PER_PAGE } from "../constants/Constants";
 import { Button, notification, Pagination, Result, Row, Select } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ProductItem from "../components/product/ProductItem";
@@ -142,7 +141,7 @@ const SearchResult = () => {
       <div className="pagination justify-content-center mt-4">
         <Pagination
           showSizeChanger={false}
-          pageSize={RECORD_PER_PAGE}
+          pageSize={12}
           defaultCurrent={1}
           current={page}
           total={totalRecord}

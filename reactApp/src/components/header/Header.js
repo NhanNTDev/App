@@ -27,53 +27,58 @@ const Header = () => {
       <h4 className="heading-design-h4">
         <strong>Thông báo</strong>
       </h4>
-      {notification.map((noti) => {
-        return (
-          <>
-            <div
+      {notification.map((noti) => (
+        <>
+          <div
+            key={noti.id}
+            style={{
+              width: 350,
+              border: "groove 1px",
+              marginBottom: 5,
+              padding: 5,
+            }}
+          >
+            <h5 className="heading-design-h5 d-flex justify-content-center">
+              <strong>{noti.title}</strong>
+            </h5>
+            <h6 className="heading-design-h6">{noti.body}</h6>
+            <span
               style={{
-                width: 350,
-                border: "groove 1px",
-                marginBottom: 5,
-                padding: 5,
+                display: "block",
+                textAlign: "right",
+                marginRight: 10,
+                color: "blue",
               }}
             >
-              <h5 className="heading-design-h5 d-flex justify-content-center">
-                <strong>{noti.title}</strong>
-              </h5>
-              <h6 className="heading-design-h6">{noti.body}</h6>
-              <span
-                style={{
-                  display: "block",
-                  textAlign: "right",
-                  marginRight: 10,
-                  color: "blue",
-                }}
-              >
-                <strong>{noti.time}</strong>
-              </span>
-            </div>
-          </>
-        );
-      })}
+              <strong>{noti.time}</strong>
+            </span>
+          </div>
+        </>
+      ))}
     </div>
   );
 
   useEffect(() => {
     const getSuggestion = async () => {
-      await harvestCampaignApi.getSearchOption(zoneId).then((result) => {
-        let options = [];
-        result.map((product) => {
-          options.push({ value: product.productName });
-        });
-        setSearchSuggestion(options);
-      }).catch(err => {});
+      await harvestCampaignApi
+        .getSearchOption(zoneId)
+        .then((result) => {
+          let options = [];
+          result.map((product) => {
+            options.push({ value: product.productName });
+          });
+          setSearchSuggestion(options);
+        })
+        .catch((err) => {});
     };
     zoneId && getSuggestion();
     const getNotification = async () => {
-      await externalApi.getNotification(user.id).then((result) => {
-        setNotification(result);
-      }).catch(err => {});
+      await externalApi
+        .getNotification(user.id)
+        .then((result) => {
+          setNotification(result);
+        })
+        .catch((err) => {});
     };
     user !== null && getNotification();
   }, [zoneId, user]);
@@ -191,7 +196,7 @@ const Header = () => {
               <ul className="list-inline main-nav-right">
                 {user !== null ? (
                   <>
-                    <li className="list-inline-item">
+                    <li className="list-inline-item" key="1">
                       <Popover
                         placement="bottom"
                         content={content}
@@ -205,7 +210,10 @@ const Header = () => {
                       </Popover>
                     </li>
 
-                    <li className="list-inline-item dropdown osahan-top-dropdown">
+                    <li
+                      className="list-inline-item dropdown osahan-top-dropdown"
+                      key="2"
+                    >
                       <a
                         className="btn btn-theme-round dropdown-toggle dropdown-toggle-top-user"
                         href="#"
@@ -258,14 +266,14 @@ const Header = () => {
                     </li>
                   </>
                 ) : (
-                  <li className="list-inline-item">
+                  <li className="list-inline-item" key="3">
                     <Link to="/login" className="btn btn-link">
                       <i className="mdi mdi-account-circle"></i> Đăng nhập/Đăng
                       ký
                     </Link>
                   </li>
                 )}
-                <li className="list-inline-item cart-btn">
+                <li className="list-inline-item cart-btn" key="4">
                   <Link to="/cart" className="btn btn-link border-none">
                     <i className="mdi mdi-cart"></i> Giỏ hàng{" "}
                     {cartCouter === 0 ? null : (

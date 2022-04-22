@@ -112,19 +112,23 @@ const ProductDetail = (props) => {
           </strong>
         </span>
       </p>
-      <h6>
-        <strong>
-          <span className="mdi mdi-approval"></span> Còn lại :
-        </strong>{" "}
-        {props.quantity} {props.unit} <Tag color='gold'>Đã bán {(props.inventory - props.quantity) + props.unit}</Tag>
-      </h6>
+      <h5>
+        <span className="mdi mdi-approval"></span> Còn lại :{props.quantity}{" "}
+        {props.unit}{" "}
+        <Tag color="gold">
+          Đã bán {props.inventory - props.quantity + " " + props.unit}
+        </Tag>
+      </h5>
       <h5>
         <i>
           <span className="mdi mdi-home-circle"></span> Nông trại :
         </i>{" "}
         {farm.name}{" "}
-        {farm.totalStar !== 0 && ( <>
-          <Rate value={farm.totalStar} allowHalf disabled={true}></Rate> {farm.totalStar + "/5"} </>
+        {farm.totalStar !== 0 && (
+          <>
+            <Rate value={farm.totalStar} allowHalf disabled={true}></Rate>{" "}
+            {farm.totalStar + "/5"}{" "}
+          </>
         )}
       </h5>
       <h5>
@@ -174,7 +178,7 @@ const ProductDetail = (props) => {
         >
           {loading ? (
             <>
-              <Spin indicator={antIcon} style={{marginRight: 10}}/>
+              <Spin indicator={antIcon} style={{ marginRight: 10 }} />
             </>
           ) : null}
           <i className="mdi mdi-cart-outline"></i> Thêm vào giỏ hàng
@@ -188,26 +192,25 @@ const ProductDetail = (props) => {
           </p>
         ) : null}
         <p
-          className="mb-0"
           style={{
             overflow: "hidden",
             textOverflow: "ellipsis",
-            maxHeight: 100,
           }}
         >
           {" "}
           <strong>Mùa vụ: </strong> {props.harvestName}
           <br />
         </p>
-        <h5>Mô tả:</h5>
         <p
           style={{
             overflow: "hidden",
             textOverflow: "ellipsis",
-            maxHeight: 150,
           }}
         >
-          {props.harvestDescription}
+          <strong>Mô tả: </strong>
+          {props.harvestDescription === "" || props.harvestDescription === null
+            ? "Chưa có mô tả!"
+            : props.harvestDescription}
         </p>
       </div>
     </div>
