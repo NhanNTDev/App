@@ -61,7 +61,10 @@ const ProductOrigin = () => {
           <>
             {productOrigin && (
               <>
-                <h2 className="heading-design-h4" style={{marginBottom: 30, marginTop: 30}}>
+                <h2
+                  className="heading-design-h4"
+                  style={{ marginBottom: 30, marginTop: 30 }}
+                >
                   I. Thông tin nông trại
                 </h2>
                 <div className="row">
@@ -234,12 +237,18 @@ const ProductOrigin = () => {
                       </h5>
                       <h5 className="heading-design-h5">
                         <strong>Mô tả: </strong>
-                        {productOrigin.harvest.farm.description}
+                        {productOrigin.harvest.farm.description === null ||
+                        productOrigin.harvest.farm.description === ""
+                          ? "Chưa có mô tả!"
+                          : productOrigin.harvest.farm.description}
                       </h5>
                     </div>
                   </div>
                 </div>
-                <h2 className="heading-design-h4" style={{marginTop: 30, marginBottom: 30}}>
+                <h2
+                  className="heading-design-h4"
+                  style={{ marginTop: 30, marginBottom: 30 }}
+                >
                   II. Thông tin mùa vụ
                 </h2>
                 <div className="row">
@@ -419,7 +428,10 @@ const ProductOrigin = () => {
                       </h5>
                       <h5 className="heading-design-h5">
                         <strong>Mô tả: </strong>
-                        {productOrigin.harvest.description}
+                        {productOrigin.harvest.description === null ||
+                        productOrigin.harvest.description === ""
+                          ? "Chưa có mô tả!"
+                          : productOrigin.harvest.description}
                       </h5>
                     </div>
                   </div>

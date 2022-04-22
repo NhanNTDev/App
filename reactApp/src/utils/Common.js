@@ -1,4 +1,4 @@
-export const runScript = () => {
+export const runCaroselScript = () => {
   var script = document.getElementById("vendor_carousel");
   var script1 = document.getElementById("custom");
   if (script !== null) {

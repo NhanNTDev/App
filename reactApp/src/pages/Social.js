@@ -1,4 +1,4 @@
-import { Button, notification, Pagination, Result } from "antd";
+import { Button, Empty, notification, Pagination, Result } from "antd";
 import { reload } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -80,19 +80,28 @@ const Social = () => {
               </h1>
               <div className="row">
                 <div className="col-sm-8">
-                  <div className="container-fluid">
-                    {Object.entries(listPost).length !== 0 && listPost.map(post => <Post post={post}/> )}
-                  </div>
-                  <Pagination
-                    className="d-flex justify-content-center"
-                    total={totalPost}
-                    size={10}
-                    current={page}
-                    onChange={(current) => {
-                      setPage(current);
-                    }}
-                    style={{ marginTop: 30, marginBottom: 30 }}
-                  />
+                  {Object.entries(listPost).length !== 0 ? (
+                    <>
+                      {" "}
+                      <div className="container-fluid">
+                        {listPost.map((post) => (
+                          <Post post={post} />
+                        ))}
+                      </div>
+                      <Pagination
+                        className="d-flex justify-content-center"
+                        total={totalPost}
+                        size={10}
+                        current={page}
+                        onChange={(current) => {
+                          setPage(current);
+                        }}
+                        style={{ marginTop: 30, marginBottom: 30 }}
+                      />
+                    </>
+                  ) : (
+                    <Empty description="Chưa có hoạt động nào để hiển thị!" style={{marginTop: 100}}/>
+                  )}
                 </div>
                 <div className="col-sm-4">
                   <div className="container-fluid">

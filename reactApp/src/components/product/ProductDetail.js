@@ -112,15 +112,13 @@ const ProductDetail = (props) => {
           </strong>
         </span>
       </p>
-      <h6>
-        <strong>
-          <span className="mdi mdi-approval"></span> Còn lại :
-        </strong>{" "}
-        {props.quantity} {props.unit}{" "}
+      <h5>
+        <span className="mdi mdi-approval"></span> Còn lại :{props.quantity}{" "}
+        {props.unit}{" "}
         <Tag color="gold">
           Đã bán {props.inventory - props.quantity + " " + props.unit}
         </Tag>
-      </h6>
+      </h5>
       <h5>
         <i>
           <span className="mdi mdi-home-circle"></span> Nông trại :
@@ -194,26 +192,25 @@ const ProductDetail = (props) => {
           </p>
         ) : null}
         <p
-          className="mb-0"
           style={{
             overflow: "hidden",
             textOverflow: "ellipsis",
-            maxHeight: 100,
           }}
         >
           {" "}
           <strong>Mùa vụ: </strong> {props.harvestName}
           <br />
         </p>
-        <h5>Mô tả:</h5>
         <p
           style={{
             overflow: "hidden",
             textOverflow: "ellipsis",
-            maxHeight: 150,
           }}
         >
-          {props.harvestDescription}
+          <strong>Mô tả: </strong>
+          {props.harvestDescription === "" || props.harvestDescription === null
+            ? "Chưa có mô tả!"
+            : props.harvestDescription}
         </p>
       </div>
     </div>

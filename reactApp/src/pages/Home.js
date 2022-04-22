@@ -1,7 +1,7 @@
 import CenterBanner from "../components/home/CenterBanner";
 import CampaignSlider from "../components/campaign/CampaignSlider";
 import TopCategory from "../components/home/TopCategory";
-import { runScript } from "../utils/Common";
+import { runCaroselScript } from "../utils/Common";
 import { useState, useEffect } from "react";
 import TopBanner from "../components/home/TopBanner";
 import campaignsApi from "../apis/campaignsApi";
@@ -135,7 +135,7 @@ const Home = () => {
             setNetworkErr(true);
           }
         });
-      runScript();
+      runCaroselScript();
       setLoading(false);
     };
     if (zoneId !== null) {

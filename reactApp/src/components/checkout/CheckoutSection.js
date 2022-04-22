@@ -15,6 +15,7 @@ import CreateAddressForm from "../address/CreateAddressFrom";
 import momoApi from "../../apis/momoApi";
 import LoadingPage from "../../pages/LoadingPage";
 import { isMobile } from "react-device-detect";
+import { parseTimeDMY } from "../../utils/Common";
 const CheckoutSection = () => {
   const order = useSelector((state) => state.order);
   const cart = useSelector((state) => state.cart);
@@ -175,11 +176,9 @@ const CheckoutSection = () => {
         campaignId: cart.campaignId,
         farmOrders: order,
       };
-      console.log(data);
       await orderApi
         .post(data)
         .then((result) => {
-          notification.error({ duration: 5, message: result });
           if (paymentMethod === 1) {
             if (result === "Order Successfully!") {
               setCurrentStep(4);
@@ -333,21 +332,21 @@ const CheckoutSection = () => {
                             <button
                               disabled={loading}
                               type="button"
+                              onClick={() => navigate("/cart")}
+                              style={{ marginRight: 20 }}
+                              className="btn btn-secondary mb-2 btn-lg"
+                            >
+                              Trở về
+                            </button>
+                            <button
+                              disabled={loading}
+                              type="button"
                               aria-expanded="false"
                               aria-controls="collapseTwo"
                               className="btn btn-secondary mb-2 btn-lg"
                               onClick={getShipcost}
                             >
                               Tiếp
-                            </button>
-                            <button
-                              disabled={loading}
-                              type="button"
-                              onClick={() => navigate("/cart")}
-                              style={{ marginLeft: 20 }}
-                              className="btn btn-secondary mb-2 btn-lg"
-                            >
-                              Trở về
                             </button>
                           </div>
                         </div>
@@ -390,17 +389,21 @@ const CheckoutSection = () => {
                                     <strong className="title">
                                       Tên người nhận:{" "}
                                     </strong>{" "}
-                                    {selectedAddress.name}
+                                    <span style={{fontWeight: 400}}>{selectedAddress.name}</span>
                                   </h5>
                                   <h5 className="heading-design-h5">
                                     <strong className="title">
                                       Số điện thoại:{" "}
                                     </strong>{" "}
-                                    {selectedAddress.phone}
+                                    <span style={{fontWeight: 400}}>{selectedAddress.phone}</span>
                                   </h5>
                                   <h5 className="heading-design-h5">
                                     <strong className="title">Địa chỉ: </strong>{" "}
-                                    {selectedAddress.address1}
+                                    <span style={{fontWeight: 400}}>{selectedAddress.address1}</span>
+                                  </h5>
+                                  <h5 className="heading-design-h5">
+                                    <strong className="title">Giao hàng dự kiến: </strong>{" "}
+                                    <span style={{fontWeight: 400}}>{parseTimeDMY(cart.expectedDeliveryTime)}</span>
                                   </h5>
                                   <br />
                                 </div>
@@ -413,31 +416,42 @@ const CheckoutSection = () => {
                                     <strong className="title">
                                       Số lượng hàng:{" "}
                                     </strong>{" "}
-                                    {orderCount} sản phẩm
+                                    <span style={{fontWeight: 400}}>{orderCount} sản phẩm</span>
                                   </h5>
                                   <h5 className="heading-design-h5">
                                     <strong className="title">
                                       Tiền hàng:{" "}
                                     </strong>{" "}
-                                    {cartTotal.toLocaleString() + " VNĐ"}
+                                    <span style={{fontWeight: 400}}>{cartTotal.toLocaleString() + " VNĐ"}</span>
                                   </h5>
                                   <h5 className="heading-design-h5">
                                     <strong className="title">
                                       Phí ship:{" "}
                                     </strong>
-                                    {shipCost.toLocaleString() + " VNĐ"}
+                                    <span style={{fontWeight: 400}}>{shipCost.toLocaleString() + " VNĐ"}</span>
                                   </h5>
                                   <h5 className="heading-design-h5">
                                     <strong className="title">
                                       Cần thanh toán:{" "}
                                     </strong>
-                                    {(shipCost + cartTotal).toLocaleString() +
-                                      " VNĐ"}{" "}
+                                    <span style={{fontWeight: 400}}>{(shipCost + cartTotal).toLocaleString() +
+                                      " VNĐ"}{" "}</span>
                                   </h5>
                                   <br />
                                 </div>
                               </div>
                             )}
+                            
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCurrentStep(1);
+                              }}
+                              style={{ marginRight: 20 }}
+                              className="btn btn-secondary mb-2 btn-lg"
+                            >
+                              Trở về
+                            </button>
                             <button
                               type="button"
                               aria-expanded="false"
@@ -446,16 +460,6 @@ const CheckoutSection = () => {
                               onClick={() => setCurrentStep(3)}
                             >
                               Tiếp
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setCurrentStep(1);
-                              }}
-                              style={{ marginLeft: 20 }}
-                              className="btn btn-secondary mb-2 btn-lg"
-                            >
-                              Trở về
                             </button>
                           </div>
                         </div>
@@ -522,6 +526,16 @@ const CheckoutSection = () => {
                             </div>
                             <br />
 
+                            
+                            <button
+                              disabled={loading}
+                              type="button"
+                              onClick={() => setCurrentStep(2)}
+                              style={{ marginRight: 20 }}
+                              className="btn btn-secondary mb-2 btn-lg"
+                            >
+                              Trở về
+                            </button>
                             <button
                               disabled={loading}
                               type="button"
@@ -531,15 +545,6 @@ const CheckoutSection = () => {
                               onClick={handleCheckout}
                             >
                               Tiếp
-                            </button>
-                            <button
-                              disabled={loading}
-                              type="button"
-                              onClick={() => setCurrentStep(2)}
-                              style={{ marginLeft: 20 }}
-                              className="btn btn-secondary mb-2 btn-lg"
-                            >
-                              Trở về
                             </button>
                           </div>
                         </div>

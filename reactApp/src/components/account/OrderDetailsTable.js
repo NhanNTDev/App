@@ -22,6 +22,7 @@ const OrderDetailsTable = () => {
         .getOrderDetails(orderId)
         .then((result) => {
           if (result) {
+            console.log(result);
             setOrder(result);
             let listProduct = [];
             let index = 1;

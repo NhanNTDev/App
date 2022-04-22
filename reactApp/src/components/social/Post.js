@@ -15,7 +15,8 @@ const Post = ({ post }) => {
             className="heading-design-h4"
             style={{ color: "orange", marginLeft: 30 }}
           >
-            <span style={{color: "black"}}>Nguyễn Thành Nhân</span> đã mua hàng!
+            <span style={{ color: "black" }}>{post.customerName}</span> đã mua
+            hàng!
             {campaignEnd && <Tag color="red">Chiến dịch đã kết thúc</Tag>}
           </h4>
           <br />
@@ -42,7 +43,7 @@ const Post = ({ post }) => {
           </div>
           <div className="col-sm-7" style={{ marginBottom: 30, marginTop: 50 }}>
             <h4 className="heading-design-h4">
-            Nguyễn Thành Nhân{post.customerName} đã mua{" "}
+              {post.customerName} <span style={{fontWeight: 300}}>đã mua{" "}</span>
               <Link
                 to={
                   campaignEnd
@@ -52,11 +53,11 @@ const Post = ({ post }) => {
               >
                 {post.productName}
               </Link>{" "}
-              của {post.farmName} tại chiến dịch{" "}
+              <span style={{fontWeight: 300}}>của </span>{post.farmName}<span style={{fontWeight: 300}}> tại chiến dịch{" "}</span>
               <Link to={campaignEnd ? "#" : `/campaign/${post.campaignId}`}>
                 {post.campaignName}
               </Link>{" "}
-              lúc {parseTimeHMDMY(post.createAt)}
+              <span style={{fontWeight: 300}}>lúc </span>{parseTimeHMDMY(post.createAt)}
             </h4>
           </div>
         </div>

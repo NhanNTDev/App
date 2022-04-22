@@ -4,7 +4,7 @@ import CampaignPicture from "../components/campaign/CampaignPicture";
 import CampaignDetail from "../components/campaign/CampaignDetail";
 import campaignsApi from "../apis/campaignsApi";
 import ProductList from "../components/product/ProductList";
-import { runScript } from "../utils/Common";
+import { runCaroselScript } from "../utils/Common";
 import LoadingPage from "./LoadingPage";
 import { Button, notification, Result } from "antd";
 
@@ -42,7 +42,7 @@ const Campaign = () => {
         });
 
       setLoadingCampaign(false);
-      runScript();
+      runCaroselScript();
     };
     fetchCampaign();
   }, [reload]);

@@ -52,8 +52,8 @@ const Suggestion = () => {
                 avatar={<Avatar src={item.image} />}
                 title={item.name}
               />
-              <Button onClick={() => handleFollowUser(item)}>
-                <li className="mdi mdi-account-plus" />
+              <Button onClick={() => handleFollowUser(item)} style={{display: "inline"}}>
+                <li className="mdi mdi-account-plus">Theo dõi</li> 
               </Button>
             </List.Item>
           )}

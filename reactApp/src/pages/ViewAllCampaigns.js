@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { RECORD_PER_PAGE } from "../constants/Constants";
 import { Button, notification, Pagination, Result } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import CampaignItem from "../components/campaign/CampaignItem";
@@ -26,7 +25,7 @@ const ViewAllCampaigns = () => {
     const params = {
       "delivery-zone-id": parseInt(zoneId),
       page: page,
-      size: RECORD_PER_PAGE,
+      size: 12,
     };
     const fetchCampaigns = async () => {
       await campaignsApi
@@ -75,7 +74,7 @@ const ViewAllCampaigns = () => {
       <div className="pagination justify-content-center mt-4">
         <Pagination
           showSizeChanger={false}
-          pageSize={RECORD_PER_PAGE}
+          pageSize={12}
           defaultCurrent={1}
           current={page}
           total={totalRecord}

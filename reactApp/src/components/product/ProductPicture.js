@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { runScript } from "../../utils/Common";
+import { runCaroselScript } from "../../utils/Common";
 
 const ProductPicture = (props) => {
   useEffect(() => {
-    runScript();
+    runCaroselScript();
   }, []);
   return (
     <div className="shop-detail-left">

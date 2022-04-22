@@ -17,15 +17,16 @@ const OrderTable = () => {
   const user = useSelector((state) => state.user);
   useEffect(() => {
     setLoadErr(false);
+    setLoading(true);
     const getOrderList = async () => {
       await orderApi
-        .getOrderList(user.id)
+        .getOrderList({ userId: user.id, page: page })
         .then((result) => {
           if (result) {
             let listOrder = [];
-            let index = 1;
-            setTotal(Object.entries(result).length);
-            result.map((order) => {
+            let index = 10 * (page - 1) + 1;
+            setTotal(result.metadata.total);
+            result.data.map((order) => {
               listOrder.push({ index: index++, ...order });
             });
             setOrders(listOrder);
@@ -51,7 +52,7 @@ const OrderTable = () => {
       setLoading(false);
     };
     getOrderList();
-  }, [reload]);
+  }, [page, reload]);
 
   const callbackAfterFeedback = () => {
     setLoading(true);
@@ -123,7 +124,12 @@ const OrderTable = () => {
         <div>{record.total.toLocaleString() + " VNĐ"}</div>
       ),
     },
-
+    {
+      title: "Thanh Toán",
+      dataIndex: "payment",
+      key: "payment",
+      render: (text, record) => <div>{record.payments[0].status}</div>,
+    },
     {
       title: "Trạng thái",
       dataIndex: "status",

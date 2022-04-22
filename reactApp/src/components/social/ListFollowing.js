@@ -72,7 +72,7 @@ const ListFollowing = () => {
                 title={item.followingName}
               />
               <Button onClick={() => ShowUnfollowConfirm(item)}>
-                <li className="mdi mdi-account-remove" />
+                <li className="mdi mdi-account-remove" >Bỏ theo dõi </li>
               </Button>
             </List.Item>
           )}

@@ -1,6 +1,6 @@
 import axios from "axios";
 import queryString from "query-string";
-axios.defaults.timeout = 15000;
+axios.defaults.timeout = 600000;
 axios.defaults.timeoutErrorMessage = "timeout";
 
 const axiosClient = axios.create({

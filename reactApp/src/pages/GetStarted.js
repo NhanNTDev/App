@@ -11,7 +11,7 @@ const GetStarted = () => {
   const [address, setAddress] = useState("");
   const dispatch = useDispatch();
   const [gmapsLoaded, setGmapsLoaded] = useState(false);
-
+  const user = useSelector((state) => state.user);
   useEffect(() => {
     window.initMap = () => setGmapsLoaded(true);
     const currentGmap = document.getElementById("gmapScriptEl");
@@ -75,7 +75,6 @@ const GetStarted = () => {
     dispatch(action);
     setAddress("");
   };
-  const user = useSelector((state) => state.user);
   const searchOptions = {
     componentRestrictions: { country: ["vn"] },
     types: ["address"],
@@ -103,7 +102,7 @@ const GetStarted = () => {
             {user !== null ? (
               <>
                 <h2>
-                  Chào mừng <strong>{user.name},</strong>
+                  Chào mừng <strong>{user.phoneNumber},</strong>
                 </h2>
                 <h5>Có vẻ như bạn chưa thiết lập địa chỉ</h5>
               </>

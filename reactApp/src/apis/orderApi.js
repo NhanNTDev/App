@@ -6,8 +6,8 @@ const orderApi = {
         const url = '/orders';
         return axiosClient.post(url, param);
     },
-    getOrderList(userId) {
-        const url = `/orders/customer/${userId}`;
+    getOrderList(params) {
+        const url = `/orders/customer/${params.userId}?page=${params.page}`;
         return axiosClient.get(url);
     },
     cancelOrder(params) {
