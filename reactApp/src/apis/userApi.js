@@ -29,6 +29,10 @@ const userApi = {
       const url =`/webhooks/login/zalo?code=${code}`;
       console.log(url);
       return axiosClient.post(url);
+  },
+  resetPassword(params) {
+    const url = `/users/forgot-password/${params.username}?new-password=${params.password}`;
+    return axiosClient.put(url);
   }
 };
 

@@ -1,4 +1,4 @@
-import { notification, Table, Result, Button } from "antd";
+import { notification, Table, Result, Button, Tag } from "antd";
 import { Link, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import orderApi from "../../apis/orderApi";
@@ -22,7 +22,6 @@ const OrderDetailsTable = () => {
         .getOrderDetails(orderId)
         .then((result) => {
           if (result) {
-            console.log(result);
             setOrder(result);
             let listProduct = [];
             let index = 1;
@@ -85,7 +84,16 @@ const OrderDetailsTable = () => {
         <div>{record.price.toLocaleString() + " VNĐ"}</div>
       ),
     },
-
+    {
+      title: "Tên nông trại",
+      dataIndex: "farmName",
+      key: "farmName",
+    },
+    {
+      title: "Số điện thoại",
+      dataIndex: "phone",
+      key: "phone",
+    },
     {
       title: "Tổng tiền",
       dataIndex: "total",
@@ -93,6 +101,32 @@ const OrderDetailsTable = () => {
       render: (text, record) => (
         <div>{record.total.toLocaleString() + " VNĐ"}</div>
       ),
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
+      render: (text) => (
+        <div>
+          {text === "Đã hủy" ? (
+            <Tag color="red">{text}</Tag>
+          ) : text === "Đã hoàn thành" ? (
+            <Tag color="orange">{text}</Tag>
+          ) : text === "Đang vận chuyển" ? (
+            <Tag color="blue">{text}</Tag>
+          ) : text === "Chờ xác nhận" ? (
+            <Tag color="green">{text}</Tag>
+          ) : (
+            <Tag color="geekblue">{text}</Tag>
+          )}
+        </div>
+      ),
+    },
+    {
+      title: "Ghi chú",
+      dataIndex: "note",
+      key: "note",
+      render: (text) => <div>{text === null ? <span style={{fontWeight: 300}}>Không có ghi chú!</span> : text}</div>,
     },
   ];
   return (
@@ -134,59 +168,59 @@ const OrderDetailsTable = () => {
                 </div>
                 <br />
                 <div className="order-list-tabel-main table-responsive">
-                  <div style={{marginLeft: 40}}>
-                  <h5 className="heading-design-h5">
-                    <strong>Tên chiến dịch: </strong>{" "}
-                    {order && order.campaignName}
-                  </h5>
-                  <h5 className="heading-design-h5">
-                    <strong>Tên người nhận: </strong>
-                    {order && order.customerName}
-                  </h5>
-                  <h5 className="heading-design-h5">
-                    <strong>Địa chỉ nhận hàng: </strong>
-                    {order && order.address}
-                  </h5>
-                  <h5 className="heading-design-h5">
-                    <strong>Số điện thoại nhận hàng: </strong>
-                    {order && order.phone}
-                  </h5>
-                  <h5 className="heading-design-h5">
-                    <strong>Ngày tạo: </strong>
-                    {order && order.dateTimeParse}
-                  </h5>
-                  <h5 className="heading-design-h5">
-                    <strong>Trạng thái: </strong>
-                    {order && order.status}
-                  </h5>
-                  <h5 className="heading-design-h5">
-                    <strong>Phí vận chuyển: </strong>
-                    {order && order.shipCost.toLocaleString() + " VNĐ"}
-                  </h5>
-                  <h5 className="heading-design-h5">
-                    <strong>Tổng tiền: </strong>
-                    {order && order.total.toLocaleString() + " VNĐ"}
-                  </h5>
-                  <h5 className="heading-design-h5">
-                    {order && order.status === "Đã hoàn thành" && (
-                      <>
-                        {order.feedbackCreateAt === null ? (
-                          <>
-                            <strong>Chưa đánh giá: </strong>
-                            <CreateRating {...order} />
-                          </>
-                        ) : (
-                          <>
-                            {" "}
-                            <strong>Đã đánh giá: </strong>
-                            <ViewRating {...order} />
-                          </>
-                        )}
-                      </>
-                    )}
-                  </h5>
+                  <div style={{ marginLeft: 40 }}>
+                    <h5 className="heading-design-h5">
+                      <strong>Tên chiến dịch: </strong>{" "}
+                      {order && order.campaignName}
+                    </h5>
+                    <h5 className="heading-design-h5">
+                      <strong>Tên người nhận: </strong>
+                      {order && order.customerName}
+                    </h5>
+                    <h5 className="heading-design-h5">
+                      <strong>Địa chỉ nhận hàng: </strong>
+                      {order && order.address}
+                    </h5>
+                    <h5 className="heading-design-h5">
+                      <strong>Số điện thoại nhận hàng: </strong>
+                      {order && order.phone}
+                    </h5>
+                    <h5 className="heading-design-h5">
+                      <strong>Ngày tạo: </strong>
+                      {order && order.dateTimeParse}
+                    </h5>
+                    <h5 className="heading-design-h5">
+                      <strong>Trạng thái: </strong>
+                      {order && order.status}
+                    </h5>
+                    <h5 className="heading-design-h5">
+                      <strong>Phí vận chuyển: </strong>
+                      {order && order.shipCost.toLocaleString() + " VNĐ"}
+                    </h5>
+                    <h5 className="heading-design-h5">
+                      <strong>Tổng tiền: </strong>
+                      {order && order.total.toLocaleString() + " VNĐ"}
+                    </h5>
+                    <h5 className="heading-design-h5">
+                      {order && order.status === "Đã hoàn thành" && (
+                        <>
+                          {order.feedbackCreateAt === null ? (
+                            <>
+                              <strong>Chưa đánh giá: </strong>
+                              <CreateRating {...order} />
+                            </>
+                          ) : (
+                            <>
+                              {" "}
+                              <strong>Đã đánh giá: </strong>
+                              <ViewRating {...order} />
+                            </>
+                          )}
+                        </>
+                      )}
+                    </h5>
                   </div>
-                  <br/>
+                  <br />
                   <h5 className="heading-design-h5">
                     <strong>Danh sách sản phẩm: </strong>
                   </h5>

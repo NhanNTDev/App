@@ -2,7 +2,6 @@ import { Tag } from "antd";
 import { Link } from "react-router-dom";
 
 const ProductItem = (props) => {
-  console.log(window.location.href);
   return (
     <div className="col-md-3">
       <div className="product">

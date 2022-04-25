@@ -59,7 +59,6 @@ const Address = () => {
       onOk() {
         const deleteAddress = async () => {
           const result = await addressApi.delete(addressId).catch((err) => {
-            console.log(err);
             notification.error({
               duration: 3,
               message: "Xóa không thành công!",

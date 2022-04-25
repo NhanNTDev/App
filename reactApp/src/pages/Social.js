@@ -23,7 +23,6 @@ const Social = () => {
         .then((result) => {
           setTotalPost(result.metadata.total);
           setListPost(result.data);
-          console.log(result);
         })
         .catch((err) => {
           if (err.message === "Network Error") {

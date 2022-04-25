@@ -84,12 +84,9 @@ const Home = () => {
 
   // Get campaign and categories
   useEffect(() => {
-    const params = {
-      "delivery-zone-id": parseInt(zoneId),
-      page: 1,
-      size: 10,
-    };
     const fetchData = async () => {
+      let noCampaignCount = 0;
+      setNoCampaign(false);
       setNetworkErr(false);
       setLoading(true);
       //FetchCategory
@@ -101,14 +98,18 @@ const Home = () => {
         .catch((err) => {
           setNetworkErr(true);
         });
-
+      const params1 = {
+        "delivery-zone-id": parseInt(zoneId),
+        type: "Hàng tuần",
+        page: 1,
+        size: 10,
+      };
       await campaignsApi
-        .getAll(params)
+        .getAll(params1)
         .then((result) => {
           if (result !== null && result !== undefined) {
             setWeeklyCampaigns(result.data);
-            setHotCampaign(result.data);
-            setNoCampaign(false);
+            return result;
           }
         })
         .catch((err) => {
@@ -120,12 +121,7 @@ const Home = () => {
             });
             setNetworkErr(true);
           } else if (err.response.status === 400) {
-            setNoCampaign(true);
-            notification.error({
-              duration: 2,
-              message: "Không tồn tại chiến dịch cho địa chỉ của bạn!",
-              style: { fontSize: 16 },
-            });
+            noCampaignCount = noCampaignCount + 1;
           } else {
             notification.error({
               duration: 3,
@@ -135,9 +131,51 @@ const Home = () => {
             setNetworkErr(true);
           }
         });
+      const params2 = {
+        "delivery-zone-id": parseInt(zoneId),
+        type: "Sự kiện",
+        page: 1,
+        size: 10,
+      };
+      await campaignsApi
+        .getAll(params2)
+        .then((result) => {
+          if (result !== null && result !== undefined) {
+            setHotCampaign(result.data);
+            return result;
+          }
+        })
+        .catch((err) => {
+          if (err.message === "Network Error") {
+            notification.error({
+              duration: 3,
+              message: "Mất kết nối mạng!",
+              style: { fontSize: 16 },
+            });
+            setNetworkErr(true);
+          } else if (err.response.status === 400) {
+            noCampaignCount = noCampaignCount + 1;
+          } else {
+            notification.error({
+              duration: 3,
+              message: "Có lỗi xảy ra trong quá trình xử lý!",
+              style: { fontSize: 16 },
+            });
+            setNetworkErr(true);
+          }
+        });
+      if (noCampaignCount === 2) {
+        notification.error({
+          duration: 2,
+          message: "Không tồn tại chiến dịch hỗ trợ vị trí của bạn!",
+          style: { fontSize: 16 },
+        });
+        setNoCampaign(true);
+      }
       runCaroselScript();
       setLoading(false);
     };
+
     if (zoneId !== null) {
       fetchData();
     } else {
@@ -173,15 +211,15 @@ const Home = () => {
             <>
               <TopCategory categories={categories}></TopCategory>
               <CampaignSlider
-                title="Chiến dịch trong tuần"
+                title="Chiến dịch hàng tuần"
                 listCampaigns={weeklyCampaigns}
-                type="weekly"
+                type="Hàng tuần"
               ></CampaignSlider>
               <CenterBanner />
               <CampaignSlider
-                title="Chiến dịch khác"
+                title="Chiến dịch sự kiện"
                 listCampaigns={hotCampaigns}
-                type="other"
+                type="Sự kiện"
               ></CampaignSlider>
             </>
           ) : (

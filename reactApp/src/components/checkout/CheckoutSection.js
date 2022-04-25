@@ -198,7 +198,7 @@ const CheckoutSection = () => {
           } else if (err.response.status === 400) {
             notification.error({
               duration: 3,
-              message: "Có lỗi xảy ra trong quá trình xử lý!",
+              message: err.response.data.error.message,
               style: { fontSize: 16 },
             });
           } else {
@@ -403,7 +403,7 @@ const CheckoutSection = () => {
                                   </h5>
                                   <h5 className="heading-design-h5">
                                     <strong className="title">Giao hàng dự kiến: </strong>{" "}
-                                    <span style={{fontWeight: 400}}>{parseTimeDMY(cart.expectedDeliveryTime)}</span>
+                                    <span style={{fontWeight: 400}}>{cart && parseTimeDMY(cart.expectedDeliveryTime)}</span>
                                   </h5>
                                   <br />
                                 </div>

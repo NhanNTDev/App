@@ -34,7 +34,7 @@ const Footer = () => {
                     <div className="row">
                         <div className="col-lg-3 col-md-3">
                             <h4 className="mb-5 mt-0">
-                                <a className="logo" href="index.html">
+                                <a className="logo" href="#">
                                     <img src="/img/logo-footer.png" alt="Groci" />
                                 </a>
                             </h4>

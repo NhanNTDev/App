@@ -13,9 +13,9 @@ const RegisterForm = ({ callback }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [validateMsg, setValidateMsg] = useState("");
   const antIcon = <LoadingOutlined style={{ fontSize: 32 }} spin />;
+  const [currentUi, setCurrentUi] = useState("register");
   const [loading, setLoading] = useState(false);
   const [otp, setOtp] = useState("");
-  const [otpUi, setOtpUi] = useState(false);
   const [invalidOtp, setInvalidOtp] = useState(false);
   const [duplicate, setDuplicate] = useState(false);
 
@@ -31,31 +31,24 @@ const RegisterForm = ({ callback }) => {
       ],
     };
     const register = async () => {
-      const result = await userApi.register(data).catch(() => {
-        notification.error({
-          duration: 2,
-          message: "Đăng ký thất bại!",
-          style: { fontSize: 16 },
-        });
-        setLoading(false);
-      });
-      if (result) {
-        if (result.succeeded) {
+      await userApi
+        .register(data)
+        .then(() => {
           notification.success({
             duration: 3,
             message: "Đăng ký thành công!",
             style: { fontSize: 16 },
           });
           callback();
-        } else {
+        })
+        .catch(() => {
           notification.error({
             duration: 2,
-            message: "Có lỗi xảy ra trong quá trình xử lý!",
+            message: "Đăng ký thất bại!",
             style: { fontSize: 16 },
           });
-        }
-        setLoading(false);
-      }
+          setLoading(false);
+        });
     };
     register();
   };
@@ -72,21 +65,7 @@ const RegisterForm = ({ callback }) => {
       auth
     );
   };
-  const resentOtp = () => {
-    
-    generateRecapcha();
-    let appVerifier = window.recaptchaVerifier;
-    signInWithPhoneNumber(auth, "+84" + userName.substring(1, 10), appVerifier)
-      .then((confirmationResult) => {
-        console.log(confirmationResult);
-        window.confirmationResult = confirmationResult;
-        setOtpUi(true);
-      })
-      .catch((err) => {
-        // Error; SMS not sent
-        console.log(err);
-      });
-  };
+
   const sentOtp = async () => {
     const valid = await validateAll();
     if (!valid) return;
@@ -95,9 +74,8 @@ const RegisterForm = ({ callback }) => {
     let appVerifier = window.recaptchaVerifier;
     signInWithPhoneNumber(auth, "+84" + userName.substring(1, 10), appVerifier)
       .then((confirmationResult) => {
-        console.log(confirmationResult);
         window.confirmationResult = confirmationResult;
-        setOtpUi(true);
+        setCurrentUi("otp");
       })
       .catch((err) => {
         // Error; SMS not sent
@@ -116,7 +94,10 @@ const RegisterForm = ({ callback }) => {
         setInvalidOtp(true);
       });
   };
-
+  const goToRegister = () => {
+    setCurrentUi("register");
+    setOtp("");
+  };
   const validateAll = async () => {
     setLoading(true);
     let duplicateResult = true;
@@ -152,8 +133,6 @@ const RegisterForm = ({ callback }) => {
     }
 
     setValidateMsg(msg);
-    console.log(duplicateResult);
-    console.log(validateMsg);
     if (Object.keys(msg).length > 0 || duplicateResult !== false) return false;
     return true;
   };
@@ -167,7 +146,7 @@ const RegisterForm = ({ callback }) => {
         ) : null}
       </div>
       <h5 className="heading-design-h5">Đăng ký tài khoản mới!</h5>
-      {otpUi ? (
+      {currentUi === "otp" && (
         <>
           <fieldset className="form-group">
             <label>Xác nhận mã OTP:</label>
@@ -189,12 +168,13 @@ const RegisterForm = ({ callback }) => {
               </span>
             )}
           </fieldset>
-          <span>
-            Bạn chưa nhận được mã,{" "}
-            <Button style={{ padding: 0 }} type="link" onClick={resentOtp}>
-              Gửi lại
-            </Button>
-          </span>
+          <div className="custom-control custom-checkbox">
+            <div className="float-right">
+              <Button onClick={goToRegister} type="link">
+                Về trang đăng ký
+              </Button>{" "}
+            </div>
+          </div>
           <br />
           <br />
           <fieldset className="form-group">
@@ -206,7 +186,8 @@ const RegisterForm = ({ callback }) => {
             </button>
           </fieldset>
         </>
-      ) : (
+      )}
+      {currentUi === "register" && (
         <>
           <fieldset className="form-group">
             <label>Số điện thoại:</label>

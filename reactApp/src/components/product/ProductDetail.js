@@ -8,7 +8,6 @@ import { addToCartThunk } from "../../state_manager_redux/cart/cartSlice";
 const { confirm } = Modal;
 
 const ProductDetail = (props) => {
-  console.log(props);
   const [farm, setFarm] = useState({});
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.user);
@@ -127,7 +126,7 @@ const ProductDetail = (props) => {
         {farm.totalStar !== 0 && (
           <>
             <Rate value={farm.totalStar} allowHalf disabled={true}></Rate>{" "}
-            {farm.totalStar + "/5"}{" "}
+            {farm.totalStar + "/5"}{" "} {"( " + farm.feedbacks + " đánh giá )"}
           </>
         )}
       </h5>

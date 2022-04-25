@@ -1,7 +1,6 @@
 import { Tag } from "antd";
 import { parseTimeDMY } from "../../utils/Common"
 const CampaignDetail = (props) => {
-  console.log(props);
   return (
     <div className="shop-detail-right">
       <h2>{props.campaign.name}</h2>

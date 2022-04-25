@@ -222,6 +222,9 @@ const ProductOrigin = () => {
                           style={{ marginLeft: 10 }}
                         />{" "}
                         {productOrigin.harvest.farm.totalStar + "/5"}
+                        {" ( " +
+                          productOrigin.harvest.farm.feedbacks +
+                          " đánh giá )"}
                       </h5>
                       <h5 className="heading-design-h5">
                         <strong>Địa chỉ: </strong>{" "}

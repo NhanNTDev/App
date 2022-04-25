@@ -158,15 +158,19 @@ const OrderTable = () => {
       onFilter: (value, record) => record.status.indexOf(value) === 0,
       render: (text) => (
         <>
-          {text === "Chờ xác nhận" ? (
-            <Tag color="green">{text}</Tag>
-          ) : text === "Đã hoàn thành" ? (
-            <Tag color="orange">{text}</Tag>
-          ) : text === "Đã hủy" ? (
-            <Tag color="red">{text}</Tag>
-          ) : (
-            <Tag color="geekblue">{text}</Tag>
-          )}
+          <div>
+            {text === "Đã hủy" ? (
+              <Tag color="red">{text}</Tag>
+            ) : text === "Đã hoàn thành" ? (
+              <Tag color="orange">{text}</Tag>
+            ) : text === "Đang vận chuyển" ? (
+              <Tag color="blue">{text}</Tag>
+            ) : text === "Chờ xác nhận" ? (
+              <Tag color="green">{text}</Tag>
+            ) : (
+              <Tag color="geekblue">{text}</Tag>
+            )}
+          </div>
         </>
       ),
     },
@@ -185,7 +189,7 @@ const OrderTable = () => {
               Hủy
             </Button>
           ) : (
-            <Button disabled="true" type="primary" danger>
+            <Button disabled={true} type="primary" danger>
               Hủy
             </Button>
           )}
