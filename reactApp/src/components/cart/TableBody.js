@@ -40,7 +40,7 @@ const TableBody = ({farm, campaignId}) => {
         </td>
       </tr>
       {farm.harvestInCampaigns.map((item) => (
-        <CartItem item={item} campaignId={campaignId} />
+        <CartItem key={item.id} item={item} campaignId={campaignId} />
       ))}
     </>
   );

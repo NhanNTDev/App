@@ -83,7 +83,7 @@ const Address = () => {
   const renderAddressItem = (props) => {
     return (
       <>
-        <div className="border">
+        <div key={props.id} className="border">
           <br />
           <div className="col">
             <strong>Tên người nhận: </strong> {props.name}

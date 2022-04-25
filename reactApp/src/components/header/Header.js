@@ -27,9 +27,11 @@ const Header = () => {
       <h4 className="heading-design-h4">
         <strong>Thông báo</strong>
       </h4>
-      {notification && notification.length === 0 && <Empty description="Chưa có thông báo nào!"></Empty>}
-      {notification && notification.map((noti) => (
-        <>
+      {notification && notification.length === 0 && (
+        <Empty description="Chưa có thông báo nào!"></Empty>
+      )}
+      {notification &&
+        notification.map((noti) => (
           <div
             key={noti.id}
             style={{
@@ -41,7 +43,15 @@ const Header = () => {
             }}
           >
             <h5 className="heading-design-h5 d-flex justify-content-center">
-              <strong style={noti.title === "Đơn hàng đã hoàn thành" ? {color:"orange"} : {color: "red"}}>{noti.title}</strong>
+              <strong
+                style={
+                  noti.title === "Đơn hàng đã hoàn thành"
+                    ? { color: "orange" }
+                    : { color: "red" }
+                }
+              >
+                {noti.title}
+              </strong>
             </h5>
             <h6 className="heading-design-h6">{noti.body}</h6>
             <span
@@ -55,8 +65,7 @@ const Header = () => {
               <strong>{noti.time}</strong>
             </span>
           </div>
-        </>
-      ))}
+        ))}
     </div>
   );
 
@@ -71,7 +80,7 @@ const Header = () => {
             options.map((option) => {
               if (option.value === product.productName) returnFlag = true;
             });
-            if(returnFlag) return;
+            if (returnFlag) return;
             options.push({ value: product.productName });
           });
           setSearchSuggestion(options);

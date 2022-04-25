@@ -125,7 +125,7 @@ const CheckoutSection = () => {
   const renderHarvestCampaign = (props) => {
     if (props.checked) {
       return (
-        <div className="card-body pt-0 pr-0 pl-0 pb-0">
+        <div key={props.id} className="card-body pt-0 pr-0 pl-0 pb-0">
           <div className="cart-list-product">
             <a className="float-right remove-cart" href="#">
               <i className="mdi mdi-close"></i>
@@ -544,7 +544,7 @@ const CheckoutSection = () => {
                               className="btn btn-secondary mb-2 btn-lg"
                               onClick={handleCheckout}
                             >
-                              Tiếp
+                              Thanh toán
                             </button>
                           </div>
                         </div>
