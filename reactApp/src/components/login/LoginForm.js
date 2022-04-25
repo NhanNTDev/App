@@ -182,7 +182,7 @@ const LoginForm = () => {
               required
               value={userName}
               onKeyPress={(e) => {
-                if (e.key == "Enter") handleLogin();
+                if (e.key === "Enter") handleLogin();
               }}
               onChange={onChangeUserName}
               type="text"
@@ -198,7 +198,7 @@ const LoginForm = () => {
               type={showPassword ? "text" : "password"}
               value={password}
               onKeyPress={(e) => {
-                if (e.key == "Enter") handleLogin();
+                if (e.key === "Enter") handleLogin();
               }}
               onChange={onChangePassword}
               className="form-control"
@@ -247,7 +247,7 @@ const LoginForm = () => {
               required
               value={userName}
               onKeyPress={(e) => {
-                if (e.key == "Enter") handleResetPassword();
+                if (e.key === "Enter") handleResetPassword();
               }}
               onChange={onChangeUserName}
               type="text"
@@ -263,7 +263,7 @@ const LoginForm = () => {
               type={showPassword ? "text" : "password"}
               value={password}
               onKeyPress={(e) => {
-                if (e.key == "Enter") handleResetPassword();
+                if (e.key === "Enter") handleResetPassword();
               }}
               onChange={onChangePassword}
               className="form-control"
@@ -286,7 +286,7 @@ const LoginForm = () => {
               type={showPassword ? "text" : "password"}
               value={confirmPassword}
               onKeyPress={(e) => {
-                if (e.key == "Enter") handleLogin();
+                if (e.key === "Enter") handleLogin();
               }}
               onChange={onChangeConfirmPassword}
               className="form-control"

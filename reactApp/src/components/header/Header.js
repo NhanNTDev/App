@@ -1,4 +1,4 @@
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 import TopOption from "./TopOption";
 import NavBar from "./NavBar";
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../state_manager_redux/user/userSlice";
 import { getCartCouter } from "../../state_manager_redux/cart/cartSelector";
 import { SearchOutlined, BellTwoTone } from "@ant-design/icons";
-import { AutoComplete, Badge, Empty, Popover, Tag } from "antd";
+import { AutoComplete, Badge, Empty, Popover} from "antd";
 import harvestCampaignApi from "../../apis/harvestCampaignApi";
 import externalApi from "../../apis/externalApis";
 

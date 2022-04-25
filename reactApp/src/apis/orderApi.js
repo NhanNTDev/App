@@ -1,4 +1,3 @@
-import { getShipcost } from "../state_manager_redux/cart/cartSelector";
 import axiosClient from "./axiosClient";
 
 const orderApi = {
