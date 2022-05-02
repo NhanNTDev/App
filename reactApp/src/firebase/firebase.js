@@ -5,7 +5,7 @@ import { getStorage } from "firebase/storage";
 
 //Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyC9aBJX28Xqj_kfJKtsVtfbgyakbKCLpvU",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "verify-otp-mobile.firebaseapp.com",
   projectId: "verify-otp-mobile",
   storageBucket: "verify-otp-mobile.appspot.com",

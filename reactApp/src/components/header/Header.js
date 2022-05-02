@@ -1,4 +1,4 @@
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 import TopOption from "./TopOption";
 import NavBar from "./NavBar";
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../state_manager_redux/user/userSlice";
 import { getCartCouter } from "../../state_manager_redux/cart/cartSelector";
 import { SearchOutlined, BellTwoTone } from "@ant-design/icons";
-import { AutoComplete, Badge, Popover, Tag } from "antd";
+import { AutoComplete, Badge, Empty, Popover} from "antd";
 import harvestCampaignApi from "../../apis/harvestCampaignApi";
 import externalApi from "../../apis/externalApis";
 
@@ -27,11 +27,15 @@ const Header = () => {
       <h4 className="heading-design-h4">
         <strong>Thông báo</strong>
       </h4>
-      {notification.map((noti) => (
-        <>
+      {notification && notification.length === 0 && (
+        <Empty description="Chưa có thông báo nào!"></Empty>
+      )}
+      {notification &&
+        notification.map((noti) => (
           <div
             key={noti.id}
             style={{
+              borderRadius: 10,
               width: 350,
               border: "groove 1px",
               marginBottom: 5,
@@ -39,7 +43,15 @@ const Header = () => {
             }}
           >
             <h5 className="heading-design-h5 d-flex justify-content-center">
-              <strong>{noti.title}</strong>
+              <strong
+                style={
+                  noti.title === "Đơn hàng đã hoàn thành"
+                    ? { color: "orange" }
+                    : { color: "red" }
+                }
+              >
+                {noti.title}
+              </strong>
             </h5>
             <h6 className="heading-design-h6">{noti.body}</h6>
             <span
@@ -53,18 +65,22 @@ const Header = () => {
               <strong>{noti.time}</strong>
             </span>
           </div>
-        </>
-      ))}
+        ))}
     </div>
   );
 
   useEffect(() => {
     const getSuggestion = async () => {
       await harvestCampaignApi
-        .getSearchOption(zoneId)
+        .getSearchOption(parseInt(zoneId))
         .then((result) => {
           let options = [];
           result.map((product) => {
+            let returnFlag = false;
+            options.map((option) => {
+              if (option.value === product.productName) returnFlag = true;
+            });
+            if (returnFlag) return;
             options.push({ value: product.productName });
           });
           setSearchSuggestion(options);

@@ -76,7 +76,6 @@ const ProfileForm = () => {
     const isValid = validateAll();
     const update = async (data) => {
       const result = await userApi.update(data).catch((err) => {
-        console.log(err);
       });
       setLoading(false);
       if (result.succeeded) {

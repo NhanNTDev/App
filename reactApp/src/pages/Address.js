@@ -59,7 +59,6 @@ const Address = () => {
       onOk() {
         const deleteAddress = async () => {
           const result = await addressApi.delete(addressId).catch((err) => {
-            console.log(err);
             notification.error({
               duration: 3,
               message: "Xóa không thành công!",
@@ -84,7 +83,7 @@ const Address = () => {
   const renderAddressItem = (props) => {
     return (
       <>
-        <div className="border">
+        <div key={props.id} className="border">
           <br />
           <div className="col">
             <strong>Tên người nhận: </strong> {props.name}

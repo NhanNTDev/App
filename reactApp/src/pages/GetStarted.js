@@ -83,20 +83,24 @@ const GetStarted = () => {
     <div className="container-fluid">
       <div className="get-started-page">
         <div className="form">
-          <div class="row">
-            <div class="col-sm">
-              <h1 style={{ fontFamily: "arial", fontSize: "30px" }}>Đi Chợ Nào!</h1>
+          <div className="row">
+            <div className="col-sm">
+              <h1 style={{ fontFamily: "arial", fontSize: "30px" }}>
+                Đi Chợ Nào!
+              </h1>
             </div>
-            
-            <div class="col-sm-3">
+
+            <div className="col-sm-3">
               {user === null ? (
                 <span className="input-group-btn">
-                <Link to="/login">
-                    <button className="btn btn-secondary" type="button">Đăng nhập/Đăng ký</button>
+                  <Link to="/login">
+                    <button className="btn btn-secondary" type="button">
+                      Đăng nhập/Đăng ký
+                    </button>
                   </Link>
                 </span>
               ) : null}
-            </div> 
+            </div>
           </div>
           <div className="form-message">
             {user !== null ? (
@@ -116,10 +120,10 @@ const GetStarted = () => {
               </h5>
             </i>
           </div>
-          <div class="row">
-            <div class="col-sm-7">
+          <div className="row">
+            <div className="col-sm-7">
               <form>
-                <div class="form-group">
+                <div className="form-group">
                   <div style={{ width: "100%" }}>
                     {gmapsLoaded && (
                       <PlacesAutocomplete
@@ -178,7 +182,7 @@ const GetStarted = () => {
                 </div>
               </form>
             </div>
-            <div class="col-sm-5">
+            <div className="col-sm-5">
               <span className="input-group-btn">
                 <button
                   className="btn btn-secondary-lighter"
@@ -197,104 +201,6 @@ const GetStarted = () => {
               </span>
             </div>
           </div>
-
-          {/* <div className="input-group" >
-            <h1 style={{fontFamily: "initial"}}>Đi Chợ Nào!</h1>
-            {user === null ? (
-              <li className="list-inline-item">
-                <Link to="/login" className="btn btn-link">
-                  <i className="mdi mdi-account-circle"></i> Đăng nhập/Đăng ký
-                </Link>
-              </li>
-            ) : null}
-          </div>
-
-          <div className="form-message">
-            {user !== null ? (
-              <>
-                <h2>
-                  Chào mừng <strong>{user.name},</strong>
-                </h2>
-                <h5>Có vẻ như bạn chưa thiết lập địa chỉ</h5>
-              </>
-            ) : (
-              <h2>Bạn ở đâu?</h2>
-            )}
-            <i>
-              <h5>
-                Hãy nhập địa chỉ để chúng tôi có thể xác định chính xác những
-                chiến dịch phù hợp với bạn!
-              </h5>
-            </i>
-          </div>
-
-          <div className="input-group">
-            <div style={{ width: "70%" }}>
-              {gmapsLoaded && (
-                <PlacesAutocomplete
-                  value={address}
-                  onChange={handleChange}
-                  onSelect={handleSelect}
-                  searchOptions={searchOptions}
-                >
-                  {({
-                    getInputProps,
-                    suggestions,
-                    getSuggestionItemProps,
-                    loading,
-                  }) => (
-                    <div>
-                      <input
-                        {...getInputProps({
-                          placeholder: "Nhập địa chỉ",
-                          className: "form-control",
-                        })}
-                        style={{ minWidth: 0 }}
-                      />
-                      <div className="autocomplete-dropdown-container">
-                        {loading && <div>Đang tải...</div>}
-                        {suggestions.map((suggestion) => {
-                          const className = suggestion.active
-                            ? "suggestion-item--active"
-                            : "suggestion-item";
-                          // inline style for demonstration purpose
-                          const style = suggestion.active
-                            ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                            : { backgroundColor: "#ffffff", cursor: "pointer" };
-                          return (
-                            <div
-                              {...getSuggestionItemProps(suggestion, {
-                                className,
-                                style,
-                              })}
-                            >
-                              <span>{suggestion.description}</span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-                </PlacesAutocomplete>
-              )}
-            </div>
-            <span className="input-group-btn" style={{ maxWidth: "15%" }}>
-              <button
-                className="btn btn-secondary-lighter"
-                onClick={getLocation}
-              >
-                <span className="mdi mdi-target icons"> Định vị tôi</span>
-              </button>
-            </span>
-            <span className="input-group-btn" style={{ maxWidth: "15%" }}>
-              <button
-                className="btn btn-secondary"
-                onClick={handleFindButtonClick}
-              >
-                Tìm Sản Phẩm
-              </button>
-            </span>
-          </div> */}
         </div>
       </div>
     </div>

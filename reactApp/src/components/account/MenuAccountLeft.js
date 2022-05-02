@@ -37,7 +37,6 @@ const MenuAccountLeft = ({ type }) => {
         id: user.id,
         image: imageUrl,
       };
-      console.log(params);
       await userApi
         .changeAvatar(params)
         .then(() => {

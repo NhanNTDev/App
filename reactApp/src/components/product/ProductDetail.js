@@ -8,7 +8,6 @@ import { addToCartThunk } from "../../state_manager_redux/cart/cartSlice";
 const { confirm } = Modal;
 
 const ProductDetail = (props) => {
-  console.log(props);
   const [farm, setFarm] = useState({});
   const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.user);
@@ -97,7 +96,10 @@ const ProductDetail = (props) => {
         {props.productName}
       </h2>{" "}
       {props.quantity === 0 && <Tag color="red">Hết hàng</Tag>}
-      <Link style={{ fontSize: 16 }} to={`/productOrigin?id=${props.id}`}>
+      <Link
+        style={{ fontSize: 16 }}
+        to={`/productOrigin?campaignId=${props.campaign.id}&id=${props.id}`}
+      >
         Xem nguồn gốc
       </Link>
       <br />
@@ -127,7 +129,7 @@ const ProductDetail = (props) => {
         {farm.totalStar !== 0 && (
           <>
             <Rate value={farm.totalStar} allowHalf disabled={true}></Rate>{" "}
-            {farm.totalStar + "/5"}{" "}
+            {farm.totalStar + "/5"} {"( " + farm.feedbacks + " đánh giá )"}
           </>
         )}
       </h5>

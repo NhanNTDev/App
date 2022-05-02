@@ -10,15 +10,15 @@ const NavBar = () => {
     },
     {
       id: "2",
-      title: "Chiến dịch trong tuần",
+      title: "Chiến dịch hàng tuần",
       childrens: [],
-      link: "/all-campaigns?type=weekly",
+      link: "/all-campaigns?type=Hàng tuần",
     },
     {
       id: "3",
-      title: "Chiến dịch khác",
+      title: "Chiến dịch sự kiện",
       childrens: [],
-      link: "/all-campaigns?type=other",
+      link: "/all-campaigns?type=Sự kiện",
     },
     {
       id: "4",

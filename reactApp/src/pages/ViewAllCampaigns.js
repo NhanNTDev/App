@@ -15,7 +15,7 @@ const ViewAllCampaigns = () => {
   const [networkErr, setNetworkErr] = useState(false);
   const [reload, setReload] = useState(true);
   let [searchParams] = useSearchParams();
-  const address = useSelector((state) => state.location);
+  const type = searchParams.get("type");
   const zoneId = useSelector(state => state.zone);
   const navigate = useNavigate();
 
@@ -24,14 +24,16 @@ const ViewAllCampaigns = () => {
     setNetworkErr(false);
     const params = {
       "delivery-zone-id": parseInt(zoneId),
+      type: type,
       page: page,
       size: 12,
     };
     const fetchCampaigns = async () => {
+      setLoading(true);
       await campaignsApi
         .getAll(params)
         .then((result) => {
-          if (Object.entries(result).length === 0) {
+          if (Object.entries(result.data).length === 0) {
             setNoResult(true);
             return;
           }
@@ -67,7 +69,7 @@ const ViewAllCampaigns = () => {
     };
 
     fetchCampaigns();
-  }, [page, zoneId, reload]);
+  }, [page, zoneId, reload, searchParams]);
 
   const renderPagination = () => {
     return (
@@ -109,7 +111,7 @@ const ViewAllCampaigns = () => {
             <div className="d-flex justify-content-center">
               <Result
                 status="warning"
-                title="Không tồn tại chiến dịch hổ trợ vị trí của bạn!"
+                title={`Không tồn tại chiến dịch ${type} hổ trợ vị trí của bạn!`}
                 extra={
                   <Button
                     type="primary"
@@ -136,9 +138,9 @@ const ViewAllCampaigns = () => {
                       </a>{" "}
                       <span className="mdi mdi-chevron-right"></span>{" "}
                       <span>
-                        {searchParams.get("type") === "other"
-                          ? "Chiến dịch khác"
-                          : "Chiến dịch trong tuần"}
+                        {searchParams.get("type") === "Hàng tuần"
+                          ? "Chiến dịch hàng tuần"
+                          : "Chiến dịch sự kiện"}
                       </span>
                     </div>
                   </div>

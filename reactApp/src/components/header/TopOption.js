@@ -22,8 +22,8 @@ const TopOption = () => {
     <div className="navbar-top bg-success pt-2 pb-2">
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-12 text-center">
-            {topRefs.map((topRef, index) => (
+          <div className="col-lg-12 text-center" style={{height: 20}}>
+            {/* {topRefs.map((topRef, index) => (
               <Link
                 key={topRef.id}
                 to={topRef.link}
@@ -34,7 +34,7 @@ const TopOption = () => {
                   <span className="mb-0 ml-2 text-white">{"|"}</span>
                 )}
               </Link>
-            ))}
+            ))} */}
           </div>
         </div>
       </div>

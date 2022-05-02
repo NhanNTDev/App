@@ -238,7 +238,6 @@ const cartSlice = createSlice({
             }
           });
         });
-        console.log("check nè");
         newState = {
           ...currentState,
           farms: listFarms,

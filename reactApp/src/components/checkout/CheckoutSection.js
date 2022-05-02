@@ -125,7 +125,7 @@ const CheckoutSection = () => {
   const renderHarvestCampaign = (props) => {
     if (props.checked) {
       return (
-        <div className="card-body pt-0 pr-0 pl-0 pb-0">
+        <div key={props.id} className="card-body pt-0 pr-0 pl-0 pb-0">
           <div className="cart-list-product">
             <a className="float-right remove-cart" href="#">
               <i className="mdi mdi-close"></i>
@@ -198,7 +198,7 @@ const CheckoutSection = () => {
           } else if (err.response.status === 400) {
             notification.error({
               duration: 3,
-              message: "Có lỗi xảy ra trong quá trình xử lý!",
+              message: err.response.data.error.message,
               style: { fontSize: 16 },
             });
           } else {
@@ -403,7 +403,7 @@ const CheckoutSection = () => {
                                   </h5>
                                   <h5 className="heading-design-h5">
                                     <strong className="title">Giao hàng dự kiến: </strong>{" "}
-                                    <span style={{fontWeight: 400}}>{parseTimeDMY(cart.expectedDeliveryTime)}</span>
+                                    <span style={{fontWeight: 400}}>{cart && parseTimeDMY(cart.expectedDeliveryTime)}</span>
                                   </h5>
                                   <br />
                                 </div>
@@ -544,7 +544,7 @@ const CheckoutSection = () => {
                               className="btn btn-secondary mb-2 btn-lg"
                               onClick={handleCheckout}
                             >
-                              Tiếp
+                              Thanh toán
                             </button>
                           </div>
                         </div>
