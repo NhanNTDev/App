@@ -40,13 +40,12 @@ const Footer = () => {
                             </h4>
                             <p className="mb-0">
                                 <a className="text-dark" href="#">
-                                    <i className="mdi mdi-phone"></i> +61 525 240 310
+                                    <i className="mdi mdi-phone"></i> 0965910772
                                 </a>
                             </p>
                             <p className="mb-0">
                                 <a className="text-dark" href="#">
-                                    <i className="mdi mdi-cellphone-iphone"></i> 12345 67890,
-                                    56847-98562
+                                    <i className="mdi mdi-cellphone-iphone"></i> 0329272250
                                 </a>
                             </p>
                             <p className="mb-0">

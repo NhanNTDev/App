@@ -1,7 +1,7 @@
 import { Button, Empty, notification, Pagination, Result } from "antd";
-import { reload } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import postApi from "../apis/postApis";
 import Follow from "../components/social/Follow";
 import Post from "../components/social/Post";
@@ -71,14 +71,33 @@ const Social = () => {
             ></Result>
           ) : (
             <div className="container">
+              <section className="pt-3 pb-3 page-info section-padding border-bottom bg-white">
+                  <div className="container-fluid">
+                    <div className="row">
+                      <div className="col-md-12">
+                        <Link to="/home">
+                          <strong>
+                            <span className="mdi mdi-home"></span> Trang chủ
+                          </strong>
+                        </Link>{" "}
+                        <span className="mdi mdi-chevron-right"></span>{" "}
+                        <span>Cộng đồng</span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
               <h1
                 className="d-flex justify-content-center"
                 style={{ color: "lightBlue" }}
               >
                 Cùng nhau đi chợ nào!
               </h1>
-              <div className="row">
-                <div className="col-sm-8">
+              <div className="row" >
+                <div className="col-sm-8"  style={{
+                          border: "1px solid #eeeeee",
+                          borderRadius: 30,
+                          backgroundColor: "#fff",
+                        }}>
                   {Object.entries(listPost).length !== 0 ? (
                     <>
                       {" "}
@@ -102,7 +121,11 @@ const Social = () => {
                     <Empty description="Chưa có hoạt động nào để hiển thị!" style={{marginTop: 100}}/>
                   )}
                 </div>
-                <div className="col-sm-4">
+                <div className="col-sm-4"  style={{
+                          border: "1px solid #eeeeee",
+                          borderRadius: 30,
+                          backgroundColor: "#fff",
+                        }}>
                   <div className="container-fluid">
                     <Follow />
                   </div>

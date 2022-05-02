@@ -33,7 +33,7 @@ const ViewAllCampaigns = () => {
       await campaignsApi
         .getAll(params)
         .then((result) => {
-          if (Object.entries(result).length === 0) {
+          if (Object.entries(result.data).length === 0) {
             setNoResult(true);
             return;
           }
@@ -111,7 +111,7 @@ const ViewAllCampaigns = () => {
             <div className="d-flex justify-content-center">
               <Result
                 status="warning"
-                title="Không tồn tại chiến dịch hổ trợ vị trí của bạn!"
+                title={`Không tồn tại chiến dịch ${type} hổ trợ vị trí của bạn!`}
                 extra={
                   <Button
                     type="primary"
