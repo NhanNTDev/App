@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "986791133927",
+    "project_id": "verify-otp-mobile",
+    "storage_bucket": "verify-otp-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986791133927:android:d1eb1650209d46bbd79842",
+        "android_client_info": {
+          "package_name": "app.dichonao.farmer_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986791133927-rf12rkdu5kdk623uc52mi6h9ma2vccih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD79Qr2KwhmFuJvNEABwVi2-721xvuNkcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986791133927-rf12rkdu5kdk623uc52mi6h9ma2vccih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
